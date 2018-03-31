@@ -10,8 +10,7 @@
 #include <limits>
 #include <cmath>
 #include "MutablePriorityQueue.h"
-
-using namespace std;
+#include "Location.h"
 
 template <class T> class Edge;
 template <class T> class Graph;
@@ -23,20 +22,21 @@ template <class T> class Vertex;
 
 template <class T>
 class Vertex {
-	T info;                // contents
-	vector<Edge<T> > adj;  // outgoing edges
-	bool visited;          // auxiliary field
-	double dist = 0;
+	T id;                       // vertex Id
+  Location coordinates;
+	std::vector<Edge<T> > adj;  // outgoing edges
+	bool visited;               // auxiliary field
+	double dist = 0;            //algorithm distance
+	double geoDist = 0;         //geo distance to source vertex for A*
 	Vertex<T> *path = NULL;
-	int queueIndex = 0; 		// required by MutablePriorityQueue
-
+	int queueIndex = 0; 		    // required by MutablePriorityQueue
 	bool processing = false;
 	void addEdge(Vertex<T> *dest, double w);
 
 public:
-	Vertex(T in);
+	Vertex(T in, Location l);
 	bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
-	T getInfo() const;
+	T getId() const;
 	double getDist() const;
 	Vertex *getPath() const;
 	friend class Graph<T>;
@@ -45,7 +45,10 @@ public:
 
 
 template <class T>
-Vertex<T>::Vertex(T in): info(in) {}
+Vertex<T>::Vertex(T in, Location l) {
+  this->id = in;
+  this->coordinates = l;
+}
 
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
@@ -62,8 +65,8 @@ bool Vertex<T>::operator<(Vertex<T> & vertex) const {
 }
 
 template <class T>
-T Vertex<T>::getInfo() const {
-	return this->info;
+T Vertex<T>::getId() const {
+	return this->id;
 }
 
 template <class T>
@@ -96,14 +99,14 @@ Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w) {}
 
 template <class T>
 class Graph {
-	vector<Vertex<T> *> vertexSet;    // vertex set
+	std::vector<Vertex<T> *> vertexSet;    // vertex set
 
 public:
 	Vertex<T> *findVertex(const T &in) const;
 	bool addVertex(const T &in);
 	bool addEdge(const T &sourc, const T &dest, double w);
 	int getNumVertex() const;
-	vector<Vertex<T> *> getVertexSet() const;
+	std::vector<Vertex<T> *> getVertexSet() const;
 
 	// Fp05 - single source
 	bool relax(Vertex<T> * vertex, Vertex<T> *w, double weight);
@@ -111,11 +114,11 @@ public:
 	void dijkstraShortestPathOld(const T &s);
 	void unweightedShortestPath(const T &s);
 	void bellmanFordShortestPath(const T &s);
-	vector<T> getPath(const T &origin, const T &dest) const;
+  std::vector<T> getPath(const T &origin, const T &dest) const;
 
 	// Fp05 - all pairs
 	void floydWarshallShortestPath();
-	vector<T> getfloydWarshallPath(const T &origin, const T &dest) const;
+  std::vector<T> getfloydWarshallPath(const T &origin, const T &dest) const;
 
 };
 
@@ -125,7 +128,7 @@ int Graph<T>::getNumVertex() const {
 }
 
 template <class T>
-vector<Vertex<T> *> Graph<T>::getVertexSet() const {
+std::vector<Vertex<T> *> Graph<T>::getVertexSet() const {
 	return vertexSet;
 }
 
@@ -135,7 +138,7 @@ vector<Vertex<T> *> Graph<T>::getVertexSet() const {
 template <class T>
 Vertex<T> * Graph<T>::findVertex(const T &in) const {
 	for (auto v : vertexSet)
-		if (v->info == in)
+		if (v->id == in)
 			return v;
 	return NULL;
 }
@@ -225,8 +228,8 @@ void Graph<T>::dijkstraShortestPath(const T &origin)
 }
 
 template<class T>
-vector<T> Graph<T>::getPath(const T &origin, const T &dest) const{
-	vector<T> res;
+std::vector<T> Graph<T>::getPath(const T &origin, const T &dest) const{
+  std::vector<T> res;
 
 	auto v = findVertex(dest);
 
@@ -234,12 +237,12 @@ vector<T> Graph<T>::getPath(const T &origin, const T &dest) const{
 		return res;
 
 	while(v != nullptr) {
-		res.push_back(v->info);
+		res.push_back(v->id);
 
 		v = v->path;
 	}
 
-	reverse(res.begin(), res.end());
+  std::reverse(res.begin(), res.end());
 
 	return res;
 }
@@ -323,8 +326,8 @@ void Graph<T>::floydWarshallShortestPath() {
 }
 
 template<class T>
-vector<T> Graph<T>::getfloydWarshallPath(const T &orig, const T &dest) const{
-	vector<T> res;
+std::vector<T> Graph<T>::getfloydWarshallPath(const T &orig, const T &dest) const{
+  std::vector<T> res;
 	// TODO
 	return res;
 }

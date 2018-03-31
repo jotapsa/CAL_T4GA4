@@ -11,4 +11,4 @@ add_executable(CAL_T4GA4
         project_part_1/src/edgetype.h
         project_part_1/src/graphviewer.cpp
         project_part_1/src/graphviewer.h
-        project_part_1/src/main.cpp project_part_1/src/Graph.h project_part_1/src/MutablePriorityQueue.cpp project_part_1/src/MutablePriorityQueue.h)
+        project_part_1/src/main.cpp project_part_1/src/Graph.h project_part_1/src/MutablePriorityQueue.cpp project_part_1/src/MutablePriorityQueue.h project_part_1/src/Location.cpp project_part_1/src/Location.cpp project_part_1/src/Location.h)
