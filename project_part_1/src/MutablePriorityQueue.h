@@ -5,21 +5,22 @@
 #ifndef CAL_T4GA4_MUTABLEPRIORITYQUEUE_H
 #define CAL_T4GA4_MUTABLEPRIORITYQUEUE_H
 #include <vector>
+#include "Vertex.h"
 
+class Vertex;
 
-template <class T>
 class MutablePriorityQueue {
-  std::vector<T *> H;
+  std::vector<Vertex *> H;
   void heapifyUp(unsigned i);
   void heapifyDown(unsigned i);
-  inline void set(unsigned i, T * x);
+  inline void set(unsigned i, Vertex * x);
 public:
   MutablePriorityQueue();
-  void insert(T * x);
-  T * extractMin();
-  void decreaseKey(T * x);
+  void insert(Vertex * x);
+  Vertex * extractMin();
+  void decreaseKey(Vertex * x);
   bool empty();
-  bool elementExists(T *x);
+  bool elementExists(Vertex *x);
 };
 
 #endif //CAL_T4GA4_MUTABLEPRIORITYQUEUE_H

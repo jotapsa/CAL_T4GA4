@@ -3,6 +3,8 @@
 //
 #include <iostream>
 #include "graphviewer.h"
+#include "Graph.h"
+#include "Location.h"
 
 void exercicio2() {
     GraphViewer *gv = new GraphViewer(600, 600, false);
@@ -70,7 +72,11 @@ void exercicio2() {
 
 int main (int argc, char* argv[]) {
 
-    exercicio2();
+    Graph *nodesGraph = nullptr;
+
+    Location *x = new Location(1,1,1,1);
+
+    nodesGraph->addVertex(1, *x);
 
     return 0;
 }

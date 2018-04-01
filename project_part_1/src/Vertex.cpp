@@ -6,8 +6,9 @@
 
 class Location;
 
-Vertex::Vertex(unsigned long in, Location *l, Location coordinates) : coordinates(coordinates) {
+Vertex::Vertex(unsigned long in, Location &l) {
   this->id = in;
+  this->coordinates = coordinates;
 }
 
 /*
@@ -33,6 +34,11 @@ double Vertex::getDist() const {
 
 Vertex *Vertex::getPath() const {
   return this->path;
+}
+
+void Vertex::setPath(Vertex *v)
+{
+  this->path = v;
 }
 
 Location  Vertex::getLocation() const {

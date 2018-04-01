@@ -7,20 +7,17 @@
 #define parent(i) ((i) >> 1)
 #define leftChild(i) ((i) << 1)
 
-template <class T>
-MutablePriorityQueue<T>::MutablePriorityQueue() {
+MutablePriorityQueue::MutablePriorityQueue() {
   H.push_back(NULL);
   // indices will be used starting in 1
   // to facilitate parent/child calculations
 }
 
-template <class T>
-bool MutablePriorityQueue<T>::empty() {
+bool MutablePriorityQueue::empty() {
   return H.size() == 1;
 }
 
-template <class T>
-T* MutablePriorityQueue<T>::extractMin() {
+Vertex* MutablePriorityQueue::extractMin() {
   auto x = H[1];
   x->queueIndex = 0;
   H[1] = H.back();
@@ -30,14 +27,14 @@ T* MutablePriorityQueue<T>::extractMin() {
   return x;
 }
 
-template <class T>
-void MutablePriorityQueue<T>::insert(T *x) {
+
+void MutablePriorityQueue::insert(Vertex *x) {
   H.push_back(x);
   heapifyUp(H.size()-1);
 }
 
-template <class T>
-void MutablePriorityQueue<T>::heapifyUp(unsigned i) {
+
+void MutablePriorityQueue::heapifyUp(unsigned i) {
   auto x = H[i];
   while (i > 1 && *x < *H[parent(i)]) {
     set(i, H[parent(i)]);
@@ -46,13 +43,13 @@ void MutablePriorityQueue<T>::heapifyUp(unsigned i) {
   set(i, x);
 }
 
-template <class T>
-void MutablePriorityQueue<T>::decreaseKey(T *x) {
+
+void MutablePriorityQueue::decreaseKey(Vertex *x) {
   heapifyUp(x->queueIndex);
 }
 
-template <class T>
-void MutablePriorityQueue<T>::heapifyDown(unsigned i) {
+
+void MutablePriorityQueue::heapifyDown(unsigned i) {
   auto x = H[i];
   while (true) {
     unsigned k = leftChild(i);
@@ -68,18 +65,18 @@ void MutablePriorityQueue<T>::heapifyDown(unsigned i) {
   set(i, x);
 }
 
-template <class T>
-void MutablePriorityQueue<T>::set(unsigned i, T * x) {
+
+void MutablePriorityQueue::set(unsigned i, Vertex * x) {
   H[i] = x;
   x->queueIndex = i;
 }
 
-template <class T>
-bool MutablePriorityQueue<T>::elementExists(T *x){
+
+bool MutablePriorityQueue::elementExists(Vertex *x){
 
   for(auto v: H)
   {
-    if(v->info == x->info)
+    if(v->id == x->id)
       return true;
   }
 
