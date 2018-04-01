@@ -5,39 +5,14 @@
 #ifndef CAL_T4GA4_LOCATION_H
 #define CAL_T4GA4_LOCATION_H
 
-class DegreeLocation {
-private:
-  double dLat;  //Latitude in degrees
-  double dLon;  //Longitude in degrees
-public:
-  DegreeLocation(double lon, double lat);
-  double getLon();
-  double getLat();
-  friend class Location;
-
-};
-
-class RadiansLocation {
-private:
-  double rLat;  //Latitude in radians
-  double rLon;  //Longitude in radians
-public:
-  RadiansLocation(double lon, double lat);
-  double getLon();
-  double getLat();
-  friend class Location;
-};
-
-
 class Location {
 private:
-  DegreeLocation dLocation;
-  RadiansLocation rLocation;
+  double dLon;
+  double dLat;
+  double rLon;
+  double rLat;
 public:
-  DegreeLocation getLocationInDegrees();
-  RadiansLocation getLocationInRadians();
+  Location(double dLon, double dLat, double rLon, double rLat);
 };
-
-
 
 #endif //CAL_T4GA4_LOCATION_H

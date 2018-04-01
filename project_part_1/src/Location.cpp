@@ -5,40 +5,14 @@
 #include "Location.h"
 
 
-DegreeLocation::DegreeLocation(double lon, double lat) {
+Location::Location(double dLon, double dLat, double rLon, double rLat){
 
-  this->dLon = lon;
+  this->dLon = dLon;
 
-  this->dLat = lat;
+  this->dLat = dLat;
+
+  this->rLon = rLon;
+
+  this->rLat = rLat;
 }
 
-double DegreeLocation::getLon() {
-  return this->dLon;
-}
-
-double DegreeLocation::getLat() {
-  return this->dLat;
-}
-
-RadiansLocation::RadiansLocation(double lon, double lat) {
-
-  this->rLon = lon;
-
-  this->rLat = lat;
-}
-
-double RadiansLocation::getLon() {
-  return this->rLon;
-}
-
-double RadiansLocation::getLat() {
-  return this->rLat;
-}
-
-RadiansLocation Location::getLocationInRadians() {
-  return this->rLocation;
-}
-
-DegreeLocation Location::getLocationInDegrees() {
-  return this->dLocation;
-}
