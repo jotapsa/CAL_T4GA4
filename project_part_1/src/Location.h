@@ -13,6 +13,8 @@ private:
   double rLat;
 public:
   Location(double dLon, double dLat, double rLon, double rLat);
+  double getLongitudeInDegrees();
+  double getLatitudeInDegrees();
 };
 
 #endif //CAL_T4GA4_LOCATION_H

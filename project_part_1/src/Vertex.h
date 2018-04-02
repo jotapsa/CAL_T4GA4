@@ -5,6 +5,8 @@
 #ifndef CAL_T4GA4_VERTEX_H
 #define CAL_T4GA4_VERTEX_H
 
+#include <string>
+#include <iostream>
 #include "Location.h"
 #include "MutablePriorityQueue.h"
 #include "Edge.h"
@@ -32,6 +34,7 @@ public:
   Vertex *getPath() const;
   void setPath(Vertex *v);
   Location  getLocation() const;
+  void print();
   friend class Graph;
   friend class MutablePriorityQueue;
   friend class Edge;

@@ -9,6 +9,8 @@
 #include "Graph.h"
 #include "Location.h"
 
+#define RESOURCES_DIR "../resources/"
+
 void clearStreams(stringstream &s, string &info) {
   s.clear();
   info.clear();
@@ -21,10 +23,10 @@ bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
   stringstream fileStream;
   unsigned long vertexID;
   double dLon, dLat, rLon, rLat;
-  string info = "../resources/";
-  Location toInsert = Location(0,0,0,0);
+  string info;
+  Location *toInsert = new Location(0,0,0,0);
 
-  file.open(info + fileName);
+  file.open(std::string(RESOURCES_DIR) + fileName);
 
   if(!file.is_open()) {
     cout << "File " << fileName << " could not be open! \n";
@@ -66,9 +68,9 @@ bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
       clearStreams(fileStream, info);
     }
 
-    toInsert = Location(dLat,dLon,rLat,rLon);
+    toInsert = new Location(dLat,dLon,rLat,rLon);
 
-    graph.addVertex(vertexID, toInsert);
+    graph.addVertex(vertexID, *toInsert);
   }
 
   return true;
@@ -164,9 +166,7 @@ int main (int argc, char* argv[]) {
     std::cout << nodesGraph.getNumVertex() << " nós lidos com sucesso!\n";
 
 
-  //exercicio2();
+  nodesGraph.printNodes();
 
-
-
-    return 0;
+  return 0;
 }

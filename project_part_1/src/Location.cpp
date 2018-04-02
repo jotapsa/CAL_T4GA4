@@ -16,3 +16,10 @@ Location::Location(double dLon, double dLat, double rLon, double rLat){
   this->rLat = rLat;
 }
 
+double Location::getLatitudeInDegrees() {
+  return this->dLat;
+}
+
+double Location::getLongitudeInDegrees() {
+  return this->dLon;
+}

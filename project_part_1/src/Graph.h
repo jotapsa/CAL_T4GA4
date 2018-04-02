@@ -43,6 +43,7 @@ public:
 	void bellmanFordShortestPath(const unsigned long &s);
 	void floydWarshallShortestPath();
   std::vector<unsigned long> getfloydWarshallPath(const unsigned long &origin, const unsigned long &dest) const;
+  void printNodes();
 };
 
 #endif /* GRAPH_H_ */

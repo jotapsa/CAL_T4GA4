@@ -216,3 +216,11 @@ std::vector<unsigned long> Graph::getfloydWarshallPath(const unsigned long &orig
   // TODO
   return res;
 }
+
+void Graph::printNodes() {
+
+  for(auto v: vertexSet) {
+     v->print();
+  }
+}
+

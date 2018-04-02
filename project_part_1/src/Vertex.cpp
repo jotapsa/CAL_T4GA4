@@ -8,7 +8,7 @@ class Location;
 
 Vertex::Vertex(unsigned long in, Location &l) {
   this->id = in;
-  this->coordinates = coordinates;
+  this->coordinates = l;
 }
 
 /*
@@ -43,4 +43,9 @@ void Vertex::setPath(Vertex *v)
 
 Location  Vertex::getLocation() const {
   return this->coordinates;
+}
+
+void Vertex::print() {
+
+  std::cout << "ID: " << this->getId() << " Latitude: " << this->getLocation().getLatitudeInDegrees() << " Longitude: " << this->getLocation().getLongitudeInDegrees() << std::endl;
 }
