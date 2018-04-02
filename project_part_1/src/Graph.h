@@ -11,6 +11,7 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 #include "Edge.h"
 #include "Street.h"
 #include "Location.h"
@@ -29,6 +30,7 @@ class Graph {
 	std::vector<Vertex *> vertexSet;    // vertex set
 
 public:
+	Graph();
 	Vertex *findVertex(const unsigned long &id) const;
 	bool addVertex(const unsigned long &in, Location &coord);
 	bool addEdge(const unsigned long &sourc, const unsigned long &dest, double w);

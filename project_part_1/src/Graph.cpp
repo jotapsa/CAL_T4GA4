@@ -4,6 +4,12 @@
 
 #include "Graph.h"
 
+
+Graph::Graph() {
+
+  vertexSet = std::vector<Vertex*>();
+}
+
 int Graph::getNumVertex() const {
   return vertexSet.size();
 }
@@ -16,9 +22,12 @@ std::vector<Vertex *> Graph::getVertexSet() const {
  * Auxiliary function to find a vertex with a given content.
  */
 Vertex * Graph::findVertex(const unsigned long &in) const {
-  for (auto v : vertexSet)
+
+  for(auto v : vertexSet) {
     if (v->id == in)
       return v;
+  }
+
   return NULL;
 }
 
@@ -27,9 +36,12 @@ Vertex * Graph::findVertex(const unsigned long &in) const {
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
 bool Graph::addVertex(const unsigned long &in, Location &coord) {
-  if ( findVertex(in) != NULL)
+
+  if(findVertex(in) != NULL)
     return false;
+
   vertexSet.push_back(new Vertex(in, coord));
+
   return true;
 }
 

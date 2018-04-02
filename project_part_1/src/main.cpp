@@ -2,11 +2,86 @@
 // Created by dnc on 30-03-2018.
 //
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include "graphviewer.h"
 #include "Graph.h"
 #include "Location.h"
 
+void clearStreams(stringstream &s, string &info) {
+  s.clear();
+  info.clear();
+}
+
+
+bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
+
+  fstream file;
+  stringstream fileStream;
+  unsigned long vertexID;
+  double dLon, dLat, rLon, rLat;
+  string info = "../resources/";
+  Location toInsert = Location(0,0,0,0);
+
+  file.open(info + fileName);
+
+  if(!file.is_open()) {
+    cout << "File " << fileName << " could not be open! \n";
+    return false;
+  }
+
+
+  while(file.eof() == false) {
+
+    clearStreams(fileStream, info);
+
+    if(getline(file, info, ';')) {
+      fileStream << info;
+      fileStream >> vertexID;
+      clearStreams(fileStream, info);
+    }
+
+    if(getline(file, info, ';')) {
+      fileStream << info;
+      fileStream >> dLat;
+      clearStreams(fileStream, info);
+    }
+
+    if(getline(file, info, ';')) {
+      fileStream << info;
+      fileStream >> dLon;
+      clearStreams(fileStream, info);
+    }
+
+    if(getline(file, info, ';')) {
+      fileStream << info;
+      fileStream >> rLon;
+      clearStreams(fileStream, info);
+    }
+
+    if(getline(file, info, ';')) {
+      fileStream << info;
+      fileStream >> rLon;
+      clearStreams(fileStream, info);
+    }
+
+    toInsert = Location(dLat,dLon,rLat,rLon);
+
+    graph.addVertex(vertexID, toInsert);
+  }
+
+  return true;
+}
+
 void exercicio2() {
+
+  Graph *nodesGraph = new Graph();
+
+  Location *x = new Location(1,1,1,1);
+
+  nodesGraph->addVertex(1, *x);
+
     GraphViewer *gv = new GraphViewer(600, 600, false);
     gv->createWindow(600, 600);
     gv->defineVertexColor("blue");
@@ -70,13 +145,28 @@ void exercicio2() {
     }
 }
 
+bool validNumberOfArgs(int numberOfArgs) {
+  return (numberOfArgs == 4);
+}
+
 int main (int argc, char* argv[]) {
 
-    Graph *nodesGraph = nullptr;
+  if(!validNumberOfArgs(argc)) {
+    std::cout << "Usage: <Program Name> <Vertix File> <Roads Info File> <Roads Connection File> \n";
+    return 0;
+  }
 
-    Location *x = new Location(1,1,1,1);
+  Graph nodesGraph = Graph();
 
-    nodesGraph->addVertex(1, *x);
+  if(!readNodesAndInsertThemToGraphs(argv[1], nodesGraph))
+    std::cout << "Erro ao ler nós!\n";
+  else
+    std::cout << nodesGraph.getNumVertex() << " nós lidos com sucesso!\n";
+
+
+  //exercicio2();
+
+
 
     return 0;
 }
