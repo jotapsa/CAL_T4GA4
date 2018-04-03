@@ -1,4 +1,4 @@
-#include "connection.h"
+#include "Connection.h"
 
 void myerror(string msg) {
   printf("%s\n", msg.c_str());

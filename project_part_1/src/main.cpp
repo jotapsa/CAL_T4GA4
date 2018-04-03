@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "graphviewer.h"
+#include "GraphViewer.h"
 #include "Graph.h"
 #include "Location.h"
 
@@ -15,7 +15,6 @@ void clearStreams(stringstream &s, string &info) {
   s.clear();
   info.clear();
 }
-
 
 bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
 
@@ -73,6 +72,18 @@ bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
     graph.addVertex(vertexID, *toInsert);
   }
 
+  return true;
+}
+
+bool readStreetNames(char* fileName, std::vector<Street> &streetsVector) {
+
+  //TODO read streets to a vector from "CAL_roads.txt".
+  return true;
+}
+
+bool readEdges(char* fileName, std::vector<Edge> edgesVector) {
+
+  //TODO read edges to a vector from "CAL_subroads.txt" (associates 2 vertixId to an edge).
   return true;
 }
 
@@ -160,13 +171,15 @@ int main (int argc, char* argv[]) {
 
   Graph nodesGraph = Graph();
 
+  std::vector<Street> streets;
+
   if(!readNodesAndInsertThemToGraphs(argv[1], nodesGraph))
     std::cout << "Erro ao ler nós!\n";
   else
     std::cout << nodesGraph.getNumVertex() << " nós lidos com sucesso!\n";
 
 
-  nodesGraph.printNodes();
+  //nodesGraph.printNodes();
 
   return 0;
 }

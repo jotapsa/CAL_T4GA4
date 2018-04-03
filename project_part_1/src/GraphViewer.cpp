@@ -1,4 +1,4 @@
-#include "graphviewer.h"
+#include "GraphViewer.h"
 #include <string>
 #include<sstream>
 

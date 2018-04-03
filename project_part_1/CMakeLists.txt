@@ -8,15 +8,15 @@ include_directories(src)
 add_executable(project_part_1
         resources/arestas.txt
         resources/nos.txt
-        src/connection.cpp
-        src/connection.h
+        src/Connection.cpp
+        src/Connection.h
         src/Edge.cpp
         src/Edge.h
-        src/edgetype.h
+        src/EdgeType.h
         src/Graph.cpp
         src/Graph.h
-        src/graphviewer.cpp
-        src/graphviewer.h
+        src/GraphViewer.cpp
+        src/GraphViewer.h
         src/Location.cpp
         src/Location.h
         src/Location.h
