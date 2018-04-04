@@ -1,23 +1,25 @@
-//
-// Created by dnc on 31-03-2018.
-//
-
 #ifndef CAL_T4GA4_STREET_H
 #define CAL_T4GA4_STREET_H
 
 #include <string>
-
+#include "Location.h"
+#include "Node.h"
 
 class Street {
 private:
   unsigned long id;
   std::string roadName;
-  bool twoWay;
+  int edgeType;
+  Node * n1;
+  Node * n2;
 public:
-  Street(unsigned long id, std::string name, bool twoWay);
+  Street(unsigned long id, std::string name, int edgeType);
   unsigned long getId();
   std::string getName();
-  bool isStreetTwoWay();
+  int getEdgeType();
+  void addNodes(Node *n1, Node *n2);
+  Node* getFirstNode(){return this->n1;}
+  Node* getSecondNode(){return this->n2;}
 };
 
 

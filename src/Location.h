@@ -1,7 +1,3 @@
-//
-// Created by dnc on 31-03-2018.
-//
-
 #ifndef CAL_T4GA4_LOCATION_H
 #define CAL_T4GA4_LOCATION_H
 

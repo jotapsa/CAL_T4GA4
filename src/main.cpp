@@ -4,6 +4,7 @@
 #include "GraphViewer.h"
 #include "Graph.h"
 #include "Cli.h"
+#include "EdgeType.h"
 #include "main.h"
 
 void clearStreams(stringstream &s, string &info) {
@@ -80,7 +81,7 @@ bool readStreetNames(char* filePath, std::vector<Street*> &streetsVector) {
   std::string line;
   unsigned long streetID;
   std::string roadName;
-  bool twoWay;
+  int edgeType;
   Street *toInsert;
 
   file.open(filePath);
@@ -109,14 +110,14 @@ bool readStreetNames(char* filePath, std::vector<Street*> &streetsVector) {
 
     if(getline(file, line)) {
       if(line.compare("True") == true) {
-        twoWay = true;
+        edgeType = UNDIRECTED;
       }
       else {
-        twoWay = false;
+        edgeType = DIRECTED;
       }
     }
 
-    toInsert = new Street(streetID, roadName, twoWay);
+    toInsert = new Street(streetID, roadName, edgeType);
 
     streetsVector.push_back(toInsert);
   }
@@ -124,13 +125,30 @@ bool readStreetNames(char* filePath, std::vector<Street*> &streetsVector) {
   return true;
 }
 
-bool readEdges(char* filePath, Graph &graph, int *nSubRoads) {
+Node* getNode(std::vector<Node *> &nodesVector, unsigned long id){
+    for(unsigned int i = 0; i < nodesVector.size(); i++){
+        if(nodesVector[i]->getId() == id)
+            return nodesVector[i];
+    }
+    return NULL;
+}
+
+Street* getStreet(std::vector<Street*> &streetsVector, unsigned long id){
+    for(unsigned int i = 0; i < streetsVector.size(); i++){
+        if(streetsVector[i]->getId() == id)
+            return streetsVector[i];
+    }
+    return NULL;
+}
+
+bool readEdges(char* filePath, std::vector<Node *> nodesVector ,std::vector<Street*> &streetsVector, int *nSubRoads) {
   //TODO read edges to a vector from "CAL_subroads.txt" (associates 2 vertixId to an edge).
   fstream file;
   stringstream fileStream;
   std::string line;
-  int nodeID, node1, node2;
+  int streetID, node1_ID, node2_ID;
   file.open(filePath);
+  Street *street;
 
   if(!file.is_open()) {
     cout << "File " << filePath << " could not be open! \n";
@@ -144,22 +162,26 @@ bool readEdges(char* filePath, Graph &graph, int *nSubRoads) {
 
     if(getline(file, line, ';')) {
       fileStream << line;
-      fileStream >> nodeID;
+      fileStream >> streetID;
       clearStreams(fileStream, line);
     }
 
     if(getline(file, line, ';')) {
       fileStream << line;
-      fileStream >> node1;
+      fileStream >> node1_ID;
       clearStreams(fileStream, line);
     }
 
     if(getline(file, line, ';')) {
       fileStream << line;
-      fileStream >> node2;
+      fileStream >> node2_ID;
       clearStreams(fileStream, line);
     }
 
+    street = getStreet(streetsVector, streetID);
+    street->addNodes(getNode(nodesVector,node1_ID), getNode(nodesVector,node2_ID));
+
+    (*nSubRoads)++;
   }
 
   return true;
@@ -200,12 +222,14 @@ int main (int argc, char* argv[]) {
 //  }
   int nSubRoads=0;
 
-  if(readEdges(SUBROADS_FILEPATH,nodesGraph, &nSubRoads)){
+  if(readEdges(SUBROADS_FILEPATH, nodesGraph.getVertexSet(),streets, &nSubRoads)){
     std::cout << nSubRoads << " subroads were successfully read!!\n";
   }
   else {
     std::cout << "Failed to read subroads nodes from file: " << SUBROADS_FILEPATH << endl;
   }
+
+    std::cout << streets.at(0)->getFirstNode()->getId() << endl;
 
   return 0;
 }

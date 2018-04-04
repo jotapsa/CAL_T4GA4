@@ -5,10 +5,14 @@
  * Classe que enumera os tipos de arestas. Usar EdgeType.UNDIRECTED para uma aresta sem direcção, ou
  * EdgeType.DIRECTED para uma aresta dirigida.
  */
+
+#define UNDIRECTED 0
+#define DIRECTED 1
+
 class EdgeType {
- public: 
-  const static int UNDIRECTED = 0;
-  const static int DIRECTED = 1;
+ public:
+//  const static int UNDIRECTED = 0;
+//  const static int DIRECTED = 1;
 };
 
 #endif
