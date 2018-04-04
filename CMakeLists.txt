@@ -30,4 +30,4 @@ add_executable(CAL_T4GA4
         src/Cli.h
         GraphViewerController.jar
         src/Building.cpp
-        src/Building.h)
+        src/Building.h src/Vehicle.cpp src/Vehicle.h)
