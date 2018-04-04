@@ -1,7 +1,6 @@
 #ifndef CAL_T4GA4_NODEPARSER_H
 #define CAL_T4GA4_NODEPARSER_H
 
-#include <mach/boolean.h>
 #include "Graph.h"
 
 #define NODES_FILEPATH "../resources/nodes.txt"
