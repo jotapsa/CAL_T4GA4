@@ -19,9 +19,8 @@ public:
   unsigned long getId() const;
   double getDist() const;
   Node *getPath() const;
+  std::pair<double, double> getCoordinates();
   void setPath(Node *v);
-  Location  getLocation() const;
-  void print();
   friend class Graph;
   friend class MutablePriorityQueue;
   friend class Edge;
