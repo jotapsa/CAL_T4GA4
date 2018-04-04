@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(src)
 
 add_executable(CAL_T4GA4
-        resources/arestas.txt
-        resources/nos.txt
         src/Connection.cpp
         src/Connection.h
         src/Edge.cpp
