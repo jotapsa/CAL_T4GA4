@@ -15,29 +15,29 @@
 #include "Edge.h"
 #include "Street.h"
 #include "Location.h"
-#include "Vertex.h"
+#include "Node.h"
 #include "MutablePriorityQueue.h"
 
 #define INF std::numeric_limits<double>::max()
 
 class MutablePriorityQueue;
-class Vertex;
+class Node;
 class Edge;
 class Road;
 
 
 class Graph {
-	std::vector<Vertex *> vertexSet;    // vertex set
+	std::vector<Node *> vertexSet;    // vertex set
 
 public:
 	Graph();
-	Vertex *findVertex(const unsigned long &id) const;
+	Node *findVertex(const unsigned long &id) const;
 	bool addVertex(const unsigned long &in, Location &coord);
 	bool addEdge(const unsigned long &sourc, const unsigned long &dest, double w);
 	int getNumVertex() const;
-	std::vector<Vertex*> getVertexSet() const;
+	std::vector<Node*> getVertexSet() const;
 	std::vector<unsigned long> getPath(const unsigned long &origin, const unsigned long &dest);
-	bool relax(Vertex * vertex, Vertex *w, double weight);
+	bool relax(Node * vertex, Node *w, double weight);
 	void dijkstraShortestPath(const unsigned long &s);
 	void unweightedShortestPath(const unsigned long &s);
 	void bellmanFordShortestPath(const unsigned long &s);

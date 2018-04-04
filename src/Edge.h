@@ -5,17 +5,17 @@
 #ifndef CAL_T4GA4_EDGE_H
 #define CAL_T4GA4_EDGE_H
 
-#include "Vertex.h"
+#include "Node.h"
 
-class Vertex;
+class Node;
 
 class Edge {
 private:
-  Vertex* dest;      // destination vertex
+  Node* dest;      // destination vertex
   double weight;         // edge weight
 public:
-    Edge(Vertex *d, double w);
-    Vertex getDestination();
+    Edge(Node *d, double w);
+    Node getDestination();
     double getWeight();
     friend class Graph;
     friend class Vertex;

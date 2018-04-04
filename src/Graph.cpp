@@ -7,21 +7,21 @@
 
 Graph::Graph() {
 
-  vertexSet = std::vector<Vertex*>();
+  vertexSet = std::vector<Node*>();
 }
 
 int Graph::getNumVertex() const {
   return vertexSet.size();
 }
 
-std::vector<Vertex *> Graph::getVertexSet() const {
+std::vector<Node *> Graph::getVertexSet() const {
   return vertexSet;
 }
 
 /*
  * Auxiliary function to find a vertex with a given content.
  */
-Vertex * Graph::findVertex(const unsigned long &in) const {
+Node * Graph::findVertex(const unsigned long &in) const {
 
   for(auto v : vertexSet) {
     if (v->id == in)
@@ -40,7 +40,7 @@ bool Graph::addVertex(const unsigned long &in, Location &coord) {
   if(findVertex(in) != NULL)
     return false;
 
-  vertexSet.push_back(new Vertex(in, coord));
+  vertexSet.push_back(new Node(in, coord));
 
   return true;
 }
@@ -62,7 +62,7 @@ bool Graph::addEdge(const unsigned long &sourc, const unsigned long &dest, doubl
 
 /**************** Single Source Shortest Path algorithms ************/
 
-bool Graph::relax(Vertex * vertex, Vertex *w, double weight) {
+bool Graph::relax(Node * vertex, Node *w, double weight) {
 
   if(vertex->dist + weight < w->dist) {
     w->dist = vertex->dist + weight;
@@ -77,9 +77,9 @@ bool Graph::relax(Vertex * vertex, Vertex *w, double weight) {
 
 void Graph::dijkstraShortestPath(const unsigned long &origin)
 {
-  Vertex  *source = findVertex(origin);
+  Node  *source = findVertex(origin);
 
-  Vertex *min;
+  Node *min;
 
   if(source == NULL)
     return;
@@ -169,7 +169,7 @@ void Graph::unweightedShortestPath(const unsigned long &orig) {
 
 void Graph::bellmanFordShortestPath(const unsigned long &orig) {
 
-  Vertex *source = findVertex(orig);
+  Node *source = findVertex(orig);
 
   if(source == NULL)
     return;

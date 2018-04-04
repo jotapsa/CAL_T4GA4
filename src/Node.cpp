@@ -1,12 +1,8 @@
-//
-// Created by dnc on 31-03-2018.
-//
-
-#include "Vertex.h"
+#include "Node.h"
 
 class Location;
 
-Vertex::Vertex(unsigned long in, Location &l) {
+Node::Node(unsigned long in, Location &l) {
   this->id = in;
   this->coordinates = l;
 }
@@ -15,37 +11,37 @@ Vertex::Vertex(unsigned long in, Location &l) {
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).
  */
-void Vertex::addEdge(Vertex *d, double w) {
+void Node::addEdge(Node *d, double w) {
   adj.push_back(Edge(d, w));
 }
 
-bool Vertex::operator<(Vertex & vertex) const {
+bool Node::operator<(Node & vertex) const {
   return this->dist < vertex.dist;
 }
 
-unsigned long Vertex::getId() const {
+unsigned long Node::getId() const {
   return this->id;
 }
 
-double Vertex::getDist() const {
+double Node::getDist() const {
   return this->dist;
 }
 
 
-Vertex *Vertex::getPath() const {
+Node *Node::getPath() const {
   return this->path;
 }
 
-void Vertex::setPath(Vertex *v)
+void Node::setPath(Node *v)
 {
   this->path = v;
 }
 
-Location  Vertex::getLocation() const {
+Location  Node::getLocation() const {
   return this->coordinates;
 }
 
-void Vertex::print() {
+void Node::print() {
 
   std::cout << "ID: " << this->getId() << " Latitude: " << this->getLocation().getLatitudeInDegrees() << " Longitude: " << this->getLocation().getLongitudeInDegrees() << std::endl;
 }

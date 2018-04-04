@@ -17,7 +17,7 @@ bool MutablePriorityQueue::empty() {
   return H.size() == 1;
 }
 
-Vertex* MutablePriorityQueue::extractMin() {
+Node* MutablePriorityQueue::extractMin() {
   auto x = H[1];
   x->queueIndex = 0;
   H[1] = H.back();
@@ -28,7 +28,7 @@ Vertex* MutablePriorityQueue::extractMin() {
 }
 
 
-void MutablePriorityQueue::insert(Vertex *x) {
+void MutablePriorityQueue::insert(Node *x) {
   H.push_back(x);
   heapifyUp(H.size()-1);
 }
@@ -44,7 +44,7 @@ void MutablePriorityQueue::heapifyUp(unsigned i) {
 }
 
 
-void MutablePriorityQueue::decreaseKey(Vertex *x) {
+void MutablePriorityQueue::decreaseKey(Node *x) {
   heapifyUp(x->queueIndex);
 }
 
@@ -66,13 +66,13 @@ void MutablePriorityQueue::heapifyDown(unsigned i) {
 }
 
 
-void MutablePriorityQueue::set(unsigned i, Vertex * x) {
+void MutablePriorityQueue::set(unsigned i, Node * x) {
   H[i] = x;
   x->queueIndex = i;
 }
 
 
-bool MutablePriorityQueue::elementExists(Vertex *x){
+bool MutablePriorityQueue::elementExists(Node *x){
 
   for(auto v: H)
   {

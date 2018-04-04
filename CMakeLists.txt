@@ -22,8 +22,8 @@ add_executable(CAL_T4GA4
         src/MutablePriorityQueue.h
         src/Street.cpp
         src/Street.h
-        src/Vertex.cpp
-        src/Vertex.h
+        src/Node.cpp
+        src/Node.h
         src/Cli.cpp
         src/Cli.h
         src/main.cpp

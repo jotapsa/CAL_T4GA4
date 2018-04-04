@@ -4,13 +4,13 @@
 
 #include "Edge.h"
 
-Edge::Edge(Vertex *d, double w) {
+Edge::Edge(Node *d, double w) {
   this->dest = d;
 
   this->weight = w;
 }
 
-Vertex Edge::getDestination() {
+Node Edge::getDestination() {
   return *this->dest;
 }
 
