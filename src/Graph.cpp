@@ -1,31 +1,26 @@
-//
-// Created by dnc on 01-04-2018.
-//
-
 #include "Graph.h"
-
+#include "Node.h"
 
 Graph::Graph() {
-
-  vertexSet = std::vector<Node*>();
+  this->nodeSet = std::vector<Node*>();
 }
 
-int Graph::getNumVertex() const {
-  return vertexSet.size();
+int Graph::getNumNodes() const {
+  return nodeSet.size();
 }
 
-std::vector<Node *> Graph::getVertexSet() const {
-  return vertexSet;
+std::vector<Node *> Graph::getNodeSet() const {
+  return nodeSet;
 }
 
 /*
- * Auxiliary function to find a vertex with a given content.
+ * Auxiliary function to find a node with a given id.
  */
-Node * Graph::findVertex(const unsigned long &in) const {
+Node * Graph::findNode(const unsigned long &id) const {
 
-  for(auto v : vertexSet) {
-    if (v->id == in)
-      return v;
+  for(auto n : nodeSet) {
+    if (n->getId() == id)
+      return n;
   }
 
   return NULL;
@@ -35,12 +30,12 @@ Node * Graph::findVertex(const unsigned long &in) const {
  *  Adds a vertex with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
-bool Graph::addVertex(const unsigned long &in, Location &coord) {
+bool Graph::addNode(Node &node) {
 
-  if(findVertex(in) != NULL)
+  if(findNode(node.getId()) != NULL)
     return false;
 
-  vertexSet.push_back(new Node(in, coord));
+  nodeSet->push_back(node);
 
   return true;
 }
@@ -51,8 +46,8 @@ bool Graph::addVertex(const unsigned long &in, Location &coord) {
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
 bool Graph::addEdge(const unsigned long &sourc, const unsigned long &dest, double w) {
-  auto v1 = findVertex(sourc);
-  auto v2 = findVertex(dest);
+  auto v1 = findNode(sourc);
+  auto v2 = findNode(dest);
   if (v1 == NULL || v2 == NULL)
     return false;
   v1->addEdge(v2,w);

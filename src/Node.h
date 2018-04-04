@@ -8,6 +8,7 @@
 class Edge;
 
 class Node {
+private:
   unsigned long id;                       // vertex Id
   std::pair<double, double> coordinates;
   std::vector<Edge> adj;  // outgoing edges
