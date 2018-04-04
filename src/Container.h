@@ -1,13 +1,11 @@
 #ifndef _CONTAINER_H
 #define _CONTAINER_H
 
-
 #include "Aux.h"
-#include "Node.h"
+#include "Place.h"
 
-class Container{
+class Container : public Place{
 private:
-  Node *node;
   garbageType type;
   double capacity;
 public:

@@ -28,4 +28,4 @@ add_executable(CAL_T4GA4
         src/Node.h
         src/Cli.cpp
         src/Cli.h
-        GraphViewerController.jar)
+        GraphViewerController.jar src/Place.cpp src/Place.h)
