@@ -6,6 +6,15 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(src)
 
 add_executable(CAL_T4GA4
+        src/main.cpp
+        src/main.h
+        src/NodeParser.cpp
+        src/NodeParser.h
+        src/GarbageManagement.cpp
+        src/GarbageManagement.h
+        src/Container.cpp
+        src/Container.h
+        src/Aux.h
         src/Connection.cpp
         src/Connection.h
         src/EdgeType.h
@@ -19,9 +28,4 @@ add_executable(CAL_T4GA4
         src/Node.h
         src/Cli.cpp
         src/Cli.h
-        src/main.cpp
-        GraphViewerController.jar
-        src/GarbageManagement.cpp
-        src/GarbageManagement.h
-        src/NodeParser.cpp
-        src/NodeParser.h)
+        GraphViewerController.jar)
