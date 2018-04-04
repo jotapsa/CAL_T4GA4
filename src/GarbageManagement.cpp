@@ -1,6 +1,5 @@
 #include "GarbageManagement.h"
 #include <iostream>
-#include "NodeParser.h"
 
 using namespace std;
 

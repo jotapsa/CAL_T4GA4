@@ -1,8 +1,7 @@
-#include "NodeParser.h"
+#include "Parser.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "Aux.h"
 
 using namespace std;
 
@@ -55,7 +54,7 @@ garbageType getGarbageType(string type){
     }
 }
 
-bool loadNodes(Graph &graph) {
+bool loadNodes(GarbageManagement &management) {
     fstream file;
     unsigned long nodeID;
     double dLon, dLat, rLon, rLat;
@@ -88,9 +87,9 @@ bool loadNodes(Graph &graph) {
         //TODO calculate X Y coordinates
         coordinates = make_pair(dLat,rLon);
         Node* node = new Node(nodeID, coordinates);
-        if(!graph.addNode(*node)){
-            return false;
-        }
+//        if(!graph.addNode(*node)){
+//            return false;
+//        }
 
         if(lineVector.size() == 5){
             continue;
@@ -122,7 +121,7 @@ bool loadNodes(Graph &graph) {
     return true;
 }
 
-bool loadEdges(Graph &graph) {
+bool loadEdges(GarbageManagement &management) {
     fstream file;
     Node *n1, *n2;
     unsigned long int id=0, n1_id=0, n2_id=0;
@@ -145,16 +144,16 @@ bool loadEdges(Graph &graph) {
         n1_id = stoul(lineVector.at(1));
         n2_id = stoul(lineVector.at(2));
 
-        n1 = graph.findNode(n1_id);
-        n2 = graph.findNode(n2_id);
+//        n1 = graph.findNode(n1_id);
+//        n2 = graph.findNode(n2_id);
 
         if(n1 == nullptr || n2 == nullptr){
             return false;
         }
 
-        if(!graph.addStreet(*(new Street(id,*n1,*n2)))){
-            return false;
-        }
+//        if(!graph.addStreet(*(new Street(id,*n1,*n2)))){
+//            return false;
+//        }
     }
 
     file.close();
@@ -162,7 +161,7 @@ bool loadEdges(Graph &graph) {
     return true;
 }
 
-bool loadEdgesInfo(Graph &graph) {
+bool loadEdgesInfo(GarbageManagement &management) {
     fstream file;
     unsigned long int id=0;
     string name;
@@ -186,7 +185,7 @@ bool loadEdgesInfo(Graph &graph) {
         }
         id = stoul(lineVector.at(0));
 
-        street = graph.findStreet(id);
+//        street = graph.findStreet(id);
         if(street == nullptr){
             return false;
         }

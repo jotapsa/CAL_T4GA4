@@ -7,8 +7,8 @@ include_directories(src)
 
 add_executable(CAL_T4GA4
         src/main.cpp
-        src/NodeParser.cpp
-        src/NodeParser.h
+        src/Parser.cpp
+        src/Parser.h
         src/GarbageManagement.cpp
         src/GarbageManagement.h
         src/Container.cpp
