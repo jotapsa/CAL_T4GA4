@@ -26,8 +26,6 @@ public:
 
 	bool addNode(Node &node);
 	bool addStreet(Street &street);
-	bool addContainer(Container &container);
-	bool addEdge(const unsigned long &sourc, const unsigned long &dest);
 };
 
 #endif /* GRAPH_H_ */

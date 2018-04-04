@@ -101,9 +101,9 @@ bool loadNodes(Graph &graph) {
         switch(getBuildingType(building)){
             case container:{
                 type = lineVector.at(6);
-                if(!graph.addContainer(*(new Container(*node, getGarbageType(type),0)))){
-                    return false;
-                }
+//                if(!graph.addContainer(*(new Container(*node, getGarbageType(type),0)))){
+//                    return false;
+//                }
             }
                 break;
             case station:
