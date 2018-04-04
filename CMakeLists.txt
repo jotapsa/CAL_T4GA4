@@ -28,4 +28,4 @@ add_executable(CAL_T4GA4
         src/Cli.h
         src/main.cpp
         src/main.h
-        GraphViewerController.jar)
+        GraphViewerController.jar src/GarbageManagement.cpp src/GarbageManagement.h)

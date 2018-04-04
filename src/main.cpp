@@ -126,19 +126,19 @@ bool readStreetNames(char* filePath, std::vector<Street*> &streetsVector) {
 }
 
 Node* getNode(std::vector<Node *> &nodesVector, unsigned long id){
-    for(unsigned int i = 0; i < nodesVector.size(); i++){
-        if(nodesVector[i]->getId() == id)
-            return nodesVector[i];
-    }
-    return NULL;
+  for(unsigned int i = 0; i < nodesVector.size(); i++){
+    if(nodesVector[i]->getId() == id)
+      return nodesVector[i];
+  }
+  return NULL;
 }
 
 Street* getStreet(std::vector<Street*> &streetsVector, unsigned long id){
-    for(unsigned int i = 0; i < streetsVector.size(); i++){
-        if(streetsVector[i]->getId() == id)
-            return streetsVector[i];
-    }
-    return NULL;
+  for(unsigned int i = 0; i < streetsVector.size(); i++){
+    if(streetsVector[i]->getId() == id)
+      return streetsVector[i];
+  }
+  return NULL;
 }
 
 bool readEdges(char* filePath, std::vector<Node *> nodesVector ,std::vector<Street*> &streetsVector, int *nSubRoads) {
@@ -217,10 +217,9 @@ int main (int argc, char* argv[]) {
 
   std::cout << streets.at(0)->getFirstNode()->getId() << endl;
 
-    Cli *cli = new Cli();
+  Cli *cli = new Cli();
 
-    cli->menu();
+  cli->menu();
 
-
-    return 0;
+  return 0;
 }
