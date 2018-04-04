@@ -11,7 +11,7 @@ void clearStreams(stringstream &s, string &info) {
   info.clear();
 }
 
-bool readNodesAndInsertThemToGraphs(char* filePath, Graph &graph) {
+bool readNodes(char *filePath, Graph &graph) {
 
   fstream file;
   stringstream fileStream;
@@ -124,9 +124,44 @@ bool readStreetNames(char* filePath, std::vector<Street*> &streetsVector) {
   return true;
 }
 
-bool readEdges(char* fileName, std::vector<Edge> edgesVector) {
-
+bool readEdges(char* filePath, Graph &graph, int *nSubRoads) {
   //TODO read edges to a vector from "CAL_subroads.txt" (associates 2 vertixId to an edge).
+  fstream file;
+  stringstream fileStream;
+  std::string line;
+  int nodeID, node1, node2;
+  file.open(filePath);
+
+  if(!file.is_open()) {
+    cout << "File " << filePath << " could not be open! \n";
+    return false;
+  }
+
+  std::cout << "Reading subroads file: " << filePath << endl;
+
+  while(file.eof() == false){
+    clearStreams(fileStream, line);
+
+    if(getline(file, line, ';')) {
+      fileStream << line;
+      fileStream >> nodeID;
+      clearStreams(fileStream, line);
+    }
+
+    if(getline(file, line, ';')) {
+      fileStream << line;
+      fileStream >> node1;
+      clearStreams(fileStream, line);
+    }
+
+    if(getline(file, line, ';')) {
+      fileStream << line;
+      fileStream >> node2;
+      clearStreams(fileStream, line);
+    }
+
+  }
+
   return true;
 }
 
@@ -135,18 +170,18 @@ int main (int argc, char* argv[]) {
 
   std::vector<Street *> streets = std::vector<Street *>();
 
-  if(readNodesAndInsertThemToGraphs(NODES_FILEPATH, nodesGraph)) {
-    std::cout << nodesGraph.getNumVertex() << " successfully read nodes!\n";
+  if(readNodes(NODES_FILEPATH, nodesGraph)) {
+    std::cout << nodesGraph.getNumVertex() << " nodes were successfully read!\n";
   }
   else {
     std::cout << "Failed to read nodes from file: " << NODES_FILEPATH << endl;
   }
 
   if(readStreetNames(ROADS_FILEPATH, streets)) {
-    std::cout << streets.size() << " successfully read streets!!\n";
+    std::cout << streets.size() << " streets were successfully read!!\n";
   }
   else {
-    std::cout << "Failed to streets nodes from file: " << ROADS_FILEPATH << endl;
+    std::cout << "Failed to read streets nodes from file: " << ROADS_FILEPATH << endl;
   }
 
   Cli *cli = new Cli();
@@ -163,6 +198,14 @@ int main (int argc, char* argv[]) {
 //    else
 //      std::cout << " and it's a one way street.\n";
 //  }
+  int nSubRoads=0;
+
+  if(readEdges(SUBROADS_FILEPATH,nodesGraph, &nSubRoads)){
+    std::cout << nSubRoads << " subroads were successfully read!!\n";
+  }
+  else {
+    std::cout << "Failed to read subroads nodes from file: " << SUBROADS_FILEPATH << endl;
+  }
 
   return 0;
 }
