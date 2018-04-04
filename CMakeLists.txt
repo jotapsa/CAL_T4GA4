@@ -27,4 +27,5 @@ add_executable(CAL_T4GA4
         src/Vertex.cpp
         src/Vertex.h
         src/main.cpp
+        src/main.h
         GraphViewerController.jar)

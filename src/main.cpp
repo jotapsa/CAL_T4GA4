@@ -1,22 +1,16 @@
-//
-// Created by dnc on 30-03-2018.
-//
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
 #include "GraphViewer.h"
 #include "Graph.h"
-#include "Location.h"
-
-#define RESOURCES_DIR "../resources/"
+#include "main.h"
 
 void clearStreams(stringstream &s, string &info) {
   s.clear();
   info.clear();
 }
 
-bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
+bool readNodesAndInsertThemToGraphs(char* filePath, Graph &graph) {
 
   fstream file;
   stringstream fileStream;
@@ -25,14 +19,14 @@ bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
   std::string info;
   Location *toInsert = new Location(0,0,0,0);
 
-  file.open(std::string(RESOURCES_DIR) + fileName);
+  file.open(filePath);
 
   if(!file.is_open()) {
-    cout << "File " << fileName << " could not be open! \n";
+    cout << "File " << filePath << " could not be open! \n";
     return false;
   }
 
-  std::cout << "Reading vertex file: " << fileName << endl;
+  std::cout << "Reading vertex file: " << filePath << endl;
 
   while(file.eof() == false) {
 
@@ -78,7 +72,7 @@ bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
   return true;
 }
 
-bool readStreetNames(char* fileName, std::vector<Street*> &streetsVector) {
+bool readStreetNames(char* filePath, std::vector<Street*> &streetsVector) {
 
   fstream file;
   stringstream fileStream;
@@ -88,14 +82,14 @@ bool readStreetNames(char* fileName, std::vector<Street*> &streetsVector) {
   bool twoWay;
   Street *toInsert;
 
-  file.open(std::string(RESOURCES_DIR) + fileName);
+  file.open(filePath);
 
   if(!file.is_open()) {
-    cout << "File " << fileName << " could not be open! \n";
+    cout << "File " << filePath << " could not be open! \n";
     return false;
   }
 
-  std::cout << "Reading roads file: " << fileName << endl;
+  std::cout << "Reading roads file: " << filePath << endl;
 
   while(file.eof() == false) {
 
@@ -211,28 +205,22 @@ bool validNumberOfArgs(int numberOfArgs) {
 }
 
 int main (int argc, char* argv[]) {
-
-  if(!validNumberOfArgs(argc)) {
-    std::cout << "Usage: <Program Name> <Vertix File> <Roads Info File> <Roads Connection File> \n";
-    return 0;
-  }
-
   Graph nodesGraph = Graph();
 
   std::vector<Street *> streets = std::vector<Street *>();
 
-  if(readNodesAndInsertThemToGraphs(argv[1], nodesGraph)) {
+  if(readNodesAndInsertThemToGraphs(NODES_FILEPATH, nodesGraph)) {
     std::cout << nodesGraph.getNumVertex() << " successfully read nodes!\n";
   }
   else {
-    std::cout << "Failed to read nodes from file: " << argv[1] << endl;
+    std::cout << "Failed to read nodes from file: " << NODES_FILEPATH << endl;
   }
 
-  if(readStreetNames(argv[2], streets)) {
+  if(readStreetNames(ROADS_FILEPATH, streets)) {
     std::cout << streets.size() << " successfully read streets!!\n";
   }
   else {
-    std::cout << "Failed to streets nodes from file: " << argv[2] << endl;
+    std::cout << "Failed to streets nodes from file: " << ROADS_FILEPATH << endl;
   }
 
   //exercicio2();
@@ -240,14 +228,14 @@ int main (int argc, char* argv[]) {
   nodesGraph.printNodes();
 
   //Prints all read streets, must DELETE
-  for(auto road: streets) {
-    std::cout << "Street: " << road->getName() << " with ID: " << road->getId();
-
-    if(road->isStreetTwoWay())
-      std::cout << " and it's a two way street.\n";
-    else
-      std::cout << " and it's a one way street.\n";
-  }
+//  for(auto road: streets) {
+//    std::cout << "Street: " << road->getName() << " with ID: " << road->getId();
+//
+//    if(road->isStreetTwoWay())
+//      std::cout << " and it's a two way street.\n";
+//    else
+//      std::cout << " and it's a one way street.\n";
+//  }
 
   return 0;
 }
