@@ -1,8 +1,7 @@
-#ifndef CAL_T4GA4_STREET_H
-#define CAL_T4GA4_STREET_H
+#ifndef _STREET_H
+#define _STREET_H
 
 #include <string>
-#include "Location.h"
 #include "Node.h"
 
 class Street {
@@ -23,4 +22,4 @@ public:
 };
 
 
-#endif //CAL_T4GA4_STREET_H
+#endif //_STREET_H

@@ -5,25 +5,18 @@
 #include <vector>
 #include "Edge.h"
 
-class Edge;
 
 class Node {
 private:
   unsigned long id;                       // vertex Id
   std::pair<double, double> coordinates;
   std::vector<Edge> adj;  // outgoing edges
-  void addEdge(Node *dest, double w);
 
 public:
-  Node(unsigned long in, std::pair<double, double> coordinates);
+  Node(unsigned long id, std::pair<double, double> coordinates);
   unsigned long getId() const;
-  double getDist() const;
-  Node *getPath() const;
   std::pair<double, double> getCoordinates();
-  void setPath(Node *v);
-  friend class Graph;
-  friend class MutablePriorityQueue;
-  friend class Edge;
+  void addEdge(Node *dest);
 };
 
 

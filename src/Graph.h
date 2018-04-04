@@ -2,12 +2,7 @@
 #define GRAPH_H_
 
 #include <vector>
-
-class MutablePriorityQueue;
-class Node;
-class Edge;
-class Road;
-
+#include "Node.h"
 
 class Graph {
 private:
@@ -19,7 +14,7 @@ public:
 	std::vector<Node*> getNodeSet() const;
 	Node *findNode(const unsigned long &id) const;
 	bool addNode(Node &node);
-	bool addEdge(const unsigned long &sourc, const unsigned long &dest, double w);
+	bool addEdge(const unsigned long &sourc, const unsigned long &dest);
 };
 
 #endif /* GRAPH_H_ */

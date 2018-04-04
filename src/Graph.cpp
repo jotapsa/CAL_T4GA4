@@ -41,14 +41,14 @@ bool Graph::addNode(Node &node) {
 
 /*
  * Adds an edge to a graph (this), given the contents of the source and
- * destination vertices and the edge weight (w).
+ * destination vertices.
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
-bool Graph::addEdge(const unsigned long &sourc, const unsigned long &dest, double w) {
+bool Graph::addEdge(const unsigned long &sourc, const unsigned long &dest) {
   auto v1 = findNode(sourc);
   auto v2 = findNode(dest);
   if (v1 == NULL || v2 == NULL)
     return false;
-  v1->addEdge(v2,w);
+  v1->addEdge(v2);
   return true;
 }

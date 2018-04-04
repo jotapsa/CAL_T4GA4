@@ -8,8 +8,6 @@ include_directories(src)
 add_executable(CAL_T4GA4
         src/Connection.cpp
         src/Connection.h
-        src/Edge.cpp
-        src/Edge.h
         src/EdgeType.h
         src/Graph.cpp
         src/Graph.h
