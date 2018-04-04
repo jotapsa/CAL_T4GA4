@@ -3,25 +3,28 @@ project(CAL_T4GA4)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(project_part_1/src)
+include_directories(src)
 
 add_executable(CAL_T4GA4
-        project_part_1/src/Connection.cpp
-        project_part_1/src/Connection.h
-        project_part_1/src/EdgeType.h
-        project_part_1/src/GraphViewer.cpp
-        project_part_1/src/GraphViewer.h
-        project_part_1/src/main.cpp
-        project_part_1/src/Graph.h
-        project_part_1/src/MutablePriorityQueue.cpp
-        project_part_1/src/MutablePriorityQueue.h
-        project_part_1/src/Location.cpp
-        project_part_1/src/Location.cpp
-        project_part_1/src/Location.h
-        project_part_1/src/Vertex.cpp
-        project_part_1/src/Vertex.h
-        project_part_1/src/Edge.cpp
-        project_part_1/src/Edge.h
-        project_part_1/src/Street.cpp
-        project_part_1/src/Street.h
-        project_part_1/src/Graph.cpp project_part_1/src/Cli.cpp project_part_1/src/Cli.h)
+        resources/arestas.txt
+        resources/nos.txt
+        src/Connection.cpp
+        src/Connection.h
+        src/Edge.cpp
+        src/Edge.h
+        src/EdgeType.h
+        src/Graph.cpp
+        src/Graph.h
+        src/GraphViewer.cpp
+        src/GraphViewer.h
+        src/Location.cpp
+        src/Location.h
+        src/Location.h
+        src/MutablePriorityQueue.cpp
+        src/MutablePriorityQueue.h
+        src/Street.cpp
+        src/Street.h
+        src/Vertex.cpp
+        src/Vertex.h
+        src/main.cpp
+        GraphViewerController.jar)
