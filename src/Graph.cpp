@@ -31,11 +31,10 @@ Node * Graph::findNode(const unsigned long &id) const {
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
 bool Graph::addNode(Node &node) {
-
   if(findNode(node.getId()) != NULL)
     return false;
 
-  nodeSet->push_back(node);
+  nodeSet.push_back(&node);
 
   return true;
 }
