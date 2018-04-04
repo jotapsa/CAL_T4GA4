@@ -19,5 +19,5 @@ std::string Street::getName() {
 }
 
 bool Street::isStreetTwoWay() {
-  return this->isStreetTwoWay();
+  return this->twoWay;
 }

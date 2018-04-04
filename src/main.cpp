@@ -22,7 +22,7 @@ bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
   stringstream fileStream;
   unsigned long vertexID;
   double dLon, dLat, rLon, rLat;
-  string info;
+  std::string info;
   Location *toInsert = new Location(0,0,0,0);
 
   file.open(std::string(RESOURCES_DIR) + fileName);
@@ -32,6 +32,7 @@ bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
     return false;
   }
 
+  std::cout << "Reading vertex file: " << fileName << endl;
 
   while(file.eof() == false) {
 
@@ -61,7 +62,7 @@ bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
       clearStreams(fileStream, info);
     }
 
-    if(getline(file, info, ';')) {
+    if(getline(file, info)) {
       fileStream << info;
       fileStream >> rLon;
       clearStreams(fileStream, info);
@@ -72,12 +73,59 @@ bool readNodesAndInsertThemToGraphs(char* fileName, Graph &graph) {
     graph.addVertex(vertexID, *toInsert);
   }
 
+  file.close();
+
   return true;
 }
 
-bool readStreetNames(char* fileName, std::vector<Street> &streetsVector) {
+bool readStreetNames(char* fileName, std::vector<Street*> &streetsVector) {
 
-  //TODO read streets to a vector from "CAL_roads.txt".
+  fstream file;
+  stringstream fileStream;
+  std::string line;
+  unsigned long streetID;
+  std::string roadName;
+  bool twoWay;
+  Street *toInsert;
+
+  file.open(std::string(RESOURCES_DIR) + fileName);
+
+  if(!file.is_open()) {
+    cout << "File " << fileName << " could not be open! \n";
+    return false;
+  }
+
+  std::cout << "Reading roads file: " << fileName << endl;
+
+  while(file.eof() == false) {
+
+    clearStreams(fileStream, line);
+
+    if(getline(file, line, ';')) {
+      fileStream << line;
+      fileStream >> streetID;
+      clearStreams(fileStream, line);
+    }
+
+    if(getline(file, line, ';')) {
+      roadName = std::string(line);
+      clearStreams(fileStream, line);
+    }
+
+    if(getline(file, line)) {
+      if(line.compare("True") == true) {
+        twoWay = true;
+      }
+      else {
+        twoWay = false;
+      }
+    }
+
+    toInsert = new Street(streetID, roadName, twoWay);
+
+    streetsVector.push_back(toInsert);
+  }
+
   return true;
 }
 
@@ -171,15 +219,35 @@ int main (int argc, char* argv[]) {
 
   Graph nodesGraph = Graph();
 
-  std::vector<Street> streets;
+  std::vector<Street *> streets = std::vector<Street *>();
 
-  if(!readNodesAndInsertThemToGraphs(argv[1], nodesGraph))
-    std::cout << "Erro ao ler nós!\n";
-  else
-    std::cout << nodesGraph.getNumVertex() << " nós lidos com sucesso!\n";
+  if(readNodesAndInsertThemToGraphs(argv[1], nodesGraph)) {
+    std::cout << nodesGraph.getNumVertex() << " successfully read nodes!\n";
+  }
+  else {
+    std::cout << "Failed to read nodes from file: " << argv[1] << endl;
+  }
 
+  if(readStreetNames(argv[2], streets)) {
+    std::cout << streets.size() << " successfully read streets!!\n";
+  }
+  else {
+    std::cout << "Failed to streets nodes from file: " << argv[2] << endl;
+  }
 
-  //nodesGraph.printNodes();
+  //exercicio2();
+
+  nodesGraph.printNodes();
+
+  //Prints all read streets, must DELETE
+  for(auto road: streets) {
+    std::cout << "Street: " << road->getName() << " with ID: " << road->getId();
+
+    if(road->isStreetTwoWay())
+      std::cout << " and it's a two way street.\n";
+    else
+      std::cout << " and it's a one way street.\n";
+  }
 
   return 0;
 }
