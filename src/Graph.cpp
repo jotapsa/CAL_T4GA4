@@ -23,7 +23,7 @@ Node* Graph::findNode(const unsigned long &id) const {
       return node;
   }
 
-  return NULL;
+  return nullptr;
 }
 
 Street* Graph::findStreet(const unsigned long &id) const{
@@ -32,7 +32,7 @@ Street* Graph::findStreet(const unsigned long &id) const{
       return street;
   }
 
-  return NULL;
+  return nullptr;
 }
 
 /*
@@ -40,7 +40,7 @@ Street* Graph::findStreet(const unsigned long &id) const{
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
 bool Graph::addNode(Node &node) {
-  if(findNode(node.getID()) != NULL){
+  if(findNode(node.getID()) != nullptr){
     return false;
   }
 
@@ -57,7 +57,7 @@ bool Graph::addStreet(Street &street) {
 }
 
 bool Graph::addContainer(Container &container) {
-    if(findNode(container.getNode()->getID()) == NULL){
+    if(findNode(container.getNode()->getID()) == nullptr){
       return false;
     }
 
@@ -73,7 +73,7 @@ bool Graph::addContainer(Container &container) {
 bool Graph::addEdge(const unsigned long &sourc, const unsigned long &dest) {
   auto v1 = findNode(sourc);
   auto v2 = findNode(dest);
-  if (v1 == NULL || v2 == NULL)
+  if (v1 == nullptr || v2 == nullptr)
     return false;
   v1->addEdge(v2);
   return true;

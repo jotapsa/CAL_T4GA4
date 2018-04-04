@@ -9,45 +9,17 @@ using namespace std;
 stringstream fileStream;
 string info;
 
-void clearStreams(stringstream &s, string &info) {
-    s.clear();
-    info.clear();
-}
+std::vector<std::string> split(const std::string &s, const char &delim){
+    std::vector<std::string> splitStrings;
+    std::istringstream inSStream(s);
 
-unsigned long int readInt(fstream& file){
-    unsigned long int i;
+    std::string partX;
 
-    if(getline(file, info, ';')) {
-        fileStream << info;
-        fileStream >> i;
-        clearStreams(fileStream, info);
+    while (getline(inSStream, partX, delim)) {
+        splitStrings.push_back (partX);
     }
 
-    return i;
-}
-
-double readDouble(fstream& file){
-    double d;
-
-    if(getline(file, info, ';')) {
-        fileStream << info;
-        fileStream >> d;
-        clearStreams(fileStream, info);
-    }
-
-    return d;
-}
-
-string readString(fstream& file){
-    string s;
-
-    if(getline(file, info, ';')) {
-        fileStream << info;
-        fileStream >> s;
-        clearStreams(fileStream, info);
-    }
-
-    return s;
+    return splitStrings;
 }
 
 BuildingType getBuildingType(string type){
@@ -87,10 +59,11 @@ bool loadNodes(Graph &graph) {
     fstream file;
     unsigned long nodeID;
     double dLon, dLat, rLon, rLat;
-    string building, type;
+    string building, type, line;
     pair <double,double> coordinates;
+    vector<std::string> lineVector;
 
-    file.open(NODES_FILEPATH);
+    file.open(NODES_FILEPATH, std::ios::in);
 
     if(!file.is_open()) {
         cout << "File " << NODES_FILEPATH << " could not be open! \n";
@@ -99,16 +72,18 @@ bool loadNodes(Graph &graph) {
 
     std::cout << "Reading file: " << NODES_FILEPATH << endl;
 
+    while(getline(file,line)){
+
+    }
+
     while(!file.eof()) {
 
-        clearStreams(fileStream, info);
+        nodeID = stoul(lineVector.at(0));
 
-        nodeID = readInt(file);
-
-        dLat = readDouble(file);
-        dLon = readDouble(file);
-        rLat = readDouble(file);
-        rLon = readDouble(file);
+        dLat = stod(lineVector.at(1));
+        dLon = stod(lineVector.at(2));
+        rLat = stod(lineVector.at(3));
+        rLon = stod(lineVector.at(4));
 
         //TODO calculate X Y coordinates
         coordinates = make_pair(dLat,rLon);
@@ -117,27 +92,27 @@ bool loadNodes(Graph &graph) {
             return false;
         }
 
-        building = readString(file);
-
-        if(building.length() > 0){
-            switch(getBuildingType(building)){
-                case container:{
-                    type = readString(file);
-                    if(!graph.addContainer(*(new Container(*node, getGarbageType(type),0)))){
-                        return false;
-                    }
-                }
-                    break;
-                case station:
-                    break;
-                case garage:
-                    break;
-                default:
-                    return false;
-            }
-//            cout << building << endl;
+        if(lineVector.size() == 5){
+            continue;
         }
 
+        building = lineVector.at(5);
+
+        switch(getBuildingType(building)){
+            case container:{
+                type = lineVector.at(6);
+                if(!graph.addContainer(*(new Container(*node, getGarbageType(type),0)))){
+                    return false;
+                }
+            }
+                break;
+            case station:
+                break;
+            case garage:
+                break;
+            default:
+                return false;
+        }
 
         building.clear();
     }
@@ -150,9 +125,11 @@ bool loadNodes(Graph &graph) {
 bool loadEdges(Graph &graph) {
     fstream file;
     Node *n1, *n2;
-    unsigned long int id=0;
+    unsigned long int id=0, n1_id=0, n2_id=0;
+    std::string line;
+    vector<std::string> lineVector;
 
-    file.open(EDGES_FILEPATH);
+    file.open(EDGES_FILEPATH, std::ios::in);
 
     if(!file.is_open()) {
         cout << "File " << EDGES_FILEPATH << " could not be open! \n";
@@ -161,16 +138,15 @@ bool loadEdges(Graph &graph) {
 
     std::cout << "Reading file: " << EDGES_FILEPATH << endl;
 
-    while(!file.eof()) {
+    while(getline(file,line)){
+        lineVector = split(line,';');
 
-        clearStreams(fileStream, info);
+        id = stoul(lineVector.at(0));
+        n1_id = stoul(lineVector.at(1));
+        n2_id = stoul(lineVector.at(2));
 
-        id = readInt(file);
-
-        n1 = graph.findNode(readInt(file));
-        n2 = graph.findNode(readInt(file));
-
-        cout << id << endl;
+        n1 = graph.findNode(n1_id);
+        n2 = graph.findNode(n2_id);
 
         if(n1 == nullptr || n2 == nullptr){
             return false;
@@ -192,8 +168,10 @@ bool loadEdgesInfo(Graph &graph) {
     string name;
     EdgeType type;
     Street* street;
+    vector<std::string> lineVector;
+    std::string line;
 
-    file.open(EDGES_INFO_FILEPATH);
+    file.open(EDGES_INFO_FILEPATH, std::ios::in);
 
     if(!file.is_open()) {
         cout << "File " << EDGES_INFO_FILEPATH << " could not be open! \n";
@@ -202,21 +180,19 @@ bool loadEdgesInfo(Graph &graph) {
 
     std::cout << "Reading file: " << EDGES_INFO_FILEPATH << endl;
 
-    while(!file.eof()) {
-
-        clearStreams(fileStream, info);
-
-        id = readInt(file);
-
-        cout << id << endl;
+    while(getline(file,line)){
+        if(lineVector.size() != 3){
+            return false;
+        }
+        id = stoul(lineVector.at(0));
 
         street = graph.findStreet(id);
         if(street == nullptr){
             return false;
         }
 
-        name = readString(file);
-        type = readString(file) == "True" ? undirected : directed;
+        name = lineVector.at(1);
+        type = lineVector.at(2) == "True" ? undirected : directed;
 
         street->setName(name);
         street->setEdgeType(type);
