@@ -58,8 +58,8 @@ bool Graph::addStreet(Street &street) {
 }
 
 bool Graph::addContainer(Container &container) {
-    if(findNode(container.getNode()->getId()) != NULL)
-        return false;
+//    if(findNode(container.getNode()->getId()) != NULL)
+//        return false;
 
     containers.push_back(&container);
 

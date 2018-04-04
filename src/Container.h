@@ -12,7 +12,6 @@ private:
 
 public:
   Container(Node &node, garbageType type, double capacity);
-  Node* getNode();
   garbageType getType();
   double getCapacity();
 };

@@ -6,9 +6,48 @@
 
 using namespace std;
 
+stringstream fileStream;
+string info;
+
 void clearStreams(stringstream &s, string &info) {
     s.clear();
     info.clear();
+}
+
+unsigned long int readInt(fstream& file){
+    unsigned long int i;
+
+    if(getline(file, info, ';')) {
+        fileStream << info;
+        fileStream >> i;
+        clearStreams(fileStream, info);
+    }
+
+    return i;
+}
+
+double readDouble(fstream& file){
+    double d;
+
+    if(getline(file, info, ';')) {
+        fileStream << info;
+        fileStream >> d;
+        clearStreams(fileStream, info);
+    }
+
+    return d;
+}
+
+string readString(fstream& file){
+    string s;
+
+    if(getline(file, info, ';')) {
+        fileStream << info;
+        fileStream >> s;
+        clearStreams(fileStream, info);
+    }
+
+    return s;
 }
 
 BuildingType getBuildingType(string type){
@@ -22,16 +61,33 @@ BuildingType getBuildingType(string type){
         return garage;
     }
     else{
-        return none;
+//        return BuildingType.none;
+    }
+}
+
+garbageType getGarbageType(string type){
+    if(type == "glass"){
+        return glass;
+    }
+    else if(type == "plastic"){
+        return plastic;
+    }
+    else if(type == "paper"){
+        return paper;
+    }
+    else if(type == "generic"){
+        return generic;
+    }
+    else{
+//        return garbageType.none;
     }
 }
 
 bool loadNodes(Graph &graph) {
     fstream file;
-    stringstream fileStream;
     unsigned long nodeID;
     double dLon, dLat, rLon, rLat;
-    string info, building, type;
+    string building, type;
     pair <double,double> coordinates;
 
     file.open(NODES_FILEPATH);
@@ -47,57 +103,33 @@ bool loadNodes(Graph &graph) {
 
         clearStreams(fileStream, info);
 
-        if(getline(file, info, ';')) {
-            fileStream << info;
-            fileStream >> nodeID;
-            clearStreams(fileStream, info);
-        }
+        nodeID = readInt(file);
 
-        if(getline(file, info, ';')) {
-            fileStream << info;
-            fileStream >> dLat;
-            clearStreams(fileStream, info);
-        }
-
-        if(getline(file, info, ';')) {
-            fileStream << info;
-            fileStream >> dLon;
-            clearStreams(fileStream, info);
-        }
-
-        if(getline(file, info, ';')) {
-            fileStream << info;
-            fileStream >> rLat;
-            clearStreams(fileStream, info);
-        }
-
-        if(getline(file, info, ';')) {
-            fileStream << info;
-            fileStream >> rLon;
-            clearStreams(fileStream, info);
-        }
+        dLat = readDouble(file);
+        dLon = readDouble(file);
+        rLat = readDouble(file);
+        rLon = readDouble(file);
 
         //TODO calculate X Y coordinates
         coordinates = make_pair(dLat,rLon);
         Node* node = new Node(nodeID, coordinates);
         graph.addNode(*node);
 
-        if(getline(file, info, ';')) {
-            fileStream << info;
-            fileStream >> building;
-            clearStreams(fileStream, info);
-        }
+        building = readString(file);
 
         if(building.length() > 0){
             switch(getBuildingType(building)){
-                case container:
+                case container:{
+                    type = readString(file);
+                    graph.addContainer(*(new Container(*node, getGarbageType(type),0)));
+                }
                     break;
                 case station:
                     break;
                 case garage:
                     break;
                 default:
-                    break;
+                    return false;
             }
             cout << building << endl;
         }
@@ -112,9 +144,9 @@ bool loadNodes(Graph &graph) {
 }
 
 bool loadEdges(Graph &graph) {
-
+    return true;
 }
 
 bool loadEdgesInfo(Graph &graph) {
-
+    return true;
 }
