@@ -3,20 +3,26 @@
 
 #include <string>
 #include "Node.h"
+#include "Aux.h"
 
 class Street {
 private:
-  unsigned long id;
+  unsigned long int ID;
   std::string roadName;
   int edgeType;
-  Node * n1;
-  Node * n2;
+  Node *n1;
+  Node *n2;
 public:
-  Street(unsigned long id, std::string name, int edgeType);
-  unsigned long getId();
+  Street(unsigned long int ID, std::string name, int edgeType);
+  Street(unsigned long int ID, Node &n1, Node &n2);
+
+  unsigned long int getID();
   std::string getName();
   int getEdgeType();
-  void addNodes(Node *n1, Node *n2);
+
+  void setName(std::string name);
+  void setEdgeType(EdgeType type);
+  void addNodes(Node &n1, Node &n2);
   Node* getFirstNode(){return this->n1;}
   Node* getSecondNode(){return this->n2;}
 };

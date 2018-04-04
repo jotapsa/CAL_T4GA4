@@ -4,7 +4,6 @@
 #include "GraphViewer.h"
 #include "Graph.h"
 #include "Cli.h"
-#include "EdgeType.h"
 #include "GarbageManagement.h"
 //
 //void clearStreams(stringstream &s, string &info) {

@@ -1,12 +1,12 @@
 #include "Node.h"
 
-Node::Node(unsigned long in, std::pair<double, double> coordinates) {
-  this->id = in;
+Node::Node(unsigned long ID, std::pair<double, double> coordinates) {
+  this->ID = ID;
   this->coordinates = coordinates;
 }
 
-unsigned long Node::getId() const {
-  return this->id;
+unsigned long Node::getID() const {
+  return this->ID;
 }
 
 std::pair<double, double> Node::getCoordinates() {

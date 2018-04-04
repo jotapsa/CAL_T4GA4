@@ -24,5 +24,19 @@ bool GarbageManagement::load(){
 
 //    std::cout << this->graph.getContainers().size() << " containers!\n";
 
+    if(!loadEdges(this->graph)){
+        cout << "Failed to read edges!" << endl;
+        return false;
+    };
+
+    std::cout << this->graph.getStreets().size() << " edges were successfully read!\n";
+
+    if(!loadEdgesInfo(this->graph)){
+        cout << "Failed to read edges info!" << endl;
+        return false;
+    };
+
+    std::cout << this->graph.getStreets().size() << " edges were successfully updated!\n";
+
     return true;
 }

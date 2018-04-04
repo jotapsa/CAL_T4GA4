@@ -5,8 +5,8 @@
 #include "Graph.h"
 
 #define NODES_FILEPATH "../resources/nodes.txt"
-#define EDGES_INFO_FILEPATH "../resources/edges_info.txt"
 #define EDGES_FILEPATH "../resources/edges.txt"
+#define EDGES_INFO_FILEPATH "../resources/edges_info.txt"
 
 
 bool loadNodes(Graph &graph);

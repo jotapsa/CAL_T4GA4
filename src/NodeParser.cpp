@@ -97,9 +97,9 @@ bool loadNodes(Graph &graph) {
         return false;
     }
 
-    std::cout << "Reading vertex file: " << NODES_FILEPATH << endl;
+    std::cout << "Reading file: " << NODES_FILEPATH << endl;
 
-    while(file.eof() == false) {
+    while(!file.eof()) {
 
         clearStreams(fileStream, info);
 
@@ -113,7 +113,9 @@ bool loadNodes(Graph &graph) {
         //TODO calculate X Y coordinates
         coordinates = make_pair(dLat,rLon);
         Node* node = new Node(nodeID, coordinates);
-        graph.addNode(*node);
+        if(!graph.addNode(*node)){
+            return false;
+        }
 
         building = readString(file);
 
@@ -121,7 +123,9 @@ bool loadNodes(Graph &graph) {
             switch(getBuildingType(building)){
                 case container:{
                     type = readString(file);
-                    graph.addContainer(*(new Container(*node, getGarbageType(type),0)));
+                    if(!graph.addContainer(*(new Container(*node, getGarbageType(type),0)))){
+                        return false;
+                    }
                 }
                     break;
                 case station:
@@ -131,7 +135,7 @@ bool loadNodes(Graph &graph) {
                 default:
                     return false;
             }
-            cout << building << endl;
+//            cout << building << endl;
         }
 
 
@@ -144,9 +148,81 @@ bool loadNodes(Graph &graph) {
 }
 
 bool loadEdges(Graph &graph) {
+    fstream file;
+    Node *n1, *n2;
+    unsigned long int id=0;
+
+    file.open(EDGES_FILEPATH);
+
+    if(!file.is_open()) {
+        cout << "File " << EDGES_FILEPATH << " could not be open! \n";
+        return false;
+    }
+
+    std::cout << "Reading file: " << EDGES_FILEPATH << endl;
+
+    while(!file.eof()) {
+
+        clearStreams(fileStream, info);
+
+        id = readInt(file);
+
+        n1 = graph.findNode(readInt(file));
+        n2 = graph.findNode(readInt(file));
+
+        cout << id << endl;
+
+        if(n1 == nullptr || n2 == nullptr){
+            return false;
+        }
+
+        if(!graph.addStreet(*(new Street(id,*n1,*n2)))){
+            return false;
+        }
+    }
+
+    file.close();
+
     return true;
 }
 
 bool loadEdgesInfo(Graph &graph) {
+    fstream file;
+    unsigned long int id=0;
+    string name;
+    EdgeType type;
+    Street* street;
+
+    file.open(EDGES_INFO_FILEPATH);
+
+    if(!file.is_open()) {
+        cout << "File " << EDGES_INFO_FILEPATH << " could not be open! \n";
+        return false;
+    }
+
+    std::cout << "Reading file: " << EDGES_INFO_FILEPATH << endl;
+
+    while(!file.eof()) {
+
+        clearStreams(fileStream, info);
+
+        id = readInt(file);
+
+        cout << id << endl;
+
+        street = graph.findStreet(id);
+        if(street == nullptr){
+            return false;
+        }
+
+        name = readString(file);
+        type = readString(file) == "True" ? undirected : directed;
+
+        street->setName(name);
+        street->setEdgeType(type);
+    }
+
+    file.close();
+
     return true;
 }

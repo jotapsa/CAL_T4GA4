@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include "Node.h"
+#include <iostream>
 
 Graph::Graph() {
   this->nodeSet = std::vector<Node*>();
@@ -16,20 +17,19 @@ std::vector<Node *> Graph::getNodeSet() const {
 /*
  * Auxiliary function to find a node with a given id.
  */
-Node * Graph::findNode(const unsigned long &id) const {
-
-  for(auto n : nodeSet) {
-    if (n->getId() == id)
-      return n;
+Node* Graph::findNode(const unsigned long &id) const {
+  for(auto node : nodeSet) {
+    if (node->getID() == id)
+      return node;
   }
 
   return NULL;
 }
 
-Street *Graph::findStreet(const unsigned long &id) {
-  for(auto s : streets) {
-    if (s->getId() == id)
-      return s;
+Street* Graph::findStreet(const unsigned long &id) const{
+  for(auto street : streets) {
+    if (street->getID() == id)
+      return street;
   }
 
   return NULL;
@@ -40,29 +40,28 @@ Street *Graph::findStreet(const unsigned long &id) {
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
 bool Graph::addNode(Node &node) {
-  if(findNode(node.getId()) != NULL)
+  if(findNode(node.getID()) != NULL){
     return false;
+  }
 
   nodeSet.push_back(&node);
-
   return true;
 }
 
 bool Graph::addStreet(Street &street) {
-  if(findStreet(street.getId()) != NULL)
-    return false;
+//  if(findStreet(street.getID()) != NULL)
+//    return false;
 
   streets.push_back(&street);
-
   return true;
 }
 
 bool Graph::addContainer(Container &container) {
-//    if(findNode(container.getNode()->getId()) != NULL)
-//        return false;
+    if(findNode(container.getNode()->getID()) == NULL){
+      return false;
+    }
 
     containers.push_back(&container);
-
     return true;
 }
 

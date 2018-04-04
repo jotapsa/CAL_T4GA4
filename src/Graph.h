@@ -22,7 +22,7 @@ public:
 	std::vector<Building *> getContainers(){return this->containers;}
 
 	Node *findNode(const unsigned long &id) const;
-	Street* findStreet(const unsigned long &id);
+	Street* findStreet(const unsigned long &id) const;
 
 	bool addNode(Node &node);
 	bool addStreet(Street &street);

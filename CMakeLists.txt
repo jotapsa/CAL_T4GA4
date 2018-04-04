@@ -18,7 +18,6 @@ add_executable(CAL_T4GA4
         src/Edge.h
         src/Connection.cpp
         src/Connection.h
-        src/EdgeType.h
         src/Graph.cpp
         src/Graph.h
         src/GraphViewer.cpp

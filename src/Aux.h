@@ -9,4 +9,8 @@ enum BuildingType{
     container, station, garage
 };
 
+enum EdgeType{
+    undirected, directed
+};
+
 #endif
