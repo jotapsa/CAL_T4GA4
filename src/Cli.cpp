@@ -1,11 +1,20 @@
 #include "Cli.h"
 #include <iostream>
 
+bool readConfirmation() {
+    std::string temp;
+    do{
+        std::cout << "[Y/n]: ";
+        getline(std::cin, temp);
+    }while(temp != "Y" &&
+           temp !="y" &&
+           temp != "N" &&
+           temp != "n");
 
-Cli::Cli() {
-    this->exp = 1;
-}
-
-void Cli::menu() {
-    std::cout << "Hello world! " << std::endl;
+    if(temp == "Y" || temp == "y"){
+        return true;
+    }
+    else{
+        return false;
+    }
 }

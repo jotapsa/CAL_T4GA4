@@ -1,6 +1,6 @@
 #include "GraphViewer.h"
 #include <string>
-#include<sstream>
+#include <sstream>
 
 #if linux || __APPLE__
 pid_t GraphViewer::procId = NULL;

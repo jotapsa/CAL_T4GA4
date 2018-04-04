@@ -1,9 +1,5 @@
-//
-// Created by dnc on 31-03-2018.
-//
-
-#ifndef CAL_T4GA4_EDGE_H
-#define CAL_T4GA4_EDGE_H
+#ifndef _EDGE_H
+#define _EDGE_H
 
 #include "Node.h"
 
@@ -11,14 +7,10 @@ class Node;
 
 class Edge {
 private:
-  Node* dest;      // destination vertex
-  double weight;         // edge weight
+  Node *dest;      // destination vertex
 public:
-    Edge(Node *d, double w);
+    Edge(Node *d);
     Node getDestination();
-    double getWeight();
-    friend class Graph;
-    friend class Vertex;
 };
 
-#endif //CAL_T4GA4_EDGE_H
+#endif
