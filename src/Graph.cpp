@@ -49,12 +49,21 @@ bool Graph::addNode(Node &node) {
 }
 
 bool Graph::addStreet(Street &street) {
-  if(findNode(street.getId()) != NULL)
+  if(findStreet(street.getId()) != NULL)
     return false;
 
   streets.push_back(&street);
 
   return true;
+}
+
+bool Graph::addContainer(Container &container) {
+    if(findNode(container.getNode()->getId()) != NULL)
+        return false;
+
+    containers.push_back(&container);
+
+    return true;
 }
 
 /*

@@ -5,4 +5,8 @@ enum garbageType{
   glass, plastic, paper, generic
 };
 
+enum BuildingType{
+    container, station, garage, none //
+};
+
 #endif

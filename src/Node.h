@@ -10,7 +10,7 @@ class Node {
 private:
   unsigned long id;                       // vertex Id
   std::pair<double, double> coordinates;
-  std::vector<Edge> adj;  // outgoing edges
+//  std::vector<Edge> adj;  // outgoing edges
 
 public:
   Node(unsigned long id, std::pair<double, double> coordinates);

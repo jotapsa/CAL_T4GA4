@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "Aux.h"
 
 using namespace std;
 
@@ -10,12 +11,27 @@ void clearStreams(stringstream &s, string &info) {
     info.clear();
 }
 
-bool NodeParser::loadNodes(Graph &graph) {
+BuildingType getBuildingType(string type){
+    if(type == "container"){
+        return container;
+    }
+    else if(type == "station"){
+        return station;
+    }
+    else if(type == "garage"){
+        return garage;
+    }
+    else{
+        return none;
+    }
+}
+
+bool loadNodes(Graph &graph) {
     fstream file;
     stringstream fileStream;
     unsigned long nodeID;
     double dLon, dLat, rLon, rLat;
-    std::string info;
+    string info, building, type;
     pair <double,double> coordinates;
 
     file.open(NODES_FILEPATH);
@@ -51,11 +67,11 @@ bool NodeParser::loadNodes(Graph &graph) {
 
         if(getline(file, info, ';')) {
             fileStream << info;
-            fileStream >> rLon;
+            fileStream >> rLat;
             clearStreams(fileStream, info);
         }
 
-        if(getline(file, info)) {
+        if(getline(file, info, ';')) {
             fileStream << info;
             fileStream >> rLon;
             clearStreams(fileStream, info);
@@ -64,8 +80,30 @@ bool NodeParser::loadNodes(Graph &graph) {
         //TODO calculate X Y coordinates
         coordinates = make_pair(dLat,rLon);
         Node* node = new Node(nodeID, coordinates);
-
         graph.addNode(*node);
+
+        if(getline(file, info, ';')) {
+            fileStream << info;
+            fileStream >> building;
+            clearStreams(fileStream, info);
+        }
+
+        if(building.length() > 0){
+            switch(getBuildingType(building)){
+                case container:
+                    break;
+                case station:
+                    break;
+                case garage:
+                    break;
+                default:
+                    break;
+            }
+            cout << building << endl;
+        }
+
+
+        building.clear();
     }
 
     file.close();
@@ -73,10 +111,10 @@ bool NodeParser::loadNodes(Graph &graph) {
     return true;
 }
 
-bool NodeParser::loadEdges(Graph &graph) {
+bool loadEdges(Graph &graph) {
 
 }
 
-bool NodeParser::loadEdgesInfo(Graph &graph) {
+bool loadEdgesInfo(Graph &graph) {
 
 }

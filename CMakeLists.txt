@@ -7,7 +7,6 @@ include_directories(src)
 
 add_executable(CAL_T4GA4
         src/main.cpp
-        src/main.h
         src/NodeParser.cpp
         src/NodeParser.h
         src/GarbageManagement.cpp
@@ -15,6 +14,8 @@ add_executable(CAL_T4GA4
         src/Container.cpp
         src/Container.h
         src/Aux.h
+        src/Edge.cpp
+        src/Edge.h
         src/Connection.cpp
         src/Connection.h
         src/EdgeType.h
@@ -28,4 +29,6 @@ add_executable(CAL_T4GA4
         src/Node.h
         src/Cli.cpp
         src/Cli.h
-        GraphViewerController.jar src/Place.cpp src/Place.h)
+        GraphViewerController.jar
+        src/Building.cpp
+        src/Building.h)

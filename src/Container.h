@@ -2,14 +2,17 @@
 #define _CONTAINER_H
 
 #include "Aux.h"
-#include "Place.h"
+#include "Building.h"
 
-class Container : public Place{
+class Container : public Building{
 private:
+    Node* node;
   garbageType type;
   double capacity;
+
 public:
   Container(Node &node, garbageType type, double capacity);
+  Node* getNode();
   garbageType getType();
   double getCapacity();
 };

@@ -2,19 +2,17 @@
 #define _GARBAGEMANAGEMENT_H_
 
 #include "Graph.h"
-#include "GraphViewer.h"
 
 class GarbageManagement{
 private:
-  GraphViewer *viewer;
-  Graph graph;
+    Graph graph;
 
 public:
-  GarbageManagement();
+    GarbageManagement();
 
-  virtual ~GarbageManagement();
+    virtual ~GarbageManagement();
 
-  void loadNodes();
+  bool load();
 };
 
 #endif

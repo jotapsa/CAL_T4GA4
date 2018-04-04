@@ -18,6 +18,6 @@ std::pair<double, double> Node::getCoordinates() {
  * with a given destination vertex (d).
  */
 void Node::addEdge(Node *d) {
-  adj.push_back(Edge(d));
+//  adj.push_back(Edge(d));
 }
 
