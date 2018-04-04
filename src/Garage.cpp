@@ -1,7 +1,3 @@
-//
-// Created by dnc on 04-04-2018.
-//
-
 #include "Garage.h"
 
 Garage::Garage(Node &node, std::vector<Vehicle> &vehicles) : Building(node) {

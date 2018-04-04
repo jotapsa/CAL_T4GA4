@@ -1,7 +1,3 @@
-//
-// Created by dnc on 04-04-2018.
-//
-
 #include "Station.h"
 
 Station::Station(Node &node, double capacity, garbageType garbage) : Building(node) {

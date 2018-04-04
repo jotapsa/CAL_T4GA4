@@ -1,9 +1,5 @@
-//
-// Created by dnc on 04-04-2018.
-//
-
-#ifndef CAL_T4GA4_STATION_H
-#define CAL_T4GA4_STATION_H
+#ifndef _STATION_H
+#define _STATION_H
 
 
 #include "Building.h"
@@ -19,4 +15,4 @@ public:
 };
 
 
-#endif //CAL_T4GA4_STATION_H
+#endif //_STATION_H

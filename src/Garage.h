@@ -1,9 +1,5 @@
-//
-// Created by dnc on 04-04-2018.
-//
-
-#ifndef CAL_T4GA4_GARAGE_H
-#define CAL_T4GA4_GARAGE_H
+#ifndef _GARAGE_H
+#define _GARAGE_H
 
 #include "Building.h"
 #include "Vehicle.h"
@@ -17,4 +13,4 @@ public:
   int getNumberOfEmptyTrucks();
 };
 
-#endif //CAL_T4GA4_GARAGE_H
+#endif //_GARAGE_H
