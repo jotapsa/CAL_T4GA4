@@ -26,6 +26,15 @@ Node * Graph::findNode(const unsigned long &id) const {
   return NULL;
 }
 
+Street *Graph::findStreet(const unsigned long &id) {
+  for(auto s : streets) {
+    if (s->getId() == id)
+      return s;
+  }
+
+  return NULL;
+}
+
 /*
  *  Adds a vertex with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a vertex with that content already exists.
@@ -35,6 +44,15 @@ bool Graph::addNode(Node &node) {
     return false;
 
   nodeSet.push_back(&node);
+
+  return true;
+}
+
+bool Graph::addStreet(Street &street) {
+  if(findNode(street.getId()) != NULL)
+    return false;
+
+  streets.push_back(&street);
 
   return true;
 }
