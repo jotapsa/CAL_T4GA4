@@ -5,7 +5,7 @@
 #include "Location.h"
 
 
-Location::Location(double dLon, double dLat, double rLon, double rLat){
+Location::Location(double dLat, double dLon, double rLat, double rLon){
 
   this->dLon = dLon;
 

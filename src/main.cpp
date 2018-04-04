@@ -54,7 +54,7 @@ bool readNodes(char *filePath, Graph &graph) {
 
     if(getline(file, info, ';')) {
       fileStream << info;
-      fileStream >> rLon;
+      fileStream >> rLat;
       clearStreams(fileStream, info);
     }
 
@@ -229,7 +229,11 @@ int main (int argc, char* argv[]) {
     std::cout << "Failed to read subroads nodes from file: " << SUBROADS_FILEPATH << endl;
   }
 
-    std::cout << streets.at(0)->getFirstNode()->getId() << endl;
+    ofstream Nodes("Nodes.txt");
+
+    for(Node* node : nodesGraph.getVertexSet()){
+        Nodes << node->getId() << ";" << node->getLocation().dLat << ";" << node->getLocation().dLon << ";" << node->getLocation().rLat << ";" << node->getLocation().rLon << endl;
+    }
 
   return 0;
 }

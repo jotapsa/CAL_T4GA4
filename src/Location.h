@@ -3,11 +3,16 @@
 
 class Location {
 private:
-  double dLon;
-  double dLat;
-  double rLon;
-  double rLat;
+
 public:
+    double dLon;
+    double dLat;
+    double rLon;
+    double rLat;
+//    double getDLAT(){return this->dLat;}
+//    double getDLON(){return this->dLon;}
+//    double getRLON(){return this->rLon;}
+//    double getRLAT(){return this->rLat;}
   Location(double dLon, double dLat, double rLon, double rLat);
   double getLongitudeInDegrees();
   double getLatitudeInDegrees();
