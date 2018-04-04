@@ -2,29 +2,19 @@
 #define _NODE_H
 
 #include <string>
-#include <iostream>
-#include "Location.h"
-#include "MutablePriorityQueue.h"
+#include <vector>
 #include "Edge.h"
 
 class Edge;
-class Location;
 
 class Node {
   unsigned long id;                       // vertex Id
-  Location coordinates = Location(0, 0, 0, 0);       // vertex coordinates
+  std::pair<double, double> coordinates;
   std::vector<Edge> adj;  // outgoing edges
-  bool visited;               // auxiliary field
-  double dist = 0;            //algorithm distance
-  double geoDist = 0;         //geo distance to source vertex for A*
-  Node *path = NULL;
-  bool processing = false;
   void addEdge(Node *dest, double w);
 
 public:
-  int queueIndex = 0; 		    // required by MutablePriorityQueue
-  Node(unsigned long in, Location &l);
-  bool operator<(Node & vertex) const; // // required by MutablePriorityQueue
+  Node(unsigned long in, std::pair<double, double> coordinates);
   unsigned long getId() const;
   double getDist() const;
   Node *getPath() const;

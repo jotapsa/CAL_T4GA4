@@ -15,11 +15,6 @@ add_executable(CAL_T4GA4
         src/Graph.h
         src/GraphViewer.cpp
         src/GraphViewer.h
-        src/Location.cpp
-        src/Location.h
-        src/Location.h
-        src/MutablePriorityQueue.cpp
-        src/MutablePriorityQueue.h
         src/Street.cpp
         src/Street.h
         src/Node.cpp

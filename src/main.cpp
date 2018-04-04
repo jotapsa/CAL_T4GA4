@@ -19,7 +19,6 @@ bool readNodes(char *filePath, Graph &graph) {
   unsigned long vertexID;
   double dLon, dLat, rLon, rLat;
   std::string info;
-  Location *toInsert = new Location(0,0,0,0);
 
   file.open(filePath);
 
@@ -64,7 +63,6 @@ bool readNodes(char *filePath, Graph &graph) {
       clearStreams(fileStream, info);
     }
 
-    toInsert = new Location(dLat,dLon,rLat,rLon);
 
     graph.addVertex(vertexID, *toInsert);
   }
