@@ -2,9 +2,10 @@
 
 class Location;
 
-Node::Node(unsigned long in, Location &l) {
+Node::Node(unsigned long in, std::pair<double, double> coordinates) {
   this->id = in;
-  this->coordinates = l;
+  this->coordinates.first = coordinates.first;
+  this->coordinates.second = coordinates.second;
 }
 
 /*
@@ -37,11 +38,6 @@ void Node::setPath(Node *v)
   this->path = v;
 }
 
-Location  Node::getLocation() const {
+std::pair<double, double> Node::getCoordinates() {
   return this->coordinates;
-}
-
-void Node::print() {
-
-  std::cout << "ID: " << this->getId() << " Latitude: " << this->getLocation().getLatitudeInDegrees() << " Longitude: " << this->getLocation().getLongitudeInDegrees() << std::endl;
-}
+};
