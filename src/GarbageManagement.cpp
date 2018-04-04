@@ -10,9 +10,19 @@ GarbageManagement::GarbageManagement() {
     };
 }
 
-GarbageManagement::~GarbageManagement() {
-    // TODO Auto-generated destructor stub
+Graph GarbageManagement::getGraph(){
+    return this->graph;
 }
+
+std::vector<Container> GarbageManagement::getContainers() {
+    return this->containers;
+}
+
+void GarbageManagement::addContainer(Container container) {
+    this->containers.push_back(container);
+//    this->graph.addNode(container);
+}
+
 
 bool GarbageManagement::load(){
     if(!loadNodes(this->graph)){
@@ -39,4 +49,8 @@ bool GarbageManagement::load(){
     std::cout << this->graph.getStreets().size() << " edges were successfully updated!\n";
 
     return true;
+}
+
+GarbageManagement::~GarbageManagement() {
+    // TODO Auto-generated destructor stub
 }
