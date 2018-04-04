@@ -3,6 +3,7 @@
 #include <sstream>
 #include "GraphViewer.h"
 #include "Graph.h"
+#include "Cli.h"
 #include "main.h"
 
 void clearStreams(stringstream &s, string &info) {
@@ -147,6 +148,10 @@ int main (int argc, char* argv[]) {
   else {
     std::cout << "Failed to streets nodes from file: " << ROADS_FILEPATH << endl;
   }
+
+  Cli *cli = new Cli();
+
+  cli->menu();
 
 //  nodesGraph.printNodes();
 //

@@ -1,11 +1,15 @@
-#ifndef CAL_T4GA4_CLI_H
-#define CAL_T4GA4_CLI_H
+#ifndef _CLI_H
+#define _CLI_H
 
 
 class Cli {
+    int exp;
 
-  //TODO class that interacts with user and GraphViewer
+    public:
+
+    Cli();
+    void menu();
 };
 
 
-#endif //CAL_T4GA4_CLI_H
+#endif //_CLI_H
