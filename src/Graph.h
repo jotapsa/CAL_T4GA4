@@ -11,8 +11,9 @@
 template <class T> class Edge;
 template <class T> class Graph;
 
-//TODO: c/ duarte djiskstra, bfs
+//TODO: bfs
 //TODO: unweighted shortest path, A*
+
 template <class T>
 class Graph {
 private:
@@ -31,7 +32,7 @@ public:
     bool removeEdge(const T &sourc, const T &dest);
 
     bool relax(Node<T> *source, Node<T> *way, double weight);
-    void dijkstraShortestPath(const T &source);
+    void dijkstraShortestPath(const T &sourceInfo);
 
     std::vector<T> depthFirstSearch() const;
     std::vector<T> bellmanFordSearch(const T &source) const;
