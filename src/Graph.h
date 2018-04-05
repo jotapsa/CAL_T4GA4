@@ -41,10 +41,6 @@
 template <class T> class Edge;
 template <class T> class Graph;
 
-
-/****************** Provided structures  ********************/
-
-
 template <class T>
 class Graph {
 private:
@@ -91,7 +87,7 @@ unsigned long Graph<T>::getNumNodes() const {
  */
 template <class T>
 bool Graph<T>::addNode(const T &in) {
-    if(getNode(in) == nullptr){
+    if(getNode(in) != nullptr){
         return false;
     }
 

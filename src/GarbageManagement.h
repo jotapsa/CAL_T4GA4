@@ -1,8 +1,8 @@
 #ifndef _GARBAGEMANAGEMENT_H_
 #define _GARBAGEMANAGEMENT_H_
 
-#include <stdlib.h>
-#include <time.h>
+#include <cstdlib>
+#include <ctime>
 #include <limits>
 #include "Graph.h"
 #include "Station.h"

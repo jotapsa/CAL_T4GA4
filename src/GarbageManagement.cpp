@@ -1,6 +1,7 @@
 #include "GarbageManagement.h"
 #include <iostream>
 #include <cmath>
+#include <sstream>
 
 GarbageManagement::GarbageManagement() {
 }
@@ -26,9 +27,12 @@ std::vector<Street *> GarbageManagement::getStreets() {
 }
 
 void GarbageManagement::addPlace(Place *place) {
-//     if(!this->graph.addNode(place)){
-//         //already exists
-//     }
+    std::string str;
+    std::stringstream strstream;
+
+    if(!this->graph.addNode(*(place))){
+        std::cout << "Node " << place->getId() << " already in graph." << std::endl;
+    }
 }
 
 void GarbageManagement::addContainer(Container *container) {
@@ -60,7 +64,7 @@ Garage * GarbageManagement::getGarage(unsigned long garageId) {
 void GarbageManagement::addVehicle(unsigned long garageId, Vehicle vehicle) {
     Garage *garage= this->getGarage(garageId);
     garage->addVehicle(vehicle);
-    
+
 }
 
 void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type,
