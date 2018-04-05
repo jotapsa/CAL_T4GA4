@@ -14,6 +14,11 @@ int main (int argc, char* argv[]) {
             return 1;
         }
 
+        if(!loadBuildings(management)){
+            std::cout << "Failed to read buildings!" << std::endl;
+            return 1;
+        }
+
         if(!loadEdges(management)){
             std::cout << "Failed to read edges!" << std::endl;
             return 1;
