@@ -1,6 +1,6 @@
 #include "Container.h"
 
-Container::Container(Node &node, garbageType type, double capacity) : Building(node){
+Container::Container(Node *node, garbageType type, double capacity) : Building(node){
   this->type = type;
   this->capacity = capacity;
 }

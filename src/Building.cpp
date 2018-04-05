@@ -1,7 +1,7 @@
 #include "Building.h"
 
-Building::Building(Node &node) {
-  this->node = &node;
+Building::Building(Node *node) {
+  this->node = node;
 }
 
 Node* Building::getNode(){

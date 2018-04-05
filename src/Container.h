@@ -6,14 +6,12 @@
 
 class Container : public Building{
 private:
-    Node* node;
-  garbageType type;
-  double capacity;
-
+    garbageType type;
+    double capacity;
 public:
-  Container(Node &node, garbageType type, double capacity);
-  garbageType getType();
-  double getCapacity();
+    Container(Node *node, garbageType type, double capacity);
+    garbageType getType();
+    double getCapacity();
 };
 
 #endif

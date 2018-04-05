@@ -10,8 +10,8 @@ class Building{
 protected:
   Node *node;
 public:
-  explicit Building(Node &node);
-  Node* getNode();
+  explicit Building(Node *node);
+  Node * getNode();
 };
 
 #endif /* _BUILDING_H_ */

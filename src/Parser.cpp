@@ -103,12 +103,12 @@ bool loadNodes(GarbageManagement &management) {
         switch(getBuildingType(building)){
             case container:{
                 type = lineVector.at(6);
-                management.addContainer(new Container(*node, getGarbageType(type),0));
+                management.addContainer(new Container(node, getGarbageType(type),0));
                 break;
             }
             case station:{
                 type = lineVector.at(6);
-                management.addStation(new Station(*node,getGarbageType(type),0));
+                management.addStation(new Station(node,getGarbageType(type),0));
                 break;
             }
             case garage:{

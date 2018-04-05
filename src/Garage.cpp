@@ -1,14 +1,14 @@
 #include "Garage.h"
 
-Garage::Garage(Node &node) : Building(node) {
+Garage::Garage(Node *node) : Building(node) {
 }
 
 
-Garage::Garage(Node &node, std::vector<Vehicle> &vehicles) : Building(node) {
+Garage::Garage(Node *node, std::vector<Vehicle> &vehicles) : Building(node) {
     this->vehicles = vehicles;
 }
 
-int Garage::getNumberOfVehicles() {
+unsigned long Garage::getNumberOfVehicles() {
     return this->vehicles.size();
 }
 
