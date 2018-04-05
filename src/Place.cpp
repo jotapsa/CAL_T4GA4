@@ -8,7 +8,7 @@ Place::Place(unsigned long id, std::pair<double, double> coordinates) {
     this->coordinates = coordinates;
 }
 
-unsigned long Place::getId() const{
+unsigned long Place::getID() const{
     return this->id;
 }
 
@@ -17,5 +17,5 @@ std::pair<double, double> Place::getCoordinates() {
 }
 
 bool Place::operator==(const Place& o){
-    return this->id == o.getId();
+    return this->id == o.getID();
 }

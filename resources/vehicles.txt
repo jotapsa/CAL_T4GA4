@@ -1,2 +1,2 @@
 1;03-11-VV;generic;1500
-2;03-BZ-45;plastic;2000
+3;03-BZ-15;plastic;3000

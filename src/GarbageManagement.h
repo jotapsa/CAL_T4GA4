@@ -29,19 +29,20 @@ public:
     std::vector<Station *> getStations();
     std::vector<Garage *> getGarages();
     std::vector<Street *> getStreets();
+    std::vector<Vehicle *> getVehicles(unsigned long int garageID);
 
     Place *getPlace(unsigned long id);
     Place *getEmptyPlace(unsigned long id);
-    Container *getContainer(unsigned long containerId);
-    Station *getStation(unsigned long stationId);
-    Garage * getGarage(unsigned long garageId);
+    Container *getContainer(unsigned long containerID);
+    Station *getStation(unsigned long stationID);
+    Garage * getGarage(unsigned long garageID);
 
     void addPlace(Place *place);
     void addContainer(Container *container);
     void addStation(Station *station);
     void addGarage(Garage *garage);
-    void addVehicle(unsigned long garageId, Vehicle *vehicle);
-    void addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type, std::string name);
+    void addVehicle(unsigned long garageID, Vehicle *vehicle);
+    void addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
     unsigned long getValidNodeID();
 
     virtual ~GarbageManagement();

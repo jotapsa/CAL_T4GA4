@@ -28,28 +28,28 @@ std::vector<Street *> GarbageManagement::getStreets() {
 void GarbageManagement::addPlace(Place *place) {
     this->places.push_back(place);
     if(!this->graph.addNode(*(place))){
-        std::cout << "Node " << place->getId() << " already in graph." << std::endl;
+        std::cout << "Node " << place->getID() << " already in graph." << std::endl;
     }
 }
 
 void GarbageManagement::addContainer(Container *container) {
     this->containers.push_back(container);
     if(!this->graph.addNode(*(container))){
-        std::cout << "Node " << container->getId() << " already in graph." << std::endl;
+        std::cout << "Node " << container->getID() << " already in graph." << std::endl;
     }
 }
 
 void GarbageManagement::addStation(Station *station) {
     this->stations.push_back(station);
     if(!this->graph.addNode(*(station))){
-        std::cout << "Node " << station->getId() << " already in graph." << std::endl;
+        std::cout << "Node " << station->getID() << " already in graph." << std::endl;
     }
 }
 
 void GarbageManagement::addGarage(Garage *garage) {
     this->garages.push_back(garage);
     if(!this->graph.addNode(*(garage))){
-        std::cout << "Node " << garage->getId() << " already in graph." << std::endl;
+        std::cout << "Node " << garage->getID() << " already in graph." << std::endl;
     }
 }
 
@@ -78,51 +78,59 @@ Place * GarbageManagement::getPlace(unsigned long id){
 
 Place *  GarbageManagement::getEmptyPlace(unsigned long id){
     for(auto p: places){
-        if(p->getId() == id){
+        if(p->getID() == id){
             return p;
         }
     }
     return nullptr;
 }
 
-Container * GarbageManagement::getContainer(unsigned long containerId){
+Container * GarbageManagement::getContainer(unsigned long containerID){
     for(auto c: containers){
-        if(c->getId() == containerId){
+        if(c->getID() == containerID){
             return c;
         }
     }
     return nullptr;
 }
 
-Station *GarbageManagement::getStation(unsigned long stationId) {
+Station *GarbageManagement::getStation(unsigned long stationID) {
     for(auto s: stations){
-        if(s->getId() == stationId){
+        if(s->getID() == stationID){
             return s;
         }
     }
     return nullptr;
 }
 
-Garage * GarbageManagement::getGarage(unsigned long garageId) {
+Garage * GarbageManagement::getGarage(unsigned long garageID) {
     for(auto g: garages){
-        if(g->getId() == garageId){
+        if(g->getID() == garageID){
             return g;
         }
     }
     return nullptr;
 }
 
-
-void GarbageManagement::addVehicle(unsigned long garageId, Vehicle *vehicle) {
-    Garage *garage= this->getGarage(garageId);
-    garage->addVehicle(vehicle);
-
+std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) {
+    Garage *garage= this->getGarage(garageID);
+    if(garage != nullptr){
+        return garage->getVehicles();
+    }
 }
 
-void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type,
+
+void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
+    Garage *garage= this->getGarage(garageID);
+    if(garage != nullptr){
+        garage->addVehicle(vehicle);
+    }
+}
+
+void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type,
                                 std::string name) {
-    Place *sourceNode = getPlace(nodeIds.first);
-    Place *destNode = getPlace(nodeIds.second);
+    Place *sourceNode = getPlace(nodeIDs.first);
+    Place *destNode = getPlace(nodeIDs.second);
 
     if(sourceNode == nullptr || destNode == nullptr){
         std::cout << "Couldn't find nodes" << std::endl;
@@ -142,7 +150,7 @@ void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned
 
 
     this->streets.push_back(new Street(sourceNode, destNode, name));
-    this->graph.addEdge(nodeIds.first, nodeIds.second, weight, type);
+    this->graph.addEdge(nodeIDs.first, nodeIDs.second, weight, type);
 }
 
 //void GarbageManagement::insertNodeAt(double latitude, double longitude) {

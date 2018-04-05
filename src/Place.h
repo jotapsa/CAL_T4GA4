@@ -10,7 +10,7 @@ protected:
 public:
   Place(unsigned long id);
   Place(unsigned long id, std::pair<double, double> coordinates);
-  unsigned long getId() const;
+  unsigned long getID() const;
   std::pair<double, double> getCoordinates();
   bool operator==(const Place& o);
 };

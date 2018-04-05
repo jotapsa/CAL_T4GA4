@@ -123,28 +123,25 @@ Vehicle_T createVehicle(vector<std::string> line){
     return vehicle;
 }
 
-bool getVehicles(std::vector<Vehicle *> *vehicles, vector<std::string> line){
-    unsigned long int ID;
+Vehicle* getVehicle(unsigned long int vehicleID){
+    Vehicle *vehicle;
 
     if(vehiclesVector.empty()){
-        return false;
+        return nullptr;
     }
 
-    for(int i=5; i < line.size(); i++){
-        ID = stoul(line.at(i));
         vector<Vehicle_T>::iterator v = vehiclesVector.begin();
 
         while(v != vehiclesVector.end()){
-            if(v->ID == ID){
-                vehicles->push_back(new Vehicle(v->plate, v->type, v->capacity));
+            if(v->ID == vehicleID){
+                vehicle = new Vehicle(v->plate, v->type, v->capacity);
                 vehiclesVector.erase(v);
-                continue;
+                return vehicle;
             }
             v++;
         }
-    }
 
-    return true;
+    return nullptr;
 }
 
 bool loadPlaces(GarbageManagement &management) {
@@ -267,7 +264,6 @@ bool loadGarages(GarbageManagement &management){
     fstream garages;
     unsigned long int nGarages=0;
     vector<std::string> lineVector;
-    vector<Vehicle *> vehicles;
 
     unsigned long placeID;
     pair <double,double> coordinates;
@@ -289,12 +285,23 @@ bool loadGarages(GarbageManagement &management){
 
         setPlace(lineVector, &placeID, &coordinates);
 
-        if((lineVector.size()-5) > 0
-           && !getVehicles(&vehicles, lineVector)
-           && (lineVector.size()-5) != vehicles.size()){
+        management.addGarage(new Garage(placeID, coordinates));
+
+        if((lineVector.size()-5) <= 0){
+            continue;
+        }
+
+        for(int i=5; i < lineVector.size(); i++){
+            Vehicle *v = getVehicle(stoul(lineVector.at(i)));
+            if(v != nullptr){
+                management.addVehicle(placeID, v);
+            }
+        }
+
+           if((lineVector.size()-5) != management.getVehicles(placeID).size()){
+            cout << "Couldn't find all vehicles of Garage -> " << placeID << "." << endl;
             return false;
         };
-        management.addGarage(new Garage(placeID, coordinates, vehicles));
     }
 
     garages.close();
