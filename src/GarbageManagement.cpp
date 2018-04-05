@@ -37,31 +37,31 @@ void GarbageManagement::addPlace(Place *place) {
 
 void GarbageManagement::addContainer(Container *container) {
     this->containers.push_back(container);
-    //addPlace(container->getNode());
+    addPlace((container));
 }
 
 void GarbageManagement::addStation(Station *station) {
     this->stations.push_back(station);
-    //addPlace(station->getNode());
+    addPlace(station);
 }
 
 void GarbageManagement::addGarage(Garage *garage) {
     this->garages.push_back(garage);
-    //addPlace(garage->getNode());
+    addPlace(garage);
 }
 
 
 Garage * GarbageManagement::getGarage(unsigned long garageId) {
-//    for(unsigned int i=0; i<this->garages.size(); i++){
-//        if(this->garages[i]->getNode()->getID() == garageId){
-//            return garages[i];
-//        }
-//    }
-//    return nullptr;
+    for(auto g: garages){
+        if(g->getId() == garageId){
+            return g;
+        }
+    }
+    return nullptr;
 }
 
 
-void GarbageManagement::addVehicle(unsigned long garageId, Vehicle vehicle) {
+void GarbageManagement::addVehicle(unsigned long garageId, Vehicle *vehicle) {
     Garage *garage= this->getGarage(garageId);
     garage->addVehicle(vehicle);
 

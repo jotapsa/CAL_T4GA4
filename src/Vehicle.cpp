@@ -1,18 +1,19 @@
 #include "Vehicle.h"
 
-Vehicle::Vehicle(GarbageType type, double capacity) {
-  this->type = type;
-  this->capacity = capacity;
+Vehicle::Vehicle(std::string plate, GarbageType type, double capacity) {
+    this->plate = plate;
+    this->type = type;
+    this->capacity = capacity;
 }
 
 GarbageType Vehicle::getType() {
-  return this->type;
+    return this->type;
 }
 
 double Vehicle::getCapacity() {
-  return this->capacity;
+    return this->capacity;
 }
 
 double Vehicle::getFreeSpace() {
-  return this->capacity-this->filled;
+    return this->capacity-this->filled;
 }

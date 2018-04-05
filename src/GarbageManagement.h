@@ -35,7 +35,7 @@ public:
     void addContainer(Container *container);
     void addStation(Station *station);
     void addGarage(Garage *garage);
-    void addVehicle(unsigned long garageId, Vehicle vehicle);
+    void addVehicle(unsigned long garageId, Vehicle *vehicle);
     void addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type, std::string name);
     unsigned long getValidNodeID();
 
