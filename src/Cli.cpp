@@ -68,7 +68,7 @@ unsigned int settingsMenuDialog() {
     std::cout << "6 - Find Container" << std::endl;
     std::cout << "0 - Back" << std::endl;
 
-    return nextUnsignedInt("Please select: ", 6);
+    return nextUnsignedInt("Option: ", 6);
 }
 
 void settingsMenu(GarbageManagement &management) {
@@ -101,7 +101,7 @@ unsigned int vehicleMenuDialog(){
     std::cout << "4 - Remove Vehicle type" << std::endl;
     std::cout << "0 - Back" << std::endl;
 
-    return nextUnsignedInt("Please select: ", 4);
+    return nextUnsignedInt("Option: ", 4);
 }
 
 void vehicleMenu(GarbageManagement &management){
@@ -128,7 +128,7 @@ unsigned int edgeMenuDialog(){
     std::cout << "2 - Remove Edge" << std::endl;
     std::cout << "0 - Exit" << std::endl;
 
-    return nextUnsignedInt("Please select: ", 2);
+    return nextUnsignedInt("Option: ", 2);
 }
 
 void edgeMenu(GarbageManagement &management) {
@@ -162,12 +162,12 @@ unsigned int nodeMenuDialog() {
     std::cout << "12 - Remove Container" << std::endl;
     std::cout << "0  - Exit" << std::endl;
 
-    return nextUnsignedInt("Please select: ", 8);
+    return nextUnsignedInt("Option: ", 8);
 }
 
 std::pair<double, double> askForLocation() {
 
-    double lat = parseDouble("Insert latitude: ");
+    double lat = parseDouble("Insert Latitude: ");
     double lon = parseDouble("Insert Longitude: ");
 
     return std::make_pair(lat, lon);
@@ -180,11 +180,14 @@ unsigned long addSimpleLocation(GarbageManagement &management) {
     management.addPlace(new Place(createdNodeId, askForLocation()));
 
     std::cout << "Added: nodeID-> " << createdNodeId << std::endl;
+
+    //TODO refactor
+    return createdNodeId;
 }
 
 void addGarage(GarbageManagement &management) {
 
-    std::cout << "Insert location for garage:\n";
+    std::cout << "Insert location for Garage:\n";
 
     std::pair<double,double> garageCoordinates = askForLocation();
 
@@ -240,7 +243,7 @@ unsigned int mainMenuDialog(){
     std::cout << "7 - Stress test" << std::endl;
     std::cout << "0 - Exit" << std::endl;
 
-    return nextUnsignedInt("Please select: ", 7);
+    return nextUnsignedInt("Option: ", 7);
 }
 
 void mainMenu(GarbageManagement &management) {
