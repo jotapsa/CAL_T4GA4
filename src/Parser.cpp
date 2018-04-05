@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <cstring>
+#include "Aux.h"
 
 using namespace std;
 
@@ -73,39 +74,6 @@ bool readLine(fstream& file, vector<std::string> *lineVector){
     return true;
 }
 
-//BuildingType getBuildingType(string type){
-//    if(type.compare(string("container")) == 0){
-//        return container;
-//    }
-//    else if(type.compare(string("station")) == 0){
-//        return station;
-//    }
-//    else if(type.compare(string("garage")) == 0){
-//        return garage;
-//    }
-//    else{
-//        return none;
-//    }
-//}
-
-GarbageType getGarbageType(string type){
-    if(type.compare(string("glass")) == 0){
-        return glass;
-    }
-    else if(type.compare(string("plastic")) == 0){
-        return plastic;
-    }
-    else if(type.compare(string("paper")) == 0){
-        return paper;
-    }
-    else if(type.compare(string("generic")) == 0){
-        return generic;
-    }
-    else{
-        return generic;
-    }
-}
-
  void setPlace(vector<std::string> line, unsigned long *id, std::pair<double, double> *coordinates) {
      double dLon, dLat, rLon, rLat;
 
@@ -149,7 +117,7 @@ Vehicle* getVehicle(unsigned long int vehicleID){
 
         while(v != vehiclesVector.end()){
             if(v->ID == vehicleID){
-                vehicle = new Vehicle(v->plate, v->type, v->capacity);
+                vehicle = new Vehicle(v->ID,v->plate, v->type, v->capacity);
                 vehiclesVector.erase(v);
                 return vehicle;
             }
@@ -418,23 +386,23 @@ void saveStations(GarbageManagement &management){
 }
 
 void saveVehicles(std::vector<Vehicle *> vehiclesGarage){
-//    ofstream vehicles;
-//
-//    if(!openFile(vehicles,VEHICLES_FILEPATH)){
-//        return;
-//    }
-//
-//    for(Vehicle *vehicle : vehiclesGarage){
-//        vehicles <<
-//    }
-//
-//    vehicles.close();
+    ofstream vehicles;
+
+    if(!openFile(vehicles,VEHICLES_FILEPATH)){
+        return;
+    }
+
+    for(Vehicle *v : vehiclesGarage){
+        vehicles << v->getID() << ";" << v->getPlate() << ";" << getGarbageType(v->getType()) << ";" << v->getCapacity() << endl;
+    }
+
+    vehicles.close();
 }
 
 void saveGarages(GarbageManagement &management){
-//    for(Garage *garage : management.getGarages()){
-//        saveVehicles(management.getVehicles(garage->getID()));
-//    }
+    for(Garage *garage : management.getGarages()){
+        saveVehicles(management.getVehicles(garage->getID()));
+    }
 }
 
 void saveEdges(const GarbageManagement &management) {

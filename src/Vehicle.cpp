@@ -1,9 +1,18 @@
 #include "Vehicle.h"
 
-Vehicle::Vehicle(std::string plate, GarbageType type, double capacity) {
+Vehicle::Vehicle(unsigned long int ID, std::string plate, GarbageType type, double capacity) {
+    this->ID = ID;
     this->plate = plate;
     this->type = type;
     this->capacity = capacity;
+}
+
+unsigned long int Vehicle::getID(){
+    return this->ID;
+}
+
+std::string Vehicle::getPlate() {
+    return this->plate;
 }
 
 GarbageType Vehicle::getType() {

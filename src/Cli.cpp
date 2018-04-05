@@ -192,7 +192,7 @@ void addGarage(GarbageManagement &management) {
 
     unsigned long createdNodeId = management.getValidNodeID();
 
-    management.addGarage(new Garage(createdNodeId, garageCoordinates, vehicles));
+    management.addGarage(new Garage(createdNodeId, garageCoordinates));
 
     std::cout << "Added garage with ID= " << createdNodeId << std::endl;
 }

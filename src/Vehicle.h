@@ -7,12 +7,16 @@
 
 class Vehicle {
 private:
+    unsigned long int ID;
     std::string plate;
     GarbageType type;
     double capacity;
     double filled;
 public:
-    Vehicle(std::string plate, GarbageType type, double capacity);
+    Vehicle(unsigned long int ID, std::string plate, GarbageType type, double capacity);
+
+    unsigned long int getID();
+    std::string getPlate();
     GarbageType getType();
     double getCapacity();
     double getFreeSpace();
