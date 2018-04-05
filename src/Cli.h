@@ -22,8 +22,8 @@ void nodeMenu(GarbageManagement &management);
 void vehicleMenu(GarbageManagement &management);
 void settingsMenu(GarbageManagement &management);
 void edgeMenu(GarbageManagement &management);
-void addContainer(GarbageManagement &management);
-void addSimpleLocation(GarbageManagement &management);
-void addGarage(GarbageManagement &management);
+void createContainerOrStation(GarbageManagement &management, std::string type);
+void createSimpleLocation(GarbageManagement &management);
+void createGarage(GarbageManagement &management);
 
 #endif //_CLI_H
