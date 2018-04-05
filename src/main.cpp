@@ -8,7 +8,7 @@ int main (int argc, char* argv[]) {
 
     std::cout << "Read Stored Map ?" << std::endl;
     if(readConfirmation()){
-        //read files
+        std::cout << "Reading map..." << std::endl;
         if(!loadPlaces(management)){
             std::cout << "Failed to read places!" << std::endl;
             return 1;
@@ -39,6 +39,7 @@ int main (int argc, char* argv[]) {
 
     std::cout << "Save Map ?" << std::endl;
     if(readConfirmation()){
+        std::cout << "Saving map..." << std::endl;
         saveNodes(management);
         saveEdges(management);
         saveEdgesInfo(management);

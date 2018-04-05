@@ -1,35 +1,3 @@
-//#ifndef GRAPH_H_
-//#define GRAPH_H_
-//
-//#include <vector>
-//#include "Street.h"
-//#include "Container.h"
-//#include "Node.h"
-//#include "Place.h"
-//
-//class Graph {
-//private:
-//    std::vector<Node *> nodeSet;    // Node set
-//
-//    std::vector<Street *> streets;
-//    std::vector<Place *> containers;
-//public:
-//    Graph();
-//    int getNumNodes() const;
-//
-//    std::vector<Node*> getnodeSet() const;
-//    std::vector<Street *> getStreets(){return this->streets;}
-//    std::vector<Place *> getContainers(){return this->containers;}
-//
-//    Node *getNode(const unsigned long &id) const;
-//
-//    bool addNode(Node *node);
-//
-//    bool addEdge(const unsigned long &sourc, const unsigned long &dest, double w, EdgeType type);
-//};
-//
-//#endif /* GRAPH_H_ */
-
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
@@ -41,6 +9,8 @@
 template <class T> class Edge;
 template <class T> class Graph;
 
+//TODO: c/ duarte djiskstra, bfs
+//TODO: unweighted shortest path, A*
 template <class T>
 class Graph {
 private:

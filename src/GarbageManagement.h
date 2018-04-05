@@ -16,6 +16,7 @@ class GarbageManagement {
 private:
     Graph<Place> graph;
 
+    std::vector<Place *> places;
     std::vector<Container *> containers;
     std::vector<Station *> stations;
     std::vector<Garage *> garages;
@@ -29,6 +30,10 @@ public:
     std::vector<Garage *> getGarages();
     std::vector<Street *> getStreets();
 
+    Place *getPlace(unsigned long id);
+    Place *getEmptyPlace(unsigned long id);
+    Container *getContainer(unsigned long containerId);
+    Station *getStation(unsigned long stationId);
     Garage * getGarage(unsigned long garageId);
 
     void addPlace(Place *place);

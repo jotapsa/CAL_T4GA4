@@ -4,7 +4,7 @@
 #include <iostream>
 
 enum GarbageType{
-  glass, plastic, paper, generic
+    glass, plastic, paper, generic
 };
 
 enum BuildingType{

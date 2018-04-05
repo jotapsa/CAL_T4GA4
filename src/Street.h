@@ -7,7 +7,7 @@
 
 class Street {
 private:
-    std::string roadName;
+    std::string name;
     Place *n1;
     Place *n2;
 
