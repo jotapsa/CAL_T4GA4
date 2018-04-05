@@ -5,7 +5,7 @@
 #include "GarbageManagement.h"
 #include <fstream>
 
-#define NODES_FILEPATH "../resources/nodes.txt"
+#define PLACES_FILEPATH "../resources/nodes.txt"
 #define EDGES_FILEPATH "../resources/edges.txt"
 #define EDGES_INFO_FILEPATH "../resources/edges_info.txt"
 
@@ -20,7 +20,7 @@ bool readLine(std::fstream& file, std::vector<std::string> lineVector);
 
 //TODO: make load functions void & exit if shit hits the fan.
 
-bool loadNodes(GarbageManagement &management);
+bool loadPlaces(GarbageManagement &management);
 
 bool loadBuildings(GarbageManagement &management);
 bool loadContainers(GarbageManagement &management);

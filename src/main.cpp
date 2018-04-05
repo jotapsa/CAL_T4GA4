@@ -9,8 +9,8 @@ int main (int argc, char* argv[]) {
     std::cout << "Read Stored Map ?" << std::endl;
     if(readConfirmation()){
         //read files
-        if(!loadNodes(management)){
-            std::cout << "Failed to read nodes!" << std::endl;
+        if(!loadPlaces(management)){
+            std::cout << "Failed to read places!" << std::endl;
             return 1;
         }
 

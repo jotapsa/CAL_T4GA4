@@ -105,17 +105,17 @@ Edge_T createEdge(vector<std::string> line){
     return edge;
 }
 
-bool loadNodes(GarbageManagement &management) {
-    fstream nodes;
+bool loadPlaces(GarbageManagement &management) {
+    fstream places;
     unsigned long placeID;
     pair <double,double> coordinates;
     vector<std::string> lineVector;
 
-    if(!openFile(nodes, NODES_FILEPATH)){
+    if(!openFile(places, PLACES_FILEPATH)){
         return false;
     }
 
-    while(readLine(nodes, &lineVector)){
+    while(readLine(places, &lineVector)){
 
         if(lineVector.size() < 5){
             return false;
@@ -125,9 +125,9 @@ bool loadNodes(GarbageManagement &management) {
         management.addPlace(new Place(placeID, coordinates));
     }
 
-    nodes.close();
+    places.close();
 
-    std::cout << management.getGraph().getNumNodes() << " nodes were successfully read!\n\n";
+    std::cout << management.getGraph().getNumNodes() << " places were successfully read!\n\n";
     return true;
 }
 
