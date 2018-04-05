@@ -1,16 +1,18 @@
 #ifndef _EDGE_H
 #define _EDGE_H
 
-class Node;
+template <class T> class Node;
 
+template <class T>
 class Edge {
-private:
-    Node *dest;      // destination vertex
-    double weight;
+    Node<T> * dest;      // destination node
+    double weight;         // edge weight
 public:
-    Edge(Node *d, double w);
-    Node * getDestination();
-    double getWeight();
+    Edge(Node<T> *d, double w);
 };
+
+template <class T>
+Edge<T>::Edge(Node<T> *d, double w): dest(d), weight(w) {}
+
 
 #endif
