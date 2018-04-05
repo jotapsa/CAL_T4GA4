@@ -10,7 +10,6 @@
 class Graph {
 private:
     std::vector<Node *> nodeSet;    // vertex set
-
     std::vector<Street *> streets;
     std::vector<Building *> containers;
 public:

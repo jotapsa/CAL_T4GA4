@@ -1,11 +1,16 @@
 #ifndef _GARBAGEMANAGEMENT_H_
 #define _GARBAGEMANAGEMENT_H_
 
+#include <stdlib.h>
+#include <time.h>
+#include <limits>
 #include "Graph.h"
 #include "Station.h"
 #include "Garage.h"
 
-class GarbageManagement{
+#define INF std::numeric_limits<unsigned long>::max() //For knowing the limits of nodeID
+
+class GarbageManagement {
 private:
     Graph graph;
 
@@ -25,6 +30,7 @@ public:
     Garage * getGarage(unsigned long garageId);
 
     void addNode(Node *node);
+    void insertNodeAt(double latitude, double longitude);
     void addContainer(Container *container);
     void addStation(Station *station);
     void addGarage(Garage *garage);

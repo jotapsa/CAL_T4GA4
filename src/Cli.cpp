@@ -19,6 +19,26 @@ bool readConfirmation() {
     }
 }
 
+double parseDouble (std::string str) {
+    double number;
+
+    do {
+        std::cout << str;
+        std::cin >> number;
+
+        if(std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n'); //clean input buffer
+            continue;
+        }
+        else {
+            std::cin.clear();
+            std::cin.ignore(1000,'\n'); //clean input buffer
+            return number;
+        }
+    }while(true);
+}
+
 unsigned int nextUnsignedInt(std::string str, unsigned int ceilling){
     unsigned int number;
     do{
@@ -142,9 +162,18 @@ unsigned int nodeMenuDialog() {
     return nextUnsignedInt("Please select: ", 8);
 }
 
+void addSimpleLocation(GarbageManagement &management) {
+
+    double lat = parseDouble("Insert latitude: ");
+    double lon = parseDouble("Insert Longitude: ");
+
+    management.insertNodeAt(lat, lon);
+}
+
 void nodeMenu(GarbageManagement &management){
     switch(nodeMenuDialog()){
         case 1:
+            addSimpleLocation(management);
             break;
         case 2:
             break;
@@ -161,11 +190,11 @@ void nodeMenu(GarbageManagement &management){
         case 8:
             break;
         case 0:
-            mainMenu(management);
             break;
         default:
             break;
     }
+    mainMenu(management);
 }
 
 unsigned int mainMenuDialog(){
