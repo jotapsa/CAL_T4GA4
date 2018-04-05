@@ -1,9 +1,6 @@
-//
-// Created by dnc on 05-04-2018.
-//
-
 #include "Aux.h"
 
+#include <cmath>
 
 std::pair<double,double> convertToKiloMeters(std::pair<double,double> longitudinalCoordinates) {
 

@@ -92,7 +92,7 @@ GarbageType getGarbageType(string type){
      rLon = stod(line.at(4));
 
      //TODO calculate X Y coordinates
-     *coordinates = convertToKiloMeters(make_pair(dLat,rLon));
+//     *coordinates = convertToKiloMeters(make_pair(dLat,rLon));
  }
 
 Edge_T createEdge(vector<std::string> line){
