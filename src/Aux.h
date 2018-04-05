@@ -1,7 +1,7 @@
 #ifndef _AUX_H
 #define _AUX_H
 
-enum garbageType{
+enum GarbageType{
   glass, plastic, paper, generic
 };
 

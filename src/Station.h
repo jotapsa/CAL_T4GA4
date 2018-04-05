@@ -6,11 +6,11 @@
 #include "Aux.h"
 
 class Station : public Building {
-  garbageType garbage;
+  GarbageType garbage;
   double capacity;
 public:
-  Station(Node *node, garbageType type, double capacity);
-  garbageType getGarbageType();
+  Station(Node *node, GarbageType type, double capacity);
+  GarbageType getGarbageType();
   double getCapacity();
 };
 

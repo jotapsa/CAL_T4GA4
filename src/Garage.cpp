@@ -12,7 +12,7 @@ unsigned long Garage::getNumberOfVehicles() {
     return this->vehicles.size();
 }
 
-int Garage::getNumberOfVehiclesOfType(garbageType type) {
+int Garage::getNumberOfVehiclesOfType(GarbageType type) {
     int num = 0;
 
     for(auto truck: vehicles) {

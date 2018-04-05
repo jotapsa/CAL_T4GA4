@@ -10,7 +10,7 @@ public:
     explicit Garage(Node *node);
     Garage(Node *node, std::vector<Vehicle> &vehicles);
     unsigned long getNumberOfVehicles();
-    int getNumberOfVehiclesOfType(garbageType type);
+    int getNumberOfVehiclesOfType(GarbageType type);
 
     void addVehicle(Vehicle vehicle);
 };

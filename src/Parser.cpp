@@ -33,15 +33,14 @@ BuildingType getBuildingType(string type){
         return station;
     }
     else if(type.compare(string("garage")) == 0){
-        cout << "comparing garage..." << endl;
         return garage;
     }
     else{
-        //TODO
+        return none;
     }
 }
 
-garbageType getGarbageType(string type){
+GarbageType getGarbageType(string type){
     if(type.compare(string("glass")) == 0){
         return glass;
     }
@@ -63,12 +62,13 @@ bool loadNodes(GarbageManagement &management) {
     fstream file;
     unsigned long nodeID;
     double dLon, dLat, rLon, rLat;
-    string type, line;
+    string line;
     BuildingType building;
+    GarbageType type;
     pair <double,double> coordinates;
     vector<std::string> lineVector;
 
-    file.open(NODES_FILEPATH, std::ios::in);
+    file.open(NODES_FILEPATH);
 
     if(!file.is_open()) {
         cout << "File " << NODES_FILEPATH << " could not be open! \n";
@@ -77,7 +77,7 @@ bool loadNodes(GarbageManagement &management) {
 
     std::cout << "Reading file: " << NODES_FILEPATH << endl;
 
-    while(getline(file,line)){
+    while(getline(file,line,'\r')){
         lineVector = split(line, ';');
 
         if(lineVector.size() < 5){
@@ -98,19 +98,17 @@ bool loadNodes(GarbageManagement &management) {
 
         switch(building){
             case container:{
-                type = lineVector.at(6);
-                management.addContainer(new Container(new Node(nodeID, coordinates), getGarbageType(type),0));
+                type = lineVector.size() > 6 ? getGarbageType(lineVector.at(6)) : generic;
+                management.addContainer(new Container(new Node(nodeID, coordinates), type,0));
                 break;
             }
             case station:{
-                type = lineVector.at(6);
-                management.addStation(new Station(new Node(nodeID, coordinates),getGarbageType(type),0));
+                type = lineVector.size() > 6 ? getGarbageType(lineVector.at(6)) : generic;
+                management.addStation(new Station(new Node(nodeID, coordinates), type,0));
                 break;
             }
             case garage:{
-                cout << "garagem" << endl;
                 management.addGarage(new Garage(new Node(nodeID, coordinates)));
-                return false;
                 break;
             }
             default: {
@@ -143,7 +141,7 @@ bool loadEdges(GarbageManagement &management) {
 
     std::cout << "Reading file: " << EDGES_FILEPATH << endl;
 
-    while(getline(file,line)){
+    while(getline(file,line,'\r')){
         lineVector = split(line,';');
 
         if(lineVector.size() != 3){
@@ -183,7 +181,7 @@ bool loadEdgesInfo(GarbageManagement &management) {
 
     std::cout << "Reading file: " << EDGES_INFO_FILEPATH << endl;
 
-    while(getline(file,line)){
+    while(getline(file,line,'\r')){
         lineVector = split(line,';');
 
         if(lineVector.size() != 3){
