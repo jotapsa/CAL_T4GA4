@@ -14,6 +14,8 @@
 #define STATIONS_FILEPATH "../resources/stations.txt"
 #define GARAGES_FILEPATH "../resources/garages.txt"
 
+#define VEHICLES_FILEPATH "../resources/vehicles.txt"
+
 bool openFile(std::fstream& file, std::string filePath);
 std::vector<std::string> split(const std::string &s, const char &delim);
 bool readLine(std::fstream& file, std::vector<std::string> lineVector);
@@ -30,6 +32,8 @@ bool loadGarages(GarbageManagement &management);
 
 bool loadEdges(GarbageManagement &management);
 bool loadEdgesInfo(GarbageManagement &management);
+
+bool loadVehicles(GarbageManagement &management);
 
 //TODO: save functions.
 void saveNodes(const GarbageManagement &management);

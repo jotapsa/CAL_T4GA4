@@ -28,6 +28,11 @@ int main (int argc, char* argv[]) {
             std::cout << "Failed to read edges info!" << std::endl;
             return 1;
         };
+
+        if(!loadVehicles(management)){
+            std::cout << "Failed to read vehicles!" << std::endl;
+            return 1;
+        };
     }
 
     mainMenu(management);
