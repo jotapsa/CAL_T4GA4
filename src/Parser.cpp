@@ -99,22 +99,22 @@ bool loadNodes(GarbageManagement &management) {
         switch(building){
             case container:{
                 type = lineVector.at(6);
-                management.addContainer(new Container(new Node(nodeID, coordinates), getGarbageType(type),0));
+//                management.addContainer(new Container(new Node(nodeID, coordinates), getGarbageType(type),0));
                 break;
             }
             case station:{
                 type = lineVector.at(6);
-                management.addStation(new Station(new Node(nodeID, coordinates),getGarbageType(type),0));
+//                management.addStation(new Station(new Node(nodeID, coordinates),getGarbageType(type),0));
                 break;
             }
             case garage:{
                 cout << "garagem" << endl;
-                management.addGarage(new Garage(new Node(nodeID, coordinates)));
+//                management.addGarage(new Garage(new Node(nodeID, coordinates)));
                 return false;
                 break;
             }
             default: {
-                management.addPlace(new Node(nodeID, coordinates));
+//                management.addPlace(new Node(nodeID, coordinates));
                 break;
             }
         }
