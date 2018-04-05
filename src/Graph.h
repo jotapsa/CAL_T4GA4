@@ -25,7 +25,7 @@ public:
 
     bool addNode(Node *node);
 
-    bool addEdge(const unsigned long &sourc, const unsigned long &dest, double w);
+    bool addEdge(const unsigned long &sourc, const unsigned long &dest, double w, EdgeType type);
 };
 
 #endif /* GRAPH_H_ */

@@ -20,25 +20,29 @@ std::vector<Garage *> GarbageManagement::getGarages() {
     return this->garages;
 }
 
+std::vector<Street *> GarbageManagement::getStreets() {
+    return this->streets;
+}
+
 void GarbageManagement::addNode(Node *node) {
      if(!this->graph.addNode(node)){
-         //node already exists in graph
+         std::cout << "Node " << node->getID() << " already exists." << std::endl;
      }
 }
 
 void GarbageManagement::addContainer(Container *container) {
     this->containers.push_back(container);
-//    this->graph.addNode(container);
+    addNode(container->getNode());
 }
 
 void GarbageManagement::addStation(Station *station) {
     this->stations.push_back(station);
-//    this->graph.addNode(station);
+    addNode(station->getNode());
 }
 
 void GarbageManagement::addGarage(Garage *garage) {
     this->garages.push_back(garage);
-//    this->graph.addNode(garage);
+    addNode(garage->getNode());
 }
 
 
@@ -58,13 +62,28 @@ void GarbageManagement::addVehicle(unsigned long garageId, Vehicle vehicle) {
     
 }
 
-void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type) {
-
-}
-
 void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type,
                                 std::string name) {
+    Node *sourceNode = graph.getNode(nodeIds.first);
+    Node *destNode = graph.getNode(nodeIds.second);
 
+    if(sourceNode == nullptr || destNode == nullptr){
+        std::cout << "Couldn't find nodes" << std::endl;
+        return;
+    }
+
+    if(weight == 0){
+        weight = std::abs(destNode->getCoordinates().first - sourceNode->getCoordinates().first) +
+                 std::abs(destNode->getCoordinates().second - destNode->getCoordinates().second);
+    }
+
+    if(name.empty()){
+        name = "unnamed street n" + this->streets.size();
+    }
+
+
+    this->streets.push_back(new Street(sourceNode, destNode, name));
+    this->graph.addEdge(nodeIds.first, nodeIds.second, weight, type);
 }
 
 GarbageManagement::~GarbageManagement() {

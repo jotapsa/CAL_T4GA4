@@ -12,7 +12,7 @@ private:
     Node *n2;
 
 public:
-    Street(Node &n1, Node &n2, std::string name);
+    Street(Node *n1, Node *n2, std::string name);
 
     std::string getName();
     Node* getFirstNode(){return this->n1;}

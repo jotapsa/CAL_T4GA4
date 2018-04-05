@@ -45,12 +45,23 @@ bool Graph::addNode(Node *node) {
  * destination vertices and the edge weight (w).
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
-bool Graph::addEdge(const unsigned long &sourc, const unsigned long &dest, double w) {
+bool Graph::addEdge(const unsigned long &sourc, const unsigned long &dest, double w, EdgeType type) {
     auto v1 = getNode(sourc);
     auto v2 = getNode(dest);
-    if (v1 == NULL || v2 == NULL)
+
+    if (v1 == nullptr || v2 == nullptr)
         return false;
-    v1->addEdge(v2,w);
-    return true;
+
+    if(type == twoWay){
+        v1->addEdge(v2,w);
+        v2->addEdge(v1,w);
+        return true;
+    }
+    else if(type == oneWay){
+        v1->addEdge(v2,w);
+        return true;
+    }
+
+    return false;
 }
 
