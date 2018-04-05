@@ -9,8 +9,7 @@ private:
     GarbageType type;
     double capacity;
 public:
-    Container(unsigned long id, std::pair<double, double> coordinates,GarbageType type, double capacity);
-  
+    Container(unsigned long id, std::pair<double, double> coordinates, GarbageType type, double capacity);
     GarbageType getType();
     double getCapacity();
 };

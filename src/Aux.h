@@ -17,4 +17,6 @@ enum EdgeType{
 
 void convertToKiloMeters(std::pair<double,double> *longitudinalCoordinates, double rLatitude, double rLongitude);
 
+GarbageType getGarbageTypeForOption(unsigned int option);
+
 #endif

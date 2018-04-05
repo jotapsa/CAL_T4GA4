@@ -167,37 +167,67 @@ unsigned int nodeMenuDialog() {
 
 std::pair<double, double> askForLocation() {
 
-    double lat = parseDouble("Insert Latitude: ");
-    double lon = parseDouble("Insert Longitude: ");
+    double lat = parseDouble("\tInsert Latitude: ");
+    double lon = parseDouble("\tInsert Longitude: ");
 
     return std::make_pair(lat, lon);
 };
 
-unsigned long addSimpleLocation(GarbageManagement &management) {
+void addSimpleLocation(GarbageManagement &management) {
+//TODO (Check if added garage is inside map window)
 
     unsigned long createdNodeId = management.getValidNodeID();
 
     management.addPlace(new Place(createdNodeId, askForLocation()));
 
     std::cout << "Added: nodeID-> " << createdNodeId << std::endl;
-
-    //TODO refactor
-    return createdNodeId;
 }
 
 void addGarage(GarbageManagement &management) {
+//TODO (Check if added garage is inside map window)
 
-    std::cout << "Insert location for Garage:\n";
+    std::cout << "Insert location for garage:\n";
 
     std::pair<double,double> garageCoordinates = askForLocation();
 
     unsigned long createdNodeId = management.getValidNodeID();
 
-    management.addGarage(new Garage(createdNodeId, garageCoordinates));
+    management.addGarage(new Garage(createdNodeId, garageCoordinates, vehicles));
+
+    std::cout << "Added garage with ID= " << createdNodeId << std::endl;
+}
+
+unsigned int selectGarbageTypeMenu() {
+
+    std::cout << "Select garbage type:" << std::endl;
+    std::cout << "\t1 - Glass" << std::endl;
+    std::cout << "\t2 - Plastic" << std::endl;
+    std::cout << "\t3 - Paper" << std::endl;
+    std::cout << "\t4 - Generic" << std::endl;
+    std::cout << "\t0 - Exit" << std::endl;
+
+    return nextUnsignedInt("Option: ", 4);
+}
+
+void addContainer(GarbageManagement &management) {
+    std::cout << "Insert location for container:\n";
+
+    std::pair<double,double> containerCoordinates = askForLocation();
+
+    unsigned long createdNodeId = management.getValidNodeID();
+
+    unsigned int garbageTypeIndex = selectGarbageTypeMenu();
+
+    if(garbageTypeIndex == 0)
+        return;
+
+    double capacity = parseDouble("Insert container capacity: ");
+
+    management.addContainer(new Container(createdNodeId, containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
 }
 
 void nodeMenu(GarbageManagement &management){
-    switch(nodeMenuDialog()){
+    switch(nodeMenuDialog()) {
         case 1:
             addSimpleLocation(management);
         break;
@@ -205,6 +235,7 @@ void nodeMenu(GarbageManagement &management){
             addGarage(management);
         break;
         case 3:
+            addContainer(management);
             break;
         case 4:
             break;
