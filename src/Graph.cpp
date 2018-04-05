@@ -24,19 +24,19 @@ Node* Graph::getNode(const unsigned long &id) const {
         }
     }
 
-  return nullptr;
+    return nullptr;
 }
 
 /*
  *  Adds a vertex with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
-bool Graph::addNode(Node &node) {
-  if(getNode(node.getID()) != nullptr){
-    return false;
-  }
+bool Graph::addNode(Node *node) {
+    if(getNode(node->getID()) != nullptr){
+        return false;
+    }
 
-    nodeSet.push_back(&node);
+    nodeSet.push_back(node);
     return true;
 }
 

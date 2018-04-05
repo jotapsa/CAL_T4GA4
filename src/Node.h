@@ -5,7 +5,6 @@
 #include <vector>
 #include "Edge.h"
 
-
 class Node {
 private:
   unsigned long ID;                       // vertex Id

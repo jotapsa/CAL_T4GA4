@@ -21,7 +21,7 @@ std::vector<Garage *> GarbageManagement::getGarages() {
 }
 
 void GarbageManagement::addNode(Node *node) {
-     if(!this->graph.addNode(*node)){
+     if(!this->graph.addNode(node)){
          //node already exists in graph
      }
 }

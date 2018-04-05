@@ -1,8 +1,6 @@
 #ifndef _EDGE_H
 #define _EDGE_H
 
-#include "Node.h"
-
 class Node;
 
 class Edge {
