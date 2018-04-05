@@ -1,14 +1,16 @@
 #include "Station.h"
 
-Station::Station(Node *node, garbageType type, double capacity) : Building(node) {
-  this->capacity = capacity;
-  this->garbage = garbage;
-}
 
+Station::Station(unsigned long id, std::pair<double, double> coordinates, garbageType type, double capacity)
+        : Place(id, coordinates) {
+    this->type = type;
+    this->capacity = capacity;
+
+}
 double Station::getCapacity() {
-  return this->capacity;
+    return this->capacity;
 }
 
 garbageType Station::getGarbageType() {
-  return this->garbage;
+    return this->type;
 }

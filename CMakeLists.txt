@@ -14,23 +14,20 @@ add_executable(CAL_T4GA4
         src/Container.cpp
         src/Container.h
         src/Aux.h
-        src/Edge.cpp
         src/Edge.h
         src/Connection.cpp
         src/Connection.h
-        src/Graph.cpp
         src/Graph.h
         src/GraphViewer.cpp
         src/GraphViewer.h
         src/Street.cpp
         src/Street.h
-        src/Node.cpp
         src/Node.h
         src/Cli.cpp
         src/Cli.h
         GraphViewerController.jar
-        src/Building.cpp
-        src/Building.h
+        src/Place.cpp
+        src/Place.h
         src/Vehicle.cpp
         src/Vehicle.h
         src/Station.cpp

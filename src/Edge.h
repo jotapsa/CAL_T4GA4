@@ -6,13 +6,12 @@ template <class T> class Node;
 template <class T>
 class Edge {
     Node<T> * dest;      // destination node
-    double weight;         // edge weight
+    double weight;       // edge weight
 public:
     Edge(Node<T> *d, double w);
 };
 
 template <class T>
 Edge<T>::Edge(Node<T> *d, double w): dest(d), weight(w) {}
-
 
 #endif

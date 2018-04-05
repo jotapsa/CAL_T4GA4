@@ -1,14 +1,15 @@
 #ifndef _GARAGE_H
 #define _GARAGE_H
 
-#include "Building.h"
+#include "Place.h"
 #include "Vehicle.h"
 
-class Garage : public Building {
+class Garage : public Place {
     std::vector<Vehicle> vehicles;
 public:
-    explicit Garage(Node *node);
-    Garage(Node *node, std::vector<Vehicle> &vehicles);
+    Garage(unsigned long id, std::pair<double, double> coordinates, std::vector<Vehicle> &vehicles)
+    Garage(unsigned long id, std::pair<double, double> coordinates);
+
     unsigned long getNumberOfVehicles();
     int getNumberOfVehiclesOfType(garbageType type);
 

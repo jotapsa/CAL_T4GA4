@@ -5,21 +5,21 @@
 //#include "Street.h"
 //#include "Container.h"
 //#include "Node.h"
-//#include "Building.h"
+//#include "Place.h"
 //
 //class Graph {
 //private:
 //    std::vector<Node *> nodeSet;    // Node set
 //
 //    std::vector<Street *> streets;
-//    std::vector<Building *> containers;
+//    std::vector<Place *> containers;
 //public:
 //    Graph();
 //    int getNumNodes() const;
 //
 //    std::vector<Node*> getnodeSet() const;
 //    std::vector<Street *> getStreets(){return this->streets;}
-//    std::vector<Building *> getContainers(){return this->containers;}
+//    std::vector<Place *> getContainers(){return this->containers;}
 //
 //    Node *getNode(const unsigned long &id) const;
 //
@@ -34,6 +34,7 @@
 #define GRAPH_H_
 
 #include "Node.h"
+#include "Aux.h"
 #include <vector>
 #include <queue>
 
@@ -55,7 +56,7 @@ public:
     unsigned long getNumNodes() const;
     bool addNode(const T &in);
     bool removeNode(const T &in);
-    bool addEdge(const T &sourc, const T &dest, double w);
+    bool addEdge(const T &sourc, const T &dest, double w, EdgeType type);
     bool removeEdge(const T &sourc, const T &dest);
     std::vector<T> depthFirstSearch() const;
     std::vector<T> bellmanFordSearch(const T &source) const;
@@ -83,21 +84,19 @@ unsigned long Graph<T>::getNumNodes() const {
     return nodeSet.size();
 }
 
-
-/****************** 1a) addNode ********************/
-
 /*
  *  Adds a Node with a given content/info (in) to a graph (this).
  *  Returns true if successful, and false if a Node with that content already exists.
  */
 template <class T>
 bool Graph<T>::addNode(const T &in) {
-    // TODO (4 lines)
-    // HINT: use the getNode function to check if a Node already exists
-    return false;
-}
+    if(getNode(in) == nullptr){
+        return false;
+    }
 
-/****************** 1b) addEdge ********************/
+    nodeSet.push_back(new Node(in));
+    return true;
+}
 
 /*
  * Adds an edge to a graph (this), given the contents of the source (sourc) and
@@ -105,10 +104,23 @@ bool Graph<T>::addNode(const T &in) {
  * Returns true if successful, and false if the source or destination Node does not exist.
  */
 template <class T>
-bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
-    // TODO (6 lines)
-    // HINT: use getNode to obtain the actual vertices
-    // HINT: use the next function to actually add the edge
+bool Graph<T>::addEdge(const T &sourc, const T &dest, double w, EdgeType type) {
+    auto v1 = getNode(sourc);
+    auto v2 = getNode(dest);
+
+    if (v1 == nullptr || v2 == nullptr)
+        return false;
+
+    if(type == twoWay){
+        v1->addEdge(v2,w);
+        v2->addEdge(v1,w);
+        return true;
+    }
+    else if(type == oneWay){
+        v1->addEdge(v2,w);
+        return true;
+    }
+
     return false;
 }
 

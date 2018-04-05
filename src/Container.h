@@ -2,14 +2,14 @@
 #define _CONTAINER_H
 
 #include "Aux.h"
-#include "Building.h"
+#include "Place.h"
 
-class Container : public Building{
+class Container : public Place{
 private:
     garbageType type;
     double capacity;
 public:
-    Container(Node *node, garbageType type, double capacity);
+    Container(unsigned long id, std::pair<double, double> coordinates,garbageType type, double capacity);
     garbageType getType();
     double getCapacity();
 };

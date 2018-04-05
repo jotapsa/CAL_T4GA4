@@ -31,7 +31,7 @@
 template <class T>
 class Node {
     T info;                // contents
-    std::vector<Edge<T> > edges;  // list of outgoing edges
+    std::vector<Edge<T>> edges;  // list of outgoing edges
     bool visited;          // auxiliary field used by dfs and bfs
     int indegree;          // auxiliary field used by topsort
     bool processing;       // auxiliary field used by isDAG
@@ -54,11 +54,11 @@ void Node<T>::getInfo() const{
 
 /*
  * Auxiliary function to add an outgoing edge to a Node (this),
- * with a given destination Node (d) and edge weight (w).
+ * with a given destination Node (dest) and edge weight (w).
  */
 template <class T>
-void Node<T>::addEdge(Node<T> *d, double w) {
-    // TODO (1 line)
+void Node<T>::addEdge(Node<T> *dest, double w) {
+    this->edges.push_back(Edge(dest, w));
 }
 
 /*
