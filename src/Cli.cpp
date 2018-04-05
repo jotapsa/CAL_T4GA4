@@ -167,7 +167,7 @@ void addSimpleLocation(GarbageManagement &management) {
     double lat = parseDouble("Insert latitude: ");
     double lon = parseDouble("Insert Longitude: ");
 
-    management.insertNodeAt(lat, lon);
+//    management.insertNodeAt(lat, lon);
 }
 
 void nodeMenu(GarbageManagement &management){
