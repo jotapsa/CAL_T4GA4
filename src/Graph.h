@@ -24,6 +24,7 @@ public:
     Node *getNode(const unsigned long &id) const;
 
     bool addNode(Node &node);
+    bool Graph::addEdge(const unsigned long &sourc, const unsigned long &dest, double w);
 };
 
 #endif /* GRAPH_H_ */

@@ -39,3 +39,18 @@ bool Graph::addNode(Node &node) {
     nodeSet.push_back(&node);
     return true;
 }
+
+/*
+ * Adds an edge to a graph (this), given the contents of the source and
+ * destination vertices and the edge weight (w).
+ * Returns true if successful, and false if the source or destination vertex does not exist.
+ */
+bool Graph::addEdge(const unsigned long &sourc, const unsigned long &dest, double w) {
+    auto v1 = getNode(sourc);
+    auto v2 = getNode(dest);
+    if (v1 == NULL || v2 == NULL)
+        return false;
+    v1->addEdge(v2,w);
+    return true;
+}
+
