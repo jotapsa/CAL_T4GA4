@@ -3,8 +3,10 @@
 
 #include "Node.h"
 #include "Aux.h"
+#include "MutablePriorityQueue.h"
 #include <vector>
 #include <queue>
+#include <limits>
 
 template <class T> class Edge;
 template <class T> class Graph;
@@ -21,10 +23,16 @@ private:
 public:
     Node<T> * getNode(const T &in) const;
     unsigned long getNumNodes() const;
+
     bool addNode(const T &in);
     bool removeNode(const T &in);
+
     bool addEdge(const T &sourc, const T &dest, double w, EdgeType type);
     bool removeEdge(const T &sourc, const T &dest);
+
+    bool relax(Node<T> *source, Node<T> *way, double weight);
+    void dijkstraShortestPath(const T &source);
+
     std::vector<T> depthFirstSearch() const;
     std::vector<T> bellmanFordSearch(const T &source) const;
     std::vector<T> topsort() const;
@@ -119,6 +127,50 @@ bool Graph<T>::removeNode(const T &in) {
     // HINT: use an iterator to scan the "nodeSet" vector and then erase the Node.
     // HINT: take advantage of "removeEdgeTo" to remove incoming edges.
     return false;
+}
+
+template<class T>
+bool Graph<T>::relax(Node<T> *source, Node<T> *way, double weight) {
+    if(source->dist + weight < way->dist){
+        way->dist = source->dist + weight;
+        way->path = source;
+
+        return true;
+    }
+    return false;
+}
+
+template<class T>
+void Graph<T>::dijkstraShortestPath(const T &sourceInfo){
+    for(auto n: nodeSet){
+        n->dist = std::numeric_limits<double>::max();
+        n->path = nullptr;
+    }
+
+    Node<T> *source = getNode(sourceInfo);
+    if(source == nullptr){
+        return;
+    }
+    source->dist = 0;
+
+    MutablePriorityQueue<Node<T>> queue;
+    queue.insert(source);
+
+    while(!queue.empty()){
+        Node<T> *min = queue.extractMin();
+        for(auto e: min->edges){
+            auto oldDist = e.dest->dist;
+
+            if(relax(min, e.dest, e.weight)){
+                if(oldDist == std::numeric_limits<double>::max()){
+                    queue.insert(e.dest);
+                }
+                else{
+                    queue.decreaseKey(e.dest);
+                }
+            }
+        }
+    }
 }
 
 

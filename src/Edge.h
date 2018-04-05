@@ -2,6 +2,7 @@
 #define _EDGE_H
 
 template <class T> class Node;
+template <class T> class Graph; //foward declaration
 
 template <class T>
 class Edge {
@@ -9,6 +10,8 @@ class Edge {
     double weight;       // edge weight
 public:
     Edge(Node<T> *d, double w);
+
+    friend class Graph<T>;
 };
 
 template <class T>

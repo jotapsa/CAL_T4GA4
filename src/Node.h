@@ -1,47 +1,31 @@
-//#ifndef _NODE_H
-//#define _NODE_H
-//
-//#include <string>
-//#include <vector>
-//#include "Edge.h"
-//
-//class Node {
-//private:
-//  unsigned long ID;                       // Node Id
-//  std::pair<double, double> coordinates;
-//  std::vector<Edge> edges;  // outgoing edges
-//
-//public:
-//  Node(unsigned long ID, std::pair<double, double> coordinates);
-//
-//  unsigned long getID() const;
-//  std::pair<double, double> getCoordinates();
-//
-//  void addEdge(Node *n, double w);
-//};
-//
-//#endif //_NODE_H
-
 #ifndef _NODE_H
 #define _NODE_H
 
 #include <vector>
 #include "Edge.h"
 
+template <class T> class Graph; //foward declaration
+
 template <class T>
 class Node {
     T info;                // contents
     std::vector<Edge<T>> edges;  // list of outgoing edges
+
+    double dist = 0;        // auxiliary field used by dijkstra
+    Node<T> *path = nullptr; // auxiliary field used by dijkstra
+
     bool visited;          // auxiliary field used by dfs and bfs
     int indegree;          // auxiliary field used by topsort
     bool processing;       // auxiliary field used by isDAG
 
-    bool removeEdgeTo(Node<T> *d);
 public:
     Node(T in);
 
     T getInfo() const;
     void addEdge(Node<T> *dest, double w);
+    bool removeEdgeTo(Node<T> *d);
+
+    friend class Graph<T>; //make Graph class so that it can access private and protected fields
 };
 
 template <class T>
@@ -72,6 +56,5 @@ bool Node<T>::removeEdgeTo(Node<T> *d) {
     // HINT: use an iterator to scan the "adj" vector and then erase the edge.
     return false;
 }
-
 
 #endif //_NODE_H
