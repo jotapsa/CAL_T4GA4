@@ -45,7 +45,7 @@ public:
     void addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
     unsigned long getValidNodeID();
 
-    virtual ~GarbageManagement();
+    void evalCon();
 };
 
 #endif

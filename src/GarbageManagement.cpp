@@ -188,6 +188,6 @@ unsigned long GarbageManagement::getValidNodeID() {
     return idToInsert;
 }
 
-GarbageManagement::~GarbageManagement() {
-    // TODO Auto-generated destructor stub
+void GarbageManagement::evalCon() {
+
 }

@@ -11,7 +11,7 @@
 template <class T> class Edge;
 template <class T> class Graph;
 
-//TODO: bfs
+//TODO: bfs, floyd warshall
 //TODO: unweighted shortest path, A*
 
 template <class T>
@@ -19,8 +19,6 @@ class Graph {
 private:
     std::vector<Node<T> *> nodeSet;    // Node set
 
-    void depthFirstSearchVisit(Node<T> *v,  std::vector<T> & res) const;
-    bool depthFirstSearchIsDAG(Node<T> *v) const;
 public:
     Node<T> * getNode(const T &in) const;
     unsigned long getNumNodes() const;
@@ -34,11 +32,7 @@ public:
     bool relax(Node<T> *source, Node<T> *way, double weight);
     void dijkstraShortestPath(const T &sourceInfo);
 
-    std::vector<T> depthFirstSearch() const;
     std::vector<T> bellmanFordSearch(const T &source) const;
-    std::vector<T> topsort() const;
-    int maxNewChildren(const T &source, T &inf) const;
-    bool isDAG() const;
 };
 
 /*

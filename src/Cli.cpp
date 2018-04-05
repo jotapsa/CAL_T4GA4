@@ -1,5 +1,7 @@
 #include "Cli.h"
 
+void garbageServiceMenu(GarbageManagement &management);
+
 bool readConfirmation() {
     std::string temp;
     do{
@@ -128,7 +130,7 @@ unsigned int edgeMenuDialog(){
     std::cout << "Edge Menu" << std::endl;
     std::cout << "1 - Create Edge" << std::endl;
     std::cout << "2 - Remove Edge" << std::endl;
-    std::cout << "0 - Exit" << std::endl;
+    std::cout << "0 - Back" << std::endl;
 
     return nextUnsignedInt("Option: ", 2);
 }
@@ -230,7 +232,7 @@ unsigned int nodeMenuDialog() {
     std::cout << "10 - Remove Garage" << std::endl;
     std::cout << "11 - Remove Container" << std::endl;
     std::cout << "12 - Remove Container" << std::endl;
-    std::cout << "0  - Exit" << std::endl;
+    std::cout << "0  - Back" << std::endl;
 
     return nextUnsignedInt("Option: ", 8);
 }
@@ -266,6 +268,7 @@ void nodeMenu(GarbageManagement &management){
         case 12:
             break;
         case 0:
+            mainMenu(management);
             break;
         default:
             break;
@@ -288,7 +291,6 @@ unsigned int mainMenuDialog(){
 }
 
 void mainMenu(GarbageManagement &management) {
-
     switch (mainMenuDialog()) {
         case 1:
             nodeMenu(management);
@@ -301,14 +303,45 @@ void mainMenu(GarbageManagement &management) {
         break;
         case 4:
             settingsMenu(management);
-        break;
+            break;
         case 5:
+            garbageServiceMenu(management);
             break;
         case 6:
+            management.evalCon();
             break;
         case 7:
             break;
         case 0:
+            break;
+        default:
+            break;
+    }
+}
+
+unsigned int garbageService(){
+    std::cout << "Garbage Service Menu" << std::endl;
+    std::cout << "1 - Undifferentiated trash & Unlimited capacity" << std::endl;
+    std::cout << "2 - Differentiated trash & Unlimited capacity" << std::endl;
+    std::cout << "3 - Differentiated trash & Limited capacityu" << std::endl;
+    std::cout << "0 - Back" << std::endl;
+
+    return nextUnsignedInt("Option: ", 3);
+}
+
+void garbageServiceMenu(GarbageManagement &management) {
+    switch (mainMenuDialog()) {
+        case 1:
+//            management.dosomething();
+            break;
+        case 2:
+//            management.dosomething();
+            break;
+        case 3:
+//            management.dosomething();
+            break;
+        case 0:
+            mainMenu(management);
             break;
         default:
             break;
