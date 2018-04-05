@@ -18,7 +18,7 @@ bool openFile(fstream& file, std::string filePath){
     file.open(filePath);
 
     if(!file.is_open()) {
-        cout << "File " << filePath << " could not be open! \n";
+        cout << "File " << filePath << " could not be open!\n";
         return false;
     }
 
@@ -39,12 +39,12 @@ std::vector<std::string> split(const std::string &s, const char &delim){
     return splitStrings;
 }
 
-bool readLine(fstream& file, vector<std::string> lineVector){
+bool readLine(fstream& file, vector<std::string> *lineVector){
     if(!getline(file,line,'\r')){
         return false;
     }
 
-    lineVector = split(line, ';');
+    *lineVector = split(line, ';');
     return true;
 }
 
@@ -107,7 +107,7 @@ Edge_T createEdge(vector<std::string> line){
 
 bool loadNodes(GarbageManagement &management) {
     fstream nodes;
-    unsigned long nodeID;
+    unsigned long placeID;
     pair <double,double> coordinates;
     vector<std::string> lineVector;
 
@@ -115,20 +115,19 @@ bool loadNodes(GarbageManagement &management) {
         return false;
     }
 
-    while(readLine(nodes, lineVector)){
+    while(readLine(nodes, &lineVector)){
 
         if(lineVector.size() < 5){
             return false;
         }
 
-        setPlace(lineVector, &nodeID, &coordinates);
-        management.addPlace(new Place(nodeID, coordinates));
+        setPlace(lineVector, &placeID, &coordinates);
+        management.addPlace(new Place(placeID, coordinates));
     }
 
     nodes.close();
 
     std::cout << management.getGraph().getNumNodes() << " nodes were successfully read!\n\n";
-
     return true;
 }
 
@@ -138,6 +137,8 @@ bool loadBuildings(GarbageManagement &management){
 
 bool loadContainers(GarbageManagement &management){
     fstream containers;
+    unsigned long placeID;
+    pair <double,double> coordinates;
     vector<std::string> lineVector;
 
 
@@ -145,51 +146,61 @@ bool loadContainers(GarbageManagement &management){
         return false;
     }
 
-    while(readLine(containers, lineVector)){
+    while(readLine(containers, &lineVector)){
         building = lineVector.size() > 5 ? getBuildingType(lineVector.at(5)) : none;
         type = lineVector.size() > 6 ? getGarbageType(lineVector.at(6)) : generic;
 
-        management.addContainer(new Container(createPlace(lineVector), type,0));
+        setPlace(lineVector, &placeID, &coordinates);
+        management.addContainer(new Container(placeID, coordinates, type,0));
     }
 
     containers.close();
+    std::cout << management.getContainers().size() << " containers were successfully read!\n\n";
     return true;
 }
 
 bool loadStations(GarbageManagement &management){
     fstream stations;
+    unsigned long placeID;
+    pair <double,double> coordinates;
     vector<std::string> lineVector;
 
     if(!openFile(stations, STATIONS_FILEPATH)){
         return false;
     }
 
-    while(readLine(stations, lineVector)){
+    while(readLine(stations, &lineVector)){
         building = lineVector.size() > 5 ? getBuildingType(lineVector.at(5)) : none;
         type = lineVector.size() > 6 ? getGarbageType(lineVector.at(6)) : generic;
 
-        management.addStation(new Station(createPlace(lineVector), type,0));
+        setPlace(lineVector, &placeID, &coordinates);
+        management.addStation(new Station(placeID, coordinates, type,0));
     }
 
     stations.close();
+    std::cout << management.getStations().size() << " stations were successfully read!\n\n";
     return true;
 }
 
 bool loadGarages(GarbageManagement &management){
     fstream garages;
+    unsigned long placeID;
+    pair <double,double> coordinates;
     vector<std::string> lineVector;
 
     if(!openFile(garages, STATIONS_FILEPATH)){
         return false;
     }
 
-    while(readLine(garages, lineVector)){
+    while(readLine(garages, &lineVector)){
         building = lineVector.size() > 5 ? getBuildingType(lineVector.at(5)) : none;
 
-        management.addGarage(new Garage(createPlace(lineVector)));
+        setPlace(lineVector, &placeID, &coordinates);
+        management.addGarage(new Garage(placeID, coordinates));
     }
 
     garages.close();
+    std::cout << management.getGarages().size() << " garages were successfully read!\n\n";
     return true;
 }
 
@@ -201,7 +212,7 @@ bool loadEdges(GarbageManagement &management) {
         return false;
     }
 
-    while(readLine(edges, lineVector)){
+    while(readLine(edges, &lineVector)){
 
         if(lineVector.size() != 3){
             return false;
@@ -228,7 +239,7 @@ bool loadEdgesInfo(GarbageManagement &management) {
         return false;
     }
 
-    while(readLine(edgesInfo, lineVector)){
+    while(readLine(edgesInfo, &lineVector)){
 
         if(lineVector.size() != 3){
             return false;
@@ -238,7 +249,8 @@ bool loadEdgesInfo(GarbageManagement &management) {
 
         for(Edge_T edge : edgesVector){
             if(edge.ID == id){
-                pair <unsigned long int,unsigned long int> nodes = make_pair(Edge.node1,Edge.node2);
+                pair <unsigned long int,unsigned long int> nodes
+                        = make_pair(edge.node1,edge.node2);
                 name = lineVector.at(1);
                 type = lineVector.at(2) == "True" ? twoWay : oneWay;
                 management.addEdge(0,nodes,type, name);
