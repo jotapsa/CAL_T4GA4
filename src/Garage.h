@@ -5,12 +5,14 @@
 #include "Vehicle.h"
 
 class Garage : Building {
-  std::vector<Vehicle> trucks;
+    std::vector<Vehicle> vehicles;
 public:
-  Garage(Node &node, std::vector<Vehicle> &vehicles);
-  int getNumberOfTrucks();
-  int getNumberOfVehiclesOfType(garbageType type);
-  int getNumberOfEmptyTrucks();
+    explicit Garage(Node &node);
+    Garage(Node &node, std::vector<Vehicle> &vehicles);
+    int getNumberOfVehicles();
+    int getNumberOfVehiclesOfType(garbageType type);
+
+    void addVehicle(Vehicle vehicle);
 };
 
 #endif //_GARAGE_H

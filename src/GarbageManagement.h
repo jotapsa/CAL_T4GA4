@@ -24,6 +24,10 @@ public:
     void addStation(Station *station);
     void addGarage(Garage *garage);
 
+    Garage getGarage(unsigned long garageId);
+
+    void addVehicle(unsigned long garageId, Vehicle vehicle);
+
     virtual ~GarbageManagement();
 };
 

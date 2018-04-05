@@ -43,6 +43,23 @@ void GarbageManagement::addGarage(Garage *garage) {
 //    this->graph.addNode(garage);
 }
 
+
+Garage GarbageManagement::getGarage(unsigned long garageId) {
+//    for(unsigned int i=0; i<this->garages.size(); i++){
+//        if(this->garages[i].getNode()->getID() == garageId){
+//            return garages[i];
+//        }
+//    }
+//    return nullptr;
+}
+
+
+void GarbageManagement::addVehicle(unsigned long garageId, Vehicle vehicle) {
+    Garage garage = this->getGarage(garageId);
+    garage.addVehicle(vehicle);
+    
+}
+
 GarbageManagement::~GarbageManagement() {
     // TODO Auto-generated destructor stub
 }
