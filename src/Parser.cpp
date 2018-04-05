@@ -201,3 +201,15 @@ bool loadEdgesInfo(GarbageManagement &management) {
 
     return true;
 }
+
+void saveNodes(const GarbageManagement &management) {
+    
+}
+
+void saveEdges(const GarbageManagement &management) {
+
+}
+
+void saveEdgesInfo(const GarbageManagement &management) {
+
+}
