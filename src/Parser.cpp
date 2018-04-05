@@ -32,6 +32,21 @@ bool openFile(fstream& file, std::string filePath){
     return true;
 }
 
+bool openFile(ofstream& file, std::string filePath){
+    file.open(filePath);
+
+    if(!file.is_open()) {
+        cout << "File " << filePath << " could not be open!\n";
+        return false;
+    }
+
+    std::cout << "--------------------------------------" << endl;
+    std::cout << "Saving file: " << filePath << endl;
+    return true;
+}
+
+
+
 std::vector<std::string> split(const std::string &s, const char &delim){
     std::vector<std::string> splitStrings;
     std::istringstream inSStream(s);
@@ -377,8 +392,49 @@ bool loadEdgesInfo(GarbageManagement &management) {
     return true;
 }
 
-void saveNodes(const GarbageManagement &management) {
+void savePlaces(const GarbageManagement &management) {
+//    for(Place *place : management.getGraph()){
+//
+//    }
+}
 
+void saveContainers(GarbageManagement &management){
+//    ofstream containers;
+//
+//    containers.open("../resources/container.txt");
+//
+//    if(!containers.is_open()) {
+//        cout << "container.txt could not be open!\n";
+//        return;
+//    }
+//    for(Container *container : management.getContainers()){
+//        containers << container->getID() << ";" << container->getCapacity();
+//    }
+}
+
+void saveStations(GarbageManagement &management){
+//    ofstream stations;
+
+}
+
+void saveVehicles(std::vector<Vehicle *> vehiclesGarage){
+//    ofstream vehicles;
+//
+//    if(!openFile(vehicles,VEHICLES_FILEPATH)){
+//        return;
+//    }
+//
+//    for(Vehicle *vehicle : vehiclesGarage){
+//        vehicles <<
+//    }
+//
+//    vehicles.close();
+}
+
+void saveGarages(GarbageManagement &management){
+//    for(Garage *garage : management.getGarages()){
+//        saveVehicles(management.getVehicles(garage->getID()));
+//    }
 }
 
 void saveEdges(const GarbageManagement &management) {

@@ -22,6 +22,12 @@ bool loadBuildings(GarbageManagement &management){
     return true;
 }
 
+void saveBuildings(GarbageManagement &management){
+    saveContainers(management);
+    saveStations(management);
+    saveGarages(management);
+}
+
 int main (int argc, char* argv[]) {
     GarbageManagement management = GarbageManagement();
 
@@ -53,9 +59,11 @@ int main (int argc, char* argv[]) {
     std::cout << "Save Map ?" << std::endl;
     if(readConfirmation()){
         std::cout << "Saving map..." << std::endl;
-        saveNodes(management);
+        savePlaces(management);
+        saveBuildings(management);
         saveEdges(management);
         saveEdgesInfo(management);
+        std::cout << "Saved!" << std::endl;
     }
 
     return 0;

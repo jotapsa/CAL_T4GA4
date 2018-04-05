@@ -34,7 +34,13 @@ bool loadEdges(GarbageManagement &management);
 bool loadEdgesInfo(GarbageManagement &management);
 
 //TODO: save functions.
-void saveNodes(const GarbageManagement &management);
+void savePlaces(const GarbageManagement &management);
+
+void saveContainers(GarbageManagement &management);
+void saveStations(GarbageManagement &management);
+void saveVehicles(std::vector<Vehicle *> vehicles);
+void saveGarages(GarbageManagement &management);
+
 void saveEdges(const GarbageManagement &management);
 void saveEdgesInfo(const GarbageManagement &management);
 
