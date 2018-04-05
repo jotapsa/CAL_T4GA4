@@ -7,14 +7,15 @@
 
 class Vehicle {
 private:
-  GarbageType type;
-  double capacity;
-  double filled;
+    std::string plate;
+    GarbageType type;
+    double capacity;
+    double filled;
 public:
-  Vehicle(GarbageType type, double capacity);
-  GarbageType getType();
-  double getCapacity();
-  double getFreeSpace();
+    Vehicle(std::string plate, GarbageType type, double capacity);
+    GarbageType getType();
+    double getCapacity();
+    double getFreeSpace();
 };
 
 
