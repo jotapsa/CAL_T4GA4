@@ -6,11 +6,11 @@
 
 using namespace std;
 
-stringstream fileStream;
-string info;
+struct edge {
+    unsigned long int ID, node1, node2;
+};
 
-std::vector<Street> streets;
-
+std::vector<edge> edges;
 
 std::vector<std::string> split(const std::string &s, const char &delim){
     std::vector<std::string> splitStrings;
@@ -25,36 +25,36 @@ std::vector<std::string> split(const std::string &s, const char &delim){
     return splitStrings;
 }
 
-BuildingType getBuildingType(string type){
-    if(strcmp(type.c_str(),"container") == 0){
+BuildingType getBuildingType(const char* type){
+    if(strcmp(type,"container") == 0){
         return container;
     }
-    else if(strcmp(type.c_str(),"station") == 0){
+    else if(strcmp(type,"station") == 0){
         return station;
     }
-    else if(strcmp(type.c_str(),"garage") == 0){
+    else if(strcmp(type,"garage") == 0){
         return garage;
     }
     else{
-//        return BuildingType.none;
+        return container; //TODO
     }
 }
 
-garbageType getGarbageType(string type){
-    if(strcmp(type.c_str(),"glass") == 0){
+garbageType getGarbageType(const char* type){
+    if(strcmp(type,"glass") == 0){
         return glass;
     }
-    else if(strcmp(type.c_str(),"plastic") == 0){
+    else if(strcmp(type,"plastic") == 0){
         return plastic;
     }
-    else if(strcmp(type.c_str(),"paper") == 0){
+    else if(strcmp(type,"paper") == 0){
         return paper;
     }
-    else if(strcmp(type.c_str(),"generic") == 0){
+    else if(strcmp(type,"generic") == 0){
         return generic;
     }
     else{
-//        return garbageType.none;
+        return generic;
     }
 }
 
@@ -100,20 +100,19 @@ bool loadNodes(GarbageManagement &management) {
 
         building = lineVector.at(5);
 
-        switch(getBuildingType(building)){
+        switch(getBuildingType(building.c_str())){
             case container:{
                 type = lineVector.at(6);
-                management.addContainer(new Container(node, getGarbageType(type),0));
+                management.addContainer(new Container(node, getGarbageType(type.c_str()),0));
                 break;
             }
             case station:{
                 type = lineVector.at(6);
-                management.addStation(new Station(node,getGarbageType(type),0));
+                management.addStation(new Station(node,getGarbageType(type.c_str()),0));
                 break;
             }
             case garage:{
-                type = lineVector.at(6);
-//                management.addGarage(Garage(node,getGarbageType(type),0));
+                management.addGarage(new Garage(node));
                 break;
             }
             default:
@@ -130,8 +129,6 @@ bool loadNodes(GarbageManagement &management) {
 
 bool loadEdges(GarbageManagement &management) {
     fstream file;
-    Node *n1, *n2;
-    unsigned long int id=0, n1_id=0, n2_id=0;
     std::string line;
     vector<std::string> lineVector;
 
@@ -151,40 +148,29 @@ bool loadEdges(GarbageManagement &management) {
             return false;
         }
 
-        id = stoul(lineVector.at(0));
-        n1_id = stoul(lineVector.at(1));
-        n2_id = stoul(lineVector.at(2));
+        edge Edge;
 
-        //TODO: juntar o loadedges com o loadedgesinfo e mandar para o management weight(0 se n houvr i guess) id1 id2, edgeType, e name
-        //management.addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type, std::string name);
+        Edge.ID = stoul(lineVector.at(0));
+        Edge.node1 = stoul(lineVector.at(1));
+        Edge.node2 = stoul(lineVector.at(2));
 
-
-//        n1 = graph.findNode(n1_id);
-//        n2 = graph.findNode(n2_id);
-//
-//        if(n1 == nullptr || n2 == nullptr){
-//            return false;
-//        }
-
-//        if(!graph.addStreet(*(new Street(id,*n1,*n2)))){
-//            return false;
-//        }
+        edges.push_back(Edge);
     }
 
     file.close();
 
-    std::cout << streets.size() << " edges were successfully read!\n\n";
+    std::cout << edges.size() << " edges were successfully read!\n\n";
 
     return true;
 }
 
 bool loadEdgesInfo(GarbageManagement &management) {
     fstream file;
-    unsigned long int id=0, edges=0;
+    unsigned long int id=0, nEdgesInfo=0;
     string name;
-    Street* street;
     vector<std::string> lineVector;
     std::string line;
+    EdgeType type;
 
     file.open(EDGES_INFO_FILEPATH, std::ios::in);
 
@@ -204,30 +190,20 @@ bool loadEdgesInfo(GarbageManagement &management) {
 
         id = stoul(lineVector.at(0));
 
-        //--------- Temporary ---------
-//        Street *s;
-//        for(Street street : streets) {
-//            if (street.getID() == id)
-//                s = &street;
-//        }
-
-//        street = graph.findStreet(id);
-//        if(street == nullptr){
-//            return false;
-//        }
-
-        name = lineVector.at(1);
-//        type = lineVector.at(2) == "True" ? undirected : directed;
-
-//        s->setName(name);
-
-        //--------- Temporary ---------
-        edges++;
+        for(edge Edge : edges){
+            if(Edge.ID == id){
+                pair <unsigned long int,unsigned long int> nodes = make_pair(Edge.node1,Edge.node2);
+                name = lineVector.at(1);
+                type = lineVector.at(2) == "True" ? twoWay : oneWay;
+                management.addEdge(0,nodes,type, name);
+            }
+        }
+        nEdgesInfo++;
     }
 
     file.close();
 
-    std::cout << edges << " edges info were successfully read!\n\n";
+    std::cout << nEdgesInfo << " edges info were successfully read!\n\n";
 
     return true;
 }
