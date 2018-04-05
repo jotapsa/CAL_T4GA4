@@ -1,6 +1,6 @@
 #include "Station.h"
 
-Station::Station(Node &node, double capacity, garbageType garbage) : Building(node) {
+Station::Station(Node &node, garbageType type, double capacity) : Building(node) {
   this->capacity = capacity;
   this->garbage = garbage;
 }

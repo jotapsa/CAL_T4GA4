@@ -6,17 +6,28 @@
 int main (int argc, char* argv[]) {
     GarbageManagement management = GarbageManagement();
 
-    std::cout << "Read stored map ?" << std::endl;
+    std::cout << "Read Stored Map ?" << std::endl;
     if(readConfirmation()){
         //read files
-        loadNodes(management);
-        loadEdges(management);
-        loadEdgesInfo(management);
+        if(!loadNodes(management)){
+            std::cout << "Failed to read nodes!" << std::endl;
+            return 1;
+        }
+
+        if(!loadEdges(management)){
+            std::cout << "Failed to read edges!" << std::endl;
+            return 1;
+        }
+
+        if(!loadEdgesInfo(management)){
+            std::cout << "Failed to read edges info!" << std::endl;
+            return 1;
+        };
     }
 
     mainMenu(management);
 
-    std::cout << "Save map ?" << std::endl;
+    std::cout << "Save Map ?" << std::endl;
     if(readConfirmation()){
         saveNodes(management);
         saveEdges(management);

@@ -14,22 +14,32 @@ std::vector<Container> GarbageManagement::getContainers() {
     return this->containers;
 }
 
-void GarbageManagement::addNode(Node node) {
-    this->graph.addNode(node);
+std::vector<Station> GarbageManagement::getStations() {
+    return this->stations;
 }
 
-void GarbageManagement::addContainer(Container container) {
-    this->containers.push_back(container);
+std::vector<Garage> GarbageManagement::getGarages() {
+    return this->garages;
+}
+
+void GarbageManagement::addNode(Node *node) {
+     if(!this->graph.addNode(*node)){
+         //node already exists in graph
+     }
+}
+
+void GarbageManagement::addContainer(Container *container) {
+    this->containers.push_back(*container);
 //    this->graph.addNode(container);
 }
 
-void GarbageManagement::addStation(Station station) {
-    this->stations.push_back(station);
+void GarbageManagement::addStation(Station *station) {
+    this->stations.push_back(*station);
 //    this->graph.addNode(station);
 }
 
-void GarbageManagement::addGarage(Garage garage) {
-    this->garages.push_back(garage);
+void GarbageManagement::addGarage(Garage *garage) {
+    this->garages.push_back(*garage);
 //    this->graph.addNode(garage);
 }
 

@@ -9,7 +9,7 @@ class Station:Building {
   garbageType garbage;
   double capacity;
 public:
-  Station(Node &node, double capacity, garbageType garbage);
+  Station(Node &node, garbageType type, double capacity);
   garbageType getGarbageType();
   double getCapacity();
 };

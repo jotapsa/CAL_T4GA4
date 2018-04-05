@@ -16,11 +16,13 @@ public:
     GarbageManagement();
     Graph getGraph();
     std::vector<Container> getContainers();
+    std::vector<Station> getStations();
+    std::vector<Garage> getGarages();
 
-    void addNode(Node node);
-    void addContainer(Container container);
-    void addStation(Station station);
-    void addGarage(Garage garage);
+    void addNode(Node *node);
+    void addContainer(Container *container);
+    void addStation(Station *station);
+    void addGarage(Garage *garage);
 
     virtual ~GarbageManagement();
 };

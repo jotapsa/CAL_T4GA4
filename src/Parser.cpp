@@ -8,13 +8,16 @@ using namespace std;
 stringstream fileStream;
 string info;
 
+std::vector<Street> streets;
+
+
 std::vector<std::string> split(const std::string &s, const char &delim){
     std::vector<std::string> splitStrings;
     std::istringstream inSStream(s);
 
     std::string partX;
 
-    while (getline(inSStream, partX, delim)) {
+    while(getline(inSStream, partX, delim)) {
         splitStrings.push_back (partX);
     }
 
@@ -22,13 +25,13 @@ std::vector<std::string> split(const std::string &s, const char &delim){
 }
 
 BuildingType getBuildingType(string type){
-    if(type == "container"){
+    if(strcmp(type.c_str(),"container") == 0){
         return container;
     }
-    else if(type == "station"){
+    else if(strcmp(type.c_str(),"station") == 0){
         return station;
     }
-    else if(type == "garage"){
+    else if(strcmp(type.c_str(),"garage") == 0){
         return garage;
     }
     else{
@@ -37,16 +40,16 @@ BuildingType getBuildingType(string type){
 }
 
 garbageType getGarbageType(string type){
-    if(type == "glass"){
+    if(strcmp(type.c_str(),"glass") == 0){
         return glass;
     }
-    else if(type == "plastic"){
+    else if(strcmp(type.c_str(),"plastic") == 0){
         return plastic;
     }
-    else if(type == "paper"){
+    else if(strcmp(type.c_str(),"paper") == 0){
         return paper;
     }
-    else if(type == "generic"){
+    else if(strcmp(type.c_str(),"generic") == 0){
         return generic;
     }
     else{
@@ -72,10 +75,11 @@ bool loadNodes(GarbageManagement &management) {
     std::cout << "Reading file: " << NODES_FILEPATH << endl;
 
     while(getline(file,line)){
+        lineVector = split(line, ';');
 
-    }
-
-    while(!file.eof()) {
+        if(lineVector.size() < 5){
+            return false;
+        }
 
         nodeID = stoul(lineVector.at(0));
 
@@ -87,9 +91,7 @@ bool loadNodes(GarbageManagement &management) {
         //TODO calculate X Y coordinates
         coordinates = make_pair(dLat,rLon);
         Node* node = new Node(nodeID, coordinates);
-//        if(!graph.addNode(*node)){
-//            return false;
-//        }
+        management.addNode(node);
 
         if(lineVector.size() == 5){
             continue;
@@ -100,23 +102,27 @@ bool loadNodes(GarbageManagement &management) {
         switch(getBuildingType(building)){
             case container:{
                 type = lineVector.at(6);
-//                if(!graph.addContainer(*(new Container(*node, getGarbageType(type),0)))){
-//                    return false;
-//                }
+                management.addContainer(new Container(*node, getGarbageType(type),0));
+                break;
             }
+            case station:{
+                type = lineVector.at(6);
+                management.addStation(new Station(*node,getGarbageType(type),0));
                 break;
-            case station:
+            }
+            case garage:{
+                type = lineVector.at(6);
+//                management.addGarage(Garage(node,getGarbageType(type),0));
                 break;
-            case garage:
-                break;
+            }
             default:
                 return false;
         }
-
-        building.clear();
     }
 
     file.close();
+
+    std::cout << management.getGraph().getNumNodes() << " nodes were successfully read!\n\n";
 
     return true;
 }
@@ -140,16 +146,22 @@ bool loadEdges(GarbageManagement &management) {
     while(getline(file,line)){
         lineVector = split(line,';');
 
+        if(lineVector.size() != 3){
+            return false;
+        }
+
         id = stoul(lineVector.at(0));
         n1_id = stoul(lineVector.at(1));
         n2_id = stoul(lineVector.at(2));
 
+        streets.push_back(*(new Street(id,*n1,*n2)));
+
 //        n1 = graph.findNode(n1_id);
 //        n2 = graph.findNode(n2_id);
-
-        if(n1 == nullptr || n2 == nullptr){
-            return false;
-        }
+//
+//        if(n1 == nullptr || n2 == nullptr){
+//            return false;
+//        }
 
 //        if(!graph.addStreet(*(new Street(id,*n1,*n2)))){
 //            return false;
@@ -158,12 +170,14 @@ bool loadEdges(GarbageManagement &management) {
 
     file.close();
 
+    std::cout << streets.size() << " edges were successfully read!\n\n";
+
     return true;
 }
 
 bool loadEdgesInfo(GarbageManagement &management) {
     fstream file;
-    unsigned long int id=0;
+    unsigned long int id=0, edges=0;
     string name;
     EdgeType type;
     Street* street;
@@ -180,24 +194,39 @@ bool loadEdgesInfo(GarbageManagement &management) {
     std::cout << "Reading file: " << EDGES_INFO_FILEPATH << endl;
 
     while(getline(file,line)){
+        lineVector = split(line,';');
+
         if(lineVector.size() != 3){
             return false;
         }
+
         id = stoul(lineVector.at(0));
 
-//        street = graph.findStreet(id);
-        if(street == nullptr){
-            return false;
+        //--------- Temporary ---------
+        Street *s;
+        for(Street street : streets) {
+            if (street.getID() == id)
+                s = &street;
         }
+
+//        street = graph.findStreet(id);
+//        if(street == nullptr){
+//            return false;
+//        }
 
         name = lineVector.at(1);
         type = lineVector.at(2) == "True" ? undirected : directed;
 
-        street->setName(name);
-        street->setEdgeType(type);
+        s->setName(name);
+        s->setEdgeType(type);
+
+        //--------- Temporary ---------
+        edges++;
     }
 
     file.close();
+
+    std::cout << edges << " edges info were successfully read!\n\n";
 
     return true;
 }

@@ -19,8 +19,9 @@ std::vector<Node *> Graph::getNodeSet() const {
  */
 Node* Graph::findNode(const unsigned long &id) const {
     for(auto node : nodeSet) {
-        if (node->getID() == id)
+        if (node->getID() == id){
             return node;
+        }
     }
 
   return nullptr;
@@ -43,9 +44,6 @@ bool Graph::addNode(Node &node) {
   if(findNode(node.getID()) != nullptr){
     return false;
   }
-    if(findNode(node.getID()) != NULL){
-        return false;
-    }
 
     nodeSet.push_back(&node);
     return true;
