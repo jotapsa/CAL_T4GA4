@@ -15,6 +15,6 @@ enum EdgeType{
     twoWay, oneWay
 };
 
-std::pair<double,double> convertToKiloMeters(std::pair<double,double> longitudinalCoordinates);
+void convertToKiloMeters(std::pair<double,double> *longitudinalCoordinates, double rLatitude, double rLongitude);
 
 #endif

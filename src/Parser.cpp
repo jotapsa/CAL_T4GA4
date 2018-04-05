@@ -81,7 +81,7 @@ GarbageType getGarbageType(string type){
     }
 }
 
- void setPlace(vector<std::string> line, unsigned long *id, std::pair<double, double> *coordinates){
+ void setPlace(vector<std::string> line, unsigned long *id, std::pair<double, double> *coordinates) {
      double dLon, dLat, rLon, rLat;
 
      *id = stoul(line.at(0));
@@ -92,7 +92,7 @@ GarbageType getGarbageType(string type){
      rLon = stod(line.at(4));
 
      //TODO calculate X Y coordinates
-//     *coordinates = convertToKiloMeters(make_pair(dLat,rLon));
+     convertToKiloMeters(coordinates, rLat, rLon);
  }
 
 Edge_T createEdge(vector<std::string> line){

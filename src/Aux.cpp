@@ -2,10 +2,8 @@
 
 #include <cmath>
 
-std::pair<double,double> convertToKiloMeters(std::pair<double,double> longitudinalCoordinates) {
+void convertToKiloMeters(std::pair<double,double> *longitudinalCoordinates, double rLatitude, double rLongitude) {
 
-    double LatitudeKm = longitudinalCoordinates.first * 110.574;
-    double LongitudeKm = cos(longitudinalCoordinates.second) * 111.320;
-
-    return std::make_pair(LatitudeKm, LongitudeKm);
+    longitudinalCoordinates->first = rLatitude * 110.574;
+    longitudinalCoordinates->second = cos(rLatitude) * 111.320;
 };
