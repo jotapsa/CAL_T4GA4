@@ -1,11 +1,11 @@
 #include "Vehicle.h"
 
-Vehicle::Vehicle(garbageType type, double capacity) {
+Vehicle::Vehicle(GarbageType type, double capacity) {
   this->type = type;
   this->capacity = capacity;
 }
 
-garbageType Vehicle::getType() {
+GarbageType Vehicle::getType() {
   return this->type;
 }
 

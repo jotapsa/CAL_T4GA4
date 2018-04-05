@@ -47,6 +47,7 @@ template <class T> class Graph;
 
 template <class T>
 class Graph {
+private:
     std::vector<Node<T> *> nodeSet;    // Node set
 
     void depthFirstSearchVisit(Node<T> *v,  std::vector<T> & res) const;

@@ -11,7 +11,7 @@ public:
     Garage(unsigned long id, std::pair<double, double> coordinates);
 
     unsigned long getNumberOfVehicles();
-    int getNumberOfVehiclesOfType(garbageType type);
+    int getNumberOfVehiclesOfType(GarbageType type);
 
     void addVehicle(Vehicle vehicle);
 };

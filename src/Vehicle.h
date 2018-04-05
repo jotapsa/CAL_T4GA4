@@ -7,12 +7,12 @@
 
 class Vehicle {
 private:
-  garbageType type;
+  GarbageType type;
   double capacity;
   double filled;
 public:
-  Vehicle(garbageType type, double capacity);
-  garbageType getType();
+  Vehicle(GarbageType type, double capacity);
+  GarbageType getType();
   double getCapacity();
   double getFreeSpace();
 };

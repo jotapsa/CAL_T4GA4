@@ -1,6 +1,5 @@
 #include "Station.h"
 
-
 Station::Station(unsigned long id, std::pair<double, double> coordinates, garbageType type, double capacity)
         : Place(id, coordinates) {
     this->type = type;

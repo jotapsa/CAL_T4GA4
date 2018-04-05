@@ -18,4 +18,6 @@ void vehicleMenu(GarbageManagement &management);
 void settingsMenu(GarbageManagement &management);
 void edgeMenu(GarbageManagement &management);
 
+void addSimpleLocation(GarbageManagement &management);
+
 #endif //_CLI_H
