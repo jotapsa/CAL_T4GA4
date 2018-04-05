@@ -1,12 +1,11 @@
 #include "Garage.h"
 
-Garage::Garage(Node *node) : Building(node) {
-}
-
-
-Garage::Garage(Node *node, std::vector<Vehicle> &vehicles) : Building(node) {
+Garage::Garage(unsigned long id, std::pair<double, double> coordinates, std::vector<Vehicle> &vehicles) : Place(id, coordinates) {
     this->vehicles = vehicles;
 }
+
+Garage::Garage(unsigned long id, std::pair<double, double> coordinates) : Place(id, coordinates) {}
+
 
 unsigned long Garage::getNumberOfVehicles() {
     return this->vehicles.size();
@@ -15,8 +14,8 @@ unsigned long Garage::getNumberOfVehicles() {
 int Garage::getNumberOfVehiclesOfType(GarbageType type) {
     int num = 0;
 
-    for(auto truck: vehicles) {
-        if(truck.getType() == type) {
+    for(auto v: vehicles) {
+        if(v.getType() == type) {
             num++;
         }
     }
@@ -27,5 +26,4 @@ int Garage::getNumberOfVehiclesOfType(GarbageType type) {
 void Garage::addVehicle(Vehicle vehicle) {
     this->vehicles.push_back(vehicle);
 }
-
 

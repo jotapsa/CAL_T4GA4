@@ -81,23 +81,23 @@ GarbageType getGarbageType(string type){
     }
 }
 
-Node* createNode(vector<std::string> line){
-    unsigned long nodeID;
-    double dLon, dLat, rLon, rLat;
-    pair <double,double> coordinates;
+// Node* createNode(vector<std::string> line){
+//     unsigned long nodeID;
+//     double dLon, dLat, rLon, rLat;
+//     pair <double,double> coordinates;
 
-    nodeID = stoul(line.at(0));
+//     nodeID = stoul(line.at(0));
 
-    dLat = stod(line.at(1));
-    dLon = stod(line.at(2));
-    rLat = stod(line.at(3));
-    rLon = stod(line.at(4));
+//     dLat = stod(line.at(1));
+//     dLon = stod(line.at(2));
+//     rLat = stod(line.at(3));
+//     rLon = stod(line.at(4));
 
-    //TODO calculate X Y coordinates
-    coordinates = make_pair(dLat,rLon);
+//     //TODO calculate X Y coordinates
+//     coordinates = make_pair(dLat,rLon);
 
-    return new Node(nodeID, coordinates);
-}
+//     return new Node(nodeID, coordinates);
+// }
 
 bool loadNodes(GarbageManagement &management) {
     fstream nodes;
@@ -113,7 +113,7 @@ bool loadNodes(GarbageManagement &management) {
             return false;
         }
 
-        management.addNode(createNode(lineVector));
+        //management.addNode(createNode(lineVector));
     }
 
     nodes.close();
@@ -131,6 +131,7 @@ bool loadContainers(GarbageManagement &management){
     fstream containers;
     vector<std::string> lineVector;
 
+
     if(!openFile(containers, CONTAINERS_FILEPATH)){
         return false;
     }
@@ -139,7 +140,7 @@ bool loadContainers(GarbageManagement &management){
         building = lineVector.size() > 5 ? getBuildingType(lineVector.at(5)) : none;
         type = lineVector.size() > 6 ? getGarbageType(lineVector.at(6)) : generic;
 
-        management.addContainer(new Container(createNode(lineVector), type,0));
+//         management.addContainer(new Container(createNode(lineVector), type,0));
     }
 
     containers.close();
@@ -158,7 +159,7 @@ bool loadStations(GarbageManagement &management){
         building = lineVector.size() > 5 ? getBuildingType(lineVector.at(5)) : none;
         type = lineVector.size() > 6 ? getGarbageType(lineVector.at(6)) : generic;
 
-        management.addStation(new Station(createNode(lineVector), type,0));
+//         management.addStation(new Station(createNode(lineVector), type,0));
     }
 
     stations.close();
@@ -176,7 +177,7 @@ bool loadGarages(GarbageManagement &management){
     while(readLine(garages, lineVector)){
         building = lineVector.size() > 5 ? getBuildingType(lineVector.at(5)) : none;
 
-        management.addGarage(new Garage(createNode(lineVector)));
+//         management.addGarage(new Garage(createNode(lineVector)));
     }
 
     garages.close();

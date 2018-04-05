@@ -1,14 +1,16 @@
 #include "Container.h"
 
-Container::Container(Node *node, GarbageType type, double capacity) : Building(node){
-  this->type = type;
-  this->capacity = capacity;
+
+Container::Container(unsigned long id, std::pair<double, double> coordinates,garbageType type, double capacity) :
+        Place(id, coordinates){
+    this->type = type;
+    this->capacity = capacity;
 }
 
-GarbageType Container::getType() {
-  return this->type;
+garbageType Container::getType() {
+    return this->type;
 }
 
 double Container::getCapacity() {
-  return this->capacity;
+    return this->capacity;
 }

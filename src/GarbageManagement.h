@@ -7,12 +7,14 @@
 #include "Graph.h"
 #include "Station.h"
 #include "Garage.h"
+#include "Container.h"
+#include "Street.h"
 
 #define INF std::numeric_limits<unsigned long>::max() //For knowing the limits of nodeID
 
 class GarbageManagement {
 private:
-    Graph graph;
+    Graph<Place> graph;
 
     std::vector<Container *> containers;
     std::vector<Station *> stations;
@@ -21,7 +23,7 @@ private:
 
 public:
     GarbageManagement();
-    Graph getGraph();
+    Graph<Place> getGraph();
     std::vector<Container *> getContainers();
     std::vector<Station *> getStations();
     std::vector<Garage *> getGarages();
@@ -29,8 +31,7 @@ public:
 
     Garage * getGarage(unsigned long garageId);
 
-    void addNode(Node *node);
-    void insertNodeAt(double latitude, double longitude);
+    void addPlace(Place *place);
     void addContainer(Container *container);
     void addStation(Station *station);
     void addGarage(Garage *garage);
