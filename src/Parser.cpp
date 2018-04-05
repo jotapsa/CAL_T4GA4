@@ -5,11 +5,11 @@
 
 using namespace std;
 
-struct edge {
+struct Edge_T {
     unsigned long int ID, node1, node2;
 };
 
-std::vector<edge> edgesVector;
+std::vector<Edge_T> edgesVector;
 string line;
 BuildingType building;
 GarbageType type;
@@ -81,26 +81,34 @@ GarbageType getGarbageType(string type){
     }
 }
 
-// Node* createNode(vector<std::string> line){
-//     unsigned long nodeID;
-//     double dLon, dLat, rLon, rLat;
-//     pair <double,double> coordinates;
+ void setPlace(vector<std::string> line, unsigned long *id, std::pair<double, double> *coordinates){
+     double dLon, dLat, rLon, rLat;
 
-//     nodeID = stoul(line.at(0));
+     *id = stoul(line.at(0));
 
-//     dLat = stod(line.at(1));
-//     dLon = stod(line.at(2));
-//     rLat = stod(line.at(3));
-//     rLon = stod(line.at(4));
+     dLat = stod(line.at(1));
+     dLon = stod(line.at(2));
+     rLat = stod(line.at(3));
+     rLon = stod(line.at(4));
 
-//     //TODO calculate X Y coordinates
-//     coordinates = make_pair(dLat,rLon);
+     //TODO calculate X Y coordinates
+     *coordinates = make_pair(dLat,rLon);
+ }
 
-//     return new Node(nodeID, coordinates);
-// }
+Edge_T createEdge(vector<std::string> line){
+    Edge_T edge;
+
+    edge.ID = stoul(line.at(0));
+    edge.node1 = stoul(line.at(1));
+    edge.node2 = stoul(line.at(2));
+
+    return edge;
+}
 
 bool loadNodes(GarbageManagement &management) {
     fstream nodes;
+    unsigned long nodeID;
+    pair <double,double> coordinates;
     vector<std::string> lineVector;
 
     if(!openFile(nodes, NODES_FILEPATH)){
@@ -113,7 +121,8 @@ bool loadNodes(GarbageManagement &management) {
             return false;
         }
 
-        //management.addNode(createNode(lineVector));
+        setPlace(lineVector, &nodeID, &coordinates);
+        management.addPlace(new Place(nodeID, coordinates));
     }
 
     nodes.close();
@@ -140,7 +149,7 @@ bool loadContainers(GarbageManagement &management){
         building = lineVector.size() > 5 ? getBuildingType(lineVector.at(5)) : none;
         type = lineVector.size() > 6 ? getGarbageType(lineVector.at(6)) : generic;
 
-//         management.addContainer(new Container(createNode(lineVector), type,0));
+        management.addContainer(new Container(createPlace(lineVector), type,0));
     }
 
     containers.close();
@@ -159,7 +168,7 @@ bool loadStations(GarbageManagement &management){
         building = lineVector.size() > 5 ? getBuildingType(lineVector.at(5)) : none;
         type = lineVector.size() > 6 ? getGarbageType(lineVector.at(6)) : generic;
 
-//         management.addStation(new Station(createNode(lineVector), type,0));
+        management.addStation(new Station(createPlace(lineVector), type,0));
     }
 
     stations.close();
@@ -177,7 +186,7 @@ bool loadGarages(GarbageManagement &management){
     while(readLine(garages, lineVector)){
         building = lineVector.size() > 5 ? getBuildingType(lineVector.at(5)) : none;
 
-//         management.addGarage(new Garage(createNode(lineVector)));
+        management.addGarage(new Garage(createPlace(lineVector)));
     }
 
     garages.close();
@@ -198,13 +207,7 @@ bool loadEdges(GarbageManagement &management) {
             return false;
         }
 
-        edge Edge;
-
-        Edge.ID = stoul(lineVector.at(0));
-        Edge.node1 = stoul(lineVector.at(1));
-        Edge.node2 = stoul(lineVector.at(2));
-
-        edgesVector.push_back(Edge);
+        edgesVector.push_back(createEdge(lineVector));
     }
 
     edges.close();
@@ -233,8 +236,8 @@ bool loadEdgesInfo(GarbageManagement &management) {
 
         id = stoul(lineVector.at(0));
 
-        for(edge Edge : edgesVector){
-            if(Edge.ID == id){
+        for(Edge_T edge : edgesVector){
+            if(edge.ID == id){
                 pair <unsigned long int,unsigned long int> nodes = make_pair(Edge.node1,Edge.node2);
                 name = lineVector.at(1);
                 type = lineVector.at(2) == "True" ? twoWay : oneWay;
