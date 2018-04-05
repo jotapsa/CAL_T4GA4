@@ -1,5 +1,8 @@
 #include "Place.h"
 
+Place::Place(unsigned long id) {
+    this->id = id;
+}
 Place::Place(unsigned long id, std::pair<double, double> coordinates) {
     this->id = id;
     this->coordinates = coordinates;

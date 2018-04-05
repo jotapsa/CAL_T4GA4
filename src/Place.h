@@ -8,6 +8,7 @@ protected:
   unsigned long id;
   std::pair<double, double> coordinates;
 public:
+  Place(unsigned long id);
   Place(unsigned long id, std::pair<double, double> coordinates);
   unsigned long getId();
   std::pair<double, double> getCoordinates();

@@ -37,6 +37,7 @@ public:
     void addGarage(Garage *garage);
     void addVehicle(unsigned long garageId, Vehicle vehicle);
     void addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type, std::string name);
+    unsigned long getValidNodeID();
 
     virtual ~GarbageManagement();
 };

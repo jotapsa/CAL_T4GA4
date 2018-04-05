@@ -107,6 +107,21 @@ void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned
 //    std::cout << "added node with ID: " << idToInsert << std::endl;
 //}
 
+unsigned long GarbageManagement::getValidNodeID() {
+
+    //TODO Refactor
+
+    unsigned long idToInsert = rand() % INF + 1;
+
+    while(this->graph.getNode(Place(idToInsert)) != nullptr) {
+        idToInsert = rand() % INF + 1;
+
+        std::cout << idToInsert << " ID already exists!"<< std::endl;
+    }
+
+    return idToInsert;
+}
+
 GarbageManagement::~GarbageManagement() {
     // TODO Auto-generated destructor stub
 }

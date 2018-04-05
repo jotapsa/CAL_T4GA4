@@ -1,5 +1,4 @@
 #include "Cli.h"
-#include <iostream>
 
 bool readConfirmation() {
     std::string temp;
@@ -88,7 +87,7 @@ void settingsMenu(GarbageManagement &management) {
             break;
         case 0:
             mainMenu(management);
-            break;
+        break;
         default:
             break;
     }
@@ -117,7 +116,7 @@ void vehicleMenu(GarbageManagement &management){
             break;
         case 0:
             mainMenu(management);
-            break;
+        break;
         default:
             break;
     }
@@ -141,42 +140,67 @@ void edgeMenu(GarbageManagement &management) {
             break;
         case 0:
             mainMenu(management);
-            break;
+        break;
         default:
             break;
     }
 }
 
 unsigned int nodeMenuDialog() {
-    std::cout << "Node Menu" << std::endl;
-    std::cout << "1 - Create Location" << std::endl;
-    std::cout << "2 - Create Garage" << std::endl;
-    std::cout << "3 - Create Container" << std::endl;
-    std::cout << "4 - Create Station" << std::endl;
-    std::cout << "5 - Remove Location" << std::endl;
-    std::cout << "6 - Remove Garage" << std::endl;
-    std::cout << "7 - Remove Container" << std::endl;
-    std::cout << "8 - Remove Container" << std::endl;
-    std::cout << "0 - Exit" << std::endl;
+    std::cout << "\nNode Menu" << std::endl;
+    std::cout << "1  - Create Location" << std::endl;
+    std::cout << "2  - Create Garage" << std::endl;
+    std::cout << "3  - Create Container" << std::endl;
+    std::cout << "4  - Create Station" << std::endl;
+    std::cout << "5  - List Locations" << std::endl;
+    std::cout << "6  - List Garages" << std::endl;
+    std::cout << "7  - List Containers" << std::endl;
+    std::cout << "8  - List Stations" << std::endl;
+    std::cout << "9  - Remove Location" << std::endl;
+    std::cout << "10 - Remove Garage" << std::endl;
+    std::cout << "11 - Remove Container" << std::endl;
+    std::cout << "12 - Remove Container" << std::endl;
+    std::cout << "0  - Exit" << std::endl;
 
     return nextUnsignedInt("Please select: ", 8);
 }
 
-void addSimpleLocation(GarbageManagement &management) {
+std::pair<double, double> askForLocation() {
 
     double lat = parseDouble("Insert latitude: ");
     double lon = parseDouble("Insert Longitude: ");
 
-//    management.insertNodeAt(lat, lon);
+    return std::make_pair(lat, lon);
+};
+
+unsigned long addSimpleLocation(GarbageManagement &management) {
+
+    unsigned long createdNodeId = management.getValidNodeID();
+
+    management.addPlace(new Place(createdNodeId, askForLocation()));
+
+    std::cout << "Added: nodeID-> " << createdNodeId << std::endl;
+}
+
+void addGarage(GarbageManagement &management) {
+
+    std::cout << "Insert location for garage:\n";
+
+    std::pair<double,double> garageCoordinates = askForLocation();
+
+    unsigned long createdNodeId = management.getValidNodeID();
+
+    management.addGarage(new Garage(createdNodeId, garageCoordinates));
 }
 
 void nodeMenu(GarbageManagement &management){
     switch(nodeMenuDialog()){
         case 1:
             addSimpleLocation(management);
-            break;
+        break;
         case 2:
-            break;
+            addGarage(management);
+        break;
         case 3:
             break;
         case 4:
@@ -188,6 +212,14 @@ void nodeMenu(GarbageManagement &management){
         case 7:
             break;
         case 8:
+            break;
+        case 9:
+            break;
+        case 10:
+            break;
+        case 11:
+            break;
+        case 12:
             break;
         case 0:
             break;
@@ -216,16 +248,16 @@ void mainMenu(GarbageManagement &management) {
     switch (mainMenuDialog()) {
         case 1:
             nodeMenu(management);
-            break;
+        break;
         case 2:
             edgeMenu(management);
-            break;
+        break;
         case 3:
             vehicleMenu(management);
-            break;
+        break;
         case 4:
             settingsMenu(management);
-            break;
+        break;
         case 5:
             break;
         case 6:

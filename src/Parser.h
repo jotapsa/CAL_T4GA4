@@ -3,6 +3,7 @@
 
 #include "Graph.h"
 #include "GarbageManagement.h"
+#include "Aux.h"
 #include <fstream>
 
 #define PLACES_FILEPATH "../resources/nodes.txt"
