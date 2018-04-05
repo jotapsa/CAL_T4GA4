@@ -4,9 +4,6 @@ Garage::Garage(unsigned long id, std::pair<double, double> coordinates, std::vec
     this->vehicles = vehicles;
 }
 
-Garage::Garage(unsigned long id, std::pair<double, double> coordinates) : Place(id, coordinates) {}
-
-
 unsigned long Garage::getNumberOfVehicles() {
     return this->vehicles.size();
 }

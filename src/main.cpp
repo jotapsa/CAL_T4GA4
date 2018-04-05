@@ -3,6 +3,25 @@
 #include "GarbageManagement.h"
 #include "Parser.h"
 
+bool loadBuildings(GarbageManagement &management){
+    if(!loadContainers(management)){
+        std::cout << "Failed to read containers!" << std::endl;
+        return false;
+    }
+
+    if(!loadStations(management)){
+        std::cout << "Failed to read stations!" << std::endl;
+        return false;
+    }
+
+    if(!loadGarages(management)){
+        std::cout << "Failed to read garages!" << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
 int main (int argc, char* argv[]) {
     GarbageManagement management = GarbageManagement();
 
@@ -15,7 +34,6 @@ int main (int argc, char* argv[]) {
         }
 
         if(!loadBuildings(management)){
-            std::cout << "Failed to read buildings!" << std::endl;
             return 1;
         }
 
@@ -26,11 +44,6 @@ int main (int argc, char* argv[]) {
 
         if(!loadEdgesInfo(management)){
             std::cout << "Failed to read edges info!" << std::endl;
-            return 1;
-        };
-
-        if(!loadVehicles(management)){
-            std::cout << "Failed to read vehicles!" << std::endl;
             return 1;
         };
     }

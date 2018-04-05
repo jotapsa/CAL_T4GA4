@@ -191,9 +191,11 @@ void addGarage(GarbageManagement &management) {
 
     std::pair<double,double> garageCoordinates = askForLocation();
 
+    std::vector<Vehicle *> vehicles;
+
     unsigned long createdNodeId = management.getValidNodeID();
 
-    management.addGarage(new Garage(createdNodeId, garageCoordinates));
+    management.addGarage(new Garage(createdNodeId, garageCoordinates, vehicles));
 }
 
 void nodeMenu(GarbageManagement &management){

@@ -25,15 +25,13 @@ bool readLine(std::fstream& file, std::vector<std::string> lineVector);
 
 bool loadPlaces(GarbageManagement &management);
 
-bool loadBuildings(GarbageManagement &management);
 bool loadContainers(GarbageManagement &management);
 bool loadStations(GarbageManagement &management);
+bool loadVehicles(GarbageManagement &management);
 bool loadGarages(GarbageManagement &management);
 
 bool loadEdges(GarbageManagement &management);
 bool loadEdgesInfo(GarbageManagement &management);
-
-bool loadVehicles(GarbageManagement &management);
 
 //TODO: save functions.
 void saveNodes(const GarbageManagement &management);
