@@ -26,7 +26,7 @@
 #define _NODE_H
 
 #include <vector>
-#import "Edge.h"
+#include "Edge.h"
 
 template <class T>
 class Node {
@@ -48,7 +48,7 @@ template <class T>
 Node<T>::Node(T in): info(in) {}
 
 template <class T>
-void Node<T>::getInfo() const{
+T Node<T>::getInfo() const{
     return this->info;
 }
 
@@ -58,7 +58,7 @@ void Node<T>::getInfo() const{
  */
 template <class T>
 void Node<T>::addEdge(Node<T> *dest, double w) {
-    this->edges.push_back(Edge(dest, w));
+    this->edges.push_back(Edge<T>(dest, w));
 }
 
 /*

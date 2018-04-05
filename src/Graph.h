@@ -94,7 +94,7 @@ bool Graph<T>::addNode(const T &in) {
         return false;
     }
 
-    nodeSet.push_back(new Node(in));
+    nodeSet.push_back(new Node<T>(in));
     return true;
 }
 

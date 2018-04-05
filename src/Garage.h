@@ -7,7 +7,7 @@
 class Garage : public Place {
     std::vector<Vehicle> vehicles;
 public:
-    Garage(unsigned long id, std::pair<double, double> coordinates, std::vector<Vehicle> &vehicles)
+    Garage(unsigned long id, std::pair<double, double> coordinates, std::vector<Vehicle> &vehicles);
     Garage(unsigned long id, std::pair<double, double> coordinates);
 
     unsigned long getNumberOfVehicles();

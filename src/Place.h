@@ -1,7 +1,6 @@
 #ifndef _BUILDING_H_
 #define _BUILDING_H_
 
-#include "Place.h"
 #include "Node.h"
 
 class Place{

@@ -114,7 +114,7 @@ bool loadNodes(GarbageManagement &management) {
                 break;
             }
             default: {
-                management.addNode(new Node(nodeID, coordinates));
+                management.addPlace(new Node(nodeID, coordinates));
                 break;
             }
         }
