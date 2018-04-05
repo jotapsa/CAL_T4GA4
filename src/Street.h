@@ -7,24 +7,18 @@
 
 class Street {
 private:
-  unsigned long int ID;
-  std::string roadName;
-  int edgeType;
-  Node *n1;
-  Node *n2;
+    std::string roadName;
+    Node *n1;
+    Node *n2;
+
 public:
-  Street(unsigned long int ID, std::string name, int edgeType);
-  Street(unsigned long int ID, Node &n1, Node &n2);
+    Street(Node &n1, Node &n2, std::string name);
 
-  unsigned long int getID();
-  std::string getName();
-  int getEdgeType();
+    std::string getName();
+    Node* getFirstNode(){return this->n1;}
+    Node* getSecondNode(){return this->n2;}
 
-  void setName(std::string name);
-  void setEdgeType(EdgeType type);
-  void addNodes(Node &n1, Node &n2);
-  Node* getFirstNode(){return this->n1;}
-  Node* getSecondNode(){return this->n2;}
+    void setName(std::string name);
 };
 
 

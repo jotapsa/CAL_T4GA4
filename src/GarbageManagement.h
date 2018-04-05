@@ -18,15 +18,14 @@ public:
     std::vector<Container> getContainers();
     std::vector<Station> getStations();
     std::vector<Garage> getGarages();
+    Garage getGarage(unsigned long garageId);
 
     void addNode(Node *node);
     void addContainer(Container *container);
     void addStation(Station *station);
     void addGarage(Garage *garage);
-
-    Garage getGarage(unsigned long garageId);
-
     void addVehicle(unsigned long garageId, Vehicle vehicle);
+    void addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type, std::string name);
 
     virtual ~GarbageManagement();
 };

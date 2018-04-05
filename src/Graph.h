@@ -9,23 +9,21 @@
 
 class Graph {
 private:
-	std::vector<Node *> nodeSet;    // vertex set
+    std::vector<Node *> nodeSet;    // vertex set
 
     std::vector<Street *> streets;
-	std::vector<Building *> containers;
+    std::vector<Building *> containers;
 public:
-	Graph();
-	int getNumNodes() const;
+    Graph();
+    int getNumNodes() const;
 
-	std::vector<Node*> getNodeSet() const;
+    std::vector<Node*> getNodeSet() const;
     std::vector<Street *> getStreets(){return this->streets;}
-	std::vector<Building *> getContainers(){return this->containers;}
+    std::vector<Building *> getContainers(){return this->containers;}
 
-	Node *findNode(const unsigned long &id) const;
-	Street* findStreet(const unsigned long &id) const;
+    Node *getNode(const unsigned long &id) const;
 
-	bool addNode(Node &node);
-	bool addStreet(Street &street);
+    bool addNode(Node &node);
 };
 
 #endif /* GRAPH_H_ */

@@ -1,8 +1,6 @@
 #include "GarbageManagement.h"
 #include <iostream>
 
-using namespace std;
-
 GarbageManagement::GarbageManagement() {
 }
 
@@ -58,6 +56,12 @@ void GarbageManagement::addVehicle(unsigned long garageId, Vehicle vehicle) {
     Garage garage = this->getGarage(garageId);
     garage.addVehicle(vehicle);
     
+}
+
+void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type,
+                                std::string name) {
+
+
 }
 
 GarbageManagement::~GarbageManagement() {

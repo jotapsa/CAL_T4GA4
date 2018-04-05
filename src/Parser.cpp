@@ -155,7 +155,9 @@ bool loadEdges(GarbageManagement &management) {
         n1_id = stoul(lineVector.at(1));
         n2_id = stoul(lineVector.at(2));
 
-        streets.push_back(*(new Street(id,*n1,*n2)));
+        //TODO: juntar o loadedges com o loadedgesinfo e mandar para o management weight(0 se n houvr i guess) id1 id2, edgeType, e name
+        //management.addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIds, EdgeType type, std::string name);
+
 
 //        n1 = graph.findNode(n1_id);
 //        n2 = graph.findNode(n2_id);
@@ -180,7 +182,6 @@ bool loadEdgesInfo(GarbageManagement &management) {
     fstream file;
     unsigned long int id=0, edges=0;
     string name;
-    EdgeType type;
     Street* street;
     vector<std::string> lineVector;
     std::string line;
@@ -204,11 +205,11 @@ bool loadEdgesInfo(GarbageManagement &management) {
         id = stoul(lineVector.at(0));
 
         //--------- Temporary ---------
-        Street *s;
-        for(Street street : streets) {
-            if (street.getID() == id)
-                s = &street;
-        }
+//        Street *s;
+//        for(Street street : streets) {
+//            if (street.getID() == id)
+//                s = &street;
+//        }
 
 //        street = graph.findStreet(id);
 //        if(street == nullptr){
@@ -216,10 +217,9 @@ bool loadEdgesInfo(GarbageManagement &management) {
 //        }
 
         name = lineVector.at(1);
-        type = lineVector.at(2) == "True" ? undirected : directed;
+//        type = lineVector.at(2) == "True" ? undirected : directed;
 
-        s->setName(name);
-        s->setEdgeType(type);
+//        s->setName(name);
 
         //--------- Temporary ---------
         edges++;

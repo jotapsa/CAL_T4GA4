@@ -10,7 +10,7 @@ enum BuildingType{
 };
 
 enum EdgeType{
-    undirected, directed
+    twoWay, oneWay
 };
 
 #endif
