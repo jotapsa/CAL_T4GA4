@@ -7,10 +7,10 @@
 
 class Station : public Place {
 private:
-    garbageType type;
+    GarbageType type;
     double capacity;
-public:Station(unsigned long id, std::pair<double, double> coordinates, garbageType type, double capacity);
-    garbageType getGarbageType();
+public:Station(unsigned long id, std::pair<double, double> coordinates, GarbageType type, double capacity);
+    GarbageType getGarbageType();
     double getCapacity();
 };
 

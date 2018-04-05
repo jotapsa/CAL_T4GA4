@@ -87,25 +87,25 @@ void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned
 //    this->graph.addEdge(nodeIds.first, nodeIds.second, weight, type);
 }
 
-void GarbageManagement::insertNodeAt(double latitude, double longitude) {
-
-    //TODO Refactor
-
-    unsigned long idToInsert = rand() % INF + 1;
-    std::pair<double,double> location;
-    location.first = latitude;
-    location.second = longitude;
-
-    while(this->graph.getNode(idToInsert) != nullptr) {
-        idToInsert = rand() % INF + 1;
-
-        this->graph.addNode(new Node(idToInsert, location));
-
-        std::cout << "Failed adding node with ID: " << idToInsert << std::endl;
-    }
-
-    std::cout << "added node with ID: " << idToInsert << std::endl;
-}
+//void GarbageManagement::insertNodeAt(double latitude, double longitude) {
+//
+//    //TODO Refactor
+//
+//    unsigned long idToInsert = rand() % INF + 1;
+//    std::pair<double,double> location;
+//    location.first = latitude;
+//    location.second = longitude;
+//
+//    while(this->graph.getNode(idToInsert) != nullptr) {
+//        idToInsert = rand() % INF + 1;
+//
+//        this->graph.addNode(new Node(idToInsert, location));
+//
+//        std::cout << "Failed adding node with ID: " << idToInsert << std::endl;
+//    }
+//
+//    std::cout << "added node with ID: " << idToInsert << std::endl;
+//}
 
 GarbageManagement::~GarbageManagement() {
     // TODO Auto-generated destructor stub
