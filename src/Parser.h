@@ -6,7 +6,7 @@
 #include "Aux.h"
 #include <fstream>
 
-#define PLACES_FILEPATH "../resources/nodes.txt"
+#define PLACES_FILEPATH "../resources/places.txt"
 #define EDGES_FILEPATH "../resources/edges.txt"
 #define EDGES_INFO_FILEPATH "../resources/edges_info.txt"
 
