@@ -203,7 +203,7 @@ bool loadEdgesInfo(GarbageManagement &management) {
 }
 
 void saveNodes(const GarbageManagement &management) {
-    
+
 }
 
 void saveEdges(const GarbageManagement &management) {

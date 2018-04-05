@@ -14,7 +14,7 @@ int main (int argc, char* argv[]) {
         loadEdgesInfo(management);
     }
 
-    //menu
+    mainMenu(management);
 
     std::cout << "Save map ?" << std::endl;
     if(readConfirmation()){
