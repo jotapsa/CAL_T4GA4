@@ -25,32 +25,33 @@ std::vector<std::string> split(const std::string &s, const char &delim){
     return splitStrings;
 }
 
-BuildingType getBuildingType(const char* type){
-    if(strcmp(type,"container") == 0){
+BuildingType getBuildingType(string type){
+    if(type.compare(string("container")) == 0){
         return container;
     }
-    else if(strcmp(type,"station") == 0){
+    else if(type.compare(string("station")) == 0){
         return station;
     }
-    else if(strcmp(type,"garage") == 0){
+    else if(type.compare(string("garage")) == 0){
+        cout << "comparing garage..." << endl;
         return garage;
     }
     else{
-        return container; //TODO
+        //TODO
     }
 }
 
-garbageType getGarbageType(const char* type){
-    if(strcmp(type,"glass") == 0){
+garbageType getGarbageType(string type){
+    if(type.compare(string("glass")) == 0){
         return glass;
     }
-    else if(strcmp(type,"plastic") == 0){
+    else if(type.compare(string("plastic")) == 0){
         return plastic;
     }
-    else if(strcmp(type,"paper") == 0){
+    else if(type.compare(string("paper")) == 0){
         return paper;
     }
-    else if(strcmp(type,"generic") == 0){
+    else if(type.compare(string("generic")) == 0){
         return generic;
     }
     else{
@@ -62,7 +63,8 @@ bool loadNodes(GarbageManagement &management) {
     fstream file;
     unsigned long nodeID;
     double dLon, dLat, rLon, rLat;
-    string building, type, line;
+    string type, line;
+    BuildingType building;
     pair <double,double> coordinates;
     vector<std::string> lineVector;
 
@@ -91,33 +93,33 @@ bool loadNodes(GarbageManagement &management) {
 
         //TODO calculate X Y coordinates
         coordinates = make_pair(dLat,rLon);
-        Node* node = new Node(nodeID, coordinates);
-        management.addNode(node);
 
-        if(lineVector.size() == 5){
-            continue;
-        }
+        building = lineVector.size() > 5 ? getBuildingType(lineVector.at(5)) : none;
 
-        building = lineVector.at(5);
-
-        switch(getBuildingType(building.c_str())){
+        switch(building){
             case container:{
                 type = lineVector.at(6);
-                management.addContainer(new Container(node, getGarbageType(type.c_str()),0));
+                management.addContainer(new Container(new Node(nodeID, coordinates), getGarbageType(type),0));
                 break;
             }
             case station:{
                 type = lineVector.at(6);
-                management.addStation(new Station(node,getGarbageType(type.c_str()),0));
+                management.addStation(new Station(new Node(nodeID, coordinates),getGarbageType(type),0));
                 break;
             }
             case garage:{
-                management.addGarage(new Garage(node));
+                cout << "garagem" << endl;
+                management.addGarage(new Garage(new Node(nodeID, coordinates)));
+                return false;
                 break;
             }
-            default:
-                return false;
+            default: {
+                management.addNode(new Node(nodeID, coordinates));
+                break;
+            }
         }
+
+        lineVector.clear();
     }
 
     file.close();

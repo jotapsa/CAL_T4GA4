@@ -1,5 +1,6 @@
 #include "GarbageManagement.h"
 #include <iostream>
+#include <cmath>
 
 GarbageManagement::GarbageManagement() {
 }
@@ -77,9 +78,9 @@ void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned
                  std::abs(destNode->getCoordinates().second - destNode->getCoordinates().second);
     }
 
-    if(name.empty()){
-        name = "unnamed street n" + this->streets.size();
-    }
+//    if(name.empty()){
+//        name = "unnamed street n" + this->streets.size();
+//    }
 
 
     this->streets.push_back(new Street(sourceNode, destNode, name));

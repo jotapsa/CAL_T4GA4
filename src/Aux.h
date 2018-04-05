@@ -6,7 +6,7 @@ enum garbageType{
 };
 
 enum BuildingType{
-    container, station, garage
+    container, station, garage, none
 };
 
 enum EdgeType{
