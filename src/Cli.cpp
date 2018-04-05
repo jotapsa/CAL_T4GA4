@@ -38,6 +38,136 @@ unsigned int nextUnsignedInt(std::string str, unsigned int ceilling){
     }while(true);
 }
 
+unsigned int settingsMenuDialog() {
+
+    std::cout << "Settings Menu" << std::endl;
+    std::cout << "1 - Set Garage" << std::endl;
+    std::cout << "2 - Set Container" << std::endl;
+    std::cout << "3 - Set Station" << std::endl;
+    std::cout << "4 - Fill Container" << std::endl;
+    std::cout << "5 - Clear Container" << std::endl;
+    std::cout << "6 - Find Container" << std::endl;
+    std::cout << "0 - Back" << std::endl;
+
+    return nextUnsignedInt("Please select: ", 6);
+}
+
+void settingsMenu(GarbageManagement &management) {
+    switch (settingsMenuDialog()) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 0:
+            mainMenu(management);
+            break;
+        default:
+            break;
+    }
+}
+
+unsigned int vehicleMenuDialog(){
+    std::cout << "Vehicle Menu" << std::endl;
+    std::cout << "1 - Create Vehicle" << std::endl;
+    std::cout << "2 - Remove Vehicle" << std::endl;
+    std::cout << "3 - Add Vehicle type" << std::endl;
+    std::cout << "4 - Remove Vehicle type" << std::endl;
+    std::cout << "0 - Back" << std::endl;
+
+    return nextUnsignedInt("Please select: ", 4);
+}
+
+void vehicleMenu(GarbageManagement &management){
+    switch(vehicleMenuDialog()){
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 0:
+            mainMenu(management);
+            break;
+        default:
+            break;
+    }
+}
+
+unsigned int edgeMenuDialog(){
+    std::cout << "Edge Menu" << std::endl;
+    std::cout << "1 - Create Edge" << std::endl;
+    std::cout << "2 - Remove Edge" << std::endl;
+    std::cout << "0 - Exit" << std::endl;
+
+    return nextUnsignedInt("Please select: ", 2);
+}
+
+void edgeMenu(GarbageManagement &management) {
+
+    switch(edgeMenuDialog()) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 0:
+            mainMenu(management);
+            break;
+        default:
+            break;
+    }
+}
+
+unsigned int nodeMenuDialog() {
+    std::cout << "Node Menu" << std::endl;
+    std::cout << "1 - Create Location" << std::endl;
+    std::cout << "2 - Create Garage" << std::endl;
+    std::cout << "3 - Create Container" << std::endl;
+    std::cout << "4 - Create Station" << std::endl;
+    std::cout << "5 - Remove Location" << std::endl;
+    std::cout << "6 - Remove Garage" << std::endl;
+    std::cout << "7 - Remove Container" << std::endl;
+    std::cout << "8 - Remove Container" << std::endl;
+    std::cout << "0 - Exit" << std::endl;
+
+    return nextUnsignedInt("Please select: ", 8);
+}
+
+void nodeMenu(GarbageManagement &management){
+    switch(nodeMenuDialog()){
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+        case 0:
+            mainMenu(management);
+            break;
+        default:
+            break;
+    }
+}
+
 unsigned int mainMenuDialog(){
     std::cout << "Main Menu" << std::endl;
     std::cout << "1 - Node Menu" << std::endl;
@@ -52,90 +182,28 @@ unsigned int mainMenuDialog(){
     return nextUnsignedInt("Please select: ", 7);
 }
 
-//TODO:
-unsigned int nodeMenuDialog(){
-    std::cout << "Main Menu" << std::endl;
-    std::cout << "1 - Node Menu" << std::endl;
-    std::cout << "2 - Edge Menu" << std::endl;
-    std::cout << "3 - Vehicle Menu" << std::endl;
-    std::cout << "4 - Settings Menu" << std::endl;
-    std::cout << "5 - Collect Garbage" << std::endl;
-    std::cout << "6 - Evaluate Connectivity" << std::endl;
-    std::cout << "7 - Stress test" << std::endl;
-    std::cout << "0 - Exit" << std::endl;
+void mainMenu(GarbageManagement &management) {
 
-    return nextUnsignedInt("Please select: ", 7);
-}
-
-
-//TODO:
-unsigned int edgeMenuDialog(){
-    std::cout << "Main Menu" << std::endl;
-    std::cout << "1 - Node Menu" << std::endl;
-    std::cout << "2 - Edge Menu" << std::endl;
-    std::cout << "3 - Vehicle Menu" << std::endl;
-    std::cout << "4 - Settings Menu" << std::endl;
-    std::cout << "5 - Collect Garbage" << std::endl;
-    std::cout << "6 - Evaluate Connectivity" << std::endl;
-    std::cout << "7 - Stress test" << std::endl;
-    std::cout << "0 - Exit" << std::endl;
-
-    return nextUnsignedInt("Please select: ", 7);
-}
-
-unsigned int vehicleMenuDialog(){
-    std::cout << "Vehicle Menu" << std::endl;
-    std::cout << "1 - Create Vehicle" << std::endl;
-    std::cout << "2 - Remove Vehicle" << std::endl;
-    std::cout << "3 - Add Vehicle type" << std::endl;
-    std::cout << "4 - Remove Vehicle type" << std::endl;
-    std::cout << "5 - Change Vehicle garage" << std::endl;
-    std::cout << "0 - Back" << std::endl;
-
-    return nextUnsignedInt("Please select: ", 5);
-}
-
-void mainMenu(GarbageManagement &management){
-    switch(mainMenuDialog()){
+    switch (mainMenuDialog()) {
         case 1:
+            nodeMenu(management);
             break;
         case 2:
+            edgeMenu(management);
             break;
         case 3:
             vehicleMenu(management);
             break;
-        case 0:
-            break;
-        default:
-            break;
-    }
-}
-
-void nodeMenu(GarbageManagement &management){
-    switch(nodeMenuDialog()){
-        case 1:
-            break;
-        case 0:
-            break;
-        default:
-            break;
-    }
-}
-
-void vehicleMenu(GarbageManagement &management){
-    switch(vehicleMenuDialog()){
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
         case 4:
+            settingsMenu(management);
             break;
         case 5:
             break;
+        case 6:
+            break;
+        case 7:
+            break;
         case 0:
-            mainMenu(management);
             break;
         default:
             break;
