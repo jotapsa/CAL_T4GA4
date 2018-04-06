@@ -190,7 +190,7 @@ void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned
     if(!this->graph.addEdge(*(sourceNode), *(destNode), weight, type)){
         std::cout << "Error: Cannot add edge." << std::endl;
     } else{
-        Street *street = new Street(sourceNode, destNode, name);
+        Street *street = new Street(sourceNode, destNode, name, type);
         this->streets.push_back(street);
     }
 

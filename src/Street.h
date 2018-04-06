@@ -10,14 +10,17 @@ private:
     static unsigned long idCounter;
     unsigned long id;
     std::string name;
+    EdgeType type;
     Place *n1;
     Place *n2;
 
 public:
-    Street(Place *n1, Place *n2, std::string name);
+    Street(Place *n1, Place *n2, std::string name, EdgeType type);
 
     unsigned long getID();
+    EdgeType getType();
     std::string getName();
+    std::string getOriginalName();
     std::string toString();
     std::string getInfo();
 
