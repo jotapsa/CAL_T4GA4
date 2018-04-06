@@ -438,7 +438,6 @@ void mainMenu(GarbageManagement &management) {
         case 7:
             break;
         case 0:
-            management.closeWindow();
             break;
         default:
             break;
