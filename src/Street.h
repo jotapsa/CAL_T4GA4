@@ -5,9 +5,9 @@
 #include "Aux.h"
 #include "Place.h"
 
-//TODO: IDcounter
 class Street {
 private:
+    static unsigned long idCounter;
     unsigned long id;
     std::string name;
     Place *n1;
@@ -16,6 +16,7 @@ private:
 public:
     Street(Place *n1, Place *n2, std::string name);
 
+    unsigned long getID();
     std::string getName();
 
     void setName(std::string name);
