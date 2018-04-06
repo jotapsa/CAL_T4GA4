@@ -455,7 +455,7 @@ void saveEdgesInfo(const GarbageManagement &management) {
     }
 
     for(Street *street : management.getStreets()){
-        edgesInfo << street->getInfo();
+        edgesInfo << street->getInfo() << endl;
     }
 
     edgesInfo.close();
