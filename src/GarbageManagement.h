@@ -4,17 +4,21 @@
 #include <cstdlib>
 #include <ctime>
 #include <limits>
+
 #include "Graph.h"
 #include "Station.h"
 #include "Garage.h"
 #include "Container.h"
 #include "Street.h"
+#include "GraphViewer.h"
 
 #define INF std::numeric_limits<unsigned long>::max() //For knowing the limits of nodeID
 
 class GarbageManagement {
 private:
     Graph<Place> graph;
+
+    GraphViewer *gv;
 
     std::vector<Place *> places;
     std::vector<Container *> containers;
@@ -43,6 +47,7 @@ public:
     void addGarage(Garage *garage);
     void addVehicle(unsigned long garageID, Vehicle *vehicle);
     void addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
+
     unsigned long getValidNodeID();
 
     void evalCon();

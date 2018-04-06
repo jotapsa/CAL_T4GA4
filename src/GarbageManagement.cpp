@@ -1,8 +1,12 @@
 #include "GarbageManagement.h"
+#include "Aux.h"
 #include <cmath>
 #include <sstream>
 
 GarbageManagement::GarbageManagement() {
+    gv = new GraphViewer(800, 800, true);
+    gv->setBackground(backgroundImgPath);
+    gv->createWindow(800, 800);
 }
 
 Graph<Place> GarbageManagement::getGraph(){
@@ -23,34 +27,6 @@ std::vector<Garage *> GarbageManagement::getGarages() {
 
 std::vector<Street *> GarbageManagement::getStreets() {
     return this->streets;
-}
-
-void GarbageManagement::addPlace(Place *place) {
-    this->places.push_back(place);
-    if(!this->graph.addNode(*(place))){
-        std::cout << "Node " << place->getID() << " already in graph." << std::endl;
-    }
-}
-
-void GarbageManagement::addContainer(Container *container) {
-    this->containers.push_back(container);
-    if(!this->graph.addNode(*(container))){
-        std::cout << "Node " << container->getID() << " already in graph." << std::endl;
-    }
-}
-
-void GarbageManagement::addStation(Station *station) {
-    this->stations.push_back(station);
-    if(!this->graph.addNode(*(station))){
-        std::cout << "Node " << station->getID() << " already in graph." << std::endl;
-    }
-}
-
-void GarbageManagement::addGarage(Garage *garage) {
-    this->garages.push_back(garage);
-    if(!this->graph.addNode(*(garage))){
-        std::cout << "Node " << garage->getID() << " already in graph." << std::endl;
-    }
 }
 
 Place * GarbageManagement::getPlace(unsigned long id){
@@ -120,13 +96,55 @@ std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) {
 }
 
 
-void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
-    Garage *garage= this->getGarage(garageID);
-    if(garage != nullptr){
-        garage->addVehicle(vehicle);
+void GarbageManagement::addPlace(Place *place) {
+    if(!this->graph.addNode(*(place))){
+        std::cout << "Node " << place->getID() << " already in graph." << std::endl;
+    } else{
+        this->places.push_back(place);
+
+//        this->gv->addNode(place->getID(), place->getCoordinates().first, place->getCoordinates().second);
+//        this->gv->setVertexColor(place->getID(), BLUE);
+//        this->gv->rearrange();
     }
 }
 
+void GarbageManagement::addContainer(Container *container) {
+    if(!this->graph.addNode(*(container))){
+        std::cout << "Node " << container->getID() << " already in graph." << std::endl;
+    } else{
+        this->containers.push_back(container);
+
+//        this->gv->addNode(container->getID(), container->getCoordinates().first, container->getCoordinates().second);
+//        this->gv->setVertexColor(container->getID(), RED);
+//        this->gv->rearrange();
+    }
+}
+
+void GarbageManagement::addStation(Station *station) {
+    if(!this->graph.addNode(*(station))){
+        std::cout << "Node " << station->getID() << " already in graph." << std::endl;
+    } else{
+        this->stations.push_back(station);
+
+//        this->gv->addNode(station->getID(), station->getCoordinates().first, station->getCoordinates().second);
+//        this->gv->setVertexColor(station->getID(), GREEN);
+//        this->gv->rearrange();
+    }
+}
+
+void GarbageManagement::addGarage(Garage *garage) {
+    if(!this->graph.addNode(*(garage))){
+        std::cout << "Node " << garage->getID() << " already in graph." << std::endl;
+    } else{
+        this->garages.push_back(garage);
+
+//        this->gv->addNode(garage->getID(), garage->getCoordinates().first, garage->getCoordinates().second);
+//        this->gv->setVertexColor(garage->getID(), BLACK);
+//        this->gv->rearrange();
+    }
+}
+
+//TODO: redo this function, how it works is beyond me
 void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type,
                                 std::string name) {
     Place *sourceNode = getPlace(nodeIDs.first);
@@ -148,30 +166,21 @@ void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned
         name = strstream.str();
     }
 
+    Street *street = new Street(sourceNode, destNode, name);
+    this->streets.push_back(street);
+    //this->graph.addEdge(sourceNode, destNode, weight, type);
 
-    this->streets.push_back(new Street(sourceNode, destNode, name));
-    this->graph.addEdge(nodeIDs.first, nodeIDs.second, weight, type);
+    //this->gv->addEdge(street->getID(), street->getCoordinates().first, garage->getCoordinates().second);
+    //this->gv->setEdgeLabel(street->getID(), street->getName());
+    //this->gv->rearrange();
 }
 
-//void GarbageManagement::insertNodeAt(double latitude, double longitude) {
-//
-//    //TODO Refactor
-//
-//    unsigned long idToInsert = rand() % INF + 1;
-//    std::pair<double,double> location;
-//    location.first = latitude;
-//    location.second = longitude;
-//
-//    while(this->graph.getNode(idToInsert) != nullptr) {
-//        idToInsert = rand() % INF + 1;
-//
-//        this->graph.addNode(new Node(idToInsert, location));
-//
-//        std::cout << "Failed adding node with ID: " << idToInsert << std::endl;
-//    }
-//
-//    std::cout << "added node with ID: " << idToInsert << std::endl;
-//}
+void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
+    Garage *garage= this->getGarage(garageID);
+    if(garage != nullptr){
+        garage->addVehicle(vehicle);
+    }
+}
 
 unsigned long GarbageManagement::getValidNodeID() {
 

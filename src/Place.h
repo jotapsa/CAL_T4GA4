@@ -3,6 +3,8 @@
 
 #include "Node.h"
 
+//TODO: IDcounter
+
 class Place{
 protected:
   unsigned long id;

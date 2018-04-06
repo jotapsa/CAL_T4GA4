@@ -46,7 +46,7 @@ class GraphViewer {
    * @param dynamic Booleano que determina se a localização dos nós é automaticamente.
    * determinado pelo programa (true) ou se deve ser determinado pelo utilizador (false).
    */
-  GraphViewer(int width, int height, bool port_n);
+  GraphViewer(int width, int height, bool dynamic);
   
   /**
    * Construtor que cria um novo grafo, utilizando uma porta especificada pelo utilizador para a ligação.

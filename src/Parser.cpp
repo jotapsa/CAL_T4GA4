@@ -82,7 +82,7 @@ bool readLine(fstream& file, vector<std::string> *lineVector){
      rLat = stod(line.at(3));
      rLon = stod(line.at(4));
 
-     convertToKiloMeters(coordinates, rLat, rLon);
+     convertToKilometers(coordinates, rLat, rLon);
  }
 
 Edge_T createEdge(vector<std::string> line){

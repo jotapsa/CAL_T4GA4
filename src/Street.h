@@ -5,6 +5,7 @@
 #include "Aux.h"
 #include "Place.h"
 
+//TODO: IDcounter
 class Street {
 private:
     std::string name;

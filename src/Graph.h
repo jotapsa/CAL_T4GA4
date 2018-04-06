@@ -13,6 +13,7 @@ template <class T> class Graph;
 
 //TODO: bfs, floyd warshall
 //TODO: unweighted shortest path, A*
+//TODO: Path finding optimizations.
 
 template <class T>
 class Graph {
@@ -31,6 +32,9 @@ public:
 
     bool relax(Node<T> *source, Node<T> *way, double weight);
     void dijkstraShortestPath(const T &sourceInfo);
+
+    bool isDAG() const;
+    bool dfsIsDAG(Node<T> *n) const;
 
     std::vector<T> bellmanFordSearch(const T &source) const;
 };
@@ -94,8 +98,6 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w, EdgeType type) {
     return false;
 }
 
-/****************** 1c) removeEdge ********************/
-
 /*
  * Removes an edge from a graph (this).
  * The edge is identified by the source (sourc) and destination (dest) contents.
@@ -108,8 +110,6 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
     // HINT: Use the next function to actually remove the edge.
     return false;
 }
-
-/****************** 1d) removeNode ********************/
 
 /*
  *  Removes a Node with a given content (in) from a graph (this), and
@@ -168,14 +168,47 @@ void Graph<T>::dijkstraShortestPath(const T &sourceInfo){
     }
 }
 
-/****************** 2b) bfs ********************/
-
 /*
- * Performs a breadth-first search (bfs) in a graph (this), starting
- * from the Node with the given source contents (source).
- * Returns a vector with the contents of the vertices by dfs order.
- * Follows the algorithm described in theoretical classes.
+ * Performs a depth-first search in a graph (this), to determine if the graph
+ * is acyclic (acyclic directed graph or DAG).
+ * During the search, a cycle is found if an edge connects to a vertex
+ * that is being processed in the the stack of recursive calls (see theoretical classes).
+ * Returns true if the graph is acyclic, and false otherwise.
  */
+
+template <class T>
+bool Graph<T>::isDAG() const {
+    for (auto n : nodeSet) {
+        n->visited = false;
+        n->processing = false;
+    }
+    for (auto n : nodeSet)
+        if (! n->visited)
+            if (!dfsIsDAG(n) )
+                return false;
+    return true;
+}
+
+/**
+ * Auxiliary function that visits a vertex (v) and its adjacent, recursively.
+ * Returns false (not acyclic) if an edge to a vertex in the stack is found.
+ */
+template <class T>
+bool Graph<T>::dfsIsDAG(Node<T> *n) const {
+    n->visited = true;
+    n->processing = true;
+    for (auto & e : n->edges) {
+        auto w = e.dest;
+        if (w->processing)
+            return false;
+        if (! w->visited)
+            if (!dfsIsDAG(w))
+                return false;
+    }
+    n->processing = false;
+    return true;
+}
+
 template <class T>
 std::vector<T> Graph<T>::bellmanFordSearch(const T & source) const {
     // TODO (22 lines)
