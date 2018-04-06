@@ -4,9 +4,9 @@
 #include <sstream>
 
 GarbageManagement::GarbageManagement() {
-    gv = new GraphViewer(windowWidth, windowHeight, false, graphViewerPort);
-    gv->setBackground(backgroundImgPath);
-    gv->createWindow(windowWidth, windowHeight);
+//    gv = new GraphViewer(windowWidth, windowHeight, false, graphViewerPort);
+//    gv->setBackground(backgroundImgPath);
+//    gv->createWindow(windowWidth, windowHeight);
 }
 
 Graph<Place> GarbageManagement::getGraph(){
@@ -35,22 +35,28 @@ Place * GarbageManagement::getPlace(unsigned long id){
         return place;
     }
 
-//    Container *container = getContainer(id);
-//    if(container != nullptr){
-//        return container;
-//    }
-//
-//    Station *station = getStation(id);
-//    if(station != nullptr){
-//        return station;
-//    }
-//
-//    Garage *garage = getGarage(id);
-//    if(garage != nullptr){
-//        return garage;
-//    }
+    Container *container = getContainer(id);
+    if(container != nullptr){
+        return container->getPlace();
+    }
+
+    Station *station = getStation(id);
+    if(station != nullptr){
+        return station->getPlace();
+    }
+
+    Garage *garage = getGarage(id);
+    if(garage != nullptr){
+        return garage->getPlace();
+    }
+
     return nullptr;
 }
+
+//Place * GarbageManagement::getPlace(unsigned long id){
+//
+//    return nullptr;
+//}
 
 Place *  GarbageManagement::getEmptyPlace(unsigned long id){
     for(auto p: places){
