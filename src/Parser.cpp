@@ -113,16 +113,16 @@ Vehicle* getVehicle(unsigned long int vehicleID){
         return nullptr;
     }
 
-        vector<Vehicle_T>::iterator v = vehiclesVector.begin();
+    vector<Vehicle_T>::iterator v = vehiclesVector.begin();
 
-        while(v != vehiclesVector.end()){
-            if(v->ID == vehicleID){
-                vehicle = new Vehicle(v->ID,v->plate, v->type, v->capacity);
-                vehiclesVector.erase(v);
-                return vehicle;
-            }
-            v++;
+    while(v != vehiclesVector.end()){
+        if(v->ID == vehicleID){
+            vehicle = new Vehicle(v->ID,v->plate, v->type, v->capacity);
+            vehiclesVector.erase(v);
+            return vehicle;
         }
+        v++;
+    }
 
     return nullptr;
 }

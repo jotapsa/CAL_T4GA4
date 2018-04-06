@@ -32,5 +32,6 @@ void editNode(unsigned long nodeID);
 
 void listGarages(GarbageManagement &management);
 void listContainers(GarbageManagement &management);
+void listStations(GarbageManagement &management);
 
 #endif //_CLI_H
