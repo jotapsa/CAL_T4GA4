@@ -34,4 +34,6 @@ void listGarages(GarbageManagement &management);
 void listContainers(GarbageManagement &management);
 void listStations(GarbageManagement &management);
 
+void removeBuilding(GarbageManagement &management, std::string type);
+
 #endif //_CLI_H

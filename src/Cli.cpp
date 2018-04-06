@@ -333,19 +333,67 @@ void listStations(GarbageManagement &management) {
     }while(selectedID != 0);
 }
 
+void removeBuilding(GarbageManagement &management, std::string type) {
+
+    unsigned long nodeId = getUnsignedInt("Insert " + type + " ID to remove: ");
+
+    //TODO(Test this function)
+
+    switch(type.at(0)) {
+        case 's':
+            if(management.getStation(nodeId) == nullptr) {
+                std::cout << "There is no " + type + " with " << nodeId << " as ID!\n";
+            }
+            else {
+                //TODO(management.removeStation(nodeId));
+                std::cout << type << " removed with success " << nodeId << " as ID!\n";
+            }
+            break;
+        case 'g':
+            if(management.getGarage(nodeId) == nullptr) {
+                std::cout << "There is no " + type + " with " << nodeId << " as ID!\n";
+            }
+            else {
+                //TODO(management.removeGarage(nodeId));
+                std::cout << type << " removed with success " << nodeId << " as ID!\n";
+            }
+            break;
+        case 'c':
+            if(management.getContainer(nodeId) == nullptr) {
+                std::cout << "There is no " + type + " with " << nodeId << " as ID!\n";
+            }
+            else {
+                //TODO(management.removeContainer(nodeId));
+                std::cout << type << " removed with success " << nodeId << " as ID!\n";
+            }
+            break;
+        case 'p':
+            if(management.getPlace(nodeId) == nullptr) {
+                std::cout << "There is no " + type + " with " << nodeId << " as ID!\n";
+            }
+            else {
+                //TODO(management.removePlace(nodeId));
+                std::cout << type << " removed with success " << nodeId << " as ID!\n";
+            }
+            break;
+        default:
+            break;
+    }
+}
+
 unsigned int nodeMenuDialog() {
     std::cout << "\nNode Menu" << std::endl;
-    std::cout << "1  - Create Location" << std::endl;
-    std::cout << "2  - Create Garage" << std::endl;
-    std::cout << "3  - Create Container" << std::endl;
-    std::cout << "4  - Create Station" << std::endl;
-    std::cout << "5  - List Garages" << std::endl;
-    std::cout << "6  - List Containers" << std::endl;
-    std::cout << "7  - List Stations" << std::endl;
-    std::cout << "8  - Remove Location" << std::endl;
-    std::cout << "9  - Remove Garage" << std::endl;
-    std::cout << "10 - Remove Container" << std::endl;
-    std::cout << "11 - Remove Container" << std::endl;
+    std::cout << "1  - Create location" << std::endl;
+    std::cout << "2  - Create garage" << std::endl;
+    std::cout << "3  - Create container" << std::endl;
+    std::cout << "4  - Create station" << std::endl;
+    std::cout << "5  - List garages" << std::endl;
+    std::cout << "6  - List containers" << std::endl;
+    std::cout << "7  - List stations" << std::endl;
+    std::cout << "8  - Remove garage" << std::endl;
+    std::cout << "9  - Remove container" << std::endl;
+    std::cout << "10 - Remove station" << std::endl;
+    std::cout << "11 - Remove place" << std::endl;
     std::cout << "0  - Back" << std::endl;
 
     return nextUnsignedInt("Option: ", 11);
@@ -375,14 +423,16 @@ void nodeMenu(GarbageManagement &management){
             listStations(management);
             break;
         case 8:
+            removeBuilding(management, "garage");
             break;
         case 9:
+            removeBuilding(management, "container");
             break;
         case 10:
+            removeBuilding(management, "station");
             break;
         case 11:
-            break;
-        case 12:
+            removeBuilding(management, "place");
             break;
         case 0:
             mainMenu(management);
