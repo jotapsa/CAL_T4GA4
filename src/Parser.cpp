@@ -243,7 +243,6 @@ bool loadGarages(GarbageManagement &management){
     vector<std::string> lineVector;
 
     unsigned long placeID;
-    pair <double,double> coordinates;
 
     if(!loadVehicles(management)){
         std::cout << "Failed to read vehicles!" << std::endl;
@@ -262,6 +261,8 @@ bool loadGarages(GarbageManagement &management){
 
         management.addGarage(new Garage(newPlace(lineVector)));
 
+        placeID = stoul(lineVector.at(0));
+
         if((lineVector.size()-5) <= 0){
             continue;
         }
@@ -273,10 +274,10 @@ bool loadGarages(GarbageManagement &management){
             }
         }
 
-           if((lineVector.size()-5) != management.getVehicles(placeID).size()){
+       if((lineVector.size()-5) != management.getVehicles(placeID).size()){
             cout << "Couldn't find all vehicles of Garage -> " << placeID << "." << endl;
             return false;
-        };
+        }
     }
 
     garages.close();

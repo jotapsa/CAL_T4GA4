@@ -81,7 +81,6 @@ Station *GarbageManagement::getStation(unsigned long stationID) {
 
 Garage* GarbageManagement::getGarage(unsigned long garageID) {
     for(auto g: garages){
-        cout << g->getPlace()->getID() << endl;
         if(g->getPlace()->getID() == garageID){
             return g;
         }
@@ -92,7 +91,6 @@ Garage* GarbageManagement::getGarage(unsigned long garageID) {
 std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) {
     Garage *garage= this->getGarage(garageID);
     if(garage != nullptr){
-        cout << "encontrei garage" << endl;
         return garage->getVehicles();
     }
 }
