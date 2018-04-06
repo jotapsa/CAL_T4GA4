@@ -1,8 +1,8 @@
 #include "Container.h"
 
-
-Container::Container(unsigned long id, std::pair<double, double> coordinates,GarbageType type, double capacity) :
-        Place(id, coordinates){
+Container::Container(unsigned long id, double dLon, double dLat, double rLon, double rLat,
+                     std::pair<int, int> coordinates, GarbageType type, double capacity) :
+    Place(id, dLon, dLat, rLat, rLon, coordinates){
     this->type = type;
     this->capacity = capacity;
 }

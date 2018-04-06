@@ -6,6 +6,9 @@
 #define MAX_DOUBLE_WITH 21
 #define MAX_ULONG_WITH 10
 
+#define windowHeight 800
+#define windowWidth 800
+
 #define backgroundImgPath "../img/map_background.png"
 
 enum GarbageType{
@@ -16,13 +19,11 @@ enum EdgeType{
     twoWay, oneWay
 };
 
-void convertToKilometers(std::pair<double, double> *longitudinalCoordinates, double rLatitude, double rLongitude);
-
 GarbageType getGarbageType(std::string type);
 std::string getGarbageType(GarbageType type);
 
 //TODO:
-std::pair<int, int> convertToCoords(const std::pair<double, double> coordinates, std::pair<int, int> screenSize);
+std::pair<int, int> convertToCoords(double dLon, double dLat, double rLon, double rLat);
 
 GarbageType getGarbageTypeForOption(unsigned int option);
 

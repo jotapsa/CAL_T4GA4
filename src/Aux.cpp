@@ -4,12 +4,6 @@
 
 using namespace std;
 
-void convertToKilometers(std::pair<double, double> *longitudinalCoordinates, double rLatitude, double rLongitude) {
-
-    longitudinalCoordinates->first = rLatitude * 110.574;
-    longitudinalCoordinates->second = cos(rLatitude) * 111.320;
-};
-
 GarbageType getGarbageType(string type){
     if(type.compare(string("glass")) == 0){
         return glass;
@@ -49,4 +43,15 @@ GarbageType getGarbageTypeForOption(unsigned int option) {
     static GarbageType types[4] = { glass, plastic, paper, generic };
 
     return types[option];
+}
+
+//void convertToKilometers(std::pair<double, double> *longitudinalCoordinates, double rLatitude, double rLongitude) {
+//
+//    longitudinalCoordinates->first = rLatitude * 110.574;
+//    longitudinalCoordinates->second = cos(rLatitude) * 111.320;
+//};
+
+//TODO: Duarte tens na header definido a width e height do ecra.
+std::pair<int, int> convertToCoords(double dLon, double dLat, double rLon, double rLat) {
+    return {};
 }

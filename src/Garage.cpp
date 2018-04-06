@@ -1,6 +1,7 @@
 #include "Garage.h"
 
-Garage::Garage(unsigned long id, std::pair<double, double> coordinates) : Place(id, coordinates) {}
+Garage::Garage(unsigned long id, double dLon, double dLat, double rLon, double rLat, std::pair<int, int> coordinates)
+    : Place(id, dLon, dLat, rLon, rLat, coordinates) {}
 
 unsigned long Garage::getNumberOfVehicles() {
     return this->vehicles.size();
@@ -25,4 +26,3 @@ void Garage::addVehicle(Vehicle *vehicle) {
 std::vector<Vehicle *> Garage::getVehicles(){
     return this->vehicles;
 }
-

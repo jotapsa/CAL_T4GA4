@@ -9,7 +9,9 @@ class Station : public Place {
 private:
     GarbageType type;
     double capacity;
-public:Station(unsigned long id, std::pair<double, double> coordinates, GarbageType type, double capacity);
+public:
+    Station(unsigned long id, double dLon , double dLat, double rLon, double rLat,
+            std::pair<int, int> coordinates, GarbageType type, double capacity);
     GarbageType getGarbageType();
     double getCapacity();
 };

@@ -5,10 +5,11 @@
 #include "Vehicle.h"
 
 class Garage : public Place {
+private:
     std::vector<Vehicle *> vehicles;
 public:
-    Garage(unsigned long id, std::pair<double, double> coordinates);
-
+    Garage(unsigned long id, double dLon, double dLat, double rLon, double rLat,
+                         std::pair<int, int> coordinates);
     unsigned long getNumberOfVehicles();
     int getNumberOfVehiclesOfType(GarbageType type);
     std::vector<Vehicle *> getVehicles();

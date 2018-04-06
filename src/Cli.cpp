@@ -179,7 +179,7 @@ void createSimpleLocation(GarbageManagement &management) {
 
     unsigned long createdNodeId = management.getValidNodeID();
 
-    management.addPlace(new Place(createdNodeId, askForLocation()));
+    //management.addPlace(new Place(createdNodeId, askForLocation()));
 
     std::cout << "Added: nodeID-> " << createdNodeId << std::endl;
 }
@@ -193,7 +193,7 @@ void createGarage(GarbageManagement &management) {
 
     unsigned long createdNodeId = management.getValidNodeID();
 
-    management.addGarage(new Garage(createdNodeId, garageCoordinates));
+    //management.addGarage(new Garage(createdNodeId, garageCoordinates));
 
     std::cout << "Added garage with ID= " << createdNodeId << std::endl;
 }
@@ -209,15 +209,18 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
 
     unsigned int garbageTypeIndex = selectGarbageTypeMenu();
 
-    if(garbageTypeIndex == 0)
+    if(garbageTypeIndex == 0){
         return;
+    }
 
     double capacity = parseDouble("Insert " + buildingType + " capacity: ");
 
-    if(buildingType.compare("container") == 0)
-        management.addContainer(new Container(createdNodeId, containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
-    else
-        management.addStation(new Station(createdNodeId, containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
+    if(buildingType.compare("container") == 0){
+        //management.addContainer(new Container(createdNodeId, containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
+    }
+    else{
+        //management.addStation(new Station(createdNodeId, containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
+    }
 
     std::cout << buildingType << " added with node ID: " << createdNodeId << std::endl;
 }
@@ -351,7 +354,7 @@ unsigned int nodeMenuDialog() {
     std::cout << "9  - Remove Garage" << std::endl;
     std::cout << "10 - Remove Container" << std::endl;
     std::cout << "11 - Remove Container" << std::endl;
-    std::cout << "0  - Exit" << std::endl;
+    std::cout << "0  - Back" << std::endl;
 
     return nextUnsignedInt("Option: ", 11);
 }
@@ -435,6 +438,7 @@ void mainMenu(GarbageManagement &management) {
         case 7:
             break;
         case 0:
+            management.closeWindow();
             break;
         default:
             break;

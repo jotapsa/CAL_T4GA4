@@ -7,14 +7,16 @@
 
 class Place{
 protected:
-  unsigned long id;
-  std::pair<double, double> coordinates;
+    unsigned long id;
+    double dLon, dLat, rLon, rLat;
+    std::pair<int, int> coordinates;
+    
 public:
-  Place(unsigned long id);
-  Place(unsigned long id, std::pair<double, double> coordinates);
-  unsigned long getID() const;
-  std::pair<double, double> getCoordinates();
-  bool operator==(const Place& o);
+    explicit Place(unsigned long id);
+    Place(unsigned long id, double dLon, double dLat, double rLon, double rLat, std::pair<int, int> coordinates);
+    unsigned long getID() const;
+    std::pair<double, double> getCoordinates();
+    bool operator==(const Place& o);
 };
 
 #endif /* _BUILDING_H_ */

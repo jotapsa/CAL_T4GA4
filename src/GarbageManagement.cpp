@@ -4,9 +4,9 @@
 #include <sstream>
 
 GarbageManagement::GarbageManagement() {
-    gv = new GraphViewer(800, 800, true);
+    gv = new GraphViewer(windowWidth, windowHeight, true);
     gv->setBackground(backgroundImgPath);
-    gv->createWindow(800, 800);
+    gv->createWindow(windowWidth, windowHeight);
 }
 
 Graph<Place> GarbageManagement::getGraph(){
@@ -199,4 +199,10 @@ unsigned long GarbageManagement::getValidNodeID() {
 
 void GarbageManagement::evalCon() {
 
+}
+
+void GarbageManagement::closeWindow() {
+    if(gv != nullptr){
+        gv->closeWindow();
+    }
 }

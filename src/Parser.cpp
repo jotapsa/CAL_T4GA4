@@ -61,7 +61,7 @@ std::vector<std::string> split(const std::string &s, const char &delim){
     return splitStrings;
 }
 
-bool readLine(fstream& file, vector<std::string> *lineVector){
+bool readLine(fstream &file, vector<std::string> *lineVector){
     string line;
 
     lineVector->clear();
@@ -74,16 +74,16 @@ bool readLine(fstream& file, vector<std::string> *lineVector){
     return true;
 }
 
- void setPlace(vector<std::string> line, unsigned long *id, std::pair<double, double> *coordinates) {
-     double dLon, dLat, rLon, rLat;
-
-     *id = stoul(line.at(0));
-
-     rLat = stod(line.at(3));
-     rLon = stod(line.at(4));
-
-     convertToKilometers(coordinates, rLat, rLon);
- }
+// void setPlace(vector<std::string> line, unsigned long &id, std::pair<double, double> *coordinates) {
+//     double dLon, dLat, rLon, rLat;
+//
+//     id = stoul(line.at(0));
+//
+//     rLat = stod(line.at(3));
+//     rLon = stod(line.at(4));
+//
+//     convertToKilometers(coordinates, rLat, rLon);
+// }
 
 Edge_T createEdge(vector<std::string> line){
     Edge_T edge;
@@ -143,8 +143,13 @@ bool loadPlaces(GarbageManagement &management) {
             return false;
         }
 
-        setPlace(lineVector, &placeID, &coordinates);
-        management.addPlace(new Place(placeID, coordinates));
+        //setPlace(lineVector, &placeID, &coordinates);
+        management.addPlace(new Place(stoul(lineVector.at(0)),
+                                      stod(lineVector.at(1)),
+                                      stod(lineVector.at(2)),
+                                      stod(lineVector.at(3)),
+                                      stod(lineVector.at(4)),
+                                      convertToCoords(stod(lineVector.at(1)), stod(lineVector.at(2)), stod(lineVector.at(3)), stod(lineVector.at(4)))));
     }
 
     places.close();
@@ -171,9 +176,14 @@ bool loadContainers(GarbageManagement &management){
             return false;
         }
 
-        setPlace(lineVector, &placeID, &coordinates);
-        management.addContainer(new Container(placeID, coordinates,
-                                              getGarbageType(lineVector.at(5)),0));
+        //setPlace(lineVector, &placeID, &coordinates);
+        management.addContainer(new Container(stoul(lineVector.at(0)),
+                                      stod(lineVector.at(1)),
+                                      stod(lineVector.at(2)),
+                                      stod(lineVector.at(3)),
+                                      stod(lineVector.at(4)),
+                                      convertToCoords(stod(lineVector.at(1)), stod(lineVector.at(2)), stod(lineVector.at(3)), stod(lineVector.at(4))),
+                                              getGarbageType(lineVector.at(5)), 0));
     }
 
     containers.close();
@@ -199,9 +209,14 @@ bool loadStations(GarbageManagement &management){
             return false;
         }
 
-        setPlace(lineVector, &placeID, &coordinates);
-        management.addStation(new Station(placeID, coordinates,
-                                          getGarbageType(lineVector.at(5)),0));
+        //setPlace(lineVector, &placeID, &coordinates);
+        management.addStation(new Station(stoul(lineVector.at(0)),
+                                              stod(lineVector.at(1)),
+                                              stod(lineVector.at(2)),
+                                              stod(lineVector.at(3)),
+                                              stod(lineVector.at(4)),
+                                              convertToCoords(stod(lineVector.at(1)), stod(lineVector.at(2)), stod(lineVector.at(3)), stod(lineVector.at(4))),
+                                              getGarbageType(lineVector.at(5)), 0));
     }
 
     stations.close();
@@ -266,9 +281,12 @@ bool loadGarages(GarbageManagement &management){
             return false;
         }
 
-        setPlace(lineVector, &placeID, &coordinates);
-
-        management.addGarage(new Garage(placeID, coordinates));
+        management.addGarage(new Garage(stoul(lineVector.at(0)),
+                                          stod(lineVector.at(1)),
+                                          stod(lineVector.at(2)),
+                                          stod(lineVector.at(3)),
+                                          stod(lineVector.at(4)),
+                                          convertToCoords(stod(lineVector.at(1)), stod(lineVector.at(2)), stod(lineVector.at(3)), stod(lineVector.at(4)))));
 
         if((lineVector.size()-5) <= 0){
             continue;

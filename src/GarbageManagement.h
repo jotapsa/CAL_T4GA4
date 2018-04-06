@@ -51,6 +51,8 @@ public:
     unsigned long getValidNodeID();
 
     void evalCon();
+
+    void closeWindow();
 };
 
 #endif
