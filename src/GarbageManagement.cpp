@@ -4,7 +4,7 @@
 #include <sstream>
 
 GarbageManagement::GarbageManagement() {
-    gv = new GraphViewer(windowWidth, windowHeight, true);
+    gv = new GraphViewer(windowWidth, windowHeight, false, graphViewerPort);
     gv->setBackground(backgroundImgPath);
     gv->createWindow(windowWidth, windowHeight);
 }

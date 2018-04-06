@@ -8,6 +8,7 @@
 //TODO: IDcounter
 class Street {
 private:
+    unsigned long id;
     std::string name;
     Place *n1;
     Place *n2;

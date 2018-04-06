@@ -6,6 +6,8 @@
 #define MAX_DOUBLE_WITH 21
 #define MAX_ULONG_WITH 10
 
+#define graphViewerPort 8123
+
 #define windowHeight 800
 #define windowWidth 800
 

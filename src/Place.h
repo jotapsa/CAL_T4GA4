@@ -10,7 +10,7 @@ protected:
     unsigned long id;
     double dLon, dLat, rLon, rLat;
     std::pair<int, int> coordinates;
-    
+
 public:
     explicit Place(unsigned long id);
     Place(unsigned long id, double dLon, double dLat, double rLon, double rLat, std::pair<int, int> coordinates);
