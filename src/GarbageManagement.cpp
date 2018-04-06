@@ -53,11 +53,6 @@ Place * GarbageManagement::getPlace(unsigned long id){
     return nullptr;
 }
 
-//Place * GarbageManagement::getPlace(unsigned long id){
-//
-//    return nullptr;
-//}
-
 Place *  GarbageManagement::getEmptyPlace(unsigned long id){
     for(auto p: places){
         if(p->getID() == id){
@@ -146,7 +141,6 @@ void GarbageManagement::addGarage(Garage *garage) {
     }
 }
 
-//TODO: redo this function, how it works is beyond me
 void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type,
                                 std::string name) {
     Place *sourceNode = getPlace(nodeIDs.first);
@@ -168,9 +162,12 @@ void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned
         name = strstream.str();
     }
 
-    Street *street = new Street(sourceNode, destNode, name);
-    this->streets.push_back(street);
-    //this->graph.addEdge(sourceNode, destNode, weight, type);
+    if(!this->graph.addEdge(*(sourceNode), *(destNode), weight, type)){
+        std::cout << "Error: Cannot add edge." << std::endl;
+    } else{
+        Street *street = new Street(sourceNode, destNode, name);
+        this->streets.push_back(street);
+    }
 
     //this->gv->addEdge(street->getID(), street->getCoordinates().first, garage->getCoordinates().second);
     //this->gv->setEdgeLabel(street->getID(), street->getName());
@@ -181,21 +178,9 @@ void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
     if(garage != nullptr){
         garage->addVehicle(vehicle);
     }
-}
-
-unsigned long GarbageManagement::getValidNodeID() {
-
-    //TODO Refactor
-
-    unsigned long idToInsert = rand() % INF + 1;
-
-    while(this->graph.getNode(Place(idToInsert)) != nullptr) {
-        idToInsert = rand() % INF + 1;
-
-        std::cout << idToInsert << " ID already exists!"<< std::endl;
+    else{
+        std::cout << "Error: Couldn't find garage" << std::endl;
     }
-
-    return idToInsert;
 }
 
 void GarbageManagement::evalCon() {

@@ -1,11 +1,10 @@
 #include "Place.h"
 
-Place::Place(unsigned long id) {
-    this->id = id;
-}
+unsigned long Place::maxId = 0;
 
 Place::Place(unsigned long id, double dLon, double dLat, double rLon, double rLat, std::pair<int, int> coordinates) {
     this->id = id;
+    updateMaxID();
 
     this->dLon = dLon;
     this->dLat = dLat;
@@ -15,6 +14,12 @@ Place::Place(unsigned long id, double dLon, double dLat, double rLon, double rLa
     this->coordinates = coordinates;
 }
 
+void Place::updateMaxID(){
+    if(id > maxId){
+        maxId = id;
+    }
+    return;
+}
 
 unsigned long Place::getID() const{
     return this->id;
@@ -26,4 +31,8 @@ std::pair<double, double> Place::getCoordinates() {
 
 bool Place::operator==(const Place& o){
     return this->id == o.getID();
+}
+
+unsigned long Place::getUnusedId() {
+    return maxId+1;
 }

@@ -48,7 +48,7 @@ public:
     void addVehicle(unsigned long garageID, Vehicle *vehicle);
     void addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
 
-    unsigned long getValidNodeID();
+    unsigned long genUnusedNodeID();
 
     void evalCon();
 

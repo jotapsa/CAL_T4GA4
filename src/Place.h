@@ -3,19 +3,21 @@
 
 #include "Node.h"
 
-//TODO: IDcounter
-
 class Place{
 protected:
+    static unsigned long maxId;
     unsigned long id;
     double dLon, dLat, rLon, rLat;
     std::pair<int, int> coordinates;
 
+    void updateMaxID();
 public:
-    explicit Place(unsigned long id);
     Place(unsigned long id, double dLon, double dLat, double rLon, double rLat, std::pair<int, int> coordinates);
     unsigned long getID() const;
     std::pair<double, double> getCoordinates();
+
+    static unsigned long getUnusedId();
+
     bool operator==(const Place& o);
 };
 

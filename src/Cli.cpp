@@ -177,11 +177,8 @@ std::pair<double, double> askForLocation() {
 void createSimpleLocation(GarbageManagement &management) {
 //TODO (Check if added garage is inside map window)
 
-    unsigned long createdNodeId = management.getValidNodeID();
-
-    //management.addPlace(new Place(createdNodeId, askForLocation()));
-
-    std::cout << "Added: nodeID-> " << createdNodeId << std::endl;
+    //management.addPlace(new Place(Place::getUnusedId(), askForLocation()));
+    //management.rearrange();
 }
 
 void createGarage(GarbageManagement &management) {
@@ -191,11 +188,8 @@ void createGarage(GarbageManagement &management) {
 
     std::pair<double,double> garageCoordinates = askForLocation();
 
-    unsigned long createdNodeId = management.getValidNodeID();
-
-    //management.addGarage(new Garage(createdNodeId, garageCoordinates));
-
-    std::cout << "Added garage with ID= " << createdNodeId << std::endl;
+    //management.addGarage(new Garage(Place::getUnusedId(), garageCoordinates));
+    //management.rearrange();
 }
 
 //Container and Station both use the same parameters
@@ -205,8 +199,6 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
 
     std::pair<double,double> containerCoordinates = askForLocation();
 
-    unsigned long createdNodeId = management.getValidNodeID();
-
     unsigned int garbageTypeIndex = selectGarbageTypeMenu();
 
     if(garbageTypeIndex == 0){
@@ -215,14 +207,14 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
 
     double capacity = parseDouble("Insert " + buildingType + " capacity: ");
 
+    //TODO: switch w/ default case
     if(buildingType.compare("container") == 0){
-        //management.addContainer(new Container(createdNodeId, containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
+        //management.addContainer(new Container(Place::getUnusedID(), containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
     }
     else{
-        //management.addStation(new Station(createdNodeId, containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
+        //management.addStation(new Station(Place::getUnusedID(), containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
     }
-
-    std::cout << buildingType << " added with node ID: " << createdNodeId << std::endl;
+    //management.rearrange();
 }
 
 unsigned int selectGarbageTypeMenu() {
