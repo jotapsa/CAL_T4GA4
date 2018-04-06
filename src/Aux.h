@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+#define MAX_DOUBLE_WITH 21
+#define MAX_ULONG_WITH 10
+
 enum GarbageType{
     glass, plastic, paper, generic
 };

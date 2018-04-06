@@ -61,6 +61,22 @@ unsigned int nextUnsignedInt(std::string str, unsigned int ceilling){
     }while(true);
 }
 
+unsigned int getUnsignedInt(std::string str) {
+    unsigned int number;
+    do{
+        std::cout << str;
+        std::cin >> number;
+        if(std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n'); //clean input buffer
+            continue;
+        }
+        std::cin.clear();
+        std::cin.ignore(1000,'\n'); //clean input buffer
+        return number;
+    }while(true);
+}
+
 unsigned int settingsMenuDialog() {
 
     std::cout << "Settings Menu" << std::endl;
@@ -224,17 +240,54 @@ unsigned int nodeMenuDialog() {
     std::cout << "2  - Create Garage" << std::endl;
     std::cout << "3  - Create Container" << std::endl;
     std::cout << "4  - Create Station" << std::endl;
-    std::cout << "5  - List Locations" << std::endl;
-    std::cout << "6  - List Garages" << std::endl;
-    std::cout << "7  - List Containers" << std::endl;
-    std::cout << "8  - List Stations" << std::endl;
-    std::cout << "9  - Remove Location" << std::endl;
-    std::cout << "10 - Remove Garage" << std::endl;
+    std::cout << "5  - List Garages" << std::endl;
+    std::cout << "6  - List Containers" << std::endl;
+    std::cout << "7  - List Stations" << std::endl;
+    std::cout << "8  - Remove Location" << std::endl;
+    std::cout << "9 - Remove Garage" << std::endl;
+    std::cout << "10 - Remove Container" << std::endl;
     std::cout << "11 - Remove Container" << std::endl;
-    std::cout << "12 - Remove Container" << std::endl;
-    std::cout << "0  - Back" << std::endl;
+    std::cout << "0  - Exit" << std::endl;
 
-    return nextUnsignedInt("Option: ", 8);
+    return nextUnsignedInt("Option: ", 11);
+}
+
+unsigned int editNodeMenu() {
+    //TODO(Prints menu for node editing and gets user option)
+    return 1;
+}
+
+void editNode(unsigned long nodeID) {
+//TODO(Edits node based on user option and input)
+    std::cout << "Edit info\n";
+}
+
+void listGarages(GarbageManagement &management) {
+
+    unsigned int selectedID;
+
+    do {
+        std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Node ID";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Longitude";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Latitude";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << "#Vehicles" << std::endl;
+
+        //TODO(change to method that gets all places)
+        for(auto garage : management.getGarages()) {
+
+            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << garage->getID();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getCoordinates().first;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getCoordinates().second;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << garage->getNumberOfVehicles() << std::endl;
+        }
+
+        selectedID = getUnsignedInt("Insert node ID to edit node, 0 to leave: ");
+
+        if(management.getPlace(selectedID) != nullptr){
+            editNode(selectedID);
+        }
+
+    }while(selectedID != 0);
 }
 
 void nodeMenu(GarbageManagement &management){
@@ -252,6 +305,7 @@ void nodeMenu(GarbageManagement &management){
             createContainerOrStation(management, "station");
             break;
         case 5:
+            listGarages(management);
             break;
         case 6:
             break;
