@@ -1,4 +1,5 @@
 #include "Container.h"
+#include <sstream>
 
 Container::Container(Place *place, GarbageType type, double capacity){
     this->place = place;
@@ -27,4 +28,11 @@ GarbageType Container::getType() {
 
 double Container::getCapacity() {
     return this->capacity;
+}
+
+std::string Container::toString() {
+    std::stringstream container;
+
+    container << this->place->toString() << ";" << getGarbageType(this->type) << ";" << this->capacity;
+    return container.str();
 }

@@ -17,6 +17,7 @@ public:
     Place* getPlace();
     GarbageType getType();
     double getCapacity();
+    std::string toString();
 };
 
 #endif

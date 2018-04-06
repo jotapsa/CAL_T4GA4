@@ -17,6 +17,7 @@ public:
     unsigned long getNumberOfVehicles();
     int getNumberOfVehiclesOfType(GarbageType type);
     std::vector<Vehicle *> getVehicles();
+    std::string toString();
 
     void addVehicle(Vehicle *vehicle);
 };

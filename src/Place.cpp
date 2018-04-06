@@ -1,4 +1,5 @@
 #include "Place.h"
+#include <sstream>
 
 unsigned long Place::maxId = 0;
 
@@ -27,6 +28,13 @@ unsigned long Place::getID() const{
 
 std::pair<double, double> Place::getCoordinates() {
     return this->coordinates;
+}
+
+std::string Place::toString() {
+    std::stringstream place;
+
+    place << this->id << ";" << this->dLon << ";" << this->dLat << ";" << this->rLon << ";" << this->rLat;
+    return place.str();
 }
 
 bool Place::operator==(const Place& o){

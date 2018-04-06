@@ -46,8 +46,6 @@ bool openFile(ofstream& file, std::string filePath){
     return true;
 }
 
-
-
 std::vector<std::string> split(const std::string &s, const char &delim){
     std::vector<std::string> splitStrings;
     std::istringstream inSStream(s);
@@ -226,8 +224,8 @@ bool loadVehicles(GarbageManagement &management){
 
         Vehicle_T newVehicle = createVehicle(lineVector);
 
-        for(Vehicle_T v : vehiclesVector){
-            if(v.ID == newVehicle.ID || v.plate.compare(newVehicle.plate)==0){
+        for(vector<Vehicle_T>::iterator v = vehiclesVector.begin(); v != vehiclesVector.end(); v++){
+            if(v->ID == newVehicle.ID || v->plate.compare(newVehicle.plate)==0){
                 cout << "Vehicle " << newVehicle.ID << " already exists." << endl;
                 return false;
             }
@@ -362,28 +360,45 @@ bool loadEdgesInfo(GarbageManagement &management) {
 }
 
 void savePlaces(const GarbageManagement &management) {
-//    for(Place *place : management.getGraph()){
-//
-//    }
+    ofstream places;
+
+    if(!openFile(places,PLACES_FILEPATH)){
+        return;
+    }
+
+    for(auto place : management.getPlaces()){
+        places << place->toString() << endl;
+    }
+
+    places.close();
 }
 
 void saveContainers(GarbageManagement &management){
-//    ofstream containers;
-//
-//    containers.open("../resources/container.txt");
-//
-//    if(!containers.is_open()) {
-//        cout << "container.txt could not be open!\n";
-//        return;
-//    }
-//    for(Container *container : management.getContainers()){
-//        containers << container->getID() << ";" << container->getCapacity();
-//    }
+    ofstream containers;
+
+    if(!openFile(containers,CONTAINERS_FILEPATH)){
+        return;
+    }
+
+    for(Container *container : management.getContainers()){
+        containers << container->toString() << endl;
+    }
+
+    containers.close();
 }
 
 void saveStations(GarbageManagement &management){
-//    ofstream stations;
+    ofstream stations;
 
+    if(!openFile(stations,STATIONS_FILEPATH)){
+        return;
+    }
+
+    for(Station *station : management.getStations()){
+        stations << station->toString() << endl;
+    }
+
+    stations.close();
 }
 
 void saveVehicles(std::vector<Vehicle *> vehiclesGarage){
@@ -401,15 +416,47 @@ void saveVehicles(std::vector<Vehicle *> vehiclesGarage){
 }
 
 void saveGarages(GarbageManagement &management){
+    ofstream garages;
+
     for(Garage *garage : management.getGarages()){
         saveVehicles(management.getVehicles(garage->getPlace()->getID()));
     }
+
+    if(!openFile(garages,GARAGES_FILEPATH)){
+        return;
+    }
+
+    for(Garage *garage : management.getGarages()){
+        garages << garage->toString() << endl;
+    }
+
+    garages.close();
 }
 
 void saveEdges(const GarbageManagement &management) {
-
+//    ofstream edges;
+//
+//    if(!openFile(edges,EDGES_FILEPATH)){
+//        return;
+//    }
+//
+//    for(Street *street : management.getStreets()){
+//        edges << ;
+//    }
+//
+//    edges.close();
 }
 
 void saveEdgesInfo(const GarbageManagement &management) {
+    ofstream edgesInfo;
 
+    if(!openFile(edgesInfo,EDGES_INFO_FILEPATH)){
+        return;
+    }
+
+    for(Street *street : management.getStreets()){
+        edgesInfo << street->getInfo();
+    }
+
+    edgesInfo.close();
 }

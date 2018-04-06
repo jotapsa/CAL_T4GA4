@@ -1,4 +1,5 @@
 #include "Station.h"
+#include <sstream>
 
 Station::Station(Place *place, GarbageType type, double capacity){
     this->place = place;
@@ -28,4 +29,12 @@ double Station::getCapacity() {
 
 GarbageType Station::getGarbageType() {
     return this->type;
+}
+
+std::string Station::toString() {
+    std::stringstream station;
+
+    //TODO wtf is :: ?
+    station << this->place->toString() << ";" << ::getGarbageType(this->type) << ";" << this->capacity;
+    return station.str();
 }

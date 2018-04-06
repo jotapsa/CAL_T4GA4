@@ -1,8 +1,8 @@
 #ifndef _STATION_H
 #define _STATION_H
 
-#include "Place.h"
 #include "Aux.h"
+#include "Place.h"
 
 class Station {
 private:
@@ -17,6 +17,7 @@ public:
     Place* getPlace();
     GarbageType getGarbageType();
     double getCapacity();
+    std::string toString();
 };
 
 

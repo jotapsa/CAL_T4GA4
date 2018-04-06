@@ -1,4 +1,5 @@
 #include "Garage.h"
+#include <sstream>
 
 Garage::Garage(Place *place){
     this->place = place;
@@ -39,4 +40,14 @@ void Garage::addVehicle(Vehicle *vehicle) {
 
 std::vector<Vehicle *> Garage::getVehicles(){
     return this->vehicles;
+}
+
+std::string Garage::toString(){
+    std::stringstream garage;
+
+    garage << this->place->toString();
+    for(Vehicle *v : this->vehicles){
+        garage << ";" << v->getID();
+    }
+    return garage.str();
 }

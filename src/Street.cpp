@@ -1,4 +1,5 @@
 #include "Street.h"
+#include <sstream>
 
 unsigned long Street::idCounter = 0;
 
@@ -17,6 +18,18 @@ unsigned long Street::getID() {
 
 std::string Street::getName() {
     return this->name;
+}
+
+std::string Street::toString() {
+    std::stringstream street;
+
+//    street <<
+
+    return street.str();
+}
+
+std::string Street::getInfo() {
+    return std::string();
 }
 
 void Street::setName(std::string name){

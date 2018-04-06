@@ -18,6 +18,8 @@ public:
 
     unsigned long getID();
     std::string getName();
+    std::string toString();
+    std::string getInfo();
 
     void setName(std::string name);
 };

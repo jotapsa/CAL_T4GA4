@@ -1,5 +1,5 @@
-#ifndef _BUILDING_H_
-#define _BUILDING_H_
+#ifndef _PLACE_H_
+#define _PLACE_H_
 
 #include "Node.h"
 
@@ -13,12 +13,15 @@ protected:
     void updateMaxID();
 public:
     Place(unsigned long id, double dLon, double dLat, double rLon, double rLat, std::pair<int, int> coordinates);
+
     unsigned long getID() const;
     std::pair<double, double> getCoordinates();
+    std::string toString();
+
 
     static unsigned long getUnusedId();
 
     bool operator==(const Place& o);
 };
 
-#endif /* _BUILDING_H_ */
+#endif /* _PLACE_H_ */

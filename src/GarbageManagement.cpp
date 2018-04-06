@@ -13,7 +13,7 @@ Graph<Place> GarbageManagement::getGraph(){
     return this->graph;
 }
 
-std::vector<Place *> GarbageManagement::getPlaces(){
+std::vector<Place *> GarbageManagement::getPlaces() const{
     auto allPlaces = getEmptyPlaces();
     auto containers = getContainers();
     auto stations = getStations();
@@ -34,23 +34,23 @@ std::vector<Place *> GarbageManagement::getPlaces(){
     return allPlaces;
 }
 
-std::vector<Place *> GarbageManagement::getEmptyPlaces() {
+std::vector<Place *> GarbageManagement::getEmptyPlaces() const{
     return this->places;
 }
 
-std::vector<Container *> GarbageManagement::getContainers() {
+std::vector<Container *> GarbageManagement::getContainers() const{
     return this->containers;
 }
 
-std::vector<Station *> GarbageManagement::getStations() {
+std::vector<Station *> GarbageManagement::getStations() const{
     return this->stations;
 }
 
-std::vector<Garage *> GarbageManagement::getGarages() {
+std::vector<Garage *> GarbageManagement::getGarages() const{
     return this->garages;
 }
 
-std::vector<Street *> GarbageManagement::getStreets() {
+std::vector<Street *> GarbageManagement::getStreets() const{
     return this->streets;
 }
 
@@ -105,7 +105,7 @@ Station *GarbageManagement::getStation(unsigned long stationID) {
     return nullptr;
 }
 
-Garage* GarbageManagement::getGarage(unsigned long garageID) {
+Garage* GarbageManagement::getGarage(unsigned long garageID) const{
     for(auto g: garages){
         if(g->getPlace()->getID() == garageID){
             return g;
@@ -114,7 +114,7 @@ Garage* GarbageManagement::getGarage(unsigned long garageID) {
     return nullptr;
 }
 
-std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) {
+std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) const{
     Garage *garage= this->getGarage(garageID);
     if(garage != nullptr){
         return garage->getVehicles();

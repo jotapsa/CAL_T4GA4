@@ -29,19 +29,19 @@ public:
     Graph<Place> getGraph();
 
 
-    std::vector<Place *> getPlaces();
-    std::vector<Place *> getEmptyPlaces();
-    std::vector<Container *> getContainers();
-    std::vector<Station *> getStations();
-    std::vector<Garage *> getGarages();
-    std::vector<Street *> getStreets();
-    std::vector<Vehicle *> getVehicles(unsigned long int garageID);
+    std::vector<Place *> getPlaces() const;
+    std::vector<Place *> getEmptyPlaces() const;
+    std::vector<Container *> getContainers() const;
+    std::vector<Station *> getStations() const;
+    std::vector<Garage *> getGarages() const;
+    std::vector<Street *> getStreets() const;
+    std::vector<Vehicle *> getVehicles(unsigned long int garageID) const;
 
     Place *getPlace(unsigned long id);
     Place *getEmptyPlace(unsigned long id);
     Container *getContainer(unsigned long containerID);
     Station *getStation(unsigned long stationID);
-    Garage * getGarage(unsigned long garageID);
+    Garage * getGarage(unsigned long garageID) const;
 
     void addPlace(Place *place);
     void addContainer(Container *container);
