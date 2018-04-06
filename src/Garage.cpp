@@ -1,7 +1,21 @@
 #include "Garage.h"
 
-Garage::Garage(unsigned long id, double dLon, double dLat, double rLon, double rLat, std::pair<int, int> coordinates)
-    : Place(id, dLon, dLat, rLon, rLat, coordinates) {}
+Garage::Garage(Place *place){
+    this->place = place;
+}
+
+Garage::Garage(unsigned long id, double dLon, double dLat, double rLon, double rLat,
+               std::pair<int, int> coordinates){
+    this->place = new Place(id,
+                            dLon, dLat,
+                            rLon, rLat,
+                            convertToCoords(dLon, dLat,
+                                              rLon, rLat));
+}
+
+Place* Garage::getPlace(){
+    return this->place;
+}
 
 unsigned long Garage::getNumberOfVehicles() {
     return this->vehicles.size();

@@ -262,9 +262,9 @@ void listGarages(GarbageManagement &management) {
 
         for(auto garage : management.getGarages()) {
 
-            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << garage->getID();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getCoordinates().first;
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getCoordinates().second;
+            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << garage->getPlace()->getID();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getCoordinates().first;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getCoordinates().second;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << garage->getNumberOfVehicles() << std::endl;
         }
 
@@ -293,9 +293,9 @@ void listContainers(GarbageManagement &management) {
 
         for(auto container : management.getContainers()) {
 
-            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << container->getID();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getCoordinates().first;
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getCoordinates().second;
+            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << container->getPlace()->getID();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getPlace()->getCoordinates().first;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getPlace()->getCoordinates().second;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << getGarbageType(container->getType());
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getCapacity() << std::endl;
         }
@@ -325,9 +325,9 @@ void listStations(GarbageManagement &management) {
 
         for(auto station : management.getStations()) {
 
-            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << station->getID();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getCoordinates().first;
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getCoordinates().second;
+            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << station->getPlace()->getID();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getCoordinates().first;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getCoordinates().second;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << getGarbageType(station->getGarbageType());
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getCapacity() << std::endl;
         }

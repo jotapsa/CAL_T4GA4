@@ -35,20 +35,20 @@ Place * GarbageManagement::getPlace(unsigned long id){
         return place;
     }
 
-    Container *container = getContainer(id);
-    if(container != nullptr){
-        return container;
-    }
-
-    Station *station = getStation(id);
-    if(station != nullptr){
-        return station;
-    }
-
-    Garage *garage = getGarage(id);
-    if(garage != nullptr){
-        return garage;
-    }
+//    Container *container = getContainer(id);
+//    if(container != nullptr){
+//        return container;
+//    }
+//
+//    Station *station = getStation(id);
+//    if(station != nullptr){
+//        return station;
+//    }
+//
+//    Garage *garage = getGarage(id);
+//    if(garage != nullptr){
+//        return garage;
+//    }
     return nullptr;
 }
 
@@ -63,7 +63,7 @@ Place *  GarbageManagement::getEmptyPlace(unsigned long id){
 
 Container * GarbageManagement::getContainer(unsigned long containerID){
     for(auto c: containers){
-        if(c->getID() == containerID){
+        if(c->getPlace()->getID() == containerID){
             return c;
         }
     }
@@ -72,16 +72,17 @@ Container * GarbageManagement::getContainer(unsigned long containerID){
 
 Station *GarbageManagement::getStation(unsigned long stationID) {
     for(auto s: stations){
-        if(s->getID() == stationID){
+        if(s->getPlace()->getID() == stationID){
             return s;
         }
     }
     return nullptr;
 }
 
-Garage * GarbageManagement::getGarage(unsigned long garageID) {
+Garage* GarbageManagement::getGarage(unsigned long garageID) {
     for(auto g: garages){
-        if(g->getID() == garageID){
+        cout << g->getPlace()->getID() << endl;
+        if(g->getPlace()->getID() == garageID){
             return g;
         }
     }
@@ -91,6 +92,7 @@ Garage * GarbageManagement::getGarage(unsigned long garageID) {
 std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) {
     Garage *garage= this->getGarage(garageID);
     if(garage != nullptr){
+        cout << "encontrei garage" << endl;
         return garage->getVehicles();
     }
 }
@@ -109,8 +111,8 @@ void GarbageManagement::addPlace(Place *place) {
 }
 
 void GarbageManagement::addContainer(Container *container) {
-    if(!this->graph.addNode(*(container))){
-        std::cout << "Node " << container->getID() << " already in graph." << std::endl;
+    if(!this->graph.addNode(*(container->getPlace()))){
+        std::cout << "Node " << container->getPlace()->getID() << " already in graph." << std::endl;
     } else{
         this->containers.push_back(container);
 
@@ -121,8 +123,8 @@ void GarbageManagement::addContainer(Container *container) {
 }
 
 void GarbageManagement::addStation(Station *station) {
-    if(!this->graph.addNode(*(station))){
-        std::cout << "Node " << station->getID() << " already in graph." << std::endl;
+    if(!this->graph.addNode(*(station->getPlace()))){
+        std::cout << "Node " << station->getPlace()->getID() << " already in graph." << std::endl;
     } else{
         this->stations.push_back(station);
 
@@ -133,8 +135,8 @@ void GarbageManagement::addStation(Station *station) {
 }
 
 void GarbageManagement::addGarage(Garage *garage) {
-    if(!this->graph.addNode(*(garage))){
-        std::cout << "Node " << garage->getID() << " already in graph." << std::endl;
+    if(!this->graph.addNode(*(garage->getPlace()))){
+        std::cout << "Node " << garage->getPlace()->getID() << " already in graph." << std::endl;
     } else{
         this->garages.push_back(garage);
 
