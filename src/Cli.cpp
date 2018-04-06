@@ -234,24 +234,6 @@ unsigned int selectGarbageTypeMenu() {
     return nextUnsignedInt("Option: ", 4);
 }
 
-unsigned int nodeMenuDialog() {
-    std::cout << "\nNode Menu" << std::endl;
-    std::cout << "1  - Create Location" << std::endl;
-    std::cout << "2  - Create Garage" << std::endl;
-    std::cout << "3  - Create Container" << std::endl;
-    std::cout << "4  - Create Station" << std::endl;
-    std::cout << "5  - List Garages" << std::endl;
-    std::cout << "6  - List Containers" << std::endl;
-    std::cout << "7  - List Stations" << std::endl;
-    std::cout << "8  - Remove Location" << std::endl;
-    std::cout << "9 - Remove Garage" << std::endl;
-    std::cout << "10 - Remove Container" << std::endl;
-    std::cout << "11 - Remove Container" << std::endl;
-    std::cout << "0  - Exit" << std::endl;
-
-    return nextUnsignedInt("Option: ", 11);
-}
-
 unsigned int editNodeMenu() {
     //TODO(Prints menu for node editing and gets user option)
     return 1;
@@ -290,6 +272,54 @@ void listGarages(GarbageManagement &management) {
     }while(selectedID != 0);
 }
 
+void listContainers(GarbageManagement &management) {
+
+    unsigned int selectedID;
+
+    do {
+        std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Node ID";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Longitude";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Latitude";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << "Type";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Capacity" << std::endl;
+
+        //TODO(change to method that gets all places)
+        for(auto container : management.getContainers()) {
+
+            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << container->getID();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getCoordinates().first;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getCoordinates().second;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << getGarbageType(container->getType());
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getCapacity() << std::endl;
+        }
+
+        selectedID = getUnsignedInt("Insert node ID to edit node, 0 to leave: ");
+
+        if(management.getPlace(selectedID) != nullptr){
+            editNode(selectedID);
+        }
+
+    }while(selectedID != 0);
+}
+
+unsigned int nodeMenuDialog() {
+    std::cout << "\nNode Menu" << std::endl;
+    std::cout << "1  - Create Location" << std::endl;
+    std::cout << "2  - Create Garage" << std::endl;
+    std::cout << "3  - Create Container" << std::endl;
+    std::cout << "4  - Create Station" << std::endl;
+    std::cout << "5  - List Garages" << std::endl;
+    std::cout << "6  - List Containers" << std::endl;
+    std::cout << "7  - List Stations" << std::endl;
+    std::cout << "8  - Remove Location" << std::endl;
+    std::cout << "9 - Remove Garage" << std::endl;
+    std::cout << "10 - Remove Container" << std::endl;
+    std::cout << "11 - Remove Container" << std::endl;
+    std::cout << "0  - Exit" << std::endl;
+
+    return nextUnsignedInt("Option: ", 11);
+}
+
 void nodeMenu(GarbageManagement &management){
     switch(nodeMenuDialog()) {
         case 1:
@@ -308,6 +338,7 @@ void nodeMenu(GarbageManagement &management){
             listGarages(management);
             break;
         case 6:
+            listContainers(management);
             break;
         case 7:
             break;
