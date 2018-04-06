@@ -74,16 +74,15 @@ bool readLine(fstream &file, vector<std::string> *lineVector){
     return true;
 }
 
-// void setPlace(vector<std::string> line, unsigned long &id, std::pair<double, double> *coordinates) {
-//     double dLon, dLat, rLon, rLat;
-//
-//     id = stoul(line.at(0));
-//
-//     rLat = stod(line.at(3));
-//     rLon = stod(line.at(4));
-//
-//     convertToKilometers(coordinates, rLat, rLon);
-// }
+Place* newPlace(vector<std::string> line){
+    return new Place(stoul(line.at(0)),
+                     stod(line.at(1)),
+                     stod(line.at(2)),
+                     stod(line.at(3)),
+                     stod(line.at(4)),
+                     convertToCoords(stod(line.at(1)), stod(line.at(2)),
+                                     stod(line.at(3)), stod(line.at(4))));
+}
 
 Edge_T createEdge(vector<std::string> line){
     Edge_T edge;
@@ -143,13 +142,7 @@ bool loadPlaces(GarbageManagement &management) {
             return false;
         }
 
-        //setPlace(lineVector, &placeID, &coordinates);
-        management.addPlace(new Place(stoul(lineVector.at(0)),
-                                      stod(lineVector.at(1)),
-                                      stod(lineVector.at(2)),
-                                      stod(lineVector.at(3)),
-                                      stod(lineVector.at(4)),
-                                      convertToCoords(stod(lineVector.at(1)), stod(lineVector.at(2)), stod(lineVector.at(3)), stod(lineVector.at(4)))));
+        management.addPlace(newPlace(lineVector));
     }
 
     places.close();
@@ -172,18 +165,11 @@ bool loadContainers(GarbageManagement &management){
 
     while(readLine(containers, &lineVector)){
         nContainers++;
-        if(lineVector.size() != 6){
+        if(lineVector.size() != 7){
             return false;
         }
 
-        //setPlace(lineVector, &placeID, &coordinates);
-        management.addContainer(new Container(stoul(lineVector.at(0)),
-                                      stod(lineVector.at(1)),
-                                      stod(lineVector.at(2)),
-                                      stod(lineVector.at(3)),
-                                      stod(lineVector.at(4)),
-                                      convertToCoords(stod(lineVector.at(1)), stod(lineVector.at(2)), stod(lineVector.at(3)), stod(lineVector.at(4))),
-                                              getGarbageType(lineVector.at(5)), 0));
+        management.addContainer(new Container(newPlace(lineVector), getGarbageType(lineVector.at(5)), stod(lineVector.at(6))));
     }
 
     containers.close();
@@ -205,18 +191,11 @@ bool loadStations(GarbageManagement &management){
 
     while(readLine(stations, &lineVector)){
         nStations++;
-        if(lineVector.size() != 6){
+        if(lineVector.size() != 7){
             return false;
         }
 
-        //setPlace(lineVector, &placeID, &coordinates);
-        management.addStation(new Station(stoul(lineVector.at(0)),
-                                              stod(lineVector.at(1)),
-                                              stod(lineVector.at(2)),
-                                              stod(lineVector.at(3)),
-                                              stod(lineVector.at(4)),
-                                              convertToCoords(stod(lineVector.at(1)), stod(lineVector.at(2)), stod(lineVector.at(3)), stod(lineVector.at(4))),
-                                              getGarbageType(lineVector.at(5)), 0));
+        management.addStation(new Station(newPlace(lineVector), getGarbageType(lineVector.at(5)), stod(lineVector.at(6))));
     }
 
     stations.close();
@@ -264,7 +243,6 @@ bool loadGarages(GarbageManagement &management){
     vector<std::string> lineVector;
 
     unsigned long placeID;
-    pair <double,double> coordinates;
 
     if(!loadVehicles(management)){
         std::cout << "Failed to read vehicles!" << std::endl;
@@ -281,12 +259,9 @@ bool loadGarages(GarbageManagement &management){
             return false;
         }
 
-        management.addGarage(new Garage(stoul(lineVector.at(0)),
-                                          stod(lineVector.at(1)),
-                                          stod(lineVector.at(2)),
-                                          stod(lineVector.at(3)),
-                                          stod(lineVector.at(4)),
-                                          convertToCoords(stod(lineVector.at(1)), stod(lineVector.at(2)), stod(lineVector.at(3)), stod(lineVector.at(4)))));
+        management.addGarage(new Garage(newPlace(lineVector)));
+
+        placeID = stoul(lineVector.at(0));
 
         if((lineVector.size()-5) <= 0){
             continue;
@@ -299,10 +274,10 @@ bool loadGarages(GarbageManagement &management){
             }
         }
 
-           if((lineVector.size()-5) != management.getVehicles(placeID).size()){
+       if((lineVector.size()-5) != management.getVehicles(placeID).size()){
             cout << "Couldn't find all vehicles of Garage -> " << placeID << "." << endl;
             return false;
-        };
+        }
     }
 
     garages.close();
@@ -419,7 +394,7 @@ void saveVehicles(std::vector<Vehicle *> vehiclesGarage){
 
 void saveGarages(GarbageManagement &management){
     for(Garage *garage : management.getGarages()){
-        saveVehicles(management.getVehicles(garage->getID()));
+        saveVehicles(management.getVehicles(garage->getPlace()->getID()));
     }
 }
 
