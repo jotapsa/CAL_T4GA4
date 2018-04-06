@@ -203,7 +203,7 @@ void GarbageManagement::evalCon() {
 }
 
 void GarbageManagement::rearrange() {
-    gv->rearrange();
+//    gv->rearrange();
 }
 
 

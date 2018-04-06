@@ -147,6 +147,7 @@ bool loadPlaces(GarbageManagement &management) {
 
     places.close();
 
+    management.rearrange();
     std::cout << management.getGraph().getNumNodes() << "/" << nPlaces << " places were successfully read!\n";
     return true;
 }
@@ -173,6 +174,8 @@ bool loadContainers(GarbageManagement &management){
     }
 
     containers.close();
+
+    management.rearrange();
     std::cout << management.getContainers().size() << "/" << nContainers << " containers were successfully read!\n";
     return true;
 }
@@ -199,6 +202,8 @@ bool loadStations(GarbageManagement &management){
     }
 
     stations.close();
+
+    management.rearrange();
     std::cout << management.getStations().size() << "/" << nStations << " stations were successfully read!\n";
     return true;
 }
@@ -267,8 +272,8 @@ bool loadGarages(GarbageManagement &management){
             continue;
         }
 
-        for(int i=5; i < lineVector.size(); i++){
-            Vehicle *v = getVehicle(stoul(lineVector.at(i)));
+        for(std::vector<string>::iterator vID = lineVector.begin()+5; vID != lineVector.end(); vID++){
+            Vehicle *v = getVehicle(stoul(*vID));
             if(v != nullptr){
                 management.addVehicle(placeID, v);
             }
@@ -287,6 +292,7 @@ bool loadGarages(GarbageManagement &management){
         return false;
     }
 
+    management.rearrange();
     std::cout << management.getGarages().size() << "/" << nGarages << " garages were successfully read!\n";
     return true;
 }
@@ -311,13 +317,14 @@ bool loadEdges(GarbageManagement &management) {
 
     edges.close();
 
+    management.rearrange();
     std::cout << edgesVector.size() << "/" << nEdges << " edges were successfully read!\n";
     return true;
 }
 
 bool loadEdgesInfo(GarbageManagement &management) {
     fstream edgesInfo;
-    unsigned long int id=0, nEdgesInfo=0, nLines=0;
+    unsigned long int ID=0, nEdgesInfo=0, nLines=0;
     string name;
     vector<std::string> lineVector;
     EdgeType type;
@@ -331,14 +338,14 @@ bool loadEdgesInfo(GarbageManagement &management) {
         if(lineVector.size() != 3){
             return false;
         }
-
-        id = stoul(lineVector.at(0));
-
         nEdgesInfo++;
-        for(Edge_T edge : edgesVector){
-            if(edge.ID == id){
+
+        ID = stoul(lineVector.at(0));
+
+        for(std::vector<Edge_T>::iterator edge = edgesVector.begin(); edge != edgesVector.end(); edge++){
+            if(edge->ID == ID){
                 pair <unsigned long int,unsigned long int> nodes
-                        = make_pair(edge.node1,edge.node2);
+                    = make_pair(edge->node1,edge->node2);
                 name = lineVector.at(1);
                 type = lineVector.at(2) == "True" ? twoWay : oneWay;
 
@@ -349,7 +356,8 @@ bool loadEdgesInfo(GarbageManagement &management) {
 
     edgesInfo.close();
 
-    std::cout << nLines << "/" << nEdgesInfo << " edges info were successfully read!\n\n";
+    management.rearrange();
+    std::cout << nEdgesInfo << "/" << nLines << " edges info were successfully read!\n\n";
     return true;
 }
 
