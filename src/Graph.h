@@ -168,30 +168,6 @@ void Graph<T>::dijkstraShortestPath(const T &sourceInfo){
     }
 }
 
-
-/****************** 2a) dfs ********************/
-
-/*
- * Performs a depth-first search (dfs) in a graph (this).
- * Returns a vector with the contents of the vertices by dfs order.
- * Follows the algorithm described in theoretical classes.
- */
-template <class T>
-std::vector<T> Graph<T>::depthFirstSearch() const {
-    // TODO (7 lines)
-    std::vector<T> res;
-    return res;
-}
-
-/*
- * Auxiliary function that visits a Node (v) and its adjacent not yet visited, recursively.
- * Updates a parameter with the list of visited node contents.
- */
-template <class T>
-void Graph<T>::depthFirstSearchVisit(Node<T> *v, std::vector<T> & res) const {
-    // TODO (7 lines)
-}
-
 /****************** 2b) bfs ********************/
 
 /*
@@ -207,65 +183,6 @@ std::vector<T> Graph<T>::bellmanFordSearch(const T & source) const {
     // HINT: Use the "queue<>" class to temporarily store the vertices.
     std::vector<T> res;
     return res;
-}
-
-/****************** 2c) toposort ********************/
-
-/*
- * Performs a topological sorting of the vertices of a graph (this).
- * Returns a vector with the contents of the vertices by topological order.
- * If the graph has cycles, returns an empty vector.
- * Follows the algorithm described in theoretical classes.
- */
-
-template<class T>
-std::vector<T> Graph<T>::topsort() const {
-    // TODO (26 lines)
-    std::vector<T> res;
-    return res;
-}
-
-/****************** 3a) maxNewChildren (HOME WORK)  ********************/
-
-/*
- * Performs a breadth-first search in a graph (this), starting
- * from the Node with the given source contents (source).
- * During the search, determines the Node that has a maximum number
- * of new children (adjacent not previously visited), and returns the
- * contents of that Node (inf) and the number of new children (return value).
- */
-
-template <class T>
-int Graph<T>::maxNewChildren(const T & source, T &inf) const {
-    // TODO (28 lines, mostly reused)
-    return 0;
-}
-
-/****************** 3b) isDAG   (HOME WORK)  ********************/
-
-/*
- * Performs a depth-first search in a graph (this), to determine if the graph
- * is acyclic (acyclic directed graph or DAG).
- * During the search, a cycle is found if an edge connects to a Node
- * that is being processed in the the stack of recursive calls (see theoretical classes).
- * Returns true if the graph is acyclic, and false otherwise.
- */
-
-template <class T>
-bool Graph<T>::isDAG() const {
-    // TODO (9 lines, mostly reused)
-    // HINT: use the auxiliary field "processing" to mark the vertices in the stack.
-    return true;
-}
-
-/**
- * Auxiliary function that visits a Node (v) and its adjacent not yet visited, recursively.
- * Returns false (not acyclic) if an edge to a Node in the stack is found.
- */
-template <class T>
-bool Graph<T>::depthFirstSearchIsDAG(Node<T> *v) const {
-    // TODO (12 lines, mostly reused)
-    return true;
 }
 
 #endif /* GRAPH_H_ */
