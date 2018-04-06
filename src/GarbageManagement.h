@@ -52,6 +52,7 @@ public:
 
     void evalCon();
 
+    void rearrange();
     void closeWindow();
 };
 
