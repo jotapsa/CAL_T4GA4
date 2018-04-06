@@ -13,6 +13,31 @@ Graph<Place> GarbageManagement::getGraph(){
     return this->graph;
 }
 
+std::vector<Place *> GarbageManagement::getPlaces(){
+    auto allPlaces = getEmptyPlaces();
+    auto containers = getContainers();
+    auto stations = getStations();
+    auto garages = getGarages();
+
+    for(auto c: containers){
+        allPlaces.push_back(c->getPlace());
+    }
+
+    for(auto s: stations){
+        allPlaces.push_back(s->getPlace());
+    }
+
+    for(auto g: garages){
+        allPlaces.push_back(g->getPlace());
+    }
+
+    return allPlaces;
+}
+
+std::vector<Place *> GarbageManagement::getEmptyPlaces() {
+    return this->places;
+}
+
 std::vector<Container *> GarbageManagement::getContainers() {
     return this->containers;
 }

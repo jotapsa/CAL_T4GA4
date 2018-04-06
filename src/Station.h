@@ -4,7 +4,6 @@
 #include "Place.h"
 #include "Aux.h"
 
-
 class Station {
 private:
     Place *place;

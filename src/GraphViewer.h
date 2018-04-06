@@ -109,38 +109,38 @@ class GraphViewer {
    * @param id Identificador único do nó com o texto a alterar.
    * @param label Novo texto do nó.
    */
-  bool setVertexLabel(int id, string label);
+  bool setVertexLabel(int id, std::string label);
 
   /**
    * Função que define o texto de uma aresta.
    * @param id Identificador único da aresta com o texto a alterar.
    * @param label Novo texto da aresta.
    */
-  bool setEdgeLabel(int id, string label);
+  bool setEdgeLabel(int id, std::string label);
   /**
    * Função que define a cor de uma aresta.
    * @param id Identificador único da aresta com a cor a alterar.
    * @param color Nova cor da aresta, utilizar as constantes definidas no graphviewer.h para conveniência.
    */
-  bool setEdgeColor(int id, string color);
+  bool setEdgeColor(int id, std::string color);
 
   /**
    * Função que define a cor de um nó.
    * @param id Identificador único do nó com a cor a alterar.
    * @param color Nova cor do nó, utilizar as constantes definidas no graphviewer.h para conveniência.
    */
-  bool setVertexColor(int id, string color);
+  bool setVertexColor(int id, std::string color);
 
   /**
    * Função que define a cor global das arestas.
    * @param color Nova cor das arestas, utilizar as constantes definidas no graphviewer.h para conveniência.
    */
-  bool defineEdgeColor(string color);
+  bool defineEdgeColor(std::string color);
   /**
    * Função que define a cor global dos nós.
    * @param color Nova cor dos nós, utilizar as constantes definidas no graphviewer.h para conveniência.
    */
-  bool defineVertexColor(string color);
+  bool defineVertexColor(std::string color);
   /**
    * Função que define a espessura de uma aresta.
    * @param id Identificador único da aresta com a espessura a alterar.
@@ -153,7 +153,7 @@ class GraphViewer {
    * Função que altera a imagem de fundo do grafo.
    * @param path Caminho para o ficheiro com a imagem.
    */
-  bool setBackground(string path);
+  bool setBackground(std::string path);
 
   /**
    * Função que define o peso de uma aresta na representação do grafo, a ser visualizado

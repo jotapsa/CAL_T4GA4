@@ -2,6 +2,8 @@
 #include <string>
 #include <sstream>
 
+using namespace std;
+
 #if linux || __APPLE__
 pid_t GraphViewer::procId = NULL;
 #endif

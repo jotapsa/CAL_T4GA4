@@ -12,8 +12,6 @@
 #include "Street.h"
 #include "GraphViewer.h"
 
-#define INF std::numeric_limits<unsigned long>::max() //For knowing the limits of nodeID
-
 class GarbageManagement {
 private:
     Graph<Place> graph;
@@ -29,6 +27,10 @@ private:
 public:
     GarbageManagement();
     Graph<Place> getGraph();
+
+
+    std::vector<Place *> getPlaces();
+    std::vector<Place *> getEmptyPlaces();
     std::vector<Container *> getContainers();
     std::vector<Station *> getStations();
     std::vector<Garage *> getGarages();
@@ -47,8 +49,6 @@ public:
     void addGarage(Garage *garage);
     void addVehicle(unsigned long garageID, Vehicle *vehicle);
     void addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
-
-    unsigned long genUnusedNodeID();
 
     void evalCon();
 
