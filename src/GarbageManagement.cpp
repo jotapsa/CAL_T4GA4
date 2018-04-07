@@ -6,11 +6,22 @@
 //TODO: Usar um icone para as buildings em vez de uma cor po no. (BERNARDO ARRANJA ICONS e manda po img, define o path na aux)
 
 GarbageManagement::GarbageManagement() {
+    this->algorithm = static_cast<Algorithm>(DEFAULT_ALGORITHM);
+    this->fillPerNeeded = DEFAULT_FILL_PER_NEEDED;
+
     gv = new GraphViewer(windowWidth, windowHeight, false);
     gv->setBackground(backgroundImgPath);
     gv->createWindow(windowWidth, windowHeight);
     gv->defineEdgeCurved(curvedEdges);
     gv->defineVertexSize(emptyPlaceNodeSize);
+}
+
+Algorithm GarbageManagement::getAlgorithm() const {
+    return this->algorithm;
+}
+
+float GarbageManagement::getFillPerNeeded() const {
+    return this->fillPerNeeded;
 }
 
 Graph<Place> GarbageManagement::getGraph(){
@@ -133,6 +144,14 @@ Street *GarbageManagement::getStreet(unsigned long ID) const {
         }
     }
     return nullptr;
+}
+
+void GarbageManagement::setAlgorithm(Algorithm algorithm) {
+    this->algorithm = algorithm;
+}
+
+void GarbageManagement::setFillPerNeeded(float fillPerNeeded) {
+    this->fillPerNeeded = fillPerNeeded;
 }
 
 void GarbageManagement::addPlace(Place *place) {

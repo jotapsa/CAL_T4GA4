@@ -34,6 +34,9 @@ public:
     GarbageManagement();
     Graph<Place> getGraph();
 
+    Algorithm getAlgorithm() const;
+    float getFillPerNeeded() const;
+
     std::vector<Place *> getPlaces() const;
     std::vector<Place *> getEmptyPlaces() const;
     std::vector<Container *> getContainers() const;
@@ -48,6 +51,9 @@ public:
     Station * getStation(unsigned long stationID)const;
     Garage * getGarage(unsigned long garageID) const;
     Street * getStreet(unsigned long ID) const;
+
+    void setAlgorithm(Algorithm algorithm);
+    void setFillPerNeeded(float fillPerNeeded);
 
     void addPlace(Place *place);
     void addContainer(Container *container);

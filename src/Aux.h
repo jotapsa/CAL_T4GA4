@@ -5,6 +5,9 @@
 #include "GarbageType.h"
 #include "EdgeType.h"
 
+#define DEFAULT_ALGORITHM 0
+#define DEFAULT_FILL_PER_NEEDED 0.75
+
 #define MAX_DOUBLE_WITH 21
 #define MAX_ULONG_WITH 10
 
