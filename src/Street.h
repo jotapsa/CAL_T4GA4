@@ -19,7 +19,6 @@ public:
     unsigned long getID();
     EdgeType getType();
     std::string getName();
-    std::string getOriginalName();
     std::string toString();
     std::string getInfo();
 

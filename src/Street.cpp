@@ -7,8 +7,6 @@ Street::Street(unsigned long ID, Place *n1, Place *n2, std::string name, EdgeTyp
     this->n2 = n2;
     this->name = name;
     this->type = type;
-
-//    std::cout << getEdgeType(this->type) << " - " << this->ID << std::endl;
 }
 
 unsigned long Street::getID() {
@@ -31,20 +29,10 @@ std::string Street::toString() {
     return street.str();
 }
 
-std::string Street::getOriginalName(){
-    std::stringstream strstream;
-    strstream << "unnamed street n" << this->ID;
-
-    if(this->name.compare(strstream.str()) == 0){
-        return std::string();
-    }
-    return this->name;
-}
-
 std::string Street::getInfo() {
     std::stringstream streetInfo;
 
-    streetInfo << this->ID << ";" << getOriginalName() << ";" << getEdgeType(this->type);
+    streetInfo << this->ID << ";" << this->name << ";" << getEdgeType(this->type);
 
     return streetInfo.str();
 }

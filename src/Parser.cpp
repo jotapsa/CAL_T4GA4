@@ -346,7 +346,6 @@ bool loadEdgesInfo(GarbageManagement &management) {
             if(edge->ID == ID){
                 pair <unsigned long int,unsigned long int> nodes
                     = make_pair(edge->node1,edge->node2);
-//                cout << ID << " - " << lineVector.at(2) << " <-----> ";
                 management.addEdge(0, ID, nodes, type, name);
             }
         }
