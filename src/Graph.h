@@ -11,8 +11,7 @@
 template <class T> class Edge;
 template <class T> class Graph;
 
-//TODO: bfs, floyd warshall
-//TODO: unweighted shortest path, A*
+//TODO: A*
 //TODO: Path finding optimizations.
 
 template <class T>
@@ -21,7 +20,7 @@ private:
     std::vector<Node<T> *> nodeSet;    // Node set
 
     double ** W;   //minimum weight matrix
-    int ** P;   //shortest path matrix
+    Node<T> *** P;   //shortest path matrix
 
 public:
     Node<T> * getNode(const T &in) const;
@@ -36,12 +35,12 @@ public:
 
     bool relax(Node<T> *source, Node<T> *way, double weight);
     void dijkstra(const T &sourceInfo);
+    vector<T> getDijkstraPath(const T &origin, const T &dest);
     void floydWarshall();
+    void getfloydWarshallPath(vector<T> &path, const T &origin, const T &dest);
 
     bool isDAG() const;
     bool dfsIsDAG(Node<T> *n) const;
-
-    std::vector<T> bellmanFordSearch(const T &source) const;
 };
 
 /*
@@ -197,17 +196,86 @@ void Graph<T>::dijkstra(const T &sourceInfo){
     }
 }
 
+//from http://algoritmy.net/article/45708/Floyd-Warshall-algorithm
+/**
+* Floyd-Warshall algorithm. Finds all shortest paths among all pairs of nodes
+* @param d matrix of distances (std::numeric_limits<double>::max() represents positive infinity)
+* stores matrix of predecessors
+*/
 template<class T>
 void Graph<T>::floydWarshall() {
+//    //initialize.
+//    W = new double *[nodeSet.size()];
+//    P = new T *[nodeSet.size()];
+//    for(unsigned long i=0; i < nodeSet.size(); i++){
+//        W[i] = new double[nodeSet.size()];
+//        P[i] = new T[nodeSet.size()];
+//        for(unsigned long j=0; j < nodeSet.size(); j++){
+//            W[i][j] = getEdgeWeight(i, j);
+//            if(W[i][j] != 0 && W[i][j] != std::numeric_limits<double>::max()){
+//                P[i][j] = i;
+//            }else{
+//                P[i][j] = -1;
+//            }
+//        }
+//    }
+
     W = new double *[nodeSet.size()];
-    P = new int *[nodeSet.size()];
-    for(unsigned int i=0; i < nodeSet.size(); i++){
+    P = new Node<T> **[nodeSet.size()];
+    for(unsigned long i=0; i < nodeSet.size(); i++){
         W[i] = new double[nodeSet.size()];
-        P[i] = new int[nodeSet.size()];
-        for(unsigned int j=0; j < nodeSet.size(); j++){
-            W[i][j] = 0;
-            P[i][j] = nullptr;
+        P[i] = new Node<T> *[nodeSet.size()];
+        for(unsigned long j=0; j < nodeSet.size(); j++){
+            W[i][j] = getEdgeWeight(i, j);
+            if(W[i][j] != 0 && W[i][j] != std::numeric_limits<double>::max()){
+                P[i][j] = nodeSet.at(i);
+            }else{
+                P[i][j] = nullptr;
+            }
         }
+    }
+
+    for(unsigned long k=0; k < nodeSet.size(); k++){
+        for(unsigned long i=0; i < nodeSet.size(); i++){
+            for(unsigned long j=0; j < nodeSet.size(); j++){
+                if(W[i][k] == std::numeric_limits<double>::max() || W[k][j] == std::numeric_limits<double>::max()){
+                    continue;
+                }
+
+                if(W[i][j] > W[i][k] + W[k][j]){
+                    W[i][j] = W[i][k] + W[i][k];
+                    P[i][j] = P[k][j];
+                }
+            }
+        }
+    }
+}
+
+template<class T>
+void Graph<T>::getfloydWarshallPath(vector<T> &path, const T &origin, const T &dest) {
+    unsigned long nDestIndex = nodeSet.size();
+    unsigned long nOriginIndex = nodeSet.size();
+
+    for(unsigned long i=0; i < nodeSet.size(); i++){
+        if(nodeSet[i]->info == origin){
+            nOriginIndex = i;
+        }
+        if(nodeSet[i]->info == dest){
+            nDestIndex = i;
+        }
+
+        //maybe we already found the indexes
+        if(nOriginIndex != nodeSet.size() && nDestIndex != nodeSet.size()){
+            break;
+        }
+    }
+
+
+    if(origin == dest){
+        path.push_back(origin);
+    }else if(P[nOriginIndex][nDestIndex] != nullptr){
+        getfloydWarshallPath(path, origin, P[nOriginIndex][nDestIndex]->getInfo());
+        path.push_back(dest);
     }
 }
 
@@ -225,10 +293,11 @@ bool Graph<T>::isDAG() const {
         n->visited = false;
         n->processing = false;
     }
-    for (auto n : nodeSet)
+    for (auto n : nodeSet){
         if (! n->visited)
             if (!dfsIsDAG(n) )
                 return false;
+    }
     return true;
 }
 
@@ -252,13 +321,9 @@ bool Graph<T>::dfsIsDAG(Node<T> *n) const {
     return true;
 }
 
-template <class T>
-std::vector<T> Graph<T>::bellmanFordSearch(const T & source) const {
-    // TODO (22 lines)
-    // HINT: Use the flag "visited" to mark newly discovered vertices .
-    // HINT: Use the "queue<>" class to temporarily store the vertices.
-    std::vector<T> res;
-    return res;
+template<class T>
+vector<T> Graph<T>::getDijkstraPath(const T &origin, const T &dest) {
+    return vector<T>();
 }
 
 #endif /* GRAPH_H_ */

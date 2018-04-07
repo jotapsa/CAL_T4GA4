@@ -25,6 +25,8 @@ public:
     void addEdge(Node<T> *dest, double w);
     bool removeEdgeTo(Node<T> *d);
 
+    bool operator==(Node<T> node);
+
     friend class Graph<T>; //make Graph class a friend so that it can access private and protected fields
 };
 
@@ -59,6 +61,11 @@ bool Node<T>::removeEdgeTo(Node<T> *d) {
         }
     }
     return false;
+}
+
+template<class T>
+bool Node<T>::operator==(const Node<T> node) {
+    return this->info == node.getInfo();
 }
 
 #endif //_NODE_H
