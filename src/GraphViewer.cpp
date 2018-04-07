@@ -6,7 +6,7 @@
 using namespace std;
 
 #if linux || __APPLE__
-pid_t GraphViewer::procId = NULL;
+pid_t GraphViewer::procId = 0;
 #endif
 short GraphViewer::port = 7772;
 

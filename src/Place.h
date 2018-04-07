@@ -17,6 +17,8 @@ public:
 
     unsigned long getID() const;
     std::pair<int, int> getCoordinates();
+    double getLat();
+    double getLon();
     std::string toString();
 
 

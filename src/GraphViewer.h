@@ -367,7 +367,7 @@ class GraphViewer {
      */
     bool rearrange();
 
-#ifdef linux
+#if linux || __APPLE__
     static pid_t procId;
 #endif
 

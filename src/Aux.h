@@ -31,6 +31,8 @@ std::string getGarbageType(GarbageType type);
 std::string getEdgeType(EdgeType type);
 
 //TODO:
+double getDistance(double lat1, double lon1, double lat2, double lon2);
+
 std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, double rLat);
 
 GarbageType getGarbageTypeForOption(unsigned int option);
