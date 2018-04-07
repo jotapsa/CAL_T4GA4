@@ -1,4 +1,5 @@
 #include "Garage.h"
+#include "Aux.h"
 #include <sstream>
 
 Garage::Garage(Place *place){

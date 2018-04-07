@@ -1,4 +1,5 @@
 #include "Container.h"
+#include "Aux.h"
 #include <sstream>
 
 Container::Container(Place *place, GarbageType type, double capacity){

@@ -2,8 +2,8 @@
 #ifndef _VEHICLE_H
 #define _VEHICLE_H
 
-
-#include "Aux.h"
+#include <string>
+#include "GarbageType.h"
 
 class Vehicle {
 private:

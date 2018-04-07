@@ -1,8 +1,8 @@
 #ifndef _CONTAINER_H
 #define _CONTAINER_H
 
-#include "Aux.h"
 #include "Place.h"
+#include "GarbageType.h"
 
 class Container{
 private:

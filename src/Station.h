@@ -1,8 +1,8 @@
 #ifndef _STATION_H
 #define _STATION_H
 
-#include "Aux.h"
 #include "Place.h"
+#include "GarbageType.h"
 
 class Station {
 private:

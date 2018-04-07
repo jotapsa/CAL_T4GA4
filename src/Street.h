@@ -2,8 +2,8 @@
 #define _STREET_H
 
 #include <string>
-#include "Aux.h"
 #include "Place.h"
+#include "EdgeType.h"
 
 class Street {
 private:

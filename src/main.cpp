@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Cli.h"
-#include "GarbageManagement.h"
 #include "Parser.h"
 
 bool loadBuildings(GarbageManagement &management){

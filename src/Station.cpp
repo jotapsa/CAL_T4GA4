@@ -1,4 +1,5 @@
 #include "Station.h"
+#include "Aux.h"
 #include <sstream>
 
 Station::Station(Place *place, GarbageType type, double capacity){

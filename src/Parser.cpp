@@ -1,8 +1,6 @@
 #include "Parser.h"
-#include <iostream>
-#include <sstream>
-#include <cstring>
 #include "Aux.h"
+#include <sstream>
 
 using namespace std;
 

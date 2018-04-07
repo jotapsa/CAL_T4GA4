@@ -1,4 +1,5 @@
 #include "Street.h"
+#include "Aux.h"
 #include <sstream>
 
 unsigned long Street::idCounter = 0;

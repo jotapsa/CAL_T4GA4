@@ -2,8 +2,6 @@
 #define _CLI_H
 
 #include "GarbageManagement.h"
-#include <iostream>
-#include <iomanip>
 #include "Aux.h"
 
 bool readConfirmation();

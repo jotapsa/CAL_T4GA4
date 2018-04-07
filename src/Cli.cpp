@@ -1,3 +1,6 @@
+#include <iostream>
+#include <iomanip>
+#include "GarbageManagement.h"
 #include "Cli.h"
 
 void garbageServiceMenu(GarbageManagement &management);

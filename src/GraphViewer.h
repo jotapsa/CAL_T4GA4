@@ -8,8 +8,8 @@
 	#include <Windows.h>
 #endif
 
-#include <stdlib.h>
-#include <signal.h>
+#include <cstdlib>
+#include <csignal>
 #include <string>
 
 #include "Connection.h"

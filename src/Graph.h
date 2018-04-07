@@ -2,8 +2,8 @@
 #define GRAPH_H_
 
 #include "Node.h"
-#include "Aux.h"
 #include "MutablePriorityQueue.h"
+#include "EdgeType.h"
 #include <vector>
 #include <queue>
 #include <limits>

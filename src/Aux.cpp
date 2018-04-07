@@ -2,19 +2,17 @@
 
 #include <cmath>
 
-using namespace std;
-
-GarbageType getGarbageType(string type){
-    if(type.compare(string("glass")) == 0){
+GarbageType getGarbageType(std::string type){
+    if(type.compare(std::string("glass")) == 0){
         return GarbageType ::glass;
     }
-    else if(type.compare(string("plastic")) == 0){
+    else if(type.compare(std::string("plastic")) == 0){
         return GarbageType ::plastic;
     }
-    else if(type.compare(string("paper")) == 0){
+    else if(type.compare(std::string("paper")) == 0){
         return GarbageType ::paper;
     }
-    else if(type.compare(string("generic")) == 0){
+    else if(type.compare(std::string("generic")) == 0){
         return GarbageType ::generic;
     }
 
@@ -56,5 +54,5 @@ std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, doubl
     int x = (int)(distToOriginX * windowWidth / abs(DELTA_LONGITUDE));
     int y = (int)(distToOriginy * windowHeight / abs(DELTA_LATITUDE));
 
-    return make_pair(x, y);
+    return std::make_pair(x, y);
 }
