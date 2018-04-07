@@ -252,7 +252,7 @@ void createGarage(GarbageManagement &management) {
                                                   garageCoordinates.second,
                                                   garageCoordinates.first * DEG_TO_RAD,
                                                   garageCoordinates.second * DEG_TO_RAD,
-                                                  windowLocation));
+                                                  windowLocation)));
 
         management.rearrange();
 
