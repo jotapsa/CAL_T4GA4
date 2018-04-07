@@ -186,6 +186,7 @@ void edgeMenu(GarbageManagement &management) {
         case 1:
             break;
         case 2:
+//            management.removeEdge(getUnsignedInt("Insert Edge ID: "));
             break;
         case 0:
             mainMenu(management);

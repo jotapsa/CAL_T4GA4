@@ -4,8 +4,6 @@
 #include <sstream>
 #include <algorithm>
 
-//TODO: Usar um icone para as buildings em vez de uma cor po no. (BERNARDO ARRANJA ICONS e manda po img, define o path na aux)
-
 GarbageManagement::GarbageManagement() {
     this->algorithm = static_cast<Algorithm>(DEFAULT_ALGORITHM);
     this->fillPerNeeded = DEFAULT_FILL_PER_NEEDED;
@@ -224,10 +222,9 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
     Place *destNode = getPlace(nodeIDs.second);
 
     if(sourceNode == nullptr || destNode == nullptr){
-        std::cout << "Couldn't find nodes" << std::endl;
+        std::cout << "Couldn't find nodes." << std::endl;
         return;
     }
-
 
     if(weight == 0){
         weight = getDistance(sourceNode->getLat(), sourceNode->getLon(),
@@ -266,7 +263,7 @@ void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
         garage->addVehicle(vehicle);
     }
     else{
-        std::cout << "Error: Couldn't find garage" << std::endl;
+        std::cout << "Error: Couldn't find Garage." << std::endl;
     }
 }
 
@@ -282,7 +279,7 @@ void GarbageManagement::removeEmptyPlace(const unsigned long &ID) {
 
     //remove from graph
     if(!this->graph.removeNode((*p))){
-        std::cout << "Node " << p->getID() << " not in graph" << std::endl;
+        std::cout << "Node " << p->getID() << " not in graph." << std::endl;
         return;
     }
 
@@ -296,7 +293,7 @@ void GarbageManagement::removeStation(const unsigned long &stationID) {
 
     //remove from graph
     if(!this->graph.removeNode((*s->getPlace()))){
-        std::cout << "Node " << s->getPlace()->getID() << " not in graph" << std::endl;
+        std::cout << "Node " << s->getPlace()->getID() << " not in graph." << std::endl;
         return;
     }
 
@@ -315,7 +312,7 @@ void GarbageManagement::removeContainer(const unsigned long &containerID) {
 
     //remove from graph
     if(!this->graph.removeNode((*c->getPlace()))){
-        std::cout << "Node " << c->getPlace()->getID() << " not in graph" << std::endl;
+        std::cout << "Node " << c->getPlace()->getID() << " not in graph." << std::endl;
         return;
     }
 
@@ -334,7 +331,7 @@ void GarbageManagement::removeGarage(const unsigned long &garageID) {
 
     //remove from graph
     if(!this->graph.removeNode((*g->getPlace()))){
-        std::cout << "Node " << g->getPlace()->getID() << " not in graph" << std::endl;
+        std::cout << "Node " << g->getPlace()->getID() << " not in graph." << std::endl;
         return;
     }
 
@@ -351,11 +348,18 @@ void GarbageManagement::removeGarage(const unsigned long &garageID) {
 void GarbageManagement::removeEdge(const unsigned long &ID) {
     Street *s = getStreet(ID);
 
+    if(s == nullptr){
+        std::cout << "Edge " << ID << " not in graph." << std::endl;
+        return;
+    }
+
     while(s != nullptr){
         Place* source = s->getSource();
         Place* dest = s->getDest();
 
         this->graph.removeEdge(*source, *dest);
+
+        this->gv->removeEdge(s->getEdgeID());
 
         auto it = std::find(this->streets.begin(), this->streets.end(), s);
         if (it != this->streets.end()) {
