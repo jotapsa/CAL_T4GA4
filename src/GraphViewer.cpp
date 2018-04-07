@@ -9,7 +9,7 @@ using namespace std;
     pid_t GraphViewer::procId = 0;
 #endif
 
-short GraphViewer::port = 7772;
+short GraphViewer::port = 8132;
 
 GraphViewer::GraphViewer(int width, int height, bool dynamic) {
     initialize(width, height, dynamic, GraphViewer::port);
