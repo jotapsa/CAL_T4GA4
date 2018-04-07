@@ -32,6 +32,7 @@ void editNode(unsigned long nodeID);
 void listGarages(GarbageManagement &management);
 void listContainers(GarbageManagement &management);
 void listStations(GarbageManagement &management);
+void listAllVehicles(GarbageManagement &management);
 
 void removeBuilding(GarbageManagement &management, std::string type);
 

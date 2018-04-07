@@ -115,18 +115,46 @@ void settingsMenu(GarbageManagement &management) {
 
 unsigned int vehicleMenuDialog(){
     std::cout << "Vehicle Menu" << std::endl;
-    std::cout << "1 - Create Vehicle" << std::endl;
-    std::cout << "2 - Remove Vehicle" << std::endl;
-    std::cout << "3 - Add Vehicle type" << std::endl;
-    std::cout << "4 - Remove Vehicle type" << std::endl;
+    std::cout << "1 - List Vehicles" << std::endl;
+    std::cout << "2 - Create Vehicle" << std::endl;
+    std::cout << "3 - Remove Vehicle" << std::endl;
+    std::cout << "4 - Add Vehicle type" << std::endl;
+    std::cout << "5 - Remove Vehicle type" << std::endl;
     std::cout << "0 - Back" << std::endl;
 
     return nextUnsignedInt("Option: ", 4);
 }
 
+void listAllVehicles(GarbageManagement &management) {
+
+    for(auto garage: management.getGarages()) {
+        std::cout << "\nGarage: " << garage->getPlace()->getID() << " #Vehicles: " << garage->getNumberOfVehicles() << std::endl;
+        std::cout << std::endl << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << "Vehicle ID";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << " Plate ";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Garbage type";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Capacity";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Free space" << std::endl;
+
+        for(auto vehicle: garage->getVehicles()) {
+
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getID();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getPlate();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << getGarbageType(vehicle->getType());
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getCapacity();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getFreeSpace() << std::endl;
+        }
+    }
+
+    std::cout << std::endl << "Leave? ";
+
+    if(!readConfirmation())
+        listAllVehicles(management);
+}
+
 void vehicleMenu(GarbageManagement &management){
     switch(vehicleMenuDialog()){
         case 1:
+            listAllVehicles(management);
             break;
         case 2:
             break;
@@ -140,6 +168,7 @@ void vehicleMenu(GarbageManagement &management){
         default:
             break;
     }
+    mainMenu(management);
 }
 
 unsigned int edgeMenuDialog(){
