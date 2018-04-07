@@ -1,16 +1,25 @@
 #include "Street.h"
 #include <sstream>
 
+unsigned long Street::idCounter = 0;
+
 Street::Street(unsigned long ID, Place *n1, Place *n2, std::string name, EdgeType type){
     this->ID = ID;
+    this->edgeID = idCounter;
     this->n1 = n1;
     this->n2 = n2;
     this->name = name;
     this->type = type;
+
+    this->idCounter++;
 }
 
 unsigned long Street::getID() const {
     return this->ID;
+}
+
+unsigned long Street::getEdgeID() const {
+    return this->edgeID;
 }
 
 EdgeType Street::getType() const {
@@ -18,13 +27,6 @@ EdgeType Street::getType() const {
 }
 
 std::string Street::getName() const {
-    return this->name;
-}
-
-std::string Street::getOriginalName() const {
-    if(this->name.compare(std::string("unnamed street n"))){
-        return std::string();
-    }
     return this->name;
 }
 

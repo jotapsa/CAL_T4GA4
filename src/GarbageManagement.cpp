@@ -200,11 +200,11 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
         Street *street = new Street(ID, sourceNode, destNode, name, type);
         this->streets.push_back(street);
 
-//        this->gv->addEdge((int) street->getID(),
-//                          (int) street->getSource()->getID(),
-//                          (int) street->getDest()->getID(),
-//                          ((street->getType() == twoWay) ? UNDIRECTED : DIRECTED));
-//        this->gv->setEdgeLabel((int) street->getID(), street->getName());
+        this->gv->addEdge((int) street->getEdgeID(),
+                          (int) street->getSource()->getID(),
+                          (int) street->getDest()->getID(),
+                          ((street->getType() == twoWay) ? UNDIRECTED : DIRECTED));
+        this->gv->setEdgeLabel((int) street->getID(), street->getName());
     }
 }
 
