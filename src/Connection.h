@@ -17,17 +17,18 @@
 #include <string>
 #include <iostream>
 
-class Connection {
- public:
-  Connection(short port);
 
-  bool sendMsg(std::string msg);
-  std::string readLine();
- private:
-#if linux || __APPLE__
-  int sock;
+class Connection {
+    public:
+    Connection(short port);
+
+    bool sendMsg(std::string msg);
+    std::string readLine();
+    private:
+#ifdef linux
+    int sock;
 #else
-  SOCKET sock;
+    SOCKET sock;
 #endif
 };
 
