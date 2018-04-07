@@ -60,8 +60,8 @@ unsigned int nextUnsignedInt(std::string str, unsigned int ceilling){
     }while(true);
 }
 
-unsigned int getUnsignedInt(std::string str) {
-    unsigned int number;
+unsigned long int getUnsignedInt(std::string str) {
+    unsigned long int number;
     do{
         std::cout << str;
         std::cin >> number;

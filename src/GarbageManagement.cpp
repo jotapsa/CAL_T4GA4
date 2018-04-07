@@ -246,9 +246,12 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
                       (int) street->getSource()->getID(),
                       (int) street->getDest()->getID(),
                       static_cast<int> (street->getType()));
-    this->gv->setEdgeLabel((int) street->getEdgeID(), street->getName());
-    this->gv->setEdgeWeight((int) street->getEdgeID(), (int) weight);
-    this->gv->setEdgeColor((int) street->getEdgeID(), BLACK);
+//    if(!name.empty()){
+//        this->gv->setEdgeLabel((int) street->getEdgeID(), street->getName());
+//    }
+//    this->gv->setEdgeLabel((int) street->getEdgeID(), street->getName());
+//    this->gv->setEdgeWeight((int) street->getEdgeID(), (int) weight);
+//    this->gv->setEdgeColor((int) street->getEdgeID(), BLACK);
 }
 
 void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
@@ -261,6 +264,13 @@ void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
     }
 }
 
+void GarbageManagement::removePlace(Place* place){
+    auto it = std::find(this->places.begin(), this->places.end(), place);
+    if (it != this->places.end()) {
+        this->places.erase(it);
+    }
+}
+
 void GarbageManagement::removeEmptyPlace(const unsigned long &ID) {
     Place *p = getEmptyPlace(ID);
 
@@ -270,11 +280,7 @@ void GarbageManagement::removeEmptyPlace(const unsigned long &ID) {
         return;
     }
 
-    for(auto it = places.begin(); it != places.end(); it++){
-        if((*it)->getID() == p->getID()){
-            places.erase(it);
-        }
-    }
+    removePlace(p);
 
     this->gv->removeNode((int) p->getID());
 }
@@ -288,10 +294,11 @@ void GarbageManagement::removeStation(const unsigned long &stationID) {
         return;
     }
 
-    for(auto it = places.begin(); it != places.end(); it++){
-        if((*it)->getID() == s->getPlace()->getID()){
-            places.erase(it);
-        }
+    removePlace(s->getPlace());
+
+    auto it = std::find(this->stations.begin(), this->stations.end(), s);
+    if (it != this->stations.end()) {
+        this->stations.erase(it);
     }
 
     this->gv->removeNode((int) s->getPlace()->getID());
@@ -306,10 +313,11 @@ void GarbageManagement::removeContainer(const unsigned long &containerID) {
         return;
     }
 
-    for(auto it = places.begin(); it != places.end(); it++){
-        if((*it)->getID() == c->getPlace()->getID()){
-            places.erase(it);
-        }
+    removePlace(c->getPlace());
+
+    auto it = std::find(this->containers.begin(), this->containers.end(), c);
+    if (it != this->containers.end()) {
+        this->containers.erase(it);
     }
 
     this->gv->removeNode((int) c->getPlace()->getID());
@@ -324,17 +332,32 @@ void GarbageManagement::removeGarage(const unsigned long &garageID) {
         return;
     }
 
-    for(auto it = places.begin(); it != places.end(); it++){
-        if((*it)->getID() == g->getPlace()->getID()){
-            places.erase(it);
-        }
+    removePlace(g->getPlace());
+
+    auto it = std::find(this->garages.begin(), this->garages.end(), g);
+    if (it != this->garages.end()) {
+        this->garages.erase(it);
     }
 
-    this->gv->removeNode((int) g->getPlace()->getID());
+    this->gv->removeNode((int) garageID);
 }
 
 void GarbageManagement::removeEdge(const unsigned long &ID) {
     Street *s = getStreet(ID);
+
+    while(s != nullptr){
+        Place* source = s->getSource();
+        Place* dest = s->getDest();
+
+        this->graph.removeEdge(*source, *dest);
+
+        auto it = std::find(this->streets.begin(), this->streets.end(), s);
+        if (it != this->streets.end()) {
+            this->streets.erase(it);
+        }
+
+        s = getStreet(ID);
+    }
 }
 
 void GarbageManagement::evalCon() {

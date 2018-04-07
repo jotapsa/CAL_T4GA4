@@ -6,7 +6,7 @@
 
 bool readConfirmation();
 unsigned int nextUnsignedInt(std::string str, unsigned int ceilling);
-unsigned int getUnsignedInt(std::string str);
+unsigned long int getUnsignedInt(std::string str);
 double parseDouble (std::string str);
 std::pair<double, double> askForLocation();
 

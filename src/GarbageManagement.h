@@ -62,6 +62,7 @@ public:
     void addVehicle(unsigned long garageID, Vehicle *vehicle);
     void addEdge(double weight, unsigned long int ID, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
 
+    void removePlace(Place* place);
     void removeEmptyPlace(const unsigned long &ID);
     void removeContainer(const unsigned long &containerID);
     void removeStation(const unsigned long &stationID);
