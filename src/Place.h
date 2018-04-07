@@ -23,6 +23,8 @@ public:
     double getLon();
     std::string toString();
 
+    void setCoordinates(std::pair<int, int> coordinates);
+
     static unsigned long getUnusedId();
 
     bool operator==(const Place& o);

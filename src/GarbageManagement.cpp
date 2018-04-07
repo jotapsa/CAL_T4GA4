@@ -181,7 +181,7 @@ void GarbageManagement::addContainer(Container *container) {
     this->gv->addNode((int) container->getPlace()->getID(),
                       container->getPlace()->getCoordinates().first,
                       container->getPlace()->getCoordinates().second);
-    this->gv->setVertexColor((int) container->getPlace()->getID(), RED);
+//    this->gv->setVertexColor((int) container->getPlace()->getID(), RED);
     this->gv->setVertexIcon((int) container->getPlace()->getID(), getGarbageTypeImgPath(container->getType()));
 //        this->gv->setVertexSize((int) container->getPlace()->getID(), buildingNodesSize);
 }
@@ -196,7 +196,7 @@ void GarbageManagement::addStation(Station *station) {
     this->gv->addNode((int) station->getPlace()->getID(),
                       station->getPlace()->getCoordinates().first,
                       station->getPlace()->getCoordinates().second);
-    this->gv->setVertexColor((int) station->getPlace()->getID(), GREEN);
+//    this->gv->setVertexColor((int) station->getPlace()->getID(), GREEN);
 //        this->gv->setVertexSize((int) station->getPlace()->getID(), buildingNodeSize);
     this->gv->setVertexIcon((int) station->getPlace()->getID(), stationImgPath);
 }
@@ -211,7 +211,7 @@ void GarbageManagement::addGarage(Garage *garage) {
     this->gv->addNode((int) garage->getPlace()->getID(),
                       garage->getPlace()->getCoordinates().first,
                       garage->getPlace()->getCoordinates().second);
-    this->gv->setVertexColor((int) garage->getPlace()->getID(), YELLOW);
+//    this->gv->setVertexColor((int) garage->getPlace()->getID(), YELLOW);
     this->gv->setVertexIcon((int) garage->getPlace()->getID(), garageImgPath);
 //        this->gv->setVertexSize((int) garage->getPlace()->getID(), buildingNodeSize);
 }
@@ -265,6 +265,13 @@ void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
     else{
         std::cout << "Error: Couldn't find Garage." << std::endl;
     }
+}
+
+void GarbageManagement::addVehicle(Vehicle *vehicle){
+    this->gv->addNode((int) vehicle->getPlace()->getID(),
+                      vehicle->getPlace()->getCoordinates().first,
+                      vehicle->getPlace()->getCoordinates().second);
+    this->gv->setVertexIcon((int) vehicle->getPlace()->getID(), vehicleImgPath);
 }
 
 void GarbageManagement::removePlace(Place* place){
@@ -343,6 +350,10 @@ void GarbageManagement::removeGarage(const unsigned long &garageID) {
     }
 
     this->gv->removeNode((int) garageID);
+}
+
+void GarbageManagement::removeVehicle(Vehicle *vehicle){
+    this->gv->removeNode((int) vehicle->getPlace()->getID());
 }
 
 void GarbageManagement::removeEdge(const unsigned long &ID) {

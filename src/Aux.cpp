@@ -121,3 +121,7 @@ bool insideWindow(std::pair<int, int> coords) {
     return coords.first < IMAGE_X || coords.second < IMAGE_Y;
 }
 
+std::pair<int, int> getDirectionPlaces(Place *p1, Place *p2){
+    return std::make_pair(p2->getCoordinates().first - p1->getCoordinates().second, p2->getCoordinates().second - p1->getCoordinates().second);
+};
+

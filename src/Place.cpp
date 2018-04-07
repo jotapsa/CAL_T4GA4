@@ -58,3 +58,8 @@ bool Place::operator==(const Place& o){
 unsigned long Place::getUnusedId() {
     return maxId+1;
 }
+
+void Place::setCoordinates(std::pair<int, int> coordinates){
+    this->coordinates = coordinates;
+}
+

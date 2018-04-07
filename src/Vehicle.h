@@ -28,6 +28,8 @@ public:
     double getFreeSpace();
 
     void reset();
+
+    void move(std::pair<int,int> direction);
 };
 
 

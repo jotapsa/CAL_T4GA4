@@ -5,6 +5,7 @@
 #include "GarbageType.h"
 #include "EdgeType.h"
 #include "Algorithm.h"
+#include "Place.h"
 
 #define DEFAULT_ALGORITHM 0
 #define DEFAULT_FILL_PER_NEEDED 0.75
@@ -36,6 +37,7 @@
 #define genericImgPath "../img/generic.png"
 #define stationImgPath "../img/station.png"
 #define garageImgPath "../img/garage.png"
+#define vehicleImgPath "../img/vehicle.png"
 
 #define curvedEdges false
 #define emptyPlaceNodeSize 5
@@ -56,6 +58,8 @@ double getDistance(double lat1, double lon1, double lat2, double lon2);
 std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, double rLat);
 
 std::pair<int, int> convertToCoords(std::pair<double, double> coords);
+
+std::pair<int, int> getDirectionPlaces(Place *p1, Place *p2);
 
 bool insideWindow(std::pair<int, int> coords);
 

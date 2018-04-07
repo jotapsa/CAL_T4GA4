@@ -60,6 +60,7 @@ public:
     void addStation(Station *station);
     void addGarage(Garage *garage);
     void addVehicle(unsigned long garageID, Vehicle *vehicle);
+    void addVehicle(Vehicle *vehicle); //add Vehicle to GraphViewer
     void addEdge(double weight, unsigned long int ID, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
 
     void removePlace(Place* place);
@@ -67,6 +68,7 @@ public:
     void removeContainer(const unsigned long &containerID);
     void removeStation(const unsigned long &stationID);
     void removeGarage(const unsigned long &garageID);
+    void removeVehicle(Vehicle *vehicle); //remove Vehicle to GraphViewer
     void removeEdge(const unsigned long &ID);
 
     void resetVehicles();
