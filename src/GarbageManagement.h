@@ -69,6 +69,8 @@ public:
     void removeGarage(const unsigned long &garageID);
     void removeEdge(const unsigned long &ID);
 
+    void resetVehicles();
+
     void evalCon();
     void collectGarbage();
 

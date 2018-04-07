@@ -26,3 +26,8 @@ double Vehicle::getCapacity() {
 double Vehicle::getFreeSpace() {
     return this->capacity-this->filled;
 }
+
+void Vehicle::reset() {
+    this->filled = 0;
+    //TODO: change currplace to garage
+}

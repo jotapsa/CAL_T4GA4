@@ -366,6 +366,14 @@ void GarbageManagement::removeEdge(const unsigned long &ID) {
     }
 }
 
+void GarbageManagement::resetVehicles() {
+    for(auto g: garages){
+        for(auto v: g->getVehicles()){
+            v->reset();
+        }
+    }
+}
+
 void GarbageManagement::evalCon() {
 
 }

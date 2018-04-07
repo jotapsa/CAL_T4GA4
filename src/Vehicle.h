@@ -20,6 +20,8 @@ public:
     GarbageType getType();
     double getCapacity();
     double getFreeSpace();
+
+    void reset();
 };
 
 
