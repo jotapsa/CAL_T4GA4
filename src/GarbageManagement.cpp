@@ -166,9 +166,10 @@ void GarbageManagement::addPlace(Place *place) {
                       place->getCoordinates().first,
                       place->getCoordinates().second);
     this->gv->setVertexColor((int) place->getID(), BLUE);
-//        std::stringstream ss;
-//        ss << place->getID();
-//        this->gv->setVertexLabel((int) place->getID(), ss.str());
+
+//    std::stringstream ss;
+//    ss << place->getID();
+//    this->gv->setVertexLabel((int) place->getID(), ss.str());
     this->gv->setVertexSize((int) place->getID(), emptyPlaceNodeSize);
 }
 
