@@ -1,6 +1,7 @@
 #include "Aux.h"
 
 #include <cmath>
+#include "Algorithm.h"
 
 GarbageType getGarbageType(std::string type){
     if(type.compare(std::string("glass")) == 0){
@@ -33,6 +34,18 @@ std::string getGarbageType(GarbageType type) {
         default: {
             return std::string("generic");
         }
+    }
+}
+
+std::string getAlgorithmName(Algorithm type) {
+
+    switch(type) {
+        case Algorithm::Dijkstra:
+            return std::string("Dijkstra");
+        case Algorithm::aStar:
+            return std::string("A*");
+        case Algorithm::Warshall:
+            return std::string("Floyd Warshall");
     }
 }
 

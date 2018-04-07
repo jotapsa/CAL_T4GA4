@@ -3,7 +3,7 @@
 
 //TODO: rename
 enum class Algorithm {
-    first, second
+    Dijkstra, aStar, Warshall
 };
 
 

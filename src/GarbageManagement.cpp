@@ -2,6 +2,7 @@
 #include "Aux.h"
 #include <cmath>
 #include <sstream>
+#include <algorithm>
 
 //TODO: Usar um icone para as buildings em vez de uma cor po no. (BERNARDO ARRANJA ICONS e manda po img, define o path na aux)
 

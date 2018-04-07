@@ -4,6 +4,7 @@
 #include <iostream>
 #include "GarbageType.h"
 #include "EdgeType.h"
+#include "Algorithm.h"
 
 #define DEFAULT_ALGORITHM 0
 #define DEFAULT_FILL_PER_NEEDED 0.75
@@ -43,6 +44,8 @@
 GarbageType getGarbageType(std::string type);
 
 std::string getGarbageType(GarbageType type);
+
+std::string getAlgorithmName(Algorithm type);
 
 std::string getEdgeType(EdgeType type);
 

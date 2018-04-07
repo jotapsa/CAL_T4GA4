@@ -3,6 +3,7 @@
 #include "GarbageManagement.h"
 #include "Cli.h"
 #include "GarbageType.h"
+#include "Algorithm.h"
 
 void garbageServiceMenu(GarbageManagement &management);
 
@@ -240,6 +241,17 @@ unsigned int selectGarbageTypeMenu() {
     std::cout << "\t5 - Exit" << std::endl;
 
     return nextUnsignedInt("Option: ", 5);
+}
+
+unsigned int selectAlgorithMenu() {
+
+    std::cout << "Select the algorithm to calculate paths:" << std::endl;
+    std::cout << "\t1 - Dijkstra" << std::endl;
+    std::cout << "\t2 - A*" << std::endl;
+    std::cout << "\t3 - Floyd Warshall" << std::endl;
+    std::cout << "\t4 - Exit" << std::endl;
+
+    return nextUnsignedInt("Option: ", 4);
 }
 
 //Container and Station both use the same parameters
@@ -569,7 +581,7 @@ unsigned int garbageService(){
     return nextUnsignedInt("Option: ", 5);
 }
 
-void setFillPercentage(GarbageManagement &management) {
+void setFillPercentageInteraction(GarbageManagement &management) {
 
     int  percentage = 0;
 
@@ -587,6 +599,21 @@ void setFillPercentage(GarbageManagement &management) {
     std::cout << "Percentage set to: " << management.getFillPerNeeded() * 100.0 << " %\n";
 }
 
+void setAlgorithmInteraction(GarbageManagement &management) {
+
+    unsigned int option = selectAlgorithMenu();
+
+    if(option == 4) {
+        return;
+    }
+
+    Algorithm alg = (Algorithm)(option - 1);
+
+    management.setAlgorithm(alg);
+
+    std::cout << "Now using " << getAlgorithmName(management.getAlgorithm()) << " algorithm to calculate paths.\n";
+}
+
 void garbageServiceMenu(GarbageManagement &management) {
     switch (garbageService()) {
         case 1:
@@ -599,10 +626,10 @@ void garbageServiceMenu(GarbageManagement &management) {
 //            management.dosomething();
             break;
         case 4:
-            setFillPercentage(management);
+            setFillPercentageInteraction(management);
             break;
         case 5:
-//            management.dosomething();
+            setAlgorithmInteraction(management);
             break;
         case 0:
             mainMenu(management);

@@ -16,6 +16,7 @@ unsigned int edgeMenuDialog();
 unsigned int vehicleMenuDialog();
 unsigned int settingsMenuDialog();
 unsigned int selectGarbageTypeMenu();
+unsigned int selectAlgorithMenu();
 unsigned int editNodeMenu();
 
 void mainMenu(GarbageManagement &management);
@@ -34,6 +35,6 @@ void listStations(GarbageManagement &management);
 
 void removeBuilding(GarbageManagement &management, std::string type);
 
-void setFillPercentage(GarbageManagement &management);
+void setFillPercentageInteraction(GarbageManagement &management);
 
 #endif //_CLI_H
