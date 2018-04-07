@@ -25,7 +25,6 @@ public:
     Place * getSource() const;
     Place * getDest() const;
 
-
     void setName(std::string name);
 
     std::string toString() const;

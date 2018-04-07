@@ -2,7 +2,7 @@
 #define _GRAPH_VIEWER_H_
 
 #if linux || __APPLE__
-#include <unistd.h>
+    #include <unistd.h>
 #else
     #include <winsock2.h>
     #include <Windows.h>

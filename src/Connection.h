@@ -6,12 +6,12 @@
 #include <cstring>
 
 #if linux || __APPLE__
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <netdb.h>
+    #include <arpa/inet.h>
+    #include <sys/socket.h>
+    #include <sys/types.h>
+    #include <netdb.h>
 #else
-#include <winsock2.h>
+    #include <winsock2.h>
 #endif
 
 #include <string>

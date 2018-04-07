@@ -3,10 +3,14 @@
 #include <cmath>
 #include <sstream>
 
+//TODO: Usar um icone para as buildings em vez de uma cor po no. (BERNARDO ARRANJA ICONS e manda po img, define o path na aux)
+
 GarbageManagement::GarbageManagement() {
-    gv = new GraphViewer(windowWidth, windowHeight, false, graphViewerPort);
+    gv = new GraphViewer(windowWidth, windowHeight, false);
     gv->setBackground(backgroundImgPath);
     gv->createWindow(windowWidth, windowHeight);
+    gv->defineEdgeCurved(curvedEdges);
+    gv->defineVertexSize(emptyPlaceNodeSize);
 }
 
 Graph<Place> GarbageManagement::getGraph(){
@@ -144,6 +148,7 @@ void GarbageManagement::addContainer(Container *container) {
                           container->getPlace()->getCoordinates().first,
                           container->getPlace()->getCoordinates().second);
         this->gv->setVertexColor((int) container->getPlace()->getID(), RED);
+        this->gv->setVertexSize((int) container->getPlace()->getID(), buildingNodeSize);
     }
 }
 
@@ -157,6 +162,7 @@ void GarbageManagement::addStation(Station *station) {
                           station->getPlace()->getCoordinates().first,
                           station->getPlace()->getCoordinates().second);
         this->gv->setVertexColor((int) station->getPlace()->getID(), GREEN);
+        this->gv->setVertexSize((int) station->getPlace()->getID(), buildingNodeSize);
     }
 }
 
@@ -170,6 +176,7 @@ void GarbageManagement::addGarage(Garage *garage) {
                           garage->getPlace()->getCoordinates().first,
                           garage->getPlace()->getCoordinates().second);
         this->gv->setVertexColor((int) garage->getPlace()->getID(), BLACK);
+        this->gv->setVertexSize((int) garage->getPlace()->getID(), buildingNodeSize);
     }
 }
 
@@ -205,7 +212,9 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
                           (int) street->getSource()->getID(),
                           (int) street->getDest()->getID(),
                           static_cast<int> (street->getType()));
-        this->gv->setEdgeLabel((int) street->getID(), street->getName());
+        this->gv->setEdgeLabel((int) street->getEdgeID(), street->getName());
+        this->gv->setEdgeWeight((int) street->getEdgeID(), (int) weight);
+        this->gv->setEdgeColor((int) street->getEdgeID(), BLACK);
     }
 }
 

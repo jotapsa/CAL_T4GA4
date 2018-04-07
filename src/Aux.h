@@ -5,12 +5,8 @@
 #include "GarbageType.h"
 #include "EdgeType.h"
 
-//TODO: Remove includes in other classes that might import this header to make up for importing enum classes
-
 #define MAX_DOUBLE_WITH 21
 #define MAX_ULONG_WITH 10
-
-#define graphViewerPort 8123
 
 #define windowHeight 800
 #define windowWidth 800
@@ -25,6 +21,10 @@
 
 #define backgroundImgPath "../img/map_background.png"
 
+#define curvedEdges false
+#define emptyPlaceNodeSize 1
+#define buildingNodeSize 3
+
 GarbageType getGarbageType(std::string type);
 std::string getGarbageType(GarbageType type);
 
@@ -34,7 +34,5 @@ std::string getEdgeType(EdgeType type);
 double getDistance(double lat1, double lon1, double lat2, double lon2);
 
 std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, double rLat);
-
-GarbageType getGarbageTypeForOption(unsigned int option);
 
 #endif

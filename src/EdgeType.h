@@ -2,8 +2,8 @@
 #define _EDGETYPE_H
 
 /*
- * Yes i know it's pointless to specially sign integer values
- * SEE:
+ * Yes i know it's pointless to specially sign integer values in this case
+ * REMEMBER:
  * #define UNDIRECTED 0
  * #define DIRECTED 1
  * */
