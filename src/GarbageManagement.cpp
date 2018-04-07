@@ -196,6 +196,7 @@ void GarbageManagement::addStation(Station *station) {
                       station->getPlace()->getCoordinates().second);
     this->gv->setVertexColor((int) station->getPlace()->getID(), GREEN);
 //        this->gv->setVertexSize((int) station->getPlace()->getID(), buildingNodeSize);
+    this->gv->setVertexIcon((int) station->getPlace()->getID(), stationImgPath);
 }
 
 void GarbageManagement::addGarage(Garage *garage) {
@@ -209,6 +210,7 @@ void GarbageManagement::addGarage(Garage *garage) {
                       garage->getPlace()->getCoordinates().first,
                       garage->getPlace()->getCoordinates().second);
     this->gv->setVertexColor((int) garage->getPlace()->getID(), YELLOW);
+    this->gv->setVertexIcon((int) garage->getPlace()->getID(), garageImgPath);
 //        this->gv->setVertexSize((int) garage->getPlace()->getID(), buildingNodeSize);
 }
 

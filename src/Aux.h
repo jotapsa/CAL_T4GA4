@@ -29,6 +29,12 @@
 #define DELTA_LATITUDE (MAX_LATITUDE-MIN_LATITUDE)
 
 #define backgroundImgPath "../img/map_background.png"
+#define plasticImgPath "../img/plastic.png"
+#define paperImgPath "../img/paper.png"
+#define glassImgPath "../img/glass.png"
+#define genericImgPath "../img/generic.png"
+#define stationImgPath "../img/station.png"
+#define garageImgPath "../img/garage.png"
 
 #define curvedEdges false
 #define emptyPlaceNodeSize 1
