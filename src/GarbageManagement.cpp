@@ -142,14 +142,13 @@ void GarbageManagement::addPlace(Place *place) {
     }
     this->places.push_back(place);
 
-        this->gv->addNode((int) place->getID(),
-                          place->getCoordinates().first,
-                          place->getCoordinates().second);
-        this->gv->setVertexColor((int) place->getID(), BLUE);
+    this->gv->addNode((int) place->getID(),
+                      place->getCoordinates().first,
+                      place->getCoordinates().second);
+    this->gv->setVertexColor((int) place->getID(), BLUE);
 //        std::stringstream ss;
 //        ss << place->getID();
 //        this->gv->setVertexLabel((int) place->getID(), ss.str());
-    }
 }
 
 void GarbageManagement::addContainer(Container *container) {
@@ -159,12 +158,11 @@ void GarbageManagement::addContainer(Container *container) {
     }
     this->containers.push_back(container);
 
-        this->gv->addNode((int) container->getPlace()->getID(),
-                          container->getPlace()->getCoordinates().first,
-                          container->getPlace()->getCoordinates().second);
-        this->gv->setVertexColor((int) container->getPlace()->getID(), RED);
+    this->gv->addNode((int) container->getPlace()->getID(),
+                      container->getPlace()->getCoordinates().first,
+                      container->getPlace()->getCoordinates().second);
+    this->gv->setVertexColor((int) container->getPlace()->getID(), RED);
 //        this->gv->setVertexSize((int) container->getPlace()->getID(), buildingNodesSize);
-    }
 }
 
 void GarbageManagement::addStation(Station *station) {
@@ -174,12 +172,11 @@ void GarbageManagement::addStation(Station *station) {
     }
     this->stations.push_back(station);
 
-        this->gv->addNode((int) station->getPlace()->getID(),
-                          station->getPlace()->getCoordinates().first,
-                          station->getPlace()->getCoordinates().second);
-        this->gv->setVertexColor((int) station->getPlace()->getID(), GREEN);
+    this->gv->addNode((int) station->getPlace()->getID(),
+                      station->getPlace()->getCoordinates().first,
+                      station->getPlace()->getCoordinates().second);
+    this->gv->setVertexColor((int) station->getPlace()->getID(), GREEN);
 //        this->gv->setVertexSize((int) station->getPlace()->getID(), buildingNodeSize);
-    }
 }
 
 void GarbageManagement::addGarage(Garage *garage) {
@@ -189,12 +186,11 @@ void GarbageManagement::addGarage(Garage *garage) {
     }
     this->garages.push_back(garage);
 
-        this->gv->addNode((int) garage->getPlace()->getID(),
-                          garage->getPlace()->getCoordinates().first,
-                          garage->getPlace()->getCoordinates().second);
-        this->gv->setVertexColor((int) garage->getPlace()->getID(), YELLOW);
+    this->gv->addNode((int) garage->getPlace()->getID(),
+                      garage->getPlace()->getCoordinates().first,
+                      garage->getPlace()->getCoordinates().second);
+    this->gv->setVertexColor((int) garage->getPlace()->getID(), YELLOW);
 //        this->gv->setVertexSize((int) garage->getPlace()->getID(), buildingNodeSize);
-    }
 }
 
 void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type,

@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(src)
 
 add_executable(CAL_T4GA4
+        src/Algorithm.h
         src/Graph.h
         src/Edge.h
         src/Node.h
