@@ -19,6 +19,10 @@ Place* Vehicle::getPlace(){
     return this->place;
 }
 
+Garage *Vehicle::getGarage() {
+    return this->garage;
+}
+
 std::string Vehicle::getPlate() {
     return this->plate;
 }

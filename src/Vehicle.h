@@ -21,7 +21,8 @@ public:
     Vehicle(unsigned long int ID, Garage *garage, std::string plate, GarbageType type, double capacity);
 
     unsigned long int getID();
-    Place* getPlace();
+    Place * getPlace();
+    Garage * getGarage();
     std::string getPlate();
     GarbageType getType();
     double getCapacity();

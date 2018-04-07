@@ -40,6 +40,7 @@ public:
     std::vector<Place *> getPlaces() const;
     std::vector<Place *> getEmptyPlaces() const;
     std::vector<Container *> getContainers() const;
+    std::vector<Container *> getContainersByType(GarbageType type) const;
     std::vector<Station *> getStations() const;
     std::vector<Garage *> getGarages() const;
     std::vector<Street *> getStreets() const;

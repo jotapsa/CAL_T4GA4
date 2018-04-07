@@ -54,6 +54,20 @@ std::vector<Container *> GarbageManagement::getContainers() const{
     return this->containers;
 }
 
+std::vector<Container *> GarbageManagement::getContainersByType(GarbageType type) const {
+    std::vector<Container *>  containers;
+
+    auto allContainers = getContainers();
+    for(auto c: allContainers){
+        if(c->getType() == type){
+            containers.push_back(c);
+        }
+    }
+
+    return containers;
+}
+
+
 std::vector<Station *> GarbageManagement::getStations() const{
     return this->stations;
 }
@@ -428,12 +442,17 @@ void GarbageManagement::collectGarbage() {
 
     std::vector<Vehicle *> emptyVehicles = getAllVehicles();
 
-    //for each
     while(!filledContainers.empty() && !emptyVehicles.empty()){
+        std::vector<Place *> path;
+
         ulong_dist dist(0, emptyVehicles.size()-1);
         unsigned  long vehicleIndex = dist(rng);
+        Vehicle *vehicle = emptyVehicles[vehicleIndex];
 
-        //get containers w/ same type as the vehicle.
+        path.push_back(vehicle->getGarage()->getPlace());
+
+        auto availableContainers = getContainersByType(vehicle->getType());
+
         //move vehicle to closest container
         //load
         //remove filled
