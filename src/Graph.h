@@ -7,6 +7,7 @@
 #include <vector>
 #include <queue>
 #include <limits>
+#include <algorithm>
 
 template <class T> class Edge;
 template <class T> class Graph;
@@ -16,13 +17,13 @@ template <class T> class Graph;
 
 template <class T>
 class Graph {
-private:
+    private:
     std::vector<Node<T> *> nodeSet;    // Node set
 
     double ** W;   //minimum weight matrix
     Node<T> *** P;   //shortest path matrix
 
-public:
+    public:
     Node<T> * getNode(const T &in) const;
     unsigned long getNumNodes() const;
     double getEdgeWeight(unsigned long nOrigIndex, unsigned long nDestIndex);
@@ -35,7 +36,7 @@ public:
 
     bool relax(Node<T> *source, Node<T> *way, double weight);
     void dijkstra(const T &sourceInfo);
-    vector<T> getDijkstraPath(const T &origin, const T &dest);
+    vector<T> getDijkstraPath(const T &dest);
     void floydWarshall();
     void getfloydWarshallPath(vector<T> &path, const T &origin, const T &dest);
 
@@ -196,6 +197,20 @@ void Graph<T>::dijkstra(const T &sourceInfo){
     }
 }
 
+template<class T>
+vector<T> Graph<T>::getDijkstraPath(const T &dest) {
+    vector<T> path;
+    auto n = getNode(dest);
+    if(n == nullptr ||  n->dist == std::numeric_limits<double>::max()){
+        return path;
+    }
+    for(; n!= nullptr; n = n->path){
+        path.push_back(n->info);
+    }
+    std::reverse(path.begin(), path.end());
+    return path;
+}
+
 //from http://algoritmy.net/article/45708/Floyd-Warshall-algorithm
 /**
 * Floyd-Warshall algorithm. Finds all shortest paths among all pairs of nodes
@@ -204,22 +219,7 @@ void Graph<T>::dijkstra(const T &sourceInfo){
 */
 template<class T>
 void Graph<T>::floydWarshall() {
-//    //initialize.
-//    W = new double *[nodeSet.size()];
-//    P = new T *[nodeSet.size()];
-//    for(unsigned long i=0; i < nodeSet.size(); i++){
-//        W[i] = new double[nodeSet.size()];
-//        P[i] = new T[nodeSet.size()];
-//        for(unsigned long j=0; j < nodeSet.size(); j++){
-//            W[i][j] = getEdgeWeight(i, j);
-//            if(W[i][j] != 0 && W[i][j] != std::numeric_limits<double>::max()){
-//                P[i][j] = i;
-//            }else{
-//                P[i][j] = -1;
-//            }
-//        }
-//    }
-
+    //initialize.
     W = new double *[nodeSet.size()];
     P = new Node<T> **[nodeSet.size()];
     for(unsigned long i=0; i < nodeSet.size(); i++){
@@ -319,11 +319,6 @@ bool Graph<T>::dfsIsDAG(Node<T> *n) const {
     }
     n->processing = false;
     return true;
-}
-
-template<class T>
-vector<T> Graph<T>::getDijkstraPath(const T &origin, const T &dest) {
-    return vector<T>();
 }
 
 #endif /* GRAPH_H_ */
