@@ -166,7 +166,7 @@ void GarbageManagement::addGarage(Garage *garage) {
     }
 }
 
-void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type,
+void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type,
                                 std::string name) {
     Place *sourceNode = getPlace(nodeIDs.first);
     Place *destNode = getPlace(nodeIDs.second);
@@ -183,14 +183,14 @@ void GarbageManagement::addEdge(double weight, std::pair<unsigned long, unsigned
 
     if(name.empty()){
         std::stringstream strstream;
-        strstream << "unnamed street n" << this->streets.size();
+        strstream << "unnamed street n" << ID;
         name = strstream.str();
     }
 
     if(!this->graph.addEdge(*(sourceNode), *(destNode), weight, type)){
         std::cout << "Error: Cannot add edge." << std::endl;
     } else{
-        Street *street = new Street(sourceNode, destNode, name, type);
+        Street *street = new Street(ID, sourceNode, destNode, name, type);
         this->streets.push_back(street);
     }
 

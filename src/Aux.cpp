@@ -45,6 +45,20 @@ GarbageType getGarbageTypeForOption(unsigned int option) {
     return types[option];
 }
 
+std::string getEdgeType(EdgeType type){
+    switch (type) {
+        case twoWay: {
+            return std::string("True");;
+        }
+        case oneWay: {
+            return std::string("False");
+        }
+        default: {
+            return std::string();
+        }
+    }
+}
+
 //void convertToKilometers(std::pair<double, double> *longitudinalCoordinates, double rLatitude, double rLongitude) {
 //
 //    longitudinalCoordinates->first = rLatitude * 110.574;

@@ -24,6 +24,8 @@ enum EdgeType{
 GarbageType getGarbageType(std::string type);
 std::string getGarbageType(GarbageType type);
 
+std::string getEdgeType(EdgeType type);
+
 //TODO:
 std::pair<int, int> convertToCoords(double dLon, double dLat, double rLon, double rLat);
 

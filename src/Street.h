@@ -7,15 +7,14 @@
 
 class Street {
 private:
-    static unsigned long idCounter;
-    unsigned long id;
+    unsigned long ID;
     std::string name;
     EdgeType type;
     Place *n1;
     Place *n2;
 
 public:
-    Street(Place *n1, Place *n2, std::string name, EdgeType type);
+    Street(unsigned long ID, Place *n1, Place *n2, std::string name, EdgeType type);
 
     unsigned long getID();
     EdgeType getType();

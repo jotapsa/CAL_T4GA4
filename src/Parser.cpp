@@ -339,15 +339,15 @@ bool loadEdgesInfo(GarbageManagement &management) {
         nEdgesInfo++;
 
         ID = stoul(lineVector.at(0));
+        name = lineVector.at(1);
+        type = (lineVector.at(2).compare(std::string("True")) == 0) ? twoWay : oneWay;
 
         for(std::vector<Edge_T>::iterator edge = edgesVector.begin(); edge != edgesVector.end(); edge++){
             if(edge->ID == ID){
                 pair <unsigned long int,unsigned long int> nodes
                     = make_pair(edge->node1,edge->node2);
-                name = lineVector.at(1);
-                type = lineVector.at(2) == "True" ? twoWay : oneWay;
-
-                management.addEdge(0,nodes,type, name);
+//                cout << ID << " - " << lineVector.at(2) << " <-----> ";
+                management.addEdge(0, ID, nodes, type, name);
             }
         }
     }
@@ -434,27 +434,32 @@ void saveGarages(GarbageManagement &management){
 }
 
 void saveEdges(const GarbageManagement &management) {
-//    ofstream edges;
-//
-//    if(!openFile(edges,EDGES_FILEPATH)){
-//        return;
-//    }
-//
-//    for(Street *street : management.getStreets()){
-//        edges << ;
-//    }
-//
-//    edges.close();
+    ofstream edges;
+
+    if(!openFile(edges,EDGES_FILEPATH)){
+        return;
+    }
+
+    for(Street *street : management.getStreets()){
+        edges << street->toString() << endl;
+    }
+
+    edges.close();
 }
 
 void saveEdgesInfo(const GarbageManagement &management) {
     ofstream edgesInfo;
+    unsigned long int actualID=0;
 
     if(!openFile(edgesInfo,EDGES_INFO_FILEPATH)){
         return;
     }
 
     for(Street *street : management.getStreets()){
+        if(street->getID() == actualID){
+            continue;
+        }
+        actualID = street->getID();
         edgesInfo << street->getInfo() << endl;
     }
 

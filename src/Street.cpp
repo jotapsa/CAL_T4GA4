@@ -1,20 +1,18 @@
 #include "Street.h"
 #include <sstream>
 
-unsigned long Street::idCounter = 0;
-
-Street::Street(Place *n1, Place *n2, std::string name, EdgeType type) {
-    this->id = this->idCounter;
+Street::Street(unsigned long ID, Place *n1, Place *n2, std::string name, EdgeType type){
+    this->ID = ID;
     this->n1 = n1;
     this->n2 = n2;
     this->name = name;
     this->type = type;
 
-    this->idCounter++;
+//    std::cout << getEdgeType(this->type) << " - " << this->ID << std::endl;
 }
 
 unsigned long Street::getID() {
-    return this->id;
+    return this->ID;
 }
 
 EdgeType Street::getType(){
@@ -28,13 +26,16 @@ std::string Street::getName() {
 std::string Street::toString() {
     std::stringstream street;
 
-//    street <<
+    street << this->ID << ";" << this->n1->getID() << ";" << this->n2->getID();
 
     return street.str();
 }
 
 std::string Street::getOriginalName(){
-    if(this->name.compare(std::string("unnamed street n"))){
+    std::stringstream strstream;
+    strstream << "unnamed street n" << this->ID;
+
+    if(this->name.compare(strstream.str()) == 0){
         return std::string();
     }
     return this->name;
@@ -43,7 +44,7 @@ std::string Street::getOriginalName(){
 std::string Street::getInfo() {
     std::stringstream streetInfo;
 
-    streetInfo << this->id << ";" << getOriginalName() << ";" << (this->type == twoWay ? std::string("True") : std::string("False"));
+    streetInfo << this->ID << ";" << getOriginalName() << ";" << getEdgeType(this->type);
 
     return streetInfo.str();
 }

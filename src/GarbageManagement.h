@@ -49,7 +49,7 @@ public:
     void addStation(Station *station);
     void addGarage(Garage *garage);
     void addVehicle(unsigned long garageID, Vehicle *vehicle);
-    void addEdge(double weight, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
+    void addEdge(double weight, unsigned long int ID, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
 
     void removeEmptyPlace(const unsigned long &ID);
     void removeContainer(const unsigned long &containerID);
