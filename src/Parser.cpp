@@ -313,7 +313,6 @@ bool loadEdges(GarbageManagement &management) {
 
     edges.close();
 
-    management.rearrange();
     std::cout << edgesVector.size() << "/" << nEdges << " edges were successfully read!\n";
     return true;
 }
