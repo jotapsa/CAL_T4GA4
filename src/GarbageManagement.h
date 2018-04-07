@@ -43,6 +43,7 @@ public:
     Container * getContainer(unsigned long containerID)const;
     Station * getStation(unsigned long stationID)const;
     Garage * getGarage(unsigned long garageID) const;
+    Street * getStreet(unsigned long ID) const;
 
     void addPlace(Place *place);
     void addContainer(Container *container);
@@ -55,6 +56,7 @@ public:
     void removeContainer(const unsigned long &containerID);
     void removeStation(const unsigned long &stationID);
     void removeGarage(const unsigned long &garageID);
+    void removeEdge(const unsigned long &ID);
 
     void evalCon();
 

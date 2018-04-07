@@ -58,6 +58,13 @@ std::vector<Street *> GarbageManagement::getStreets() const{
     return this->streets;
 }
 
+std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) const{
+    Garage *garage= this->getGarage(garageID);
+    if(garage != nullptr){
+        return garage->getVehicles();
+    }
+}
+
 Place * GarbageManagement::getPlace(unsigned long id)const {
     Place *place = getEmptyPlace(id);
     if(place != nullptr){
@@ -118,11 +125,14 @@ Garage* GarbageManagement::getGarage(unsigned long garageID) const{
     return nullptr;
 }
 
-std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) const{
-    Garage *garage= this->getGarage(garageID);
-    if(garage != nullptr){
-        return garage->getVehicles();
+//TODO:
+Street *GarbageManagement::getStreet(unsigned long ID) const {
+    for(auto s: streets){
+        if(s->getID() == ID){
+            return s;
+        }
     }
+    return nullptr;
 }
 
 void GarbageManagement::addPlace(Place *place) {
@@ -314,7 +324,10 @@ void GarbageManagement::removeGarage(const unsigned long &garageID) {
     }
 
     this->gv->removeNode((int) g->getPlace()->getID());
+}
 
+void GarbageManagement::removeEdge(const unsigned long &ID) {
+    Street *s = getStreet(ID);
 }
 
 void GarbageManagement::closeWindow() {
