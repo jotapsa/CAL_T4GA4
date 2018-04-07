@@ -1,3 +1,4 @@
 1;03-11-VV;generic;1500
-2;40-BI-01;paper;3000
+2;40-BI-01;paper;5000
 3;03-BZ-15;plastic;3000
+4;00-AA-00;glass;1200
