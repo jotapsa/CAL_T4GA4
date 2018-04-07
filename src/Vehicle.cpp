@@ -1,11 +1,14 @@
 #include "Vehicle.h"
+#include "Garage.h"
 
-Vehicle::Vehicle(unsigned long int ID, Place *place, std::string plate, GarbageType type, double capacity) {
+Vehicle::Vehicle(unsigned long int ID, Garage *garage, std::string plate, GarbageType type, double capacity) {
     this->ID = ID;
-    this->place = place;
+    this->garage = garage;
     this->plate = plate;
     this->type = type;
     this->capacity = capacity;
+
+    this->place = garage->getPlace();
 }
 
 unsigned long int Vehicle::getID(){
@@ -34,5 +37,5 @@ double Vehicle::getFreeSpace() {
 
 void Vehicle::reset() {
     this->filled = 0;
-    //TODO: change currplace to garage
+    this->place = garage->getPlace();
 }

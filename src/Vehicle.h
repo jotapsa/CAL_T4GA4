@@ -6,16 +6,19 @@
 #include "GarbageType.h"
 #include "Place.h"
 
+class Garage; //foward declaration
+
 class Vehicle {
 private:
     unsigned long int ID;
     Place *place;
+    Garage* garage;
     std::string plate;
     GarbageType type;
     double capacity;
     double filled;
 public:
-    Vehicle(unsigned long int ID, Place *place, std::string plate, GarbageType type, double capacity);
+    Vehicle(unsigned long int ID, Garage *garage, std::string plate, GarbageType type, double capacity);
 
     unsigned long int getID();
     Place* getPlace();

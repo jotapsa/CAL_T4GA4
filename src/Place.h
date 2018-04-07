@@ -23,7 +23,6 @@ public:
     double getLon();
     std::string toString();
 
-
     static unsigned long getUnusedId();
 
     bool operator==(const Place& o);

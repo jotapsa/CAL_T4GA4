@@ -101,7 +101,7 @@ Vehicle_T createVehicle(vector<std::string> line){
     return vehicle;
 }
 
-Vehicle* getVehicle(unsigned long int vehicleID, Place *place){
+Vehicle* getVehicle(unsigned long int vehicleID, Garage *garage){
     Vehicle *vehicle;
 
     if(vehiclesVector.empty()){
@@ -112,7 +112,7 @@ Vehicle* getVehicle(unsigned long int vehicleID, Place *place){
 
     while(v != vehiclesVector.end()){
         if(v->ID == vehicleID){
-            vehicle = new Vehicle(v->ID, place,v->plate, v->type, v->capacity);
+            vehicle = new Vehicle(v->ID, garage,v->plate, v->type, v->capacity);
             vehiclesVector.erase(v);
             return vehicle;
         }
@@ -261,15 +261,15 @@ bool loadGarages(GarbageManagement &management){
         }
 
         placeID = stoul(lineVector.at(0));
-        Place *p = newPlace(lineVector);
-        management.addGarage(new Garage(p));
+        Garage *g = new Garage(newPlace(lineVector));
+        management.addGarage(g);
 
         if((lineVector.size()-5) <= 0){
             continue;
         }
 
         for(std::vector<string>::iterator vID = lineVector.begin()+5; vID != lineVector.end(); vID++){
-            Vehicle *v = getVehicle(stoul(*vID), p);
+            Vehicle *v = getVehicle(stoul(*vID), g);
             if(v != nullptr){
                 management.addVehicle(placeID, v);
             }
