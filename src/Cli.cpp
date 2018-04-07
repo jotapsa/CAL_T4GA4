@@ -233,7 +233,9 @@ unsigned int selectGarbageTypeMenu() {
 }
 
 unsigned int editNodeMenu() {
-    //TODO(Prints menu for node editing and gets user option)
+    std::cout << "Select option:" << std::endl;
+    std::cout << "\t1 - Edit location" << std::endl;
+    std::cout << "\t2 - Edit" << std::endl;
     return 1;
 }
 

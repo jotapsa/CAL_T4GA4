@@ -1,4 +1,5 @@
 4311944;;False
+4311945;;False
 4311946;;False
 4311949;;False
 4311951;;False
@@ -14,6 +15,7 @@
 27103848;Praceta Cristóvão Falcão;True
 27103856;Rua Cristóvão Falcão;False
 35011275;Via Norte;False
+36921785;Rua Direita do Viso;False
 36980583;Rua de São Pedro e São Paulo;False
 36980585;Travessa Central do Seixo;False
 36980588;Rua de Elaine Sanceau;False
@@ -28,6 +30,7 @@
 37262660;;True
 38446035;Rua 5 de Outubro;False
 38447245;Rua 5 de Outubro;False
+38447246;Travessa 5 de Outubro;False
 38447247;Rua Aldeia Nova;False
 42621523;Via Norte;False
 42621526;Via Norte;False
@@ -50,11 +53,13 @@
 75051402;Rua dos Fogueteiros;False
 75051410;Rua Horácio Marçal;False
 75051423;;False
+75051426;Rua da Senhora da Penha;False
 75051432;Rua António Patrício;False
 75051438;Rua Cruz Malpique;False
 75051444;Rua Avelar Brotero;False
 75051455;Rua Amorim Girão;False
 75051457;Rua Amorim Girão;False
+75051461;Rua Sérgio Manuel da Silva Leite;False
 75051474;;False
 75051479;Rua Abade Correia da Serra;False
 75051483;;False
@@ -101,12 +106,12 @@
 142699186;;False
 142699187;;False
 149939905;Rua de Santa Luzia;True
-149939906;Rua do Professor Sousa Júnior;True
 154513063;Rua Dom Frei Afonso Peres Farinha;False
 154513064;Rua Dom Frei Martim Fagundes;False
 154513065;Travessa de Elaine Sanceau;False
 154513066;Rua Dom Frei Martim Fagundes;True
 154513067;Rua de Dom Frei João Coelho;False
+154513068;Travessa de Dom Frei João Coelho;False
 154515189;Rua de Damão;False
 154515191;Rua de Damão;False
 154515195;Rua Dom Frei Nuno de Goyos;False
@@ -128,6 +133,7 @@
 154532168;Travessa de São Gens;True
 154532173;;True
 154532184;Travessa Xanana Gusmão;False
+160766769;Rua da Estação;True
 160766812;Rua 5 de Outubro;False
 160766824;Rua 5 de Outubro;False
 168970944;;False
@@ -144,6 +150,8 @@
 204786520;Travessa de Avilhó;False
 206871908;Rua de Barata Feyo;False
 206871910;Rua da Telheira;False
+206871911;;False
+207895265;Rua Central do Viso;False
 208089953;Rua Alto do Viso;False
 208089954;Rua Luís Azevedo Coutinho;False
 208089955;Rua Peneiros;False
@@ -183,7 +191,7 @@
 220137482;;False
 224644820;Estrada Exterior da Circunvalação;False
 226444521;Rua de Chaby Pinheiro;False
-226860566;Rua Alberto Sampaio;False
+240884742;Rua da Telheira;False
 240990099;;False
 240990100;;False
 240990101;;False
@@ -207,10 +215,13 @@
 253713339;;True
 253713341;;False
 253713344;Travessa Mário Botas;False
+253713347;;False
 253713348;;False
 253713350;;False
 253713352;Travessa Dom Frei Luís Álvaro de Távora;False
+255415316;Rua de Recarei;False
 255415317;Rua de São Gens;True
+267374407;Rua do Alto do Viso;True
 274187613;Rua da Senhora do Porto;True
 277165860;Travessa Monte de São Gens;True
 277165862;Rua Monte de São Gens;False
@@ -225,12 +236,20 @@
 309557715;;False
 309557716;;False
 309557717;;False
+311110902;Travessa do Viso;False
+316314639;;False
 316315039;Rua Monte de São Gens;False
 316315060;Travessa Francisco Franco;False
+316315069;Travessa Soares dos Reis;False
 316315286;;False
+316315291;;False
 316315329;;False
 316315346;;False
 316315369;Travessa Alto do Viso;False
+316315375;;False
+316315467;;False
+316315604;;False
+316315851;;False
 316872683;Rua Padre Manuel Bernardes;False
 316872684;Rua Padre Manuel Bernardes;False
 316879352;Rua António Francisco da Costa;False
@@ -247,7 +266,11 @@
 316879363;Travessa Gil Eanes;False
 316879364;Travessa Nova do Seixo;False
 316879365;Travessa de Diu;False
+317452389;Nova Transversal da Rua de São Gens;False
 317452390;Rua António Costa Reis;False
+317452391;Rua António Pedro;False
+317452392;Rua Clubes de Serviços;False
+317452393;Rua Fernando Oliveira Leite;False
 317452394;Travessa António Ramalho;False
 317452396;Rua António Costa Reis;False
 317808826;Praceta Henrique Medina;False
@@ -265,7 +288,9 @@
 317811027;;False
 317816200;Rua de São Gens;True
 317816201;Rua Bouça de Cima;False
-318698166;;False
+317816202;Rua Monte de São Gens;False
+317816203;Rua Soares dos Reis;False
+317816204;Travessa Soares dos Reis;False
 332568538;;False
 351525684;Rua da Telheira;False
 351525685;Rua da Telheira;False
@@ -279,10 +304,14 @@
 361448111;;False
 370720915;;False
 372051610;;False
+372052127;;False
 372052253;;False
 372052828;;False
 372053126;;False
 372053970;;False
+374191790;;False
+374192946;;False
+374194949;;False
 397645644;;False
 397645645;;False
 397645653;Praça de Malaca;False
@@ -291,9 +320,15 @@
 415217109;Rua Serviço STCP;False
 415217110;Rua Serviço STCP;False
 415217111;Rua Serviço STCP;False
-446887311;;False
+415217112;Rua Serviço STCP;False
+415217113;Rua Serviço STCP;False
+415217114;Rua Serviço STCP;False
+415217115;Rua Serviço STCP;False
+415217117;Rua Serviço STCP;False
+415217128;Rua Serviço STCP;False
 448744844;;False
 448744845;;False
+448744848;Rua do Alto do Viso;False
 448744849;;False
 448744850;;False
 448744851;;False
@@ -305,10 +340,13 @@
 453275808;;False
 453278319;Via Norte;False
 453278321;Via Norte;False
+456415510;Rua do Viso;False
 456430085;Rua de São Gens;False
-461948820;;False
 463287522;;False
 463287523;;False
+465466142;;False
+465466145;;False
+465466146;;False
 465650954;;False
 465650955;;False
 465651895;;False
@@ -317,7 +355,6 @@
 465651939;;False
 465657884;;False
 478881261;Rua da Amieira;False
-479198376;;False
 479198377;Via Norte;False
 550899323;;False
 550992394;;False
@@ -339,13 +376,20 @@
 551743955;;False
 551743956;;False
 551743957;;False
+551743958;;False
 551743961;;False
 551743962;;False
 551743963;;False
 551743965;;False
 551743966;;False
+551743967;;False
+551743968;;False
+551743969;;False
 551743970;;False
 551743971;;False
+551743972;;False
+551743973;;False
+551743974;;False
 551743976;;False
 552211960;;False
 552211961;;False
@@ -404,6 +448,8 @@
 569146660;;False
 569146668;;False
 569146672;;False
+569482851;;False
+569482852;;False
 569491087;Estrada Interior da Circunvalação;False
 569660409;;False
 569669131;;False
