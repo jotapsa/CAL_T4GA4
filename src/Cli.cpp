@@ -350,7 +350,7 @@ void removeBuilding(GarbageManagement &management, std::string type) {
                 std::cout << "There is no " + type + " with " << nodeId << " as ID!\n";
             }
             else {
-                //TODO(management.removeStation(nodeId));
+                management.removeStation(nodeId);
                 std::cout << type << " removed with success " << nodeId << " as ID!\n";
             }
             break;
@@ -359,7 +359,7 @@ void removeBuilding(GarbageManagement &management, std::string type) {
                 std::cout << "There is no " + type + " with " << nodeId << " as ID!\n";
             }
             else {
-                //TODO(management.removeGarage(nodeId));
+                management.removeGarage(nodeId);
                 std::cout << type << " removed with success " << nodeId << " as ID!\n";
             }
             break;
@@ -368,7 +368,7 @@ void removeBuilding(GarbageManagement &management, std::string type) {
                 std::cout << "There is no " + type + " with " << nodeId << " as ID!\n";
             }
             else {
-                //TODO(management.removeContainer(nodeId));
+                management.removeContainer(nodeId);
                 std::cout << type << " removed with success " << nodeId << " as ID!\n";
             }
             break;
@@ -377,7 +377,7 @@ void removeBuilding(GarbageManagement &management, std::string type) {
                 std::cout << "There is no " + type + " with " << nodeId << " as ID!\n";
             }
             else {
-                //TODO(management.removePlace(nodeId));
+                management.removeEmptyPlace(nodeId);
                 std::cout << type << " removed with success " << nodeId << " as ID!\n";
             }
             break;

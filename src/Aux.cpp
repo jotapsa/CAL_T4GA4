@@ -65,8 +65,8 @@ double getDistance(double lat1, double lon1, double lat2, double lon2) {
 
 std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, double rLat) {
 
-    int x = (dLon - MIN_LONGITUDE) * IMAGE_X / DELTA_X;
-    int y = IMAGE_Y - (dLat - MIN_LATITUDE) * IMAGE_Y / DELTA_Y;
+    int x = (int)((dLon - MIN_LONGITUDE) * IMAGE_X / DELTA_X);
+    int y = (int)(IMAGE_Y - (dLat - MIN_LATITUDE) * IMAGE_Y / DELTA_Y);
 
     return std::make_pair(x,y);
 }
