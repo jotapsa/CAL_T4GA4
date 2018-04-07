@@ -179,11 +179,14 @@ void createSimpleLocation(GarbageManagement &management) {
 
     std::pair<int,int> windowLocation = convertToCoords(placeLocation);
 
+    unsigned long placeID = Place::getUnusedId();
+
     if(!insideWindow(windowLocation)) {
+        std::cout << "That location doesn't fit the map!\n";
         return;
     }
     else {
-        management.addPlace(new Place(Place::getUnusedId(),
+        management.addPlace(new Place(placeID,
                                       placeLocation.second,
                                       placeLocation.first,
                                       placeLocation.second * DEG_TO_RAD,
@@ -191,6 +194,8 @@ void createSimpleLocation(GarbageManagement &management) {
                                       windowLocation));
 
         management.rearrange();
+
+        std::cout << "Place added with success with ID: " << placeID << std::endl;
     }
 
 }
@@ -203,11 +208,16 @@ void createGarage(GarbageManagement &management) {
 
     std::pair<int,int> windowLocation = convertToCoords(garageCoordinates);
 
+    unsigned long garageID;
+
     if(!insideWindow(windowLocation)) {
+        std::cout << "That location doesn't fit the map!\n";
         return;
     }
     else {
-        management.addGarage(new Garage(new Place(Place::getUnusedId(),
+        garageID = Place::getUnusedId();
+
+        management.addGarage(new Garage(new Place(garageID,
                                                   garageCoordinates.second,
                                                   garageCoordinates.first,
                                                   garageCoordinates.second * DEG_TO_RAD,
@@ -215,6 +225,8 @@ void createGarage(GarbageManagement &management) {
                                                   windowLocation)));
 
         management.rearrange();
+
+        std::cout << "Garage added with success with ID: " << garageID << std::endl;
     }
 }
 
@@ -244,13 +256,15 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
         return;
     }
 
+    unsigned long buildingID = Place::getUnusedId();
+
     unsigned int garbageTypeIndex = selectGarbageTypeMenu() - 1;
 
     if(garbageTypeIndex == 5) {
         return;
     }
 
-    Place *newPlace = new Place(Place::getUnusedId(),
+    Place *newPlace = new Place(buildingID,
                                 buildingCoordinates.second,
                                 buildingCoordinates.first,
                                 buildingCoordinates.second * DEG_TO_RAD,
@@ -280,9 +294,9 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
             return;
     }
 
-    std::cout << buildingType << " added with success!\n";
-
     management.rearrange();
+
+    std::cout << buildingType << " added with success, with ID: " << buildingID << endl;
 }
 
 unsigned int editNodeMenu() {
@@ -313,8 +327,8 @@ void listGarages(GarbageManagement &management) {
         for(auto garage : management.getGarages()) {
 
             std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << garage->getPlace()->getID();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getCoordinates().first;
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getCoordinates().second;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getLongitudinalCoordinates().first;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getLongitudinalCoordinates().second;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << garage->getNumberOfVehicles() << std::endl;
         }
 
@@ -344,8 +358,8 @@ void listContainers(GarbageManagement &management) {
         for(auto container : management.getContainers()) {
 
             std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << container->getPlace()->getID();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getPlace()->getCoordinates().first;
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getPlace()->getCoordinates().second;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getPlace()->getLongitudinalCoordinates().first;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getPlace()->getLongitudinalCoordinates().second;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << getGarbageType(container->getType());
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getCapacity() << std::endl;
         }
@@ -376,8 +390,8 @@ void listStations(GarbageManagement &management) {
         for(auto station : management.getStations()) {
 
             std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << station->getPlace()->getID();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getCoordinates().first;
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getCoordinates().second;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getLongitudinalCoordinates().first;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getLongitudinalCoordinates().second;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << getGarbageType(station->getGarbageType());
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getCapacity() << std::endl;
         }
@@ -496,7 +510,8 @@ void nodeMenu(GarbageManagement &management){
         default:
             break;
     }
-    mainMenu(management);
+    
+    nodeMenu(management);
 }
 
 unsigned int mainMenuDialog(){

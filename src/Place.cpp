@@ -39,6 +39,11 @@ std::pair<int, int> Place::getCoordinates() {
     return this->coordinates;
 }
 
+std::pair<double, double> Place::getLongitudinalCoordinates() {
+
+    return std::make_pair(this->dLon, this->dLat);
+};
+
 std::string Place::toString() {
     std::stringstream place;
 

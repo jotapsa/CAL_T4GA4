@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Node.h"
+#include <string>
 
 class Place{
 protected:
@@ -17,6 +18,7 @@ public:
 
     unsigned long getID() const;
     std::pair<int, int> getCoordinates();
+    std::pair<double, double> getLongitudinalCoordinates();
     double getLat();
     double getLon();
     std::string toString();
