@@ -65,7 +65,13 @@ std::string getEdgeType(EdgeType type){
 //    longitudinalCoordinates->second = cos(rLatitude) * 111.320;
 //};
 
-//TODO: Duarte tens na header definido a width e height do ecra.
-std::pair<int, int> convertToCoords(double dLon, double dLat, double rLon, double rLat) {
-    return {};
+
+std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, double rLat) {
+
+    double distToOriginX = (dLon - MIN_LONGITUDE);
+    double distToOriginy = (dLat - MIN_LATITUDE);
+    int x = (int)(distToOriginX * windowWidth / abs(DELTA_LONGITUDE));
+    int y = (int)(distToOriginy * windowHeight / abs(DELTA_LATITUDE));
+
+    return make_pair(x, y);
 }

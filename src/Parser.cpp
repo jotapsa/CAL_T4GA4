@@ -72,7 +72,7 @@ bool readLine(fstream &file, vector<std::string> *lineVector){
     return true;
 }
 
-Place* newPlace(vector<std::string> line){
+Place* newPlace(vector<std::string> line) {
     return new Place(stoul(line.at(0)),
                      stod(line.at(1)),
                      stod(line.at(2)),
