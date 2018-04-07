@@ -118,8 +118,8 @@ unsigned int vehicleMenuDialog(){
     std::cout << "1 - List Vehicles" << std::endl;
     std::cout << "2 - Create Vehicle" << std::endl;
     std::cout << "3 - Remove Vehicle" << std::endl;
-    std::cout << "4 - Add Vehicle type" << std::endl;
-    std::cout << "5 - Remove Vehicle type" << std::endl;
+    std::cout << "4 - Add Vehicle type" << std::endl; //TODO only change Type ?
+    std::cout << "5 - Remove Vehicle type" << std::endl; //TODO only change Type ?
     std::cout << "0 - Back" << std::endl;
 
     return nextUnsignedInt("Option: ", 4);
@@ -131,9 +131,9 @@ void listAllVehicles(GarbageManagement &management) {
         std::cout << "\nGarage: " << garage->getPlace()->getID() << " #Vehicles: " << garage->getNumberOfVehicles() << std::endl;
         std::cout << std::endl << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << "Vehicle ID";
         std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << " Plate ";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Garbage type";
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Garbage Type";
         std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Capacity";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Free space" << std::endl;
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Free Space" << std::endl;
 
         for(auto vehicle: garage->getVehicles()) {
 
@@ -212,15 +212,15 @@ void createSimpleLocation(GarbageManagement &management) {
     unsigned long placeID = Place::getUnusedId();
 
     if(!insideWindow(windowLocation)) {
-        std::cout << "That location doesn't fit the map!\n";
+        std::cout << "That Place doesn't fit the map!\n";
         return;
     }
     else {
         management.addPlace(new Place(placeID,
-                                      placeLocation.second,
                                       placeLocation.first,
-                                      placeLocation.second * DEG_TO_RAD,
+                                      placeLocation.second,
                                       placeLocation.first * DEG_TO_RAD,
+                                      placeLocation.second * DEG_TO_RAD,
                                       windowLocation));
 
         management.rearrange();
@@ -232,7 +232,7 @@ void createSimpleLocation(GarbageManagement &management) {
 
 void createGarage(GarbageManagement &management) {
 
-    std::cout << "Insert location for garage:\n";
+    std::cout << "Insert location for Garage:\n";
 
     std::pair<double,double> garageCoordinates = askForLocation();
 
@@ -248,11 +248,11 @@ void createGarage(GarbageManagement &management) {
         garageID = Place::getUnusedId();
 
         management.addGarage(new Garage(new Place(garageID,
-                                                  garageCoordinates.second,
                                                   garageCoordinates.first,
-                                                  garageCoordinates.second * DEG_TO_RAD,
+                                                  garageCoordinates.second,
                                                   garageCoordinates.first * DEG_TO_RAD,
-                                                  windowLocation)));
+                                                  garageCoordinates.second * DEG_TO_RAD,
+                                                  windowLocation));
 
         management.rearrange();
 
@@ -306,10 +306,10 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
     }
 
     Place *newPlace = new Place(buildingID,
-                                buildingCoordinates.second,
                                 buildingCoordinates.first,
-                                buildingCoordinates.second * DEG_TO_RAD,
+                                buildingCoordinates.second,
                                 buildingCoordinates.first * DEG_TO_RAD,
+                                buildingCoordinates.second * DEG_TO_RAD,
                                 windowLocation);
 
     double capacity = 0;
@@ -331,7 +331,7 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
             management.addStation(new Station(newPlace, (GarbageType)garbageTypeIndex, capacity));
             break;
         default:
-            std::cout << "Failed to create station!\n";
+            std::cout << "Failed to create Station!\n"; //TODO distinguir ?
             return;
     }
 
@@ -373,7 +373,7 @@ void listGarages(GarbageManagement &management) {
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << garage->getNumberOfVehicles() << std::endl;
         }
 
-        selectedID = getUnsignedInt("Insert node ID to edit garage, 0 to leave: ");
+        selectedID = getUnsignedInt("Insert node ID to edit Garage, 0 to leave: ");
 
         if(management.getPlace(selectedID) != nullptr){
             editNode(selectedID);
@@ -405,7 +405,7 @@ void listContainers(GarbageManagement &management) {
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getCapacity() << std::endl;
         }
 
-        selectedID = getUnsignedInt("Insert node ID to edit container, 0 to leave: ");
+        selectedID = getUnsignedInt("Insert node ID to edit Container, 0 to leave: ");
 
         if(management.getPlace(selectedID) != nullptr){
             editNode(selectedID);
@@ -437,7 +437,7 @@ void listStations(GarbageManagement &management) {
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getCapacity() << std::endl;
         }
 
-        selectedID = getUnsignedInt("Insert node ID to edit station, 0 to leave: ");
+        selectedID = getUnsignedInt("Insert node ID to edit Station, 0 to leave: ");
 
         if(management.getPlace(selectedID) != nullptr){
             editNode(selectedID);
@@ -494,17 +494,17 @@ void removeBuilding(GarbageManagement &management, std::string type) {
 
 unsigned int nodeMenuDialog() {
     std::cout << "\nNode Menu" << std::endl;
-    std::cout << "1  - Create location" << std::endl;
-    std::cout << "2  - Create garage" << std::endl;
-    std::cout << "3  - Create container" << std::endl;
-    std::cout << "4  - Create station" << std::endl;
-    std::cout << "5  - List garages" << std::endl;
-    std::cout << "6  - List containers" << std::endl;
-    std::cout << "7  - List stations" << std::endl;
-    std::cout << "8  - Remove garage" << std::endl;
-    std::cout << "9  - Remove container" << std::endl;
-    std::cout << "10 - Remove station" << std::endl;
-    std::cout << "11 - Remove place" << std::endl;
+    std::cout << "1  - Create Place" << std::endl;
+    std::cout << "2  - Create Garage" << std::endl;
+    std::cout << "3  - Create Container" << std::endl;
+    std::cout << "4  - Create Station" << std::endl;
+    std::cout << "5  - List Garages" << std::endl;
+    std::cout << "6  - List Containers" << std::endl;
+    std::cout << "7  - List Stations" << std::endl;
+    std::cout << "8  - Remove Garage" << std::endl;
+    std::cout << "9  - Remove Container" << std::endl;
+    std::cout << "10 - Remove Station" << std::endl;
+    std::cout << "11 - Remove Place" << std::endl;
     std::cout << "0  - Back" << std::endl;
 
     return nextUnsignedInt("Option: ", 11);
@@ -563,7 +563,7 @@ unsigned int mainMenuDialog(){
     std::cout << "4 - Settings Menu" << std::endl;
     std::cout << "5 - Collect Garbage" << std::endl;
     std::cout << "6 - Evaluate Connectivity" << std::endl;
-    std::cout << "7 - Stress test" << std::endl;
+    std::cout << "7 - Stress Test" << std::endl;
     std::cout << "0 - Exit" << std::endl;
 
     return nextUnsignedInt("Option: ", 7);
@@ -603,8 +603,8 @@ unsigned int garbageService(){
     std::cout << "1 - Undifferentiated trash & Unlimited capacity" << std::endl;
     std::cout << "2 - Differentiated trash & Unlimited capacity" << std::endl;
     std::cout << "3 - Differentiated trash & Limited capacity" << std::endl;
-    std::cout << "4 - Set container fill percentage needed for pickup" << std::endl;
-    std::cout << "5 - Set algorithm" << std::endl;
+    std::cout << "4 - Set Container fill percentage needed for pickup" << std::endl;
+    std::cout << "5 - Set Algorithm" << std::endl;
     std::cout << "0 - Back" << std::endl;
 
     return nextUnsignedInt("Option: ", 5);
@@ -616,7 +616,7 @@ void setFillPercentageInteraction(GarbageManagement &management) {
 
     while(percentage <= 0) {
 
-        percentage = getUnsignedInt("\tInsert percentage: ");
+        percentage = getUnsignedInt("\tInsert Percentage: ");
 
         if(percentage <= 0 || percentage > 100) {
             std::cout << "Percentage must be a value between 0 and 100.";
