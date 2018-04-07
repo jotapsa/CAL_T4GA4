@@ -328,7 +328,7 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
             management.addContainer(new Container(newPlace, (GarbageType)garbageTypeIndex, capacity));
             break;
         case 's':
-            management.addStation(new Station(newPlace, (GarbageType)garbageTypeIndex, capacity));
+            management.addStation(new Station(newPlace, capacity));
             break;
         default:
             std::cout << "Failed to create Station!\n"; //TODO distinguir ?
@@ -425,7 +425,6 @@ void listStations(GarbageManagement &management) {
         std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Node ID";
         std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Longitude";
         std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Latitude";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Type";
         std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Capacity" << std::endl;
 
         for(auto station : management.getStations()) {
@@ -433,7 +432,6 @@ void listStations(GarbageManagement &management) {
             std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << station->getPlace()->getID();
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getLongitudinalCoordinates().first;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getLongitudinalCoordinates().second;
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << getGarbageType(station->getGarbageType());
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getCapacity() << std::endl;
         }
 

@@ -190,11 +190,11 @@ bool loadStations(GarbageManagement &management){
 
     while(readLine(stations, &lineVector)){
         nStations++;
-        if(lineVector.size() != 7){
+        if(lineVector.size() != 6){
             return false;
         }
 
-        management.addStation(new Station(newPlace(lineVector), getGarbageType(lineVector.at(5)), stod(lineVector.at(6))));
+        management.addStation(new Station(newPlace(lineVector), stod(lineVector.at(5))));
     }
 
     stations.close();

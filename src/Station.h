@@ -7,15 +7,13 @@
 class Station {
 private:
     Place *place;
-    GarbageType type;
     double capacity;
 public:
-    Station(Place *place, GarbageType type, double capacity);
+    Station(Place *place, double capacity);
     Station(unsigned long id, double dLon , double dLat, double rLon, double rLat,
-            std::pair<int, int> coordinates, GarbageType type, double capacity);
+            std::pair<int, int> coordinates, double capacity);
 
     Place* getPlace();
-    GarbageType getGarbageType();
     double getCapacity();
     std::string toString();
 };
