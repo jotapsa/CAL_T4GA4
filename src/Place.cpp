@@ -1,5 +1,6 @@
 #include "Place.h"
 #include <sstream>
+#include <iomanip>
 
 unsigned long Place::maxId = 0;
 
@@ -33,7 +34,7 @@ std::pair<int, int> Place::getCoordinates() {
 std::string Place::toString() {
     std::stringstream place;
 
-    place << this->id << ";" << this->dLon << ";" << this->dLat << ";" << this->rLon << ";" << this->rLat;
+    place << this->id << ";" << std::setprecision(10) << this->dLon << ";" << this->dLat << ";" << this->rLon << ";" << this->rLat;
     return place.str();
 }
 

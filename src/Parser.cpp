@@ -74,12 +74,12 @@ bool readLine(fstream &file, vector<std::string> *lineVector){
 
 Place* newPlace(vector<std::string> line) {
     return new Place(stoul(line.at(0)),
-                     stod(line.at(1)),
-                     stod(line.at(2)),
-                     stod(line.at(3)),
-                     stod(line.at(4)),
-                     convertToCoords(stod(line.at(1)), stod(line.at(2)),
-                                     stod(line.at(3)), stod(line.at(4))));
+                     stold(line.at(1)),
+                     stold(line.at(2)),
+                     stold(line.at(3)),
+                     stold(line.at(4)),
+                     convertToCoords(stold(line.at(1)), stold(line.at(2)),
+                                     stold(line.at(3)), stold(line.at(4))));
 }
 
 Edge_T createEdge(vector<std::string> line){
@@ -365,7 +365,7 @@ void savePlaces(const GarbageManagement &management) {
         return;
     }
 
-    for(auto place : management.getPlaces()){
+    for(auto place : management.getEmptyPlaces()){
         places << place->toString() << endl;
     }
 
