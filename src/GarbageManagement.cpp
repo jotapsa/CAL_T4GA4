@@ -128,56 +128,56 @@ std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) co
 void GarbageManagement::addPlace(Place *place) {
     if(!this->graph.addNode(*(place))){
         std::cout << "Node " << place->getID() << " already in graph." << std::endl;
-    } else{
-        this->places.push_back(place);
-
-        this->gv->addNode((int) place->getID(),
-                          place->getCoordinates().first,
-                          place->getCoordinates().second);
-        this->gv->setVertexColor((int) place->getID(), BLUE);
+        return;
     }
+    this->places.push_back(place);
+
+    this->gv->addNode((int) place->getID(),
+                      place->getCoordinates().first,
+                      place->getCoordinates().second);
+    this->gv->setVertexColor((int) place->getID(), BLUE);
 }
 
 void GarbageManagement::addContainer(Container *container) {
     if(!this->graph.addNode(*(container->getPlace()))){
         std::cout << "Node " << container->getPlace()->getID() << " already in graph." << std::endl;
-    } else{
-        this->containers.push_back(container);
-
-        this->gv->addNode((int) container->getPlace()->getID(),
-                          container->getPlace()->getCoordinates().first,
-                          container->getPlace()->getCoordinates().second);
-        this->gv->setVertexColor((int) container->getPlace()->getID(), RED);
-        this->gv->setVertexSize((int) container->getPlace()->getID(), buildingNodeSize);
+        return;
     }
+    this->containers.push_back(container);
+
+    this->gv->addNode((int) container->getPlace()->getID(),
+                      container->getPlace()->getCoordinates().first,
+                      container->getPlace()->getCoordinates().second);
+    this->gv->setVertexColor((int) container->getPlace()->getID(), RED);
+    this->gv->setVertexSize((int) container->getPlace()->getID(), buildingNodeSize);
 }
 
 void GarbageManagement::addStation(Station *station) {
     if(!this->graph.addNode(*(station->getPlace()))){
         std::cout << "Node " << station->getPlace()->getID() << " already in graph." << std::endl;
-    } else{
-        this->stations.push_back(station);
-
-        this->gv->addNode((int) station->getPlace()->getID(),
-                          station->getPlace()->getCoordinates().first,
-                          station->getPlace()->getCoordinates().second);
-        this->gv->setVertexColor((int) station->getPlace()->getID(), GREEN);
-        this->gv->setVertexSize((int) station->getPlace()->getID(), buildingNodeSize);
+        return;
     }
+    this->stations.push_back(station);
+
+    this->gv->addNode((int) station->getPlace()->getID(),
+                      station->getPlace()->getCoordinates().first,
+                      station->getPlace()->getCoordinates().second);
+    this->gv->setVertexColor((int) station->getPlace()->getID(), GREEN);
+    this->gv->setVertexSize((int) station->getPlace()->getID(), buildingNodeSize);
 }
 
 void GarbageManagement::addGarage(Garage *garage) {
     if(!this->graph.addNode(*(garage->getPlace()))){
         std::cout << "Node " << garage->getPlace()->getID() << " already in graph." << std::endl;
-    } else{
-        this->garages.push_back(garage);
-
-        this->gv->addNode((int) garage->getPlace()->getID(),
-                          garage->getPlace()->getCoordinates().first,
-                          garage->getPlace()->getCoordinates().second);
-        this->gv->setVertexColor((int) garage->getPlace()->getID(), BLACK);
-        this->gv->setVertexSize((int) garage->getPlace()->getID(), buildingNodeSize);
+        return;
     }
+    this->garages.push_back(garage);
+
+    this->gv->addNode((int) garage->getPlace()->getID(),
+                      garage->getPlace()->getCoordinates().first,
+                      garage->getPlace()->getCoordinates().second);
+    this->gv->setVertexColor((int) garage->getPlace()->getID(), BLACK);
+    this->gv->setVertexSize((int) garage->getPlace()->getID(), buildingNodeSize);
 }
 
 void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type,
@@ -193,7 +193,7 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
 
     if(weight == 0){
         weight = getDistance(sourceNode->getLat(), sourceNode->getLon(),
-                                destNode->getLat(), destNode->getLat());
+                             destNode->getLat(), destNode->getLat());
     }
 
     if(name.empty()){
@@ -204,18 +204,19 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
 
     if(!this->graph.addEdge(*(sourceNode), *(destNode), weight, type)){
         std::cout << "Error: Cannot add edge." << std::endl;
-    } else{
-        Street *street = new Street(ID, sourceNode, destNode, name, type);
-        this->streets.push_back(street);
-
-        this->gv->addEdge((int) street->getEdgeID(),
-                          (int) street->getSource()->getID(),
-                          (int) street->getDest()->getID(),
-                          static_cast<int> (street->getType()));
-        this->gv->setEdgeLabel((int) street->getEdgeID(), street->getName());
-        this->gv->setEdgeWeight((int) street->getEdgeID(), (int) weight);
-        this->gv->setEdgeColor((int) street->getEdgeID(), BLACK);
+        return;
     }
+
+    Street *street = new Street(ID, sourceNode, destNode, name, type);
+    this->streets.push_back(street);
+
+    this->gv->addEdge((int) street->getEdgeID(),
+                      (int) street->getSource()->getID(),
+                      (int) street->getDest()->getID(),
+                      static_cast<int> (street->getType()));
+    this->gv->setEdgeLabel((int) street->getEdgeID(), street->getName());
+    this->gv->setEdgeWeight((int) street->getEdgeID(), (int) weight);
+    this->gv->setEdgeColor((int) street->getEdgeID(), BLACK);
 }
 
 void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
@@ -240,20 +241,72 @@ void GarbageManagement::removeEmptyPlace(const unsigned long &ID) {
     Place *p = getEmptyPlace(ID);
 
     //remove from graph
+    if(!this->graph.removeNode((*p))){
+        std::cout << "Node " << p->getID() << " not in graph" << std::endl;
+        return;
+    }
 
-    //remove from container
+    for(auto it = places.begin(); it != places.end(); it++){
+        if((*it)->getID() == p->getID()){
+            places.erase(it);
+        }
+    }
+
+    this->gv->removeNode((int) p->getID());
 }
 
 void GarbageManagement::removeStation(const unsigned long &stationID) {
     Station *s = getStation(stationID);
+
+    //remove from graph
+    if(!this->graph.removeNode((*s->getPlace()))){
+        std::cout << "Node " << s->getPlace()->getID() << " not in graph" << std::endl;
+        return;
+    }
+
+    for(auto it = places.begin(); it != places.end(); it++){
+        if((*it)->getID() == s->getPlace()->getID()){
+            places.erase(it);
+        }
+    }
+
+    this->gv->removeNode((int) s->getPlace()->getID());
 }
 
 void GarbageManagement::removeContainer(const unsigned long &containerID) {
     Container *c = getContainer(containerID);
+
+    //remove from graph
+    if(!this->graph.removeNode((*c->getPlace()))){
+        std::cout << "Node " << c->getPlace()->getID() << " not in graph" << std::endl;
+        return;
+    }
+
+    for(auto it = places.begin(); it != places.end(); it++){
+        if((*it)->getID() == c->getPlace()->getID()){
+            places.erase(it);
+        }
+    }
+
+    this->gv->removeNode((int) c->getPlace()->getID());
 }
 
 void GarbageManagement::removeGarage(const unsigned long &garageID) {
     Garage *g = getGarage(garageID);
+
+    //remove from graph
+    if(!this->graph.removeNode((*g->getPlace()))){
+        std::cout << "Node " << g->getPlace()->getID() << " not in graph" << std::endl;
+        return;
+    }
+
+    for(auto it = places.begin(); it != places.end(); it++){
+        if((*it)->getID() == g->getPlace()->getID()){
+            places.erase(it);
+        }
+    }
+
+    this->gv->removeNode((int) g->getPlace()->getID());
 
 }
 

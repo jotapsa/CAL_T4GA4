@@ -105,10 +105,11 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w, EdgeType type) {
  */
 template <class T>
 bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
-    // TODO (5 lines)
-    // HINT: Use "getNode" to obtain the actual vertices.
-    // HINT: Use the next function to actually remove the edge.
-    return false;
+    auto v1 = getNode(sourc);
+    auto v2 = getNode(dest);
+    if (v1 == NULL || v2 == NULL)
+        return false;
+    return v1->removeEdgeTo(v2);
 }
 
 /*
@@ -118,9 +119,17 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
  */
 template <class T>
 bool Graph<T>::removeNode(const T &in) {
-    // TODO (10 lines)
-    // HINT: use an iterator to scan the "nodeSet" vector and then erase the Node.
-    // HINT: take advantage of "removeEdgeTo" to remove incoming edges.
+    for (auto it = nodeSet.begin(); it != nodeSet.end(); it++){
+        if ((*it)->info  == in) {
+            auto v = *it;
+            nodeSet.erase(it);
+            for (auto u : nodeSet){
+                u->removeEdgeTo(v);
+            }
+            delete v;
+            return true;
+        }
+    }
     return false;
 }
 

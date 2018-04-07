@@ -12,6 +12,7 @@ public:
     Edge(Node<T> *d, double w);
 
     friend class Graph<T>;
+    friend class Node<T>;
 };
 
 template <class T>

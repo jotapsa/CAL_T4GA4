@@ -25,7 +25,7 @@ public:
     void addEdge(Node<T> *dest, double w);
     bool removeEdgeTo(Node<T> *d);
 
-    friend class Graph<T>; //make Graph class so that it can access private and protected fields
+    friend class Graph<T>; //make Graph class a friend so that it can access private and protected fields
 };
 
 template <class T>
@@ -52,8 +52,12 @@ void Node<T>::addEdge(Node<T> *dest, double w) {
  */
 template <class T>
 bool Node<T>::removeEdgeTo(Node<T> *d) {
-    // TODO (6 lines)
-    // HINT: use an iterator to scan the "adj" vector and then erase the edge.
+    for (auto it = edges.begin(); it != edges.end(); it++){
+        if (it->dest  == d) {
+            edges.erase(it);
+            return true;
+        }
+    }
     return false;
 }
 
