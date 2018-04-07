@@ -169,6 +169,7 @@ void GarbageManagement::addPlace(Place *place) {
 //        std::stringstream ss;
 //        ss << place->getID();
 //        this->gv->setVertexLabel((int) place->getID(), ss.str());
+    this->gv->setVertexSize((int) place->getID(), emptyPlaceNodeSize);
 }
 
 void GarbageManagement::addContainer(Container *container) {
@@ -182,6 +183,7 @@ void GarbageManagement::addContainer(Container *container) {
                       container->getPlace()->getCoordinates().first,
                       container->getPlace()->getCoordinates().second);
     this->gv->setVertexColor((int) container->getPlace()->getID(), RED);
+    this->gv->setVertexIcon((int) container->getPlace()->getID(), getGarbageTypeImgPath(container->getType()));
 //        this->gv->setVertexSize((int) container->getPlace()->getID(), buildingNodesSize);
 }
 

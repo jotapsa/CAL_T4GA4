@@ -38,12 +38,14 @@
 #define garageImgPath "../img/garage.png"
 
 #define curvedEdges false
-#define emptyPlaceNodeSize 1
+#define emptyPlaceNodeSize 5
 #define buildingNodeSize 3
 
 GarbageType getGarbageType(std::string type);
 
 std::string getGarbageType(GarbageType type);
+
+std::string getGarbageTypeImgPath(GarbageType type);
 
 std::string getAlgorithmName(Algorithm type);
 

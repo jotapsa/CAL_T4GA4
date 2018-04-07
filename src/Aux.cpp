@@ -23,7 +23,7 @@ GarbageType getGarbageType(std::string type){
 std::string getGarbageType(GarbageType type) {
     switch (type) {
         case GarbageType ::glass: {
-            return std::string("glass");;
+            return std::string("glass");
         }
         case GarbageType ::plastic: {
             return std::string("plastic");
@@ -33,6 +33,23 @@ std::string getGarbageType(GarbageType type) {
         }
         default: {
             return std::string("generic");
+        }
+    }
+}
+
+std::string getGarbageTypeImgPath(GarbageType type){
+    switch (type) {
+        case GarbageType ::glass: {
+            return glassImgPath;
+        }
+        case GarbageType ::plastic: {
+            return plasticImgPath;
+        }
+        case GarbageType ::paper: {
+            return paperImgPath;
+        }
+        default: {
+            return genericImgPath;
         }
     }
 }
