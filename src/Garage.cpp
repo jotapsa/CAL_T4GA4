@@ -11,8 +11,7 @@ Garage::Garage(unsigned long id, double dLon, double dLat, double rLon, double r
     this->place = new Place(id,
                             dLon, dLat,
                             rLon, rLat,
-                            convertToCoords(dLon, dLat,
-                                              rLon, rLat));
+                            coordinates);
 }
 
 Place* Garage::getPlace(){

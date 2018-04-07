@@ -12,7 +12,7 @@ Street::Street(unsigned long ID, Place *n1, Place *n2, std::string name, EdgeTyp
     this->name = name;
     this->type = type;
 
-    this->idCounter++;
+    Street::idCounter++;
 }
 
 unsigned long Street::getID() const {

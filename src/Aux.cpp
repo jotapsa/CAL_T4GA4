@@ -67,8 +67,8 @@ std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, doubl
 
     double distToOriginX = (dLon - MIN_LONGITUDE);
     double distToOriginy = (dLat - MIN_LATITUDE);
-    int x = (int)(distToOriginX * windowWidth / abs(DELTA_LONGITUDE));
-    int y = (int)(distToOriginy * windowHeight / abs(DELTA_LATITUDE));
+    auto x = (int)(distToOriginX * windowWidth / std::abs(DELTA_LONGITUDE));
+    auto y = (int)(distToOriginy * windowHeight / std::abs(DELTA_LATITUDE));
 
     return std::make_pair(x, y);
 }

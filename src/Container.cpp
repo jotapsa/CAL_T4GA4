@@ -13,8 +13,7 @@ Container::Container(unsigned long id, double dLon, double dLat, double rLon, do
     this->place = new Place(id,
                             dLon, dLat,
                             rLon, rLat,
-                            convertToCoords(dLon, dLat,
-                                            rLon, rLat));
+                            coordinates);
     this->type = type;
     this->capacity = capacity;
 }
