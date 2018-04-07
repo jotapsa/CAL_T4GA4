@@ -1,6 +1,5 @@
 #include "Container.h"
 #include "Aux.h"
-#include "RandomEngine.h"
 #include <sstream>
 
 Container::Container(Place *place, GarbageType type, double capacity){
@@ -8,7 +7,7 @@ Container::Container(Place *place, GarbageType type, double capacity){
     this->type = type;
     this->capacity = capacity;
 
-    this->dist = double_dist(0, capacity);
+    this->dist = double_dist(0, this->capacity);
     this->filled = dist(rng);
 }
 
@@ -21,7 +20,7 @@ Container::Container(unsigned long id, double dLon, double dLat, double rLon, do
     this->type = type;
     this->capacity = capacity;
 
-    this->dist = double_dist(0, capacity);
+    this->dist = double_dist(0, this->capacity);
     this->filled = dist(rng);
 }
 

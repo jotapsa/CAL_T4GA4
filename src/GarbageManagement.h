@@ -43,6 +43,7 @@ public:
     std::vector<Station *> getStations() const;
     std::vector<Garage *> getGarages() const;
     std::vector<Street *> getStreets() const;
+    std::vector<Vehicle *> getAllVehicles() const;
     std::vector<Vehicle *> getVehicles(unsigned long int garageID) const;
 
     Place * getPlace(unsigned long id)const;

@@ -38,4 +38,6 @@ add_executable(CAL_T4GA4
         src/Station.h
         src/Garage.cpp
         src/Garage.h
-        GraphViewerController.jar src/RandomEngine.h)
+        src/RandomEngine.cpp
+        src/RandomEngine.h
+        GraphViewerController.jar)

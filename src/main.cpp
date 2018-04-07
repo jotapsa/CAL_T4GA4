@@ -30,7 +30,7 @@ void saveBuildings(GarbageManagement &management){
 }
 
 int main (int argc, char* argv[]) {
-    //initializeRandomEngine();
+    initRandomEngine();
     GarbageManagement management = GarbageManagement();
 
     std::cout << "Read Stored Map ?" << std::endl;

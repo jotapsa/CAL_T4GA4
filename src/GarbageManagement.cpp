@@ -1,8 +1,6 @@
 #include "GarbageManagement.h"
 #include "Aux.h"
-#include <cmath>
 #include <sstream>
-#include <algorithm>
 
 GarbageManagement::GarbageManagement() {
     this->algorithm = static_cast<Algorithm>(DEFAULT_ALGORITHM);
@@ -66,6 +64,20 @@ std::vector<Garage *> GarbageManagement::getGarages() const{
 
 std::vector<Street *> GarbageManagement::getStreets() const{
     return this->streets;
+}
+
+std::vector<Vehicle *> GarbageManagement::getAllVehicles() const {
+    std::vector<Vehicle *> vehicles;
+    auto garages = getGarages();
+
+    for(auto g: garages){
+        std::vector<Vehicle *> vehiclesInGarage;
+        for(auto v: vehiclesInGarage){
+            vehicles.push_back(v);
+        }
+    }
+
+    return vehicles;
 }
 
 std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) const{
@@ -252,7 +264,6 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
 //    if(!name.empty()){
 //        this->gv->setEdgeLabel((int) street->getEdgeID(), street->getName());
 //    }
-//    this->gv->setEdgeLabel((int) street->getEdgeID(), street->getName());
 //    this->gv->setEdgeWeight((int) street->getEdgeID(), (int) weight);
 //    this->gv->setEdgeColor((int) street->getEdgeID(), BLACK);
 }
@@ -415,10 +426,14 @@ void GarbageManagement::collectGarbage() {
         }
     }
 
-    //for each
-    while(!filledContainers.empty()){
-        //select vehicle
+    std::vector<Vehicle *> emptyVehicles = getAllVehicles();
 
+    //for each
+    while(!filledContainers.empty() && !emptyVehicles.empty()){
+        ulong_dist dist(0, emptyVehicles.size()-1);
+        unsigned  long vehicleIndex = dist(rng);
+
+        //get containers w/ same type as the vehicle.
         //move vehicle to closest container
         //load
         //remove filled
