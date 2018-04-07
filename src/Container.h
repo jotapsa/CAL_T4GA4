@@ -9,6 +9,8 @@ private:
     Place *place;
     GarbageType type;
     double capacity;
+    double filled;
+
 public:
     Container(Place *place, GarbageType type, double capacity);
     Container(unsigned long id, double dLon, double dLat, double rLon, double rLat,
@@ -17,6 +19,7 @@ public:
     Place* getPlace();
     GarbageType getType();
     double getCapacity();
+    double getFilledPer();
     std::string toString();
 };
 

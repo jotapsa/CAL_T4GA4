@@ -69,6 +69,7 @@ public:
     void removeEdge(const unsigned long &ID);
 
     void evalCon();
+    void collectGarbage();
 
     void rearrange();
 

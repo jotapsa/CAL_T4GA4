@@ -30,6 +30,10 @@ double Container::getCapacity() {
     return this->capacity;
 }
 
+double Container::getFilledPer() {
+    return (filled/capacity)*100;
+}
+
 std::string Container::toString() {
     std::stringstream container;
 
