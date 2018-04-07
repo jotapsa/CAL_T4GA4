@@ -1,6 +1,8 @@
 #include <iostream>
+#include <random>
 #include "Cli.h"
 #include "Parser.h"
+#include "RandomEngine.h"
 
 bool loadBuildings(GarbageManagement &management){
     if(!loadContainers(management)){
@@ -28,6 +30,7 @@ void saveBuildings(GarbageManagement &management){
 }
 
 int main (int argc, char* argv[]) {
+    //initializeRandomEngine();
     GarbageManagement management = GarbageManagement();
 
     std::cout << "Read Stored Map ?" << std::endl;

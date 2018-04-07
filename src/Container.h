@@ -3,9 +3,11 @@
 
 #include "Place.h"
 #include "GarbageType.h"
+#include "RandomEngine.h"
 
 class Container{
 private:
+    double_dist dist;
     Place *place;
     GarbageType type;
     double capacity;
@@ -20,6 +22,9 @@ public:
     GarbageType getType();
     double getCapacity();
     double getFilledPer();
+
+    void reset();
+
     std::string toString();
 };
 

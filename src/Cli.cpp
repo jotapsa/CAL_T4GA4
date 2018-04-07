@@ -560,7 +560,7 @@ unsigned int mainMenuDialog(){
     std::cout << "2 - Edge Menu" << std::endl;
     std::cout << "3 - Vehicle Menu" << std::endl;
     std::cout << "4 - Settings Menu" << std::endl;
-    std::cout << "5 - Collect Garbage" << std::endl;
+    std::cout << "5 - Garbage Service" << std::endl;
     std::cout << "6 - Evaluate Connectivity" << std::endl;
     std::cout << "7 - Stress Test" << std::endl;
     std::cout << "0 - Exit" << std::endl;
@@ -645,13 +645,13 @@ void setAlgorithmInteraction(GarbageManagement &management) {
 void garbageServiceMenu(GarbageManagement &management) {
     switch (garbageService()) {
         case 1:
-//            management.dosomething();
+            management.collectGarbage();
             break;
         case 2:
-//            management.dosomething();
+            management.collectGarbage();
             break;
         case 3:
-//            management.dosomething();
+            management.collectGarbage();
             break;
         case 4:
             setFillPercentageInteraction(management);

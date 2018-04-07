@@ -1,11 +1,15 @@
 #include "Container.h"
 #include "Aux.h"
+#include "RandomEngine.h"
 #include <sstream>
 
 Container::Container(Place *place, GarbageType type, double capacity){
     this->place = place;
     this->type = type;
     this->capacity = capacity;
+
+    this->dist = double_dist(0, capacity);
+    this->filled = dist(rng);
 }
 
 Container::Container(unsigned long id, double dLon, double dLat, double rLon, double rLat,
@@ -16,6 +20,9 @@ Container::Container(unsigned long id, double dLon, double dLat, double rLon, do
                             coordinates);
     this->type = type;
     this->capacity = capacity;
+
+    this->dist = double_dist(0, capacity);
+    this->filled = dist(rng);
 }
 
 Place* Container::getPlace(){
@@ -32,6 +39,10 @@ double Container::getCapacity() {
 
 double Container::getFilledPer() {
     return (filled/capacity)*100;
+}
+
+void Container::reset() {
+    this->filled = dist(rng);
 }
 
 std::string Container::toString() {

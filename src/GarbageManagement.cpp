@@ -388,9 +388,13 @@ void GarbageManagement::collectGarbage() {
         return;
     }
 
+    resetVehicles(); //only needed sometimes, so let's keep it out of the timer
+
     clock_t tBegin = clock();
 
-    //map distance
+    if(algorithm==Algorithm::Warshall){
+        graph.floydWarshall();
+    }
 
     //get filled containers
     std::vector<Container *> filledContainers;
@@ -424,7 +428,7 @@ void GarbageManagement::collectGarbage() {
 
     std::cout << "Elapsed time: " << tElapsed << std::endl;
 
-    //return vehicles and paths
+    //print/return vehicles and paths
 }
 
 
