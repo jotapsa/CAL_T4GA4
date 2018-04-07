@@ -25,7 +25,7 @@ class Connection {
     bool sendMsg(std::string msg);
     std::string readLine();
     private:
-#ifdef linux
+#if linux || __APPLE__
     int sock;
 #else
     SOCKET sock;
