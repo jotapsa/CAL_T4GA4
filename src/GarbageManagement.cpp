@@ -54,7 +54,7 @@ std::vector<Street *> GarbageManagement::getStreets() const{
     return this->streets;
 }
 
-Place * GarbageManagement::getPlace(unsigned long id){
+Place * GarbageManagement::getPlace(unsigned long id)const {
     Place *place = getEmptyPlace(id);
     if(place != nullptr){
         return place;
@@ -78,7 +78,7 @@ Place * GarbageManagement::getPlace(unsigned long id){
     return nullptr;
 }
 
-Place *  GarbageManagement::getEmptyPlace(unsigned long id){
+Place * GarbageManagement::getEmptyPlace(unsigned long id)const {
     for(auto p: places){
         if(p->getID() == id){
             return p;
@@ -87,7 +87,7 @@ Place *  GarbageManagement::getEmptyPlace(unsigned long id){
     return nullptr;
 }
 
-Container * GarbageManagement::getContainer(unsigned long containerID){
+Container * GarbageManagement::getContainer(unsigned long containerID)const {
     for(auto c: containers){
         if(c->getPlace()->getID() == containerID){
             return c;
@@ -96,7 +96,7 @@ Container * GarbageManagement::getContainer(unsigned long containerID){
     return nullptr;
 }
 
-Station *GarbageManagement::getStation(unsigned long stationID) {
+Station * GarbageManagement::getStation(unsigned long stationID)const {
     for(auto s: stations){
         if(s->getPlace()->getID() == stationID){
             return s;
@@ -221,4 +221,26 @@ void GarbageManagement::closeWindow() {
     if(gv != nullptr){
         gv->closeWindow();
     }
+}
+
+void GarbageManagement::removeEmptyPlace(const unsigned long &ID) {
+    Place *p = getEmptyPlace(ID);
+
+    //remove from graph
+
+    //remove from container
+}
+
+void GarbageManagement::removeStation(const unsigned long &stationID) {
+    Station *s = getStation(stationID);
+
+}
+
+void GarbageManagement::removeContainer(const unsigned long &containerID) {
+    Container *c = getContainer(containerID);
+}
+
+void GarbageManagement::removeGarage(const unsigned long &garageID) {
+    Garage *g = getGarage(garageID);
+
 }
