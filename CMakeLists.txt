@@ -17,6 +17,8 @@ add_executable(CAL_T4GA4
         src/GarbageManagement.h
         src/Container.cpp
         src/Container.h
+        src/GarbageType.h
+        src/EdgeType.h
         src/Aux.cpp
         src/Aux.h
         src/Connection.cpp

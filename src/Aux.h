@@ -2,6 +2,10 @@
 #define _AUX_H
 
 #include <iostream>
+#include "GarbageType.h"
+#include "EdgeType.h"
+
+//TODO: Remove includes in other classes that might import this header to make up for importing enum classes
 
 #define MAX_DOUBLE_WITH 21
 #define MAX_ULONG_WITH 10
@@ -20,17 +24,6 @@
 #define DELTA_LATITUDE (MAX_LATITUDE-MIN_LATITUDE)
 
 #define backgroundImgPath "../img/map_background.png"
-
-enum GarbageType{
-    glass, plastic, paper, generic
-};
-
-enum EdgeType{
-    twoWay, oneWay
-};
-
-#define UNDIRECTED 0
-#define DIRECTED 1
 
 GarbageType getGarbageType(std::string type);
 std::string getGarbageType(GarbageType type);

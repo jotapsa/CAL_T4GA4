@@ -156,7 +156,7 @@ void GarbageManagement::addStation(Station *station) {
         this->gv->addNode((int) station->getPlace()->getID(),
                           station->getPlace()->getCoordinates().first,
                           station->getPlace()->getCoordinates().second);
-        this->gv->setVertexColor((int) station->getPlace()->getID(), RED);
+        this->gv->setVertexColor((int) station->getPlace()->getID(), GREEN);
     }
 }
 
@@ -169,7 +169,7 @@ void GarbageManagement::addGarage(Garage *garage) {
         this->gv->addNode((int) garage->getPlace()->getID(),
                           garage->getPlace()->getCoordinates().first,
                           garage->getPlace()->getCoordinates().second);
-        this->gv->setVertexColor((int) garage->getPlace()->getID(), RED);
+        this->gv->setVertexColor((int) garage->getPlace()->getID(), BLACK);
     }
 }
 
@@ -203,7 +203,7 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
         this->gv->addEdge((int) street->getEdgeID(),
                           (int) street->getSource()->getID(),
                           (int) street->getDest()->getID(),
-                          ((street->getType() == twoWay) ? UNDIRECTED : DIRECTED));
+                          static_cast<int> (street->getType()));
         this->gv->setEdgeLabel((int) street->getID(), street->getName());
     }
 }

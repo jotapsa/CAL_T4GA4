@@ -340,7 +340,7 @@ bool loadEdgesInfo(GarbageManagement &management) {
 
         ID = stoul(lineVector.at(0));
         name = lineVector.at(1);
-        type = (lineVector.at(2).compare(std::string("True")) == 0) ? twoWay : oneWay;
+        type = (lineVector.at(2).compare(std::string("True")) == 0) ? EdgeType::twoWay : EdgeType::oneWay;
 
         for(std::vector<Edge_T>::iterator edge = edgesVector.begin(); edge != edgesVector.end(); edge++){
             if(edge->ID == ID){

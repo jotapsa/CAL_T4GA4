@@ -85,12 +85,12 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w, EdgeType type) {
     if (v1 == nullptr || v2 == nullptr)
         return false;
 
-    if(type == twoWay){
+    if(type == EdgeType::twoWay){
         v1->addEdge(v2,w);
         v2->addEdge(v1,w);
         return true;
     }
-    else if(type == oneWay){
+    else if(type == EdgeType::oneWay){
         v1->addEdge(v2,w);
         return true;
     }

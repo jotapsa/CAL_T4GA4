@@ -6,30 +6,30 @@ using namespace std;
 
 GarbageType getGarbageType(string type){
     if(type.compare(string("glass")) == 0){
-        return glass;
+        return GarbageType ::glass;
     }
     else if(type.compare(string("plastic")) == 0){
-        return plastic;
+        return GarbageType ::plastic;
     }
     else if(type.compare(string("paper")) == 0){
-        return paper;
+        return GarbageType ::paper;
     }
     else if(type.compare(string("generic")) == 0){
-        return generic;
+        return GarbageType ::generic;
     }
 
-    return generic;
+    return GarbageType ::generic;
 }
 
 std::string getGarbageType(GarbageType type) {
     switch (type) {
-        case glass: {
+        case GarbageType ::glass: {
             return std::string("glass");;
         }
-        case plastic: {
+        case GarbageType ::plastic: {
             return std::string("plastic");
         }
-        case paper: {
+        case GarbageType ::paper: {
             return std::string("paper");
         }
         default: {
@@ -38,33 +38,16 @@ std::string getGarbageType(GarbageType type) {
     }
 }
 
-GarbageType getGarbageTypeForOption(unsigned int option) {
-
-    static GarbageType types[4] = { glass, plastic, paper, generic };
-
-    return types[option];
-}
-
 std::string getEdgeType(EdgeType type){
     switch (type) {
-        case twoWay: {
+        case EdgeType::twoWay: {
             return std::string("True");;
         }
-        case oneWay: {
+        case EdgeType::oneWay: {
             return std::string("False");
-        }
-        default: {
-            return std::string();
         }
     }
 }
-
-//void convertToKilometers(std::pair<double, double> *longitudinalCoordinates, double rLatitude, double rLongitude) {
-//
-//    longitudinalCoordinates->first = rLatitude * 110.574;
-//    longitudinalCoordinates->second = cos(rLatitude) * 111.320;
-//};
-
 
 std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, double rLat) {
 
