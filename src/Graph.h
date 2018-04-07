@@ -20,9 +20,13 @@ class Graph {
 private:
     std::vector<Node<T> *> nodeSet;    // Node set
 
+    double ** W;   //minimum weight matrix
+    int ** P;   //shortest path matrix
+
 public:
     Node<T> * getNode(const T &in) const;
     unsigned long getNumNodes() const;
+    double getEdgeWeight(unsigned long nOrigIndex, unsigned long nDestIndex);
 
     bool addNode(const T &in);
     bool removeNode(const T &in);
@@ -31,7 +35,8 @@ public:
     bool removeEdge(const T &sourc, const T &dest);
 
     bool relax(Node<T> *source, Node<T> *way, double weight);
-    void dijkstraShortestPath(const T &sourceInfo);
+    void dijkstra(const T &sourceInfo);
+    void floydWarshall();
 
     bool isDAG() const;
     bool dfsIsDAG(Node<T> *n) const;
@@ -56,6 +61,21 @@ Node<T> * Graph<T>::getNode(const T &in) const {
 template <class T>
 unsigned long Graph<T>::getNumNodes() const {
     return nodeSet.size();
+}
+
+template<class T>
+double Graph<T>::getEdgeWeight(unsigned long nOrigIndex, unsigned long nDestIndex) {
+    if(nOrigIndex == nDestIndex){
+        return 0;
+    }
+
+    for(auto e: nodeSet[nOrigIndex]->edges){
+        if(e.dest == nodeSet[nDestIndex]){
+            return e.weight;
+        }
+    }
+
+    return std::numeric_limits<double>::max();
 }
 
 /*
@@ -145,7 +165,7 @@ bool Graph<T>::relax(Node<T> *source, Node<T> *way, double weight) {
 }
 
 template<class T>
-void Graph<T>::dijkstraShortestPath(const T &sourceInfo){
+void Graph<T>::dijkstra(const T &sourceInfo){
     for(auto n: nodeSet){
         n->dist = std::numeric_limits<double>::max();
         n->path = nullptr;
@@ -173,6 +193,20 @@ void Graph<T>::dijkstraShortestPath(const T &sourceInfo){
                     queue.decreaseKey(e.dest);
                 }
             }
+        }
+    }
+}
+
+template<class T>
+void Graph<T>::floydWarshall() {
+    W = new double *[nodeSet.size()];
+    P = new int *[nodeSet.size()];
+    for(unsigned int i=0; i < nodeSet.size(); i++){
+        W[i] = new double[nodeSet.size()];
+        P[i] = new int[nodeSet.size()];
+        for(unsigned int j=0; j < nodeSet.size(); j++){
+            W[i][j] = 0;
+            P[i][j] = nullptr;
         }
     }
 }

@@ -405,6 +405,8 @@ void GarbageManagement::collectGarbage() {
     double tElapsed = tEnd - tBegin;
 
     std::cout << "Elapsed time: " << tElapsed << std::endl;
+
+    //return vehicles and paths
 }
 
 
