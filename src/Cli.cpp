@@ -2,6 +2,7 @@
 #include <iomanip>
 #include "GarbageManagement.h"
 #include "Cli.h"
+#include "GarbageType.h"
 
 void garbageServiceMenu(GarbageManagement &management);
 
@@ -15,12 +16,7 @@ bool readConfirmation() {
            temp != "N" &&
            temp != "n");
 
-    if(temp == "Y" || temp == "y"){
-        return true;
-    }
-    else{
-        return false;
-    }
+    return temp == "Y" || temp == "y";
 }
 
 double parseDouble (std::string str) {
@@ -178,46 +174,48 @@ std::pair<double, double> askForLocation() {
 };
 
 void createSimpleLocation(GarbageManagement &management) {
-//TODO (Check if added garage is inside map window)
 
-    //management.addPlace(new Place(Place::getUnusedId(), askForLocation()));
-    //management.rearrange();
+    std::pair<double,double> placeLocation = askForLocation();
+
+    std::pair<int,int> windowLocation = convertToCoords(placeLocation);
+
+    if(!insideWindow(windowLocation)) {
+        return;
+    }
+    else {
+        management.addPlace(new Place(Place::getUnusedId(),
+                                      placeLocation.second,
+                                      placeLocation.first,
+                                      placeLocation.second * DEG_TO_RAD,
+                                      placeLocation.first * DEG_TO_RAD,
+                                      windowLocation));
+
+        management.rearrange();
+    }
+
 }
 
 void createGarage(GarbageManagement &management) {
-//TODO (Check if added garage is inside map window)
 
     std::cout << "Insert location for garage:\n";
 
     std::pair<double,double> garageCoordinates = askForLocation();
 
-    //management.addGarage(new Garage(Place::getUnusedId(), garageCoordinates));
-    //management.rearrange();
-}
+    std::pair<int,int> windowLocation = convertToCoords(garageCoordinates);
 
-//Container and Station both use the same parameters
-void createContainerOrStation(GarbageManagement &management, std::string buildingType) {
-
-    std::cout << "Insert location for " << buildingType << ": \n";
-
-    std::pair<double,double> containerCoordinates = askForLocation();
-
-    unsigned int garbageTypeIndex = selectGarbageTypeMenu();
-
-    if(garbageTypeIndex == 0){
+    if(!insideWindow(windowLocation)) {
         return;
     }
+    else {
+        management.addGarage(new Garage(new Place(Place::getUnusedId(),
+                                                  garageCoordinates.second,
+                                                  garageCoordinates.first,
+                                                  garageCoordinates.second * DEG_TO_RAD,
+                                                  garageCoordinates.first * DEG_TO_RAD,
+                                                  windowLocation)));
 
-    double capacity = parseDouble("Insert " + buildingType + " capacity: ");
-
-    //TODO: switch w/ default case
-    if(buildingType.compare("container") == 0){
-        //management.addContainer(new Container(Place::getUnusedID(), containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
+        management.rearrange();
     }
-    else{
-        //management.addStation(new Station(Place::getUnusedID(), containerCoordinates, getGarbageTypeForOption(garbageTypeIndex), capacity));
-    }
-    //management.rearrange();
 }
 
 unsigned int selectGarbageTypeMenu() {
@@ -227,9 +225,64 @@ unsigned int selectGarbageTypeMenu() {
     std::cout << "\t2 - Plastic" << std::endl;
     std::cout << "\t3 - Paper" << std::endl;
     std::cout << "\t4 - Generic" << std::endl;
-    std::cout << "\t0 - Exit" << std::endl;
+    std::cout << "\t5 - Exit" << std::endl;
 
-    return nextUnsignedInt("Option: ", 4);
+    return nextUnsignedInt("Option: ", 5);
+}
+
+//Container and Station both use the same parameters
+void createContainerOrStation(GarbageManagement &management, std::string buildingType) {
+
+    std::cout << "Insert location for " << buildingType << ": \n";
+
+    std::pair<double, double> buildingCoordinates = askForLocation();
+
+    std::pair<int, int> windowLocation = convertToCoords(buildingCoordinates);
+
+    if(!insideWindow(windowLocation)) {
+        std::cout << "That location doesn't fit the map!\n";
+        return;
+    }
+
+    unsigned int garbageTypeIndex = selectGarbageTypeMenu() - 1;
+
+    if(garbageTypeIndex == 5) {
+        return;
+    }
+
+    Place *newPlace = new Place(Place::getUnusedId(),
+                                buildingCoordinates.second,
+                                buildingCoordinates.first,
+                                buildingCoordinates.second * DEG_TO_RAD,
+                                buildingCoordinates.first * DEG_TO_RAD,
+                                windowLocation);
+
+    double capacity = 0;
+
+    while(capacity <= 0) {
+
+        capacity = parseDouble("Insert " + buildingType + " capacity: ");
+
+        if(capacity <= 0) {
+            std::cout << "Capacity must be a positive value!\n";
+        }
+    }
+
+    switch (buildingType.at(0)) {
+        case 'c':
+            management.addContainer(new Container(newPlace, (GarbageType)garbageTypeIndex, capacity));
+            break;
+        case 's':
+            management.addStation(new Station(newPlace, (GarbageType)garbageTypeIndex, capacity));
+            break;
+        default:
+            std::cout << "Failed to create station!\n";
+            return;
+    }
+
+    std::cout << buildingType << " added with success!\n";
+
+    management.rearrange();
 }
 
 unsigned int editNodeMenu() {
@@ -341,8 +394,6 @@ void listStations(GarbageManagement &management) {
 void removeBuilding(GarbageManagement &management, std::string type) {
 
     unsigned long nodeId = getUnsignedInt("Insert " + type + " ID to remove: ");
-
-    //TODO(Test this function)
 
     switch(type.at(0)) {
         case 's':

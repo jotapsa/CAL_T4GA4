@@ -70,3 +70,17 @@ std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, doubl
 
     return std::make_pair(x,y);
 }
+
+std::pair<int, int> convertToCoords(std::pair<double, double> coords) {
+
+    int x = (int)((coords.second - MIN_LONGITUDE) * IMAGE_X / DELTA_X);
+    int y = (int)(IMAGE_Y - (coords.first - MIN_LATITUDE) * IMAGE_Y / DELTA_Y);
+
+    return std::make_pair(x,y);
+};
+
+bool insideWindow(std::pair<int, int> coords) {
+
+    return coords.first < IMAGE_X || coords.second < IMAGE_Y;
+}
+

@@ -23,6 +23,7 @@
 #define DELTA_Y 0.014199
 #define IMAGE_X 2341
 #define IMAGE_Y 1760
+#define DEG_TO_RAD (PI/180)
 
 #define DELTA_LONGITUDE (MAX_LONGITUDE-MIN_LONGITUDE)
 #define DELTA_LATITUDE (MAX_LATITUDE-MIN_LATITUDE)
@@ -34,13 +35,17 @@
 #define buildingNodeSize 3
 
 GarbageType getGarbageType(std::string type);
+
 std::string getGarbageType(GarbageType type);
 
 std::string getEdgeType(EdgeType type);
 
-//TODO:
 double getDistance(double lat1, double lon1, double lat2, double lon2);
 
 std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, double rLat);
+
+std::pair<int, int> convertToCoords(std::pair<double, double> coords);
+
+bool insideWindow(std::pair<int, int> coords);
 
 #endif
