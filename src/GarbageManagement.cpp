@@ -261,14 +261,6 @@ void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
     }
 }
 
-void GarbageManagement::evalCon() {
-
-}
-
-void GarbageManagement::rearrange() {
-    this->gv->rearrange();
-}
-
 void GarbageManagement::removeEmptyPlace(const unsigned long &ID) {
     Place *p = getEmptyPlace(ID);
 
@@ -343,6 +335,58 @@ void GarbageManagement::removeGarage(const unsigned long &garageID) {
 
 void GarbageManagement::removeEdge(const unsigned long &ID) {
     Street *s = getStreet(ID);
+}
+
+void GarbageManagement::evalCon() {
+
+}
+
+void GarbageManagement::collectGarbage() {
+    if(stations.empty() || containers.empty() || garages.empty()){
+        std::cout << "No stations, containers or garages." << std::endl;
+        return;
+    }
+
+    clock_t tBegin = clock();
+
+    //map distance
+
+    //get filled containers
+    std::vector<Container *> filledContainers;
+    for (auto c: containers){
+        if(c->getFilledPer() >= fillPerNeeded){
+            filledContainers.push_back(c);
+        }
+    }
+
+    //for each
+    while(!filledContainers.empty()){
+        //select vehicle
+
+        //move vehicle to closest container
+        //load
+        //remove filled
+
+        while(true){
+            //next container if theres none break
+            //move
+            //load
+            //remove filled
+        }
+
+        //mover para station
+        //unload
+    }
+
+    clock_t tEnd = clock();
+    double tElapsed = tEnd - tBegin;
+
+    std::cout << "Elapsed time: " << tElapsed << std::endl;
+}
+
+
+void GarbageManagement::rearrange() {
+    this->gv->rearrange();
 }
 
 void GarbageManagement::closeWindow() {
