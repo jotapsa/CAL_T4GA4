@@ -70,6 +70,7 @@ class GraphViewer {
    */
   bool closeWindow();
 
+  //TODO: try to make this function accept unsigned long instead of int (check with prof or jar decompiled)
   /**
    * Acrescenta um nó à representação do grafo, numa posição específica, irrelevante se o grafo
    * for dinâmico.

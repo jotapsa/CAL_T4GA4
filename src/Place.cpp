@@ -26,7 +26,7 @@ unsigned long Place::getID() const{
     return this->id;
 }
 
-std::pair<double, double> Place::getCoordinates() {
+std::pair<int, int> Place::getCoordinates() {
     return this->coordinates;
 }
 

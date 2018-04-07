@@ -29,6 +29,9 @@ enum EdgeType{
     twoWay, oneWay
 };
 
+#define UNDIRECTED 0
+#define DIRECTED 1
+
 GarbageType getGarbageType(std::string type);
 std::string getGarbageType(GarbageType type);
 

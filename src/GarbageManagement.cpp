@@ -4,9 +4,9 @@
 #include <sstream>
 
 GarbageManagement::GarbageManagement() {
-//    gv = new GraphViewer(windowWidth, windowHeight, false, graphViewerPort);
-//    gv->setBackground(backgroundImgPath);
-//    gv->createWindow(windowWidth, windowHeight);
+    gv = new GraphViewer(windowWidth, windowHeight, false, graphViewerPort);
+    gv->setBackground(backgroundImgPath);
+    gv->createWindow(windowWidth, windowHeight);
 }
 
 Graph<Place> GarbageManagement::getGraph(){
@@ -121,15 +121,16 @@ std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) co
     }
 }
 
-
 void GarbageManagement::addPlace(Place *place) {
     if(!this->graph.addNode(*(place))){
         std::cout << "Node " << place->getID() << " already in graph." << std::endl;
     } else{
         this->places.push_back(place);
 
-//        this->gv->addNode(place->getID(), place->getCoordinates().first, place->getCoordinates().second);
-//        this->gv->setVertexColor(place->getID(), BLUE);
+        this->gv->addNode((int) place->getID(),
+                          place->getCoordinates().first,
+                          place->getCoordinates().second);
+        this->gv->setVertexColor((int) place->getID(), BLUE);
     }
 }
 
@@ -139,8 +140,10 @@ void GarbageManagement::addContainer(Container *container) {
     } else{
         this->containers.push_back(container);
 
-//        this->gv->addNode(container->getID(), container->getCoordinates().first, container->getCoordinates().second);
-//        this->gv->setVertexColor(container->getID(), RED);
+        this->gv->addNode((int) container->getPlace()->getID(),
+                          container->getPlace()->getCoordinates().first,
+                          container->getPlace()->getCoordinates().second);
+        this->gv->setVertexColor((int) container->getPlace()->getID(), RED);
     }
 }
 
@@ -150,8 +153,10 @@ void GarbageManagement::addStation(Station *station) {
     } else{
         this->stations.push_back(station);
 
-//        this->gv->addNode(station->getID(), station->getCoordinates().first, station->getCoordinates().second);
-//        this->gv->setVertexColor(station->getID(), GREEN);
+        this->gv->addNode((int) station->getPlace()->getID(),
+                          station->getPlace()->getCoordinates().first,
+                          station->getPlace()->getCoordinates().second);
+        this->gv->setVertexColor((int) station->getPlace()->getID(), RED);
     }
 }
 
@@ -161,8 +166,10 @@ void GarbageManagement::addGarage(Garage *garage) {
     } else{
         this->garages.push_back(garage);
 
-//        this->gv->addNode(garage->getID(), garage->getCoordinates().first, garage->getCoordinates().second);
-//        this->gv->setVertexColor(garage->getID(), BLACK);
+        this->gv->addNode((int) garage->getPlace()->getID(),
+                          garage->getPlace()->getCoordinates().first,
+                          garage->getPlace()->getCoordinates().second);
+        this->gv->setVertexColor((int) garage->getPlace()->getID(), RED);
     }
 }
 
@@ -192,10 +199,13 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
     } else{
         Street *street = new Street(ID, sourceNode, destNode, name, type);
         this->streets.push_back(street);
-    }
 
-    //this->gv->addEdge(street->getID(), street->getCoordinates().first, garage->getCoordinates().second);
-    //this->gv->setEdgeLabel(street->getID(), street->getName());
+//        this->gv->addEdge((int) street->getID(),
+//                          (int) street->getSource()->getID(),
+//                          (int) street->getDest()->getID(),
+//                          ((street->getType() == twoWay) ? UNDIRECTED : DIRECTED));
+//        this->gv->setEdgeLabel((int) street->getID(), street->getName());
+    }
 }
 
 void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
@@ -213,7 +223,7 @@ void GarbageManagement::evalCon() {
 }
 
 void GarbageManagement::rearrange() {
-//    gv->rearrange();
+    this->gv->rearrange();
 }
 
 

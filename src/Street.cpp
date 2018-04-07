@@ -9,19 +9,38 @@ Street::Street(unsigned long ID, Place *n1, Place *n2, std::string name, EdgeTyp
     this->type = type;
 }
 
-unsigned long Street::getID() {
+unsigned long Street::getID() const {
     return this->ID;
 }
 
-EdgeType Street::getType(){
+EdgeType Street::getType() const {
     return this->type;
 }
 
-std::string Street::getName() {
+std::string Street::getName() const {
     return this->name;
 }
 
-std::string Street::toString() {
+std::string Street::getOriginalName() const {
+    if(this->name.compare(std::string("unnamed street n"))){
+        return std::string();
+    }
+    return this->name;
+}
+
+Place *Street::getSource() const {
+    return this->n1;
+}
+
+Place *Street::getDest() const {
+    return this->n2;
+}
+
+void Street::setName(std::string name){
+    this->name = name;
+}
+
+std::string Street::toString() const{
     std::stringstream street;
 
     street << this->ID << ";" << this->n1->getID() << ";" << this->n2->getID();
@@ -29,14 +48,10 @@ std::string Street::toString() {
     return street.str();
 }
 
-std::string Street::getInfo() {
+std::string Street::getInfo() const {
     std::stringstream streetInfo;
 
     streetInfo << this->ID << ";" << this->name << ";" << getEdgeType(this->type);
 
     return streetInfo.str();
-}
-
-void Street::setName(std::string name){
-    this->name = name;
 }

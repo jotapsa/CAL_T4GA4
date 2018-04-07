@@ -16,13 +16,19 @@ private:
 public:
     Street(unsigned long ID, Place *n1, Place *n2, std::string name, EdgeType type);
 
-    unsigned long getID();
-    EdgeType getType();
-    std::string getName();
-    std::string toString();
-    std::string getInfo();
+    unsigned long getID() const;
+
+    std::string getName() const;
+    std::string getOriginalName() const;
+    EdgeType getType() const;
+    Place * getSource() const;
+    Place * getDest() const;
+
 
     void setName(std::string name);
+
+    std::string toString() const;
+    std::string getInfo() const;
 };
 
 
