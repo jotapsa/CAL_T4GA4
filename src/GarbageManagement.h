@@ -59,6 +59,8 @@ public:
     void evalCon();
 
     void rearrange();
+
+    void createWindow();
     void closeWindow();
 };
 

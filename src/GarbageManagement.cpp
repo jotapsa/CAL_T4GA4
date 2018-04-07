@@ -6,7 +6,6 @@
 GarbageManagement::GarbageManagement() {
     gv = new GraphViewer(windowWidth, windowHeight, false, graphViewerPort);
     gv->setBackground(backgroundImgPath);
-    gv->createWindow(windowWidth, windowHeight);
 }
 
 Graph<Place> GarbageManagement::getGraph(){
@@ -226,13 +225,6 @@ void GarbageManagement::rearrange() {
     this->gv->rearrange();
 }
 
-
-void GarbageManagement::closeWindow() {
-    if(gv != nullptr){
-        gv->closeWindow();
-    }
-}
-
 void GarbageManagement::removeEmptyPlace(const unsigned long &ID) {
     Place *p = getEmptyPlace(ID);
 
@@ -253,4 +245,16 @@ void GarbageManagement::removeContainer(const unsigned long &containerID) {
 void GarbageManagement::removeGarage(const unsigned long &garageID) {
     Garage *g = getGarage(garageID);
 
+}
+
+void GarbageManagement::createWindow() {
+    if(gv != nullptr){
+        gv->createWindow(windowWidth, windowHeight);
+    }
+}
+
+void GarbageManagement::closeWindow() {
+    if(gv != nullptr){
+        gv->closeWindow();
+    }
 }

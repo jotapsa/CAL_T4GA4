@@ -452,7 +452,7 @@ unsigned int mainMenuDialog(){
     std::cout << "5 - Collect Garbage" << std::endl;
     std::cout << "6 - Evaluate Connectivity" << std::endl;
     std::cout << "7 - Stress test" << std::endl;
-    std::cout << "8 - Show graphviewer" << std::endl;
+    std::cout << "8 - Create GraphViewer window" << std::endl;
     std::cout << "0 - Exit" << std::endl;
 
     return nextUnsignedInt("Option: ", 7);
@@ -481,7 +481,7 @@ void mainMenu(GarbageManagement &management) {
         case 7:
             break;
         case 8:
-            management.openWindow();
+            management.createWindow();
             break;
         case 0:
             break;
