@@ -4,14 +4,14 @@
 
 unsigned long Place::maxId = 0;
 
-Place::Place(unsigned long id, double dLon, double dLat, double rLon, double rLat, std::pair<int, int> coordinates) {
+Place::Place(unsigned long id, double dLat, double dLon, double rLat, double rLon, std::pair<int, int> coordinates) {
     this->id = id;
     updateMaxID();
 
-    this->dLon = dLon;
     this->dLat = dLat;
-    this->rLon = rLon;
+    this->dLon = dLon;
     this->rLat = rLat;
+    this->rLon = rLon;
 
     this->coordinates = coordinates;
 }

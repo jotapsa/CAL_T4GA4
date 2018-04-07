@@ -231,7 +231,7 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
 
     if(weight == 0){
         weight = getDistance(sourceNode->getLat(), sourceNode->getLon(),
-                             destNode->getLat(), destNode->getLat());
+                             destNode->getLat(), destNode->getLon());
     }
 
 //    if(name.empty()){
