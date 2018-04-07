@@ -34,4 +34,6 @@ void listStations(GarbageManagement &management);
 
 void removeBuilding(GarbageManagement &management, std::string type);
 
+void setFillPercentage(GarbageManagement &management);
+
 #endif //_CLI_H

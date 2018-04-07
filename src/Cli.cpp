@@ -510,7 +510,7 @@ void nodeMenu(GarbageManagement &management){
         default:
             break;
     }
-    
+
     nodeMenu(management);
 }
 
@@ -561,14 +561,34 @@ unsigned int garbageService(){
     std::cout << "Garbage Service Menu" << std::endl;
     std::cout << "1 - Undifferentiated trash & Unlimited capacity" << std::endl;
     std::cout << "2 - Differentiated trash & Unlimited capacity" << std::endl;
-    std::cout << "3 - Differentiated trash & Limited capacityu" << std::endl;
+    std::cout << "3 - Differentiated trash & Limited capacity" << std::endl;
+    std::cout << "4 - Set container fill percentage needed for pickup" << std::endl;
+    std::cout << "5 - Set algorithm" << std::endl;
     std::cout << "0 - Back" << std::endl;
 
-    return nextUnsignedInt("Option: ", 3);
+    return nextUnsignedInt("Option: ", 5);
+}
+
+void setFillPercentage(GarbageManagement &management) {
+
+    int  percentage = 0;
+
+    while(percentage <= 0) {
+
+        percentage = getUnsignedInt("\tInsert percentage: ");
+
+        if(percentage <= 0 || percentage > 100) {
+            std::cout << "Percentage must be a value between 0 and 100.";
+        }
+    }
+
+    management.setFillPerNeeded((float)percentage / 100.0);
+
+    std::cout << "Percentage set to: " << management.getFillPerNeeded() * 100.0 << " %\n";
 }
 
 void garbageServiceMenu(GarbageManagement &management) {
-    switch (mainMenuDialog()) {
+    switch (garbageService()) {
         case 1:
 //            management.dosomething();
             break;
@@ -578,10 +598,18 @@ void garbageServiceMenu(GarbageManagement &management) {
         case 3:
 //            management.dosomething();
             break;
+        case 4:
+            setFillPercentage(management);
+            break;
+        case 5:
+//            management.dosomething();
+            break;
         case 0:
             mainMenu(management);
-            break;
+            return;
         default:
             break;
     }
+
+    garbageServiceMenu(management);
 }
