@@ -415,7 +415,18 @@ void GarbageManagement::resetVehicles() {
 }
 
 void GarbageManagement::evalCon() {
+    auto places = getPlaces();
+    if(places.empty()){
+        std::cout << "No places." << std::endl;
+        return;
+    }
 
+    if(true){
+        //usar dfs para ver se existem componentes nao fortemente conexos
+    } else{
+        std::cout << "Graph is strongly connected ." << std::endl;
+        std::cout << "There is a directed path from x to y and a directed path from y to x for every pair of vertices {x, y}. " << std::endl;
+    }
 }
 
 void GarbageManagement::collectGarbage() {
@@ -450,8 +461,6 @@ void GarbageManagement::collectGarbage() {
         Vehicle *vehicle = emptyVehicles[vehicleIndex];
 
         path.push_back(vehicle->getGarage()->getPlace());
-
-        auto availableContainers = getContainersByType(vehicle->getType());
 
         //move vehicle to closest container
         //load
@@ -489,7 +498,7 @@ void GarbageManagement::closeWindow() {
 
 std::vector<std::pair<unsigned long, std::string>> GarbageManagement::getAllStreetNames() {
 
-    std::vector<pair<unsigned long, std:: string>> streetNames;
+    std::vector<std::pair<unsigned long, std:: string>> streetNames;
 
     bool alreadyExists = false;
 

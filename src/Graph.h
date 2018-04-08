@@ -36,9 +36,12 @@ class Graph {
 
     bool relax(Node<T> *source, Node<T> *way, double weight);
     void dijkstra(const T &sourceInfo);
-    vector<T> getDijkstraPath(const T &dest);
+    std::vector<T> getDijkstraPath(const T &dest);
     void floydWarshall();
-    void getfloydWarshallPath(vector<T> &path, const T &origin, const T &dest);
+    void getfloydWarshallPath(std::vector<T> &path, const T &origin, const T &dest);
+
+    std::vector<T> dfs() const;
+    void dfsVisit(Node<T> *n, std::vector<T> &res) const;
 
     bool isDAG() const;
     bool dfsIsDAG(Node<T> *n) const;
@@ -198,8 +201,8 @@ void Graph<T>::dijkstra(const T &sourceInfo){
 }
 
 template<class T>
-vector<T> Graph<T>::getDijkstraPath(const T &dest) {
-    vector<T> path;
+std::vector<T> Graph<T>::getDijkstraPath(const T &dest) {
+    std::vector<T> path;
     auto n = getNode(dest);
     if(n == nullptr ||  n->dist == std::numeric_limits<double>::max()){
         return path;
@@ -252,7 +255,7 @@ void Graph<T>::floydWarshall() {
 }
 
 template<class T>
-void Graph<T>::getfloydWarshallPath(vector<T> &path, const T &origin, const T &dest) {
+void Graph<T>::getfloydWarshallPath(std::vector<T> &path, const T &origin, const T &dest) {
     unsigned long nDestIndex = nodeSet.size();
     unsigned long nOriginIndex = nodeSet.size();
 
@@ -276,6 +279,42 @@ void Graph<T>::getfloydWarshallPath(vector<T> &path, const T &origin, const T &d
     }else if(P[nOriginIndex][nDestIndex] != nullptr){
         getfloydWarshallPath(path, origin, P[nOriginIndex][nDestIndex]->getInfo());
         path.push_back(dest);
+    }
+}
+
+/*
+ * Performs a depth-first search (dfs) in a graph (this).
+ * Returns a vector with the contents of the vertices by dfs order.
+ * Follows the algorithm described in theoretical classes.
+ */
+template<class T>
+std::vector<T> Graph<T>::dfs() const {
+    std::vector<T> res;
+    for (auto n : nodeSet){
+        n->visited = false;
+    }
+    for (auto n : nodeSet){
+        if (!n->visited){
+            dfsVisit(n, res);
+        }
+    }
+
+    return res;
+}
+
+/*
+ * Auxiliary function that visits a vertex (v) and its adjacent, recursively.
+ * Updates a parameter with the list of visited node contents.
+ */
+
+template<class T>
+void Graph<T>::dfsVisit(Node<T> *n, std::vector<T> &res) const {
+    n->visited = true;
+    res.push_back(n->info);
+    for (auto & e: n->edges) {
+        auto w = e.dest;
+        if ( ! w->visited)
+            dfsVisit(w, res);
     }
 }
 

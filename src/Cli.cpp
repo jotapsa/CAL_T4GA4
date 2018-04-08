@@ -375,7 +375,7 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
 
     management.rearrange();
 
-    std::cout << buildingType << " added with success, with ID: " << buildingID << endl;
+    std::cout << buildingType << " added with success, with ID: " << buildingID << std::endl;
 }
 
 unsigned int editNodeMenu() {
@@ -395,7 +395,7 @@ void listGarages(GarbageManagement &management) {
     unsigned int selectedID;
 
     std::cout << std::setfill('-') << std::setw(MAX_ULONG_WITH + MAX_DOUBLE_WITH) << " Garages ";
-    std::cout << std::setfill('-') << std::setw(MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << "-"<< endl;
+    std::cout << std::setfill('-') << std::setw(MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << "-"<< std::endl;
 
     do {
         std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Node ID";
@@ -425,7 +425,7 @@ void listContainers(GarbageManagement &management) {
     unsigned int selectedID;
 
     std::cout << std::setfill('-') << std::setw(MAX_ULONG_WITH + MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << " Containers ";
-    std::cout << std::setfill('-') << std::setw(MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << "-"<< endl;
+    std::cout << std::setfill('-') << std::setw(MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << "-"<< std::endl;
 
     do {
         std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Node ID";
@@ -457,7 +457,7 @@ void listStations(GarbageManagement &management) {
     unsigned int selectedID;
 
     std::cout << std::setfill('-') << std::setw(MAX_ULONG_WITH + MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << " Stations ";
-    std::cout << std::setfill('-') << std::setw(MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << "-"<< endl;
+    std::cout << std::setfill('-') << std::setw(MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << "-"<< std::endl;
 
     do {
         std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Node ID";
