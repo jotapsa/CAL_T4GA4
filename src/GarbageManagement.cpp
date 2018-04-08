@@ -158,6 +158,7 @@ Garage* GarbageManagement::getGarage(unsigned long garageID) const{
             return g;
         }
     }
+
     return nullptr;
 }
 
@@ -292,6 +293,7 @@ void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
     }
 }
 
+//TODO(refactor function name because its name is misleading with the above)
 void GarbageManagement::addVehicle(Vehicle *vehicle){
     this->gv->addNode((int) vehicle->getPlace()->getID(),
                       vehicle->getPlace()->getCoordinates().first,

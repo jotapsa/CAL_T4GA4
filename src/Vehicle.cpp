@@ -1,4 +1,5 @@
 #include <sstream>
+#include <algorithm>
 #include "Vehicle.h"
 #include "Garage.h"
 #include "Aux.h"

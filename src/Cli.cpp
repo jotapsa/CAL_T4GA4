@@ -151,12 +151,103 @@ void listAllVehicles(GarbageManagement &management) {
         listAllVehicles(management);
 }
 
+void createVehicle(GarbageManagement &management) {
+
+    unsigned int vehicleID = getUnsignedInt("Insert an id to the new vehicle: ");
+
+    unsigned long garageID = 0;
+
+    std::string plate;
+
+    std::vector<GarbageType> garbageThatTruckCanCarry;
+
+    std::vector<double> capacities;
+
+    Vehicle * newVehicle;
+
+    double capacity;
+
+    int typeOfGarbage = -1;
+
+    while(plate.length() != 8) {
+        plate.clear();
+        std::cout << "Insert a valid number plate for the new vehicle: ";
+        std::getline(std::cin, plate);
+    }
+
+    while(true) {
+        std::cout << "Types of garbage:" << std::endl;
+        std::cout << "\t1 - Glass" << std::endl;
+        std::cout << "\t2 - Plastic" << std::endl;
+        std::cout << "\t3 - Paper" << std::endl;
+        std::cout << "\t4 - Generic" << std::endl;
+        std::cout << "\t0 - Finish garbage types insertion." << std::endl;
+
+        typeOfGarbage = nextUnsignedInt("Insert an option: ", 4);
+
+        if(typeOfGarbage == 0)
+            break;
+
+        bool alreadyExists = false;
+
+        for (auto garbageType : garbageThatTruckCanCarry) {
+            if (garbageType == (GarbageType)(typeOfGarbage - 1)) {
+                alreadyExists = true;
+            }
+        }
+
+        if (!alreadyExists) {
+            garbageThatTruckCanCarry.push_back((GarbageType)(typeOfGarbage - 1));
+        }
+    }
+
+
+
+    for(auto garbageType : garbageThatTruckCanCarry) {
+
+        capacity = -1;
+
+        do {
+            capacity = parseDouble("Insert capacity for " + getGarbageType(garbageType) + " garbage: ");
+        } while(capacity < 0);
+
+        capacities.push_back(capacity);
+    }
+
+    do {
+        std::cout << std::right << std::setfill('-') << std::setw(MAX_DOUBLE_WITH) << "Garages";
+
+        std::cout << std::right << std::setfill('-') << std::setw(MAX_DOUBLE_WITH) << "-" << std::endl;
+
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Garage ID";
+
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "#Vehicles" <<  std::endl;
+
+        for(auto garage : management.getGarages()) {
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getID();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getNumberOfVehicles() << std::endl;
+        }
+
+        garageID = getUnsignedInt("Insert a garage ID that new vehicle will belong to: ");
+
+    }while(management.getGarage(garageID) == nullptr);
+
+    newVehicle = new Vehicle(vehicleID, management.getGarage(garageID), plate, garbageThatTruckCanCarry, capacities);
+
+    management.addVehicle(garageID, newVehicle);
+
+    management.rearrange();
+
+    std::cout << "Vehicle added!\n";
+}
+
 void vehicleMenu(GarbageManagement &management){
     switch(vehicleMenuDialog()){
         case 1:
             listAllVehicles(management);
             break;
         case 2:
+            createVehicle(management);
             break;
         case 3:
             break;
@@ -409,7 +500,7 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
             management.addStation(new Station(newPlace));
             break;
         default:
-            std::cout << "Failed to create Station!\n"; //TODO distinguir ?
+            std::cout << "Failed to create " <<  buildingType <<"!\n";
             return;
     }
 
@@ -438,7 +529,7 @@ void listGarages(GarbageManagement &management) {
     std::cout << std::setfill('-') << std::setw(MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << "-"<< std::endl;
 
     do {
-        std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Node ID";
+        std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Garage ID";
         std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Longitude";
         std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Latitude";
         std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << "#Vehicles" << std::endl;
