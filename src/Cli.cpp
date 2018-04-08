@@ -213,11 +213,49 @@ void listAllStreets(GarbageManagement &management) {
         listAllStreets(management);
 }
 
+void createEdge(GarbageManagement &management) {
+    unsigned long destinationPlace = NULL;
+    unsigned long beginningPlace = NULL;
+
+    std::string streetName;
+
+    streetName.clear();
+
+    EdgeType isTwoWay;
+
+    unsigned long streetID = getUnsignedInt("Insert a street ID: ");
+
+    while(management.getPlace(beginningPlace) == nullptr) {
+        beginningPlace = getUnsignedInt("Insert starting place ID: ");
+    }
+
+    while(management.getPlace(destinationPlace) == nullptr) {
+        destinationPlace = getUnsignedInt("Insert destination place ID: ");
+    }
+
+    double weight = parseDouble("Insert edge weight:");
+
+    std::cout << "Is it a two way street?";
+
+    readConfirmation() ? isTwoWay = (EdgeType)0 : (EdgeType)1;
+
+    while(streetName.empty()){
+        std::cout << "Insert street name: ";
+        std::getline(std::cin, streetName);
+    }
+
+    std::cout << "Read: " << streetName << std::endl;
+
+    management.addEdge(weight, streetID, std::make_pair(beginningPlace, destinationPlace), isTwoWay, streetName);
+
+    std::cout << streetName << " connecting nodes: " << beginningPlace << " -> " << destinationPlace << " with weight " <<  weight << " has been added.\n";
+}
+
 void edgeMenu(GarbageManagement &management) {
 
     switch(edgeMenuDialog()) {
         case 1:
-
+            createEdge(management);
             break;
         case 2:
             management.removeEdge(getUnsignedInt("Insert Edge ID: "));
@@ -227,10 +265,12 @@ void edgeMenu(GarbageManagement &management) {
             break;
         case 0:
             mainMenu(management);
-        break;
+            return;
         default:
             break;
     }
+
+    edgeMenu(management);
 }
 
 std::pair<double, double> askForLocation() {

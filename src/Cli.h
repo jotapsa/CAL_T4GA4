@@ -27,6 +27,7 @@ void edgeMenu(GarbageManagement &management);
 void createContainerOrStation(GarbageManagement &management, std::string type);
 void createSimpleLocation(GarbageManagement &management);
 void createGarage(GarbageManagement &management);
+void createEdge(GarbageManagement &management);
 void editNode(unsigned long nodeID);
 
 void listGarages(GarbageManagement &management);
