@@ -172,7 +172,7 @@ void vehicleMenu(GarbageManagement &management){
     vehicleMenu(management);
 }
 
-unsigned int edgeMenuDialog(){
+unsigned int edgeMenuDialog() {
     std::cout << "Edge Menu" << std::endl;
     std::cout << "1 - Create Edge"  << std::endl;
     std::cout << "2 - Remove Edge"  << std::endl;
@@ -196,21 +196,31 @@ void listAllStreets(GarbageManagement &management) {
 
     std::cout << std::left << std::setfill(' ') << std::setw(maxStreetLength / 2)  << "Name";
 
+    std::cout << std::right << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << "Edge ID";
+
     for(auto street : allStreets) {
 
-        std::cout << std::endl << std::setfill(' ') << std::setw(MAX_ULONG_WITH + 2) << street.first;
+        std::cout << std::left << std::endl << std::setfill(' ') << std::setw(MAX_ULONG_WITH + 2) << street.first;
 
-        std::cout << std::setfill(' ') << std::setw(maxStreetLength) << street.second;
+        std::cout << std::setfill(' ') << std::setw(maxStreetLength + 4) << street.second;
+
+        std::cout << std::left << std::setfill(' ') << std::setw(MAX_ULONG_WITH + 7) << management.getStreet(street.first)->getEdgeID();
     }
+
+    std::cout << std::endl << "Leave? ";
+
+    if(!readConfirmation())
+        listAllStreets(management);
 }
 
 void edgeMenu(GarbageManagement &management) {
 
     switch(edgeMenuDialog()) {
         case 1:
+
             break;
         case 2:
-//            management.removeEdge(getUnsignedInt("Insert Edge ID: "));
+            management.removeEdge(getUnsignedInt("Insert Edge ID: "));
             break;
         case 3:
             listAllStreets(management);
