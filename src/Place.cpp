@@ -1,4 +1,5 @@
 #include "Place.h"
+#include "Aux.h"
 #include <sstream>
 #include <iomanip>
 
@@ -61,5 +62,15 @@ unsigned long Place::getUnusedId() {
 
 void Place::setCoordinates(std::pair<int, int> coordinates){
     this->coordinates = coordinates;
+}
+
+void Place::setLat(double Latitude) {
+    this->dLat = Latitude;
+    this->rLat = Latitude * DEG_TO_RAD;
+}
+
+void Place::setLon(double Longitude) {
+    this->dLon = Longitude;
+    this->rLon = Longitude * DEG_TO_RAD;
 }
 

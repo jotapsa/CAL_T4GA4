@@ -77,26 +77,85 @@ unsigned long int getUnsignedInt(std::string str) {
     }while(true);
 }
 
-unsigned int settingsMenuDialog() {
+unsigned int editGarageOption() {
 
-    std::cout << "Settings Menu" << std::endl;
-    std::cout << "1 - Set Garage" << std::endl;
-    std::cout << "2 - Set Container" << std::endl;
-    std::cout << "3 - Set Station" << std::endl;
-    std::cout << "4 - Fill Container" << std::endl;
-    std::cout << "5 - Clear Container" << std::endl;
-    std::cout << "6 - Find Container" << std::endl;
+    std::cout << "-----Garage option------" << std::endl;
+    std::cout << "1 - Edit garage location" << std::endl;
     std::cout << "0 - Back" << std::endl;
 
-    return nextUnsignedInt("Option: ", 6);
+    return nextUnsignedInt("Option: ", 1);
 }
 
-void settingsMenu(GarbageManagement &management) {
+void editGarageMenu(GarbageManagement &management) {
+
+    unsigned long garageID;
+
+    do {
+        std::cout << std::right << std::setfill('-') << std::setw(MAX_DOUBLE_WITH) << "Garages";
+
+        std::cout << std::right << std::setfill('-') << std::setw(MAX_DOUBLE_WITH) << "-" << std::endl;
+
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Garage ID";
+
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "#Vehicles" <<  std::endl;
+
+        for(auto garage : management.getGarages()) {
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getID();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getNumberOfVehicles() << std::endl;
+        }
+
+        garageID = getUnsignedInt("Insert a garage ID to edit: ");
+
+    } while(management.getGarage(garageID) == nullptr);
+
+    Garage *editing = management.getGarage(garageID);
+
+    if(editGarageOption() == 0) {
+        return;
+    }
+
+    std::cout << "Insert new garage coordinates.\n";
+
+    double newLongitude = parseDouble("Insert new longitude (value above 180 degrees to maintain previous value):");
+
+    double newLatitude = parseDouble("Insert new latitude (value above 90 degrees to maintain previous value):");
+
+    if(newLongitude <= 180) {
+        editing->getPlace()->setLon(newLongitude);
+    }
+    else{
+        std::cout << "Maintained previous longitude!\n";
+    }
+
+    if(newLatitude <= 90) {
+        editing->getPlace()->setLat(newLatitude);
+    }
+    else {
+        std::cout << "Maintained previous latitude!\n";
+    }
+
+    std::cout << "New data for this garage:\n" << editing->toString() << std::endl;
+}
+
+unsigned int editMenuDialog() {
+
+    std::cout << "------Settings------" << std::endl;
+    std::cout << "\t1 - Edit garage" << std::endl;
+    std::cout << "\t2 - Edit container" << std::endl;
+    std::cout << "\t3 - Edit station" << std::endl;
+    std::cout << "\t4 - Edit container" << std::endl;
+    std::cout << "\t0 - Back" << std::endl;
+
+    return nextUnsignedInt("Option: ", 4);
+}
+
+void editMenu(GarbageManagement &management) {
 
     while(true) {
 
-        switch (settingsMenuDialog()) {
+        switch (editMenuDialog()) {
             case 1:
+                editGarageMenu(management);
                 break;
             case 2:
                 break;
@@ -747,7 +806,7 @@ unsigned int mainMenuDialog(){
     std::cout << "1 - Node Menu" << std::endl;
     std::cout << "2 - Edge Menu" << std::endl;
     std::cout << "3 - Vehicle Menu" << std::endl;
-    std::cout << "4 - Settings Menu" << std::endl;
+    std::cout << "4 - Edit Menu" << std::endl;
     std::cout << "5 - Garbage Service" << std::endl;
     std::cout << "6 - Evaluate Connectivity" << std::endl;
     std::cout << "7 - Stress Test" << std::endl;
@@ -771,7 +830,7 @@ void mainMenu(GarbageManagement &management) {
                 vehicleMenu(management);
                 break;
             case 4:
-                settingsMenu(management);
+                editMenu(management);
                 break;
             case 5:
                 garbageServiceMenu(management);

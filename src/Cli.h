@@ -14,22 +14,25 @@ unsigned int mainMenuDialog();
 unsigned int nodeMenuDialog();
 unsigned int edgeMenuDialog();
 unsigned int vehicleMenuDialog();
-unsigned int settingsMenuDialog();
+unsigned int editMenuDialog();
 unsigned int selectGarbageTypeMenu();
 unsigned int selectAlgorithMenu();
 unsigned int editNodeMenu();
+unsigned int editGarageOption();
 
 void mainMenu(GarbageManagement &management);
 void nodeMenu(GarbageManagement &management);
 void vehicleMenu(GarbageManagement &management);
-void settingsMenu(GarbageManagement &management);
+void editMenu(GarbageManagement &management);
 void edgeMenu(GarbageManagement &management);
 void createContainerOrStation(GarbageManagement &management, std::string type);
 void createSimpleLocation(GarbageManagement &management);
 void createGarage(GarbageManagement &management);
 void createEdge(GarbageManagement &management);
 void createVehicle(GarbageManagement &management);
+
 void editNode(unsigned long nodeID);
+void editGarageMenu(GarbageManagement &management);
 
 void listGarages(GarbageManagement &management);
 void listContainers(GarbageManagement &management);

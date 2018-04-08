@@ -21,6 +21,8 @@ public:
     std::pair<double, double> getLongitudinalCoordinates();
     double getLat();
     double getLon();
+    void setLat(double Latitude);
+    void setLon(double Longitude);
     std::string toString();
 
     void setCoordinates(std::pair<int, int> coordinates);
