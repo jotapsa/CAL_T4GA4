@@ -25,6 +25,8 @@ public:
     void addEdge(Node<T> *dest, double w);
     bool removeEdgeTo(Node<T> *d);
 
+    void resetAuxFields();
+
     bool operator==(Node<T> node);
 
     friend class Graph<T>; //make Graph class a friend so that it can access private and protected fields
@@ -61,6 +63,16 @@ bool Node<T>::removeEdgeTo(Node<T> *d) {
         }
     }
     return false;
+}
+
+template<class T>
+void Node<T>::resetAuxFields() {
+    this->dist = 0;        // auxiliary field used by dijkstra
+    this->path = nullptr; // auxiliary field used by dijkstra
+
+    this->visited = false;          // auxiliary field used by dfs and bfs
+    this->indegree = 0;          // auxiliary field used by topsort
+    this->processing = false;       // auxiliary field used by isDAG
 }
 
 template<class T>

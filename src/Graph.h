@@ -25,6 +25,7 @@ class Graph {
 
     public:
     Node<T> * getNode(const T &in) const;
+    std::vector<Node<T> *> getNodeSet() const;
     unsigned long getNumNodes() const;
     double getEdgeWeight(unsigned long nOrigIndex, unsigned long nDestIndex);
 
@@ -35,6 +36,7 @@ class Graph {
     bool removeEdge(const T &sourc, const T &dest);
 
     void invertEdges();
+    void resetNodeAuxFields();
 
     bool relax(Node<T> *source, Node<T> *way, double weight);
     void dijkstra(const T &sourceInfo);
@@ -47,6 +49,8 @@ class Graph {
 
     bool isDAG() const;
     bool dfsIsDAG(Node<T> *n) const;
+
+    std::vector<T> topsort() const;
 
     Graph<T> clone();
 };
@@ -63,6 +67,11 @@ Node<T> * Graph<T>::getNode(const T &in) const {
     }
 
     return nullptr;
+}
+
+template<class T>
+std::vector<Node<T> *> Graph<T>::getNodeSet() const {
+    return this->nodeSet;
 }
 
 template <class T>
@@ -161,6 +170,14 @@ bool Graph<T>::removeNode(const T &in) {
 }
 
 template<class T>
+void Graph<T>::resetNodeAuxFields() {
+    for(auto n:nodeSet){
+        n->resetAuxFields();
+    }
+}
+
+
+template<class T>
 void Graph<T>::invertEdges() {
     for(auto n: nodeSet){
         for(auto e: n->edges){
@@ -228,8 +245,8 @@ std::vector<T> Graph<T>::getDijkstraPath(const T &dest) {
     return path;
 }
 
-//from http://algoritmy.net/article/45708/Floyd-Warshall-algorithm
 /**
+* from http://algoritmy.net/article/45708/Floyd-Warshall-algorithm
 * Floyd-Warshall algorithm. Finds all shortest paths among all pairs of nodes
 * @param d matrix of distances (std::numeric_limits<double>::max() represents positive infinity)
 * stores matrix of predecessors
@@ -376,6 +393,48 @@ bool Graph<T>::dfsIsDAG(Node<T> *n) const {
     }
     n->processing = false;
     return true;
+}
+
+/*
+ * Performs a topological sorting of the vertices of a graph (this).
+ * Returns a vector with the contents of the vertices by topological order.
+ * If the graph has cycles, returns an empty vector.
+ * Follows the algorithm described in theoretical classes.
+ */
+
+template<class T>
+std::vector<T> Graph<T>::topsort() const {
+    std::vector<T> res;
+
+    for (auto v : nodeSet)
+        v->indegree = 0;
+    for (auto v : nodeSet)
+        for (auto & e : v->adj)
+            e.dest->indegree++;
+
+    std::queue<Node<T>*> q;
+    for (auto v : nodeSet)
+        if (v->indegree == 0)
+            q.push(v);
+
+    while( !q.empty() ) {
+        Node<T>* v = q.front();
+        q.pop();
+        res.push_back(v->info);
+        for(auto & e : v->edges) {
+            auto w = e.dest;
+            w->indegree--;
+            if(w->indegree == 0)
+                q.push(w);
+        }
+    }
+
+    if ( res.size() != nodeSet.size() ) {
+        res.clear();
+        return res;
+    }
+
+    return res;
 }
 
 template<class T>

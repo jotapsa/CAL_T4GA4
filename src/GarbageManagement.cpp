@@ -430,18 +430,24 @@ void GarbageManagement::evalCon() {
     }
 
 
-    std::vector<Place> postOrder = this->graph.dfs();
-
     Graph<Place> clone = this->graph.clone();
     clone.invertEdges();
 
-    std::vector<Place> stronglyConnectedNodes = clone.dfs();
-
     bool stronglyCon = true;
-    std::cout << "stronglyConnectedNodes: " << stronglyConnectedNodes.size() << std::endl;
-    std::cout << "num nodes graph: " <<graph.getNumNodes() << std::endl;
-    if(stronglyConnectedNodes.size() != graph.getNumNodes()){
-        stronglyCon = false;
+
+    std::vector<Node<Place> *> nodeSet = graph.getNodeSet();
+    for(auto n: nodeSet){
+        graph.resetNodeAuxFields();
+        std::vector<Place> visitedNodes;
+        graph.dfsVisit(n, visitedNodes);
+
+        if(visitedNodes.size() != graph.getNumNodes()){
+            stronglyCon = false;
+
+            std::cout << "Number of visited nodes performing dfs from this node: " << visitedNodes.size() << std::endl;
+            std::cout << "Number of nodes in the graph: " << graph.getNumNodes() << std::endl;
+            std::cout << "Node nº: " << n->getInfo().getID() << " is not strongly connected to the graph." << std::endl;
+        }
     }
 
     if(stronglyCon){
