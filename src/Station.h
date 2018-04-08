@@ -13,7 +13,6 @@ public:
             std::pair<int, int> coordinates);
 
     Place* getPlace();
-    double getCapacity();
     std::string toString();
 };
 

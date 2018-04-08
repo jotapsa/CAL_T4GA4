@@ -22,6 +22,7 @@ unsigned int selectAlgorithMenu();
 unsigned int editNodeMenu();
 unsigned int editGarageOption();
 unsigned int editContainerMenu();
+unsigned int editStationMenu();
 
 void mainMenu(GarbageManagement &management);
 void nodeMenu(GarbageManagement &management);
@@ -37,6 +38,7 @@ void createVehicle(GarbageManagement &management);
 void editNode(unsigned long nodeID);
 void editGarageMenu(GarbageManagement &management);
 void editContainerMenu(GarbageManagement &management);
+void editStation(GarbageManagement &management);
 
 void listGarages(GarbageManagement &management);
 void listContainers(GarbageManagement &management);

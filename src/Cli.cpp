@@ -135,20 +135,17 @@ void editGarageMenu(GarbageManagement &management) {
     }
 
     std::cout << "New data for this garage:\n" << editing->toString() << std::endl;
-
-    management.rearrange();
 }
 
 unsigned int editMenuDialog() {
 
-    std::cout << "------Settings------" << std::endl;
+    std::cout << "-------Settings-------" << std::endl;
     std::cout << "\t1 - Edit garage" << std::endl;
     std::cout << "\t2 - Edit container" << std::endl;
     std::cout << "\t3 - Edit station" << std::endl;
-    std::cout << "\t4 - Edit container" << std::endl;
     std::cout << "\t0 - Back" << std::endl;
 
-    return nextUnsignedInt("Option: ", 4);
+    return nextUnsignedInt("Option: ", 3);
 }
 
 void editContainerMenu(GarbageManagement &management) {
@@ -234,12 +231,11 @@ void editContainerMenu(GarbageManagement &management) {
     }
 
     std::cout << "New data for this container:\n" << toEdit->toString() << std::endl;
-    management.rearrange();
 }
 
 unsigned int editContainerMenu() {
 
-    std::cout << "-----Container options------" << std::endl;
+    std::cout << "---------Container options----------" << std::endl;
     std::cout << "1 - Edit container location" << std::endl;
     std::cout << "2 - Edit container type" << std::endl;
     std::cout << "3 - Edit container capacity" << std::endl;
@@ -247,6 +243,68 @@ unsigned int editContainerMenu() {
     std::cout << "0 - Back" << std::endl;
 
     return nextUnsignedInt("Option: ", 4);
+}
+
+unsigned int editStationMenu() {
+
+    std::cout << "------Station options------" << std::endl;
+    std::cout << "1 - Edit container location" << std::endl;
+    std::cout << "0 - Back" << std::endl;
+
+    return nextUnsignedInt("Option: ", 1);
+}
+
+void editStation(GarbageManagement &management) {
+
+    unsigned long stationID;
+    double newLongitude;
+    double newLatitude;
+
+    Station *toEdit = nullptr;
+
+    do {
+        printMainHeader("Stations", MAX_DOUBLE_WITH);
+
+        std::cout << std::endl;
+
+        printTableCell("Station ID", MAX_DOUBLE_WITH, 'l');
+
+        std::cout << std::endl;
+
+        for(auto station : management.getStations()) {
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getID() << std::endl;
+        }
+
+        stationID = getUnsignedInt("Insert a station ID to edit: ");
+
+    } while((toEdit = management.getStation(stationID)) == nullptr);
+
+
+    if(editGarageOption() == 0) {
+        return;
+    }
+
+    std::cout << "Insert new garage coordinates.\n";
+
+    newLongitude = parseDouble("Insert new longitude (value above 180 degrees to maintain previous value):");
+
+    newLatitude = parseDouble("Insert new latitude (value above 90 degrees to maintain previous value):");
+
+    if(newLongitude <= 180) {
+        toEdit->getPlace()->setLon(newLongitude);
+    }
+    else{
+        std::cout << "Maintained previous longitude!\n";
+    }
+
+    if(newLatitude <= 90) {
+        toEdit->getPlace()->setLat(newLatitude);
+    }
+    else {
+        std::cout << "Maintained previous latitude!\n";
+    }
+
+    std::cout << "New data for this station:\n" << toEdit->toString() << std::endl;
 }
 
 void editMenu(GarbageManagement &management) {
@@ -261,10 +319,10 @@ void editMenu(GarbageManagement &management) {
                 editContainerMenu(management);
                 break;
             case 3:
-                break;
-            case 4:
+                editStation(management);
                 break;
             case 0:
+                management.rearrange();
                 return;
             default:
                 break;
