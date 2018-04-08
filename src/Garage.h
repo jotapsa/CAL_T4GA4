@@ -20,6 +20,7 @@ public:
     std::string toString();
 
     void addVehicle(Vehicle *vehicle);
+    void removeVehicle(unsigned long vehicleID);
 };
 
 #endif //_GARAGE_H

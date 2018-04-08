@@ -379,7 +379,11 @@ void GarbageManagement::removeGarage(const unsigned long &garageID) {
     this->gv->removeNode((int) garageID);
 }
 
-void GarbageManagement::removeVehicle(Vehicle *vehicle){
+void GarbageManagement::removeVehicle(const unsigned long &garageID, const unsigned long &vehicleID) {
+    this->getGarage(garageID)->removeVehicle(vehicleID);
+}
+
+void GarbageManagement::removeVehicleFromGraph(Vehicle *vehicle) {
     this->gv->removeNode((int) vehicle->getPlace()->getID());
 }
 

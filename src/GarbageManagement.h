@@ -71,7 +71,8 @@ public:
     void removeContainer(const unsigned long &containerID);
     void removeStation(const unsigned long &stationID);
     void removeGarage(const unsigned long &garageID);
-    void removeVehicle(Vehicle *vehicle); //remove Vehicle to GraphViewer
+    void removeVehicle(const unsigned long &garageID, const unsigned long &vehicleID);
+    void removeVehicleFromGraph(Vehicle *vehicle); //remove Vehicle to GraphViewer
     void removeEdge(const unsigned long &ID);
 
     void resetVehicles();

@@ -118,11 +118,9 @@ unsigned int vehicleMenuDialog(){
     std::cout << "1 - List Vehicles" << std::endl;
     std::cout << "2 - Create Vehicle" << std::endl;
     std::cout << "3 - Remove Vehicle" << std::endl;
-    std::cout << "4 - Add Vehicle type" << std::endl; //TODO only change Type ?
-    std::cout << "5 - Remove Vehicle type" << std::endl; //TODO only change Type ?
     std::cout << "0 - Back" << std::endl;
 
-    return nextUnsignedInt("Option: ", 4);
+    return nextUnsignedInt("Option: ", 3);
 }
 
 void listAllVehicles(GarbageManagement &management) {
@@ -169,6 +167,7 @@ void createVehicle(GarbageManagement &management) {
 
     int typeOfGarbage = -1;
 
+    //TODO Validate truck number plate with regular expression
     while(plate.length() != 8) {
         plate.clear();
         std::cout << "Insert a valid number plate for the new vehicle: ";
@@ -201,8 +200,6 @@ void createVehicle(GarbageManagement &management) {
         }
     }
 
-
-
     for(auto garbageType : garbageThatTruckCanCarry) {
 
         capacity = -1;
@@ -230,7 +227,7 @@ void createVehicle(GarbageManagement &management) {
 
         garageID = getUnsignedInt("Insert a garage ID that new vehicle will belong to: ");
 
-    }while(management.getGarage(garageID) == nullptr);
+    } while(management.getGarage(garageID) == nullptr);
 
     newVehicle = new Vehicle(vehicleID, management.getGarage(garageID), plate, garbageThatTruckCanCarry, capacities);
 
@@ -239,6 +236,27 @@ void createVehicle(GarbageManagement &management) {
     management.rearrange();
 
     std::cout << "Vehicle added!\n";
+}
+
+void deleteVehicle(GarbageManagement &management) {
+
+    unsigned long vehicleID = getUnsignedInt("Insert vehicle ID to remove: ");
+
+    for(auto garage: management.getGarages()) {
+
+        for(auto vehicle: garage->getVehicles()) {
+
+            if(vehicleID == vehicle->getID()) {
+                management.removeVehicle(garage->getPlace()->getID(), vehicleID);
+
+                std::cout << "Vehicle " << vehicleID << " was removed with success from garage " << garage->getPlace()->getID() << std::endl;
+
+                return;
+            }
+        }
+    }
+
+    std::cout << "Vehicle " << vehicleID << " doesn't exist!\n";
 }
 
 void vehicleMenu(GarbageManagement &management){
@@ -250,12 +268,11 @@ void vehicleMenu(GarbageManagement &management){
             createVehicle(management);
             break;
         case 3:
-            break;
-        case 4:
+            deleteVehicle(management);
             break;
         case 0:
             mainMenu(management);
-            break;
+            return;
         default:
             break;
     }

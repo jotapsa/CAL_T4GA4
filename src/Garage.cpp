@@ -53,3 +53,15 @@ std::string Garage::toString(){
     }
     return garage.str();
 }
+
+void Garage::removeVehicle(unsigned long vehicleID) {
+
+    for(auto vehicle = this->vehicles.begin(); vehicle != this->vehicles.end(); vehicle++) {
+        if((*vehicle)->getID() == vehicleID) {
+            this->vehicles.erase((vehicle));
+            return;
+        }
+    }
+
+    std::cout << "Vehicle with " << vehicleID << " as ID doesn't exist.\n";
+}

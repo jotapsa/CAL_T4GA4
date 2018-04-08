@@ -38,6 +38,7 @@ void listAllVehicles(GarbageManagement &management);
 void listAllStreets(GarbageManagement &management);
 
 void removeBuilding(GarbageManagement &management, std::string type);
+void deleteVehicle(GarbageManagement &management);
 
 void setAlgorithmInteraction(GarbageManagement &management);
 void setFillPercentageInteraction(GarbageManagement &management);
