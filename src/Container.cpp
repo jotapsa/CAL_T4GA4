@@ -50,3 +50,15 @@ std::string Container::toString() {
     container << this->place->toString() << ";" << getGarbageType(this->type) << ";" << this->capacity;
     return container.str();
 }
+
+void Container::setGarbageType(GarbageType type) {
+    this->type = type;
+}
+
+void Container::setCapacity(double capacity) {
+    this->capacity = capacity;
+}
+
+void Container::setFilledPer(double percentage) {
+    this->filled = percentage;
+}

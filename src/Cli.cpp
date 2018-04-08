@@ -79,7 +79,7 @@ unsigned long int getUnsignedInt(std::string str) {
 
 unsigned int editGarageOption() {
 
-    std::cout << "-----Garage option------" << std::endl;
+    std::cout << "-----Garage options------" << std::endl;
     std::cout << "1 - Edit garage location" << std::endl;
     std::cout << "0 - Back" << std::endl;
 
@@ -90,25 +90,25 @@ void editGarageMenu(GarbageManagement &management) {
 
     unsigned long garageID;
 
+    Garage *editing = nullptr;
+
     do {
-        std::cout << std::right << std::setfill('-') << std::setw(MAX_DOUBLE_WITH) << "Garages";
+        printMainHeader("Garages", 2 * MAX_DOUBLE_WITH);
 
-        std::cout << std::right << std::setfill('-') << std::setw(MAX_DOUBLE_WITH) << "-" << std::endl;
+        printTableCell("Garage ID", MAX_DOUBLE_WITH, 'l');
 
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Garage ID";
+        printTableCell("#Vehicles", MAX_DOUBLE_WITH, 'r');
 
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "#Vehicles" <<  std::endl;
+        std::cout << std::endl;
 
         for(auto garage : management.getGarages()) {
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getID();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getNumberOfVehicles() << std::endl;
+            std::cout << std::left << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getID();
+            std::cout << std::right << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getNumberOfVehicles() << std::endl;
         }
 
         garageID = getUnsignedInt("Insert a garage ID to edit: ");
 
-    } while(management.getGarage(garageID) == nullptr);
-
-    Garage *editing = management.getGarage(garageID);
+    } while((editing = management.getGarage(garageID)) == nullptr);
 
     if(editGarageOption() == 0) {
         return;
@@ -135,6 +135,8 @@ void editGarageMenu(GarbageManagement &management) {
     }
 
     std::cout << "New data for this garage:\n" << editing->toString() << std::endl;
+
+    management.rearrange();
 }
 
 unsigned int editMenuDialog() {
@@ -149,6 +151,104 @@ unsigned int editMenuDialog() {
     return nextUnsignedInt("Option: ", 4);
 }
 
+void editContainerMenu(GarbageManagement &management) {
+
+    unsigned long containerID;
+    double newLongitude;
+    double newLatitude;
+    int garbageType;
+    double newCapacity;
+    double percentage;
+
+    Container *toEdit = nullptr;
+
+    do {
+        printMainHeader("Containers", 4 * MAX_DOUBLE_WITH);
+
+        std::cout << std::endl;
+
+        printTableCell("Container ID", MAX_DOUBLE_WITH, 'l');
+
+        printTableCell("Garbage type", MAX_DOUBLE_WITH, 'e');
+
+        printTableCell("Capacity", MAX_DOUBLE_WITH, 'e');
+
+        printTableCell("Filled (%)", MAX_DOUBLE_WITH, 'e');
+
+        std::cout << std::endl;
+
+        for(auto container : management.getContainers()) {
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getPlace()->getID();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << getGarbageType(container->getType());
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getCapacity();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getFilledPer() << std::endl;
+        }
+
+        containerID = getUnsignedInt("Insert a container ID to edit: ");
+
+    } while((toEdit = management.getContainer(containerID)) == nullptr);
+
+    switch (editContainerMenu()) {
+        case 0:
+            return;
+        case 1:
+            std::cout << "Insert new garage coordinates.\n";
+            newLongitude = parseDouble("Insert new longitude (value above 180 degrees to maintain previous value):");
+            newLatitude = parseDouble("Insert new latitude (value above 90 degrees to maintain previous value):");
+            if(newLongitude <= 180) {
+                toEdit->getPlace()->setLon(newLongitude);
+            }
+            else{
+                std::cout << "Maintained previous longitude!\n";
+            }
+            if(newLatitude <= 90) {
+                toEdit->getPlace()->setLat(newLatitude);
+            }
+            else {
+                std::cout << "Maintained previous latitude!\n";
+            }
+            break;
+        case 2:
+           garbageType =  selectGarbageTypeMenu() - 1;
+           if(garbageType == 4) {
+               return;
+           }
+           toEdit->setGarbageType((GarbageType) garbageType);
+           break;
+        case 3:
+            newCapacity = 0;
+            while(newCapacity <= 0) {
+                newCapacity = parseDouble("Insert new capacity for container: ");
+            }
+            toEdit->setCapacity(newCapacity);
+            break;
+        case 4:
+            percentage = -1;
+            while(percentage < 0 ||  percentage > 100) {
+                percentage = parseDouble("Insert new filled percentage for container: ");
+            }
+            toEdit->setFilledPer(percentage);
+            break;
+        default:
+            return;
+    }
+
+    std::cout << "New data for this container:\n" << toEdit->toString() << std::endl;
+    management.rearrange();
+}
+
+unsigned int editContainerMenu() {
+
+    std::cout << "-----Container options------" << std::endl;
+    std::cout << "1 - Edit container location" << std::endl;
+    std::cout << "2 - Edit container type" << std::endl;
+    std::cout << "3 - Edit container capacity" << std::endl;
+    std::cout << "4 - Edit container filled percentage" << std::endl;
+    std::cout << "0 - Back" << std::endl;
+
+    return nextUnsignedInt("Option: ", 4);
+}
+
 void editMenu(GarbageManagement &management) {
 
     while(true) {
@@ -158,14 +258,11 @@ void editMenu(GarbageManagement &management) {
                 editGarageMenu(management);
                 break;
             case 2:
+                editContainerMenu(management);
                 break;
             case 3:
                 break;
             case 4:
-                break;
-            case 5:
-                break;
-            case 6:
                 break;
             case 0:
                 return;
@@ -176,7 +273,7 @@ void editMenu(GarbageManagement &management) {
 }
 
 unsigned int vehicleMenuDialog(){
-    std::cout << "Vehicle Menu" << std::endl;
+    std::cout << "---Vehicle Menu--" << std::endl;
     std::cout << "1 - List Vehicles" << std::endl;
     std::cout << "2 - Create Vehicle" << std::endl;
     std::cout << "3 - Remove Vehicle" << std::endl;
@@ -187,13 +284,19 @@ unsigned int vehicleMenuDialog(){
 
 void listAllVehicles(GarbageManagement &management) {
 
+    printMainHeader("Vehicles List", 5 * MAX_DOUBLE_WITH);
+
     for(auto garage: management.getGarages()) {
         std::cout << "\nGarage: " << garage->getPlace()->getID() << " #Vehicles: " << garage->getNumberOfVehicles() << std::endl;
-        std::cout << std::endl << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << "Vehicle ID";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << " Plate ";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Garbage Type";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Capacity";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Free Space" << std::endl;
+        std::cout << std::endl;
+
+        printTableCell("Vehicle ID", MAX_DOUBLE_WITH, 'e');
+        printTableCell(" Plate ", MAX_DOUBLE_WITH, 'e');
+        printTableCell("Garbage Type", MAX_DOUBLE_WITH, 'e');
+        printTableCell("Capacity", MAX_DOUBLE_WITH, 'e');
+        printTableCell("Free Space", MAX_DOUBLE_WITH, 'e');
+
+        std::cout << std::endl;
 
         for(auto vehicle: garage->getVehicles()) {
 
@@ -358,29 +461,28 @@ void listAllStreets(GarbageManagement &management) {
 
     std::vector<std::pair<unsigned long, std::string>> allStreets = management.getAllStreetNames();
 
-    for(auto street : allStreets){
-        street.second.length() > maxStreetLength ? maxStreetLength = street.second.length() : maxStreetLength = maxStreetLength;
-    }
+    do{
+        for(auto street : allStreets){
+            street.second.length() > maxStreetLength ? maxStreetLength = street.second.length() : maxStreetLength = maxStreetLength;
+        }
 
-    std::cout << std::left << std::endl << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)   << "Street ID";
+        printMainHeader("Streets", 2 * MAX_ULONG_WITH + maxStreetLength);
 
-    std::cout << std::left << std::setfill(' ') << std::setw(maxStreetLength / 2)  << "Name";
+        printTableCell("Street ID", MAX_DOUBLE_WITH, 'l');
+        printTableCell("Name", maxStreetLength, 'l');
+        printTableCell("Edge ID", MAX_ULONG_WITH, 'l');
 
-    std::cout << std::right << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << "Edge ID";
+        for(auto street : allStreets) {
 
-    for(auto street : allStreets) {
+            std::cout << std::left << std::endl << std::setfill(' ') << std::setw(MAX_ULONG_WITH + 2) << street.first;
 
-        std::cout << std::left << std::endl << std::setfill(' ') << std::setw(MAX_ULONG_WITH + 2) << street.first;
+            std::cout << std::setfill(' ') << std::setw(maxStreetLength + 4) << street.second;
 
-        std::cout << std::setfill(' ') << std::setw(maxStreetLength + 4) << street.second;
+            std::cout << std::left << std::setfill(' ') << std::setw(MAX_ULONG_WITH) << management.getStreet(street.first)->getEdgeID();
+        }
 
-        std::cout << std::left << std::setfill(' ') << std::setw(MAX_ULONG_WITH + 7) << management.getStreet(street.first)->getEdgeID();
-    }
-
-    std::cout << std::endl << "Leave? ";
-
-    if(!readConfirmation())
-        listAllStreets(management);
+        std::cout << std::endl << "Leave? ";
+    }while(readConfirmation());
 }
 
 void createEdge(GarbageManagement &management) {
@@ -450,6 +552,28 @@ std::pair<double, double> askForLocation() {
 
     return std::make_pair(lat, lon);
 };
+
+void printMainHeader(std::string title, unsigned short length) {
+    std::cout << std::right << std::setfill('-') << std::setw(length / 2) << title;
+
+    std::cout << std::right << std::setfill('-') << std::setw(length / 2) << "-" << std::endl;
+}
+
+void printTableCell(std::string info, unsigned short length, char allignment) {
+
+    switch(allignment) {
+        case 'l':
+            std::cout << std::left << std::setfill(' ') << std::setw(length) << info;
+            break;
+        case 'r':
+            std::cout << std::right << std::setfill(' ') << std::setw(length) << info;
+            break;
+        default:
+            std::cout << std::left << std::setfill(' ') << std::setw(length) << info;
+            break;
+    }
+
+}
 
 void createSimpleLocation(GarbageManagement &management) {
 
@@ -602,92 +726,85 @@ void editNode(unsigned long nodeID) {
 
 void listGarages(GarbageManagement &management) {
 
-    unsigned int selectedID;
+    while(true) {
 
-    std::cout << std::setfill('-') << std::setw(MAX_ULONG_WITH + MAX_DOUBLE_WITH) << " Garages ";
-    std::cout << std::setfill('-') << std::setw(MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << "-"<< std::endl;
+        printMainHeader("Garage", MAX_ULONG_WITH + 3 * MAX_DOUBLE_WITH);
 
-    do {
-        std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Garage ID";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Longitude";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Latitude";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << "#Vehicles" << std::endl;
+        printTableCell("Garage ID", MAX_ULONG_WITH, 'l');
+        printTableCell("Longitude", MAX_DOUBLE_WITH, 'r');
+        printTableCell("Latitude", MAX_DOUBLE_WITH, 'r');
+        printTableCell("#Vehicles", MAX_DOUBLE_WITH, 'r');
+
+        std::cout << std::endl;
 
         for(auto garage : management.getGarages()) {
 
-            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << garage->getPlace()->getID();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getLongitudinalCoordinates().first;
+            std::cout << std::left << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << garage->getPlace()->getID();
+            std::cout << std::right << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getLongitudinalCoordinates().first;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << garage->getPlace()->getLongitudinalCoordinates().second;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << garage->getNumberOfVehicles() << std::endl;
         }
 
-        selectedID = getUnsignedInt("Insert node ID to edit Garage, 0 to leave: ");
+        std::cout << "Leave?";
 
-        if(management.getPlace(selectedID) != nullptr){
-            editNode(selectedID);
-        }
-
-    }while(selectedID != 0);
+        if(readConfirmation())
+            return;
+    }
 }
 
 void listContainers(GarbageManagement &management) {
 
-    unsigned int selectedID;
+    while(true) {
 
-    std::cout << std::setfill('-') << std::setw(MAX_ULONG_WITH + MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << " Containers ";
-    std::cout << std::setfill('-') << std::setw(MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << "-"<< std::endl;
+        printMainHeader("Containers", (MAX_ULONG_WITH +  4 * MAX_DOUBLE_WITH));
 
-    do {
-        std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Node ID";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Longitude";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Latitude";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Type";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Capacity" << std::endl;
+        printTableCell("Node ID", MAX_ULONG_WITH, 'l');
+        printTableCell("Longitude", MAX_DOUBLE_WITH, 'r');
+        printTableCell("Latitude", MAX_DOUBLE_WITH, 'r');
+        printTableCell("Type", MAX_DOUBLE_WITH, 'r');
+        printTableCell("Capacity", MAX_DOUBLE_WITH, 'r');
+
+        std::cout << std::endl;
 
         for(auto container : management.getContainers()) {
 
-            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << container->getPlace()->getID();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getPlace()->getLongitudinalCoordinates().first;
+            std::cout << std::left << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << container->getPlace()->getID();
+            std::cout << std::right << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getPlace()->getLongitudinalCoordinates().first;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getPlace()->getLongitudinalCoordinates().second;
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)  << getGarbageType(container->getType());
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << getGarbageType(container->getType());
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << container->getCapacity() << std::endl;
         }
 
-        selectedID = getUnsignedInt("Insert node ID to edit Container, 0 to leave: ");
+        std::cout << "Leave?";
 
-        if(management.getPlace(selectedID) != nullptr){
-            editNode(selectedID);
-        }
-
-    }while(selectedID != 0);
+        if(readConfirmation())
+            return;
+    }
 }
 
 void listStations(GarbageManagement &management) {
 
-    unsigned int selectedID;
+    while(true) {
+        printMainHeader("Stations", (MAX_ULONG_WITH +  2 * MAX_DOUBLE_WITH));
 
-    std::cout << std::setfill('-') << std::setw(MAX_ULONG_WITH + MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << " Stations ";
-    std::cout << std::setfill('-') << std::setw(MAX_DOUBLE_WITH + MAX_DOUBLE_WITH) << "-"<< std::endl;
+        printTableCell("Node ID", MAX_ULONG_WITH, 'l');
+        printTableCell("Longitude", MAX_DOUBLE_WITH, 'r');
+        printTableCell("Latitude", MAX_DOUBLE_WITH, 'r');
 
-    do {
-        std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Node ID";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Longitude";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Latitude" << std::endl;
+        std::cout << std::endl;
 
         for(auto station : management.getStations()) {
 
-            std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << station->getPlace()->getID();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getLongitudinalCoordinates().first;
+            std::cout << std::left << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << station->getPlace()->getID();
+            std::cout << std::right << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getLongitudinalCoordinates().first;
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getLongitudinalCoordinates().second << std::endl;
         }
 
-        selectedID = getUnsignedInt("Insert node ID to edit Station, 0 to leave: ");
+        std::cout << "Leave?";
 
-        if(management.getPlace(selectedID) != nullptr){
-            editNode(selectedID);
-        }
-
-    }while(selectedID != 0);
+        if(readConfirmation())
+            return;
+    }
 }
 
 void removeBuilding(GarbageManagement &management, std::string type) {

@@ -20,8 +20,11 @@ public:
 
     Place* getPlace();
     GarbageType getType();
+    void setGarbageType(GarbageType type);
     double getCapacity();
+    void setCapacity(double capacity);
     double getFilledPer();
+    void setFilledPer(double percentage);
 
     void reset();
 
