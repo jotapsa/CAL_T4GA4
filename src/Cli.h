@@ -33,9 +33,11 @@ void listGarages(GarbageManagement &management);
 void listContainers(GarbageManagement &management);
 void listStations(GarbageManagement &management);
 void listAllVehicles(GarbageManagement &management);
+void listAllStreets(GarbageManagement &management);
 
 void removeBuilding(GarbageManagement &management, std::string type);
 
+void setAlgorithmInteraction(GarbageManagement &management);
 void setFillPercentageInteraction(GarbageManagement &management);
 
 #endif //_CLI_H

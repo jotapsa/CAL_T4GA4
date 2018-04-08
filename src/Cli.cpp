@@ -164,20 +164,44 @@ void vehicleMenu(GarbageManagement &management){
             break;
         case 0:
             mainMenu(management);
-        break;
+            break;
         default:
             break;
     }
-    mainMenu(management);
+
+    vehicleMenu(management);
 }
 
 unsigned int edgeMenuDialog(){
     std::cout << "Edge Menu" << std::endl;
-    std::cout << "1 - Create Edge" << std::endl;
-    std::cout << "2 - Remove Edge" << std::endl;
+    std::cout << "1 - Create Edge"  << std::endl;
+    std::cout << "2 - Remove Edge"  << std::endl;
+    std::cout << "3 - List streets" << std::endl;
     std::cout << "0 - Back" << std::endl;
 
-    return nextUnsignedInt("Option: ", 2);
+    return nextUnsignedInt("Option: ", 3);
+}
+
+void listAllStreets(GarbageManagement &management) {
+
+    unsigned int maxStreetLength = 0;
+
+    std::vector<std::pair<unsigned long, std::string>> allStreets = management.getAllStreetNames();
+
+    for(auto street : allStreets){
+        street.second.length() > maxStreetLength ? maxStreetLength = street.second.length() : maxStreetLength = maxStreetLength;
+    }
+
+    std::cout << std::left << std::endl << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH)   << "Street ID";
+
+    std::cout << std::left << std::setfill(' ') << std::setw(maxStreetLength / 2)  << "Name";
+
+    for(auto street : allStreets) {
+
+        std::cout << std::endl << std::setfill(' ') << std::setw(MAX_ULONG_WITH + 2) << street.first;
+
+        std::cout << std::setfill(' ') << std::setw(maxStreetLength) << street.second;
+    }
 }
 
 void edgeMenu(GarbageManagement &management) {
@@ -187,6 +211,9 @@ void edgeMenu(GarbageManagement &management) {
             break;
         case 2:
 //            management.removeEdge(getUnsignedInt("Insert Edge ID: "));
+            break;
+        case 3:
+            listAllStreets(management);
             break;
         case 0:
             mainMenu(management);

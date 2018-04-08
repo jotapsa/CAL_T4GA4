@@ -486,3 +486,27 @@ void GarbageManagement::closeWindow() {
         gv->closeWindow();
     }
 }
+
+std::vector<std::pair<unsigned long, std::string>> GarbageManagement::getAllStreetNames() {
+
+    std::vector<pair<unsigned long, std:: string>> streetNames;
+
+    bool alreadyExists = false;
+
+    for(auto street: this->getStreets()) {
+
+        alreadyExists = false;
+
+        for(auto existingStreet : streetNames) {
+            if(existingStreet.second.compare(street->getName()) == 0) {
+                alreadyExists = true;
+            }
+        }
+
+        if(!alreadyExists && !street->getName().empty()) {
+            streetNames.push_back(std::make_pair(street->getID(), street->getName()));
+        }
+    }
+
+    return streetNames;
+}
