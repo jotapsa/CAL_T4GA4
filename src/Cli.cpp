@@ -250,7 +250,7 @@ void deleteVehicle(GarbageManagement &management) {
         for(auto vehicle: garage->getVehicles()) {
 
             if(vehicleID == vehicle->getID()) {
-                management.removeVehicle(garage->getPlace()->getID(), vehicleID);
+                management.removeVehicle(vehicleID);
 
                 std::cout << "Vehicle " << vehicleID << " was removed with success from garage " << garage->getPlace()->getID() << std::endl;
 

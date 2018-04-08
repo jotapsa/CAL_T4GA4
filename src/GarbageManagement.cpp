@@ -54,19 +54,6 @@ std::vector<Container *> GarbageManagement::getContainers() const{
     return this->containers;
 }
 
-std::vector<Container *> GarbageManagement::getContainersByType(GarbageType type) const {
-    std::vector<Container *>  containers;
-
-    auto allContainers = getContainers();
-    for(auto c: allContainers){
-        if(c->getType() == type){
-            containers.push_back(c);
-        }
-    }
-
-    return containers;
-}
-
 
 std::vector<Station *> GarbageManagement::getStations() const{
     return this->stations;
@@ -80,21 +67,11 @@ std::vector<Street *> GarbageManagement::getStreets() const{
     return this->streets;
 }
 
-std::vector<Vehicle *> GarbageManagement::getAllVehicles() const {
-    std::vector<Vehicle *> vehicles;
-    auto garages = getGarages();
-
-    for(auto g: garages){
-        std::vector<Vehicle *> vehiclesInGarage;
-        for(auto v: vehiclesInGarage){
-            vehicles.push_back(v);
-        }
-    }
-
-    return vehicles;
+std::vector<Vehicle *> GarbageManagement::getVehicles() const {
+    return this->vehicles;
 }
 
-std::vector<Vehicle *> GarbageManagement::getVehicles(unsigned long garageID) const{
+std::vector<Vehicle *> GarbageManagement::getVehiclesFromGarage(unsigned long garageID) const{
     Garage *garage= this->getGarage(garageID);
     if(garage != nullptr){
         return garage->getVehicles();
@@ -170,6 +147,20 @@ Street *GarbageManagement::getStreet(unsigned long ID) const {
         }
     }
     return nullptr;
+}
+
+Vehicle *GarbageManagement::getVehicle(unsigned long vehicleID) const {
+    for(auto v: vehicles){
+        if(v->getID() == vehicleID){
+            return v;
+        }
+    }
+    return nullptr;
+}
+
+
+void GarbageManagement::getClosestGarageToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
+
 }
 
 void GarbageManagement::setAlgorithm(Algorithm algorithm) {
@@ -287,6 +278,7 @@ void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
     Garage *garage= this->getGarage(garageID);
     if(garage != nullptr){
         garage->addVehicle(vehicle);
+        this->vehicles.push_back(vehicle);
     }
     else{
         std::cout << "Error: Couldn't find Garage." << std::endl;
@@ -294,7 +286,7 @@ void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
 }
 
 //TODO(refactor function name because its name is misleading with the above)
-void GarbageManagement::addVehicle(Vehicle *vehicle){
+void GarbageManagement::addVehiclebalelas(Vehicle *vehicle){
     this->gv->addNode((int) vehicle->getPlace()->getID(),
                       vehicle->getPlace()->getCoordinates().first,
                       vehicle->getPlace()->getCoordinates().second);
@@ -379,8 +371,15 @@ void GarbageManagement::removeGarage(const unsigned long &garageID) {
     this->gv->removeNode((int) garageID);
 }
 
-void GarbageManagement::removeVehicle(const unsigned long &garageID, const unsigned long &vehicleID) {
-    this->getGarage(garageID)->removeVehicle(vehicleID);
+void GarbageManagement::removeVehicle(const unsigned long &vehicleID) {
+    Vehicle *v = getVehicle(vehicleID);
+    Garage *g = v->getGarage();
+
+    auto it = std::find(this->vehicles.begin(), this->vehicles.end(), v);
+    if (it != this->vehicles.end()) {
+        g->removeVehicle(vehicleID);
+        this->vehicles.erase(it);
+    }
 }
 
 void GarbageManagement::removeVehicleFromGraph(Vehicle *vehicle) {
@@ -433,7 +432,7 @@ void GarbageManagement::evalCon() {
         std::cout << "This graph is a Directed acyclic graph." << std::endl;
     }
 
-
+    //TODO: Strongly connected components.
     Graph<Place> clone = this->graph.clone();
     clone.invertEdges();
 
@@ -463,11 +462,6 @@ void GarbageManagement::evalCon() {
     }
 }
 
-void GarbageManagement::getClosestGarage(Vehicle *pVehicle, std::vector<Container *> vector) {
-
-}
-
-
 void GarbageManagement::collectGarbage() {
     if(stations.empty() || containers.empty() || garages.empty()){
         std::cout << "No stations, containers or garages." << std::endl;
@@ -490,7 +484,7 @@ void GarbageManagement::collectGarbage() {
         }
     }
 
-    std::vector<Vehicle *> emptyVehicles = getAllVehicles();
+    std::vector<Vehicle *> emptyVehicles = getVehicles();
 
     while(!filledContainers.empty() && !emptyVehicles.empty()){
         std::vector<Place *> path;
@@ -501,7 +495,7 @@ void GarbageManagement::collectGarbage() {
 
         path.push_back(vehicle->getGarage()->getPlace());
 
-        getClosestGarage(vehicle, filledContainers);
+        getClosestGarageToVehicle(vehicle, filledContainers);
         //move vehicle to closest container
         //load
         //remove filled
@@ -559,4 +553,3 @@ std::vector<std::pair<unsigned long, std::string>> GarbageManagement::getAllStre
 
     return streetNames;
 }
-

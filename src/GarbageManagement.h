@@ -29,6 +29,7 @@ private:
     std::vector<Station *> stations;
     std::vector<Garage *> garages;
     std::vector<Street *> streets;
+    std::vector<Vehicle *> vehicles;
 
 public:
     GarbageManagement();
@@ -40,12 +41,11 @@ public:
     std::vector<Place *> getPlaces() const;
     std::vector<Place *> getEmptyPlaces() const;
     std::vector<Container *> getContainers() const;
-    std::vector<Container *> getContainersByType(GarbageType type) const;
     std::vector<Station *> getStations() const;
     std::vector<Garage *> getGarages() const;
     std::vector<Street *> getStreets() const;
-    std::vector<Vehicle *> getAllVehicles() const;
-    std::vector<Vehicle *> getVehicles(unsigned long int garageID) const;
+    std::vector<Vehicle *> getVehicles() const;
+    std::vector<Vehicle *> getVehiclesFromGarage(unsigned long int garageID) const;
     std::vector<std::pair<unsigned long, std::string>> getAllStreetNames();
 
     Place * getPlace(unsigned long id)const;
@@ -54,6 +54,9 @@ public:
     Station * getStation(unsigned long stationID)const;
     Garage * getGarage(unsigned long garageID) const;
     Street * getStreet(unsigned long ID) const;
+    Vehicle * getVehicle(unsigned long vehicleID) const;
+
+    void getClosestGarageToVehicle(Vehicle *vehicle, std::vector<Container *> containers);
 
     void setAlgorithm(Algorithm algorithm);
     void setFillPerNeeded(float fillPerNeeded);
@@ -63,7 +66,7 @@ public:
     void addStation(Station *station);
     void addGarage(Garage *garage);
     void addVehicle(unsigned long garageID, Vehicle *vehicle);
-    void addVehicle(Vehicle *vehicle); //add Vehicle to GraphViewer
+    void addVehiclebalelas(Vehicle *vehicle); //add Vehicle to GraphViewer
     void addEdge(double weight, unsigned long int ID, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
 
     void removePlace(Place* place);
@@ -71,7 +74,7 @@ public:
     void removeContainer(const unsigned long &containerID);
     void removeStation(const unsigned long &stationID);
     void removeGarage(const unsigned long &garageID);
-    void removeVehicle(const unsigned long &garageID, const unsigned long &vehicleID);
+    void removeVehicle(const unsigned long &vehicleID);
     void removeVehicleFromGraph(Vehicle *vehicle); //remove Vehicle to GraphViewer
     void removeEdge(const unsigned long &ID);
 
@@ -83,8 +86,6 @@ public:
     void rearrange();
 
     void closeWindow();
-
-    void getClosestGarage(Vehicle *pVehicle, std::vector<Container *> vector);
 };
 
 #endif

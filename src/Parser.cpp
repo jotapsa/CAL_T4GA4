@@ -278,7 +278,7 @@ bool loadGarages(GarbageManagement &management){
             }
         }
 
-       if((lineVector.size()-5) != management.getVehicles(placeID).size()){
+       if((lineVector.size()-5) != management.getVehiclesFromGarage(placeID).size()){
             cout << "Couldn't find all vehicles of Garage -> " << placeID << "." << endl;
             return false;
         }
@@ -418,7 +418,7 @@ void saveGarages(GarbageManagement &management){
     ofstream garages;
 
     for(Garage *garage : management.getGarages()){
-        saveVehicles(management.getVehicles(garage->getPlace()->getID()));
+        saveVehicles(management.getVehiclesFromGarage(garage->getPlace()->getID()));
     }
 
     if(!openFile(garages,GARAGES_FILEPATH)){
