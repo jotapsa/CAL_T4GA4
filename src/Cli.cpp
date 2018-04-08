@@ -214,8 +214,8 @@ void listAllStreets(GarbageManagement &management) {
 }
 
 void createEdge(GarbageManagement &management) {
-    unsigned long destinationPlace = NULL;
-    unsigned long beginningPlace = NULL;
+    unsigned long destinationPlace = 0;
+    unsigned long beginningPlace = 0;
 
     std::string streetName;
 
@@ -649,13 +649,13 @@ void mainMenu(GarbageManagement &management) {
     switch (mainMenuDialog()) {
         case 1:
             nodeMenu(management);
-        break;
+            break;
         case 2:
             edgeMenu(management);
-        break;
+            break;
         case 3:
             vehicleMenu(management);
-        break;
+            break;
         case 4:
             settingsMenu(management);
             break;
