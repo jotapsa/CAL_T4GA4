@@ -159,8 +159,8 @@ Vehicle *GarbageManagement::getVehicle(unsigned long vehicleID) const {
 }
 
 
-void GarbageManagement::getClosestGarageToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
-
+Container * GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
+    return {};
 }
 
 void GarbageManagement::setAlgorithm(Algorithm algorithm) {
@@ -495,8 +495,9 @@ void GarbageManagement::collectGarbage() {
 
         path.push_back(vehicle->getGarage()->getPlace());
 
-        getClosestGarageToVehicle(vehicle, filledContainers);
+        getClosestContainerToVehicle(vehicle, filledContainers);
         //move vehicle to closest container
+
         //load
         //remove filled
 

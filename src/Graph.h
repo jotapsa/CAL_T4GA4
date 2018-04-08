@@ -14,6 +14,7 @@ template <class T> class Graph;
 
 //TODO: A*
 //TODO: Path finding optimizations.
+//TODO: improve heuristic
 
 template <class T>
 class Graph {
@@ -40,9 +41,14 @@ class Graph {
 
     bool relax(Node<T> *source, Node<T> *way, double weight);
     void dijkstra(const T &sourceInfo);
+    T getNodeWithShortestPathDijkstra(const std::vector<T> &nodes);
     std::vector<T> getDijkstraPath(const T &dest);
+    double dijkstraHeuristic(const T &dest);
+
     void floydWarshall();
+    T getNodeWithShortestPathFloydWarshall(const T &origin, std::vector<T> &nodes);
     void getfloydWarshallPath(std::vector<T> &path, const T &origin, const T &dest);
+    void floydWarshallHeuristic(double &cost, const T &origin, const T &dest);
 
     std::vector<T> dfs() const;
     void dfsVisit(Node<T> *n, std::vector<T> &res) const;
@@ -232,10 +238,27 @@ void Graph<T>::dijkstra(const T &sourceInfo){
 }
 
 template<class T>
+T Graph<T>::getNodeWithShortestPathDijkstra(const std::vector<T> &nodes) {
+    double min = std::numeric_limits<double>::max();
+    double cost;
+    typename std::vector<T>::iterator bestOption = nodes.begin();
+
+    for(typename std::vector<T>::iterator it = nodes.begin(); it!= nodes.end(); ++it){
+        cost = dijkstraHeuristic(it);
+        if(cost < min){
+            min = cost;
+            bestOption = it;
+        }
+    }
+
+    return bestOption;
+}
+
+template<class T>
 std::vector<T> Graph<T>::getDijkstraPath(const T &dest) {
     std::vector<T> path;
     auto n = getNode(dest);
-    if(n == nullptr ||  n->dist == std::numeric_limits<double>::max()){
+    if(n == nullptr || n->dist == std::numeric_limits<double>::max()){
         return path;
     }
     for(; n!= nullptr; n = n->path){
@@ -243,6 +266,19 @@ std::vector<T> Graph<T>::getDijkstraPath(const T &dest) {
     }
     std::reverse(path.begin(), path.end());
     return path;
+}
+
+template<class T>
+double Graph<T>::dijkstraHeuristic(const T &dest) {
+    double cost = 0;
+    auto n = getNode(dest);
+    if(n == nullptr || n->dist == std::numeric_limits<double>::max()){
+        return cost;
+    }
+    for(; n!= nullptr; n = n->path){
+        cost += n->dist;
+    }
+    return cost;
 }
 
 /**
@@ -304,13 +340,56 @@ void Graph<T>::getfloydWarshallPath(std::vector<T> &path, const T &origin, const
         }
     }
 
-
     if(origin == dest){
         path.push_back(origin);
     }else if(P[nOriginIndex][nDestIndex] != nullptr){
         getfloydWarshallPath(path, origin, P[nOriginIndex][nDestIndex]->getInfo());
         path.push_back(dest);
     }
+}
+
+template<class T>
+void Graph<T>::floydWarshallHeuristic(double &cost, const T &origin, const T &dest) {
+    unsigned long nDestIndex = nodeSet.size();
+    unsigned long nOriginIndex = nodeSet.size();
+
+    for(unsigned long i=0; i < nodeSet.size(); i++){
+        if(nodeSet[i]->info == origin){
+            nOriginIndex = i;
+        }
+        if(nodeSet[i]->info == dest){
+            nDestIndex = i;
+        }
+
+        //maybe we already found the indexes
+        if(nOriginIndex != nodeSet.size() && nDestIndex != nodeSet.size()){
+            break;
+        }
+    }
+
+    if(origin == dest){
+        //all good
+    }else if(P[nOriginIndex][nDestIndex] != nullptr){
+        floydWarshallHeuristic(cost, origin, P[nOriginIndex][nDestIndex]->getInfo());
+        cost+=W[nOriginIndex][nDestIndex];
+    }
+}
+
+template<class T>
+T Graph<T>::getNodeWithShortestPathFloydWarshall(const T &origin, std::vector<T> &nodes) {
+    double min = std::numeric_limits<double>::max();
+    double cost = 0;
+    typename std::vector<T>::iterator bestOption = nodes.begin();
+
+    for(typename std::vector<T>::iterator it = nodes.begin(); it!= nodes.end(); ++it){
+        floydWarshallHeuristic(cost, origin, it);
+        if(cost < min){
+            min = cost;
+            bestOption = it;
+        }
+    }
+
+    return bestOption;
 }
 
 /*

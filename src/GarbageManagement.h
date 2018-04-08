@@ -56,7 +56,7 @@ public:
     Street * getStreet(unsigned long ID) const;
     Vehicle * getVehicle(unsigned long vehicleID) const;
 
-    void getClosestGarageToVehicle(Vehicle *vehicle, std::vector<Container *> containers);
+    Container * getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers);
 
     void setAlgorithm(Algorithm algorithm);
     void setFillPerNeeded(float fillPerNeeded);
