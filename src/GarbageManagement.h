@@ -82,6 +82,8 @@ public:
     void rearrange();
 
     void closeWindow();
+
+    void getClosestGarage(Vehicle *pVehicle, std::vector<Container *> vector);
 };
 
 #endif

@@ -753,6 +753,7 @@ void mainMenu(GarbageManagement &management) {
             break;
         case 6:
             management.evalCon();
+            mainMenu(management);
             break;
         case 7:
             break;

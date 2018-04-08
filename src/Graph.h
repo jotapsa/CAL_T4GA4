@@ -31,8 +31,10 @@ class Graph {
     bool addNode(const T &in);
     bool removeNode(const T &in);
 
-    bool addEdge(const T &sourc, const T &dest, double w, EdgeType type);
+    bool addEdge(const T &sourc, const T &dest, double w, EdgeType type = EdgeType::oneWay);
     bool removeEdge(const T &sourc, const T &dest);
+
+    void invertEdges();
 
     bool relax(Node<T> *source, Node<T> *way, double weight);
     void dijkstra(const T &sourceInfo);
@@ -45,6 +47,8 @@ class Graph {
 
     bool isDAG() const;
     bool dfsIsDAG(Node<T> *n) const;
+
+    Graph<T> clone();
 };
 
 /*
@@ -154,6 +158,16 @@ bool Graph<T>::removeNode(const T &in) {
         }
     }
     return false;
+}
+
+template<class T>
+void Graph<T>::invertEdges() {
+    for(auto n: nodeSet){
+        for(auto e: n->edges){
+            removeEdge(n->info, e.dest->info);
+            addEdge(e.dest->info, n->info, e.weight);
+        }
+    }
 }
 
 template<class T>
@@ -290,9 +304,11 @@ void Graph<T>::getfloydWarshallPath(std::vector<T> &path, const T &origin, const
 template<class T>
 std::vector<T> Graph<T>::dfs() const {
     std::vector<T> res;
+    //initialize every node as not visited
     for (auto n : nodeSet){
         n->visited = false;
     }
+
     for (auto n : nodeSet){
         if (!n->visited){
             dfsVisit(n, res);
@@ -311,10 +327,12 @@ template<class T>
 void Graph<T>::dfsVisit(Node<T> *n, std::vector<T> &res) const {
     n->visited = true;
     res.push_back(n->info);
+
     for (auto & e: n->edges) {
         auto w = e.dest;
-        if ( ! w->visited)
+        if ( ! w->visited){
             dfsVisit(w, res);
+        }
     }
 }
 
@@ -358,6 +376,19 @@ bool Graph<T>::dfsIsDAG(Node<T> *n) const {
     }
     n->processing = false;
     return true;
+}
+
+template<class T>
+Graph<T> Graph<T>::clone() {
+    Graph<T> clone;
+    for(auto n: nodeSet){
+        clone.addNode(n->info);
+        for(auto e: n->edges){
+            clone.addEdge(n->info, e.dest->getInfo(), e.weight);
+        }
+    }
+
+    return clone;
 }
 
 #endif /* GRAPH_H_ */

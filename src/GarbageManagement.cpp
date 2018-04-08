@@ -423,13 +423,40 @@ void GarbageManagement::evalCon() {
         return;
     }
 
-    if(true){
-        //usar dfs para ver se existem componentes nao fortemente conexos
+    if(!this->graph.isDAG()){
+        std::cout << "This graph is not a Directed acyclic graph." << std::endl;
     } else{
+        std::cout << "This graph is a Directed acyclic graph." << std::endl;
+    }
+
+
+    std::vector<Place> postOrder = this->graph.dfs();
+
+    Graph<Place> clone = this->graph.clone();
+    clone.invertEdges();
+
+    std::vector<Place> stronglyConnectedNodes = clone.dfs();
+
+    bool stronglyCon = true;
+    std::cout << "stronglyConnectedNodes: " << stronglyConnectedNodes.size() << std::endl;
+    std::cout << "num nodes graph: " <<graph.getNumNodes() << std::endl;
+    if(stronglyConnectedNodes.size() != graph.getNumNodes()){
+        stronglyCon = false;
+    }
+
+    if(stronglyCon){
         std::cout << "Graph is strongly connected ." << std::endl;
         std::cout << "There is a directed path from x to y and a directed path from y to x for every pair of vertices {x, y}. " << std::endl;
+    } else{
+        std::cout << "Graph is not strongly connected ." << std::endl;
+        std::cout << "There is not a directed path from x to y and a directed path from y to x for every pair of vertices {x, y}. " << std::endl;
     }
 }
+
+void GarbageManagement::getClosestGarage(Vehicle *pVehicle, std::vector<Container *> vector) {
+
+}
+
 
 void GarbageManagement::collectGarbage() {
     if(stations.empty() || containers.empty() || garages.empty()){
@@ -464,6 +491,7 @@ void GarbageManagement::collectGarbage() {
 
         path.push_back(vehicle->getGarage()->getPlace());
 
+        getClosestGarage(vehicle, filledContainers);
         //move vehicle to closest container
         //load
         //remove filled
@@ -521,3 +549,4 @@ std::vector<std::pair<unsigned long, std::string>> GarbageManagement::getAllStre
 
     return streetNames;
 }
+
