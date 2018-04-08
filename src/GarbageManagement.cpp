@@ -159,7 +159,7 @@ Vehicle *GarbageManagement::getVehicle(unsigned long vehicleID) const {
 }
 
 
-Container * GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
+Container* GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
     return {};
 }
 
@@ -249,12 +249,6 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
                              destNode->getLat(), destNode->getLon());
     }
 
-//    if(name.empty()){
-//        std::stringstream strstream;
-//        strstream << "unnamed street n" << ID;
-//        name = strstream.str();
-//    }
-
     if(!this->graph.addEdge(*(sourceNode), *(destNode), weight, type)){
         std::cout << "Error: Cannot add edge." << std::endl;
         return;
@@ -285,8 +279,7 @@ void GarbageManagement::addVehicle(unsigned long garageID, Vehicle *vehicle) {
     }
 }
 
-//TODO(refactor function name because its name is misleading with the above)
-void GarbageManagement::addVehiclebalelas(Vehicle *vehicle){
+void GarbageManagement::addVehicleToGraph(Vehicle *vehicle){
     this->gv->addNode((int) vehicle->getPlace()->getID(),
                       vehicle->getPlace()->getCoordinates().first,
                       vehicle->getPlace()->getCoordinates().second);
@@ -495,7 +488,7 @@ void GarbageManagement::collectGarbage() {
 
         path.push_back(vehicle->getGarage()->getPlace());
 
-        getClosestContainerToVehicle(vehicle, filledContainers);
+        Container *container = getClosestContainerToVehicle(vehicle, filledContainers);
         //move vehicle to closest container
 
         //load

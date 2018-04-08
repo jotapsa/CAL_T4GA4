@@ -48,7 +48,7 @@ std::pair<double, double> Place::getLongitudinalCoordinates() {
 std::string Place::toString() {
     std::stringstream place;
 
-    place << this->id << ";" << std::setprecision(10) << this->dLon << ";" << this->dLat << ";" << this->rLon << ";" << this->rLat;
+    place << this->id << ";" << std::setprecision(10) << this->dLat << ";" << this->dLon << ";" << this->rLat << ";" << this->rLon;
     return place.str();
 }
 

@@ -66,7 +66,7 @@ public:
     void addStation(Station *station);
     void addGarage(Garage *garage);
     void addVehicle(unsigned long garageID, Vehicle *vehicle);
-    void addVehiclebalelas(Vehicle *vehicle); //add Vehicle to GraphViewer
+    void addVehicleToGraph(Vehicle *vehicle); //add Vehicle to GraphViewer
     void addEdge(double weight, unsigned long int ID, std::pair<unsigned long, unsigned long> nodeIDs, EdgeType type, std::string name);
 
     void removePlace(Place* place);

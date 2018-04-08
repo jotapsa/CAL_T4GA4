@@ -127,8 +127,7 @@ Vehicle* getVehicle(unsigned long int vehicleID, Garage *garage){
 
 bool loadPlaces(GarbageManagement &management) {
     fstream places;
-    unsigned long placeID, nPlaces=0;
-    pair <double,double> coordinates;
+    unsigned long nPlaces=0;
     vector<std::string> lineVector;
 
     if(!openFile(places, PLACES_FILEPATH)){
@@ -156,9 +155,6 @@ bool loadContainers(GarbageManagement &management){
     unsigned int nContainers=0;
     vector<std::string> lineVector;
 
-    unsigned long placeID;
-    pair <double,double> coordinates;
-
     if(!openFile(containers, CONTAINERS_FILEPATH)){
         return false;
     }
@@ -183,9 +179,6 @@ bool loadStations(GarbageManagement &management){
     fstream stations;
     unsigned int nStations=0;
     vector<std::string> lineVector;
-
-    unsigned long placeID;
-    pair <double,double> coordinates;
 
     if(!openFile(stations, STATIONS_FILEPATH)){
         return false;
@@ -340,7 +333,7 @@ bool loadEdgesInfo(GarbageManagement &management) {
 
         ID = stoul(lineVector.at(0));
         name = lineVector.at(1);
-        type = (lineVector.at(2).compare(std::string("True")) == 0) ? EdgeType::twoWay : EdgeType::oneWay;
+        type = (lineVector.at(2).compare(std::string("True")) == 0) ? EdgeType:: twoWay : EdgeType:: oneWay;
 
         for(std::vector<Edge_T>::iterator edge = edgesVector.begin(); edge != edgesVector.end(); edge++){
             if(edge->ID == ID){
@@ -400,14 +393,14 @@ void saveStations(GarbageManagement &management){
     stations.close();
 }
 
-void saveVehicles(std::vector<Vehicle *> vehiclesGarage){
+void saveVehicles(GarbageManagement &management){
     ofstream vehicles;
 
     if(!openFile(vehicles,VEHICLES_FILEPATH)){
         return;
     }
 
-    for(Vehicle *v : vehiclesGarage){
+    for(Vehicle *v : management.getVehicles()){
         vehicles << v->toString() << endl;
     }
 
@@ -416,10 +409,6 @@ void saveVehicles(std::vector<Vehicle *> vehiclesGarage){
 
 void saveGarages(GarbageManagement &management){
     ofstream garages;
-
-    for(Garage *garage : management.getGarages()){
-        saveVehicles(management.getVehiclesFromGarage(garage->getPlace()->getID()));
-    }
 
     if(!openFile(garages,GARAGES_FILEPATH)){
         return;

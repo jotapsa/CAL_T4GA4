@@ -61,7 +61,7 @@ std::string Vehicle::getTypesString(){
     std::stringstream types;
 
     for(GarbageType type : this->types){
-        types << getGarbageType(type) << "/";
+        types << getGarbageType(type) << "|";
     }
 
     return types.str().substr(0, types.str().size()-1);
@@ -71,7 +71,7 @@ std::string Vehicle::getCapacityString(){
     std::stringstream capacities;
 
     for(double capacity : this->capacities){
-        capacities << capacity << "/";
+        capacities << capacity << "|";
     }
 
     return capacities.str().substr(0, capacities.str().size()-1);
@@ -81,7 +81,7 @@ std::string Vehicle::getFreeSpaceString(){
     std::stringstream freeSpaces;
 
     for(int i=0; i < this->capacities.size(); i++){
-        freeSpaces << (this->capacities.at(i)-this->filled.at(i)) << "/";
+        freeSpaces << (this->capacities.at(i)-this->filled.at(i)) << "|";
     }
 
     return freeSpaces.str().substr(0, freeSpaces.str().size()-1);
