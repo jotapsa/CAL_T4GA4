@@ -92,24 +92,27 @@ unsigned int settingsMenuDialog() {
 }
 
 void settingsMenu(GarbageManagement &management) {
-    switch (settingsMenuDialog()) {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 0:
-            mainMenu(management);
-        break;
-        default:
-            break;
+
+    while(true) {
+
+        switch (settingsMenuDialog()) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 0:
+                return;
+            default:
+                break;
+        }
     }
 }
 
@@ -260,24 +263,24 @@ void deleteVehicle(GarbageManagement &management) {
 }
 
 void vehicleMenu(GarbageManagement &management){
-    switch(vehicleMenuDialog()){
-        case 1:
-            listAllVehicles(management);
-            break;
-        case 2:
-            createVehicle(management);
-            break;
-        case 3:
-            deleteVehicle(management);
-            break;
-        case 0:
-            mainMenu(management);
-            return;
-        default:
-            break;
-    }
 
-    vehicleMenu(management);
+    while(true) {
+        switch(vehicleMenuDialog()){
+            case 1:
+                listAllVehicles(management);
+                break;
+            case 2:
+                createVehicle(management);
+                break;
+            case 3:
+                deleteVehicle(management);
+                break;
+            case 0:
+                return;
+            default:
+                break;
+        }
+    }
 }
 
 unsigned int edgeMenuDialog() {
@@ -361,24 +364,24 @@ void createEdge(GarbageManagement &management) {
 
 void edgeMenu(GarbageManagement &management) {
 
-    switch(edgeMenuDialog()) {
-        case 1:
-            createEdge(management);
-            break;
-        case 2:
-            management.removeEdge(getUnsignedInt("Insert Edge ID: "));
-            break;
-        case 3:
-            listAllStreets(management);
-            break;
-        case 0:
-            mainMenu(management);
-            return;
-        default:
-            break;
-    }
+    while(true) {
 
-    edgeMenu(management);
+        switch(edgeMenuDialog()) {
+            case 1:
+                createEdge(management);
+                break;
+            case 2:
+                management.removeEdge(getUnsignedInt("Insert Edge ID: "));
+                break;
+            case 3:
+                listAllStreets(management);
+                break;
+            case 0:
+                return;
+            default:
+                break;
+        }
+    }
 }
 
 std::pair<double, double> askForLocation() {
@@ -692,49 +695,51 @@ unsigned int nodeMenuDialog() {
     return nextUnsignedInt("Option: ", 11);
 }
 
-void nodeMenu(GarbageManagement &management){
-    switch(nodeMenuDialog()) {
-        case 1:
-            createSimpleLocation(management);
-            break;
-        case 2:
-            createGarage(management);
-            break;
-        case 3:
-            createContainerOrStation(management, "container");
-            break;
-        case 4:
-            createContainerOrStation(management, "station");
-            break;
-        case 5:
-            listGarages(management);
-            break;
-        case 6:
-            listContainers(management);
-            break;
-        case 7:
-            listStations(management);
-            break;
-        case 8:
-            removeBuilding(management, "garage");
-            break;
-        case 9:
-            removeBuilding(management, "container");
-            break;
-        case 10:
-            removeBuilding(management, "station");
-            break;
-        case 11:
-            removeBuilding(management, "place");
-            break;
-        case 0:
-            mainMenu(management);
-            break;
-        default:
-            break;
+void nodeMenu(GarbageManagement &management) {
+
+    while(true) {
+
+        switch(nodeMenuDialog()) {
+            case 1:
+                createSimpleLocation(management);
+                break;
+            case 2:
+                createGarage(management);
+                break;
+            case 3:
+                createContainerOrStation(management, "container");
+                break;
+            case 4:
+                createContainerOrStation(management, "station");
+                break;
+            case 5:
+                listGarages(management);
+                break;
+            case 6:
+                listContainers(management);
+                break;
+            case 7:
+                listStations(management);
+                break;
+            case 8:
+                removeBuilding(management, "garage");
+                break;
+            case 9:
+                removeBuilding(management, "container");
+                break;
+            case 10:
+                removeBuilding(management, "station");
+                break;
+            case 11:
+                removeBuilding(management, "place");
+                break;
+            case 0:
+                return;
+            default:
+                break;
+        }
     }
 
-    nodeMenu(management);
 }
 
 unsigned int mainMenuDialog(){
@@ -752,32 +757,35 @@ unsigned int mainMenuDialog(){
 }
 
 void mainMenu(GarbageManagement &management) {
-    switch (mainMenuDialog()) {
-        case 1:
-            nodeMenu(management);
-            break;
-        case 2:
-            edgeMenu(management);
-            break;
-        case 3:
-            vehicleMenu(management);
-            break;
-        case 4:
-            settingsMenu(management);
-            break;
-        case 5:
-            garbageServiceMenu(management);
-            break;
-        case 6:
-            management.evalCon();
-            mainMenu(management);
-            break;
-        case 7:
-            break;
-        case 0:
-            break;
-        default:
-            break;
+
+    while(true) {
+
+        switch (mainMenuDialog()) {
+            case 1:
+                nodeMenu(management);
+                break;
+            case 2:
+                edgeMenu(management);
+                break;
+            case 3:
+                vehicleMenu(management);
+                break;
+            case 4:
+                settingsMenu(management);
+                break;
+            case 5:
+                garbageServiceMenu(management);
+                break;
+            case 6:
+                management.evalCon();
+                break;
+            case 7:
+                break;
+            case 0:
+                return;
+            default:
+                break;
+        }
     }
 }
 
@@ -827,28 +835,29 @@ void setAlgorithmInteraction(GarbageManagement &management) {
 }
 
 void garbageServiceMenu(GarbageManagement &management) {
-    switch (garbageService()) {
-        case 1:
-            management.collectGarbage();
-            break;
-        case 2:
-            management.collectGarbage();
-            break;
-        case 3:
-            management.collectGarbage();
-            break;
-        case 4:
-            setFillPercentageInteraction(management);
-            break;
-        case 5:
-            setAlgorithmInteraction(management);
-            break;
-        case 0:
-            mainMenu(management);
-            return;
-        default:
-            break;
-    }
 
-    garbageServiceMenu(management);
+    while(true) {
+
+        switch (garbageService()) {
+            case 1:
+                management.collectGarbage();
+                break;
+            case 2:
+                management.collectGarbage();
+                break;
+            case 3:
+                management.collectGarbage();
+                break;
+            case 4:
+                setFillPercentageInteraction(management);
+                break;
+            case 5:
+                setAlgorithmInteraction(management);
+                break;
+            case 0:
+                return;
+            default:
+                break;
+        }
+    }
 }
