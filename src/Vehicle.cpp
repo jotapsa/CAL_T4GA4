@@ -1,14 +1,16 @@
+#include <sstream>
 #include "Vehicle.h"
 #include "Garage.h"
+#include "Aux.h"
 
-Vehicle::Vehicle(unsigned long int ID, Garage *garage, std::string plate, GarbageType type, double capacity) {
+Vehicle::Vehicle(unsigned long int ID, Garage *garage, std::string plate, std::vector<GarbageType> types, std::vector<double> capacities) {
     this->ID = ID;
     this->garage = garage;
     this->plate = plate;
-    this->type = type;
-    this->capacity = capacity;
+    this->types = types;
+    this->capacities = capacities;
 
-    this->place = garage->getPlace();
+    reset();
 }
 
 unsigned long int Vehicle::getID(){
@@ -27,20 +29,77 @@ std::string Vehicle::getPlate() {
     return this->plate;
 }
 
-GarbageType Vehicle::getType() {
-    return this->type;
+std::vector<GarbageType> Vehicle::getTypes() {
+    return this->types;
 }
 
-double Vehicle::getCapacity() {
-    return this->capacity;
+double Vehicle::getCapacity(GarbageType type) {
+    auto it = std::find(this->types.begin(), this->types.end(), type);
+    if(it != this->types.end()){
+        int typeIndex = std::distance(this->types.begin(), it);
+        return this->capacities.at(typeIndex);
+    }
+    else{
+        return 0;
+    }
 }
 
-double Vehicle::getFreeSpace() {
-    return this->capacity-this->filled;
+std::string Vehicle::toString() {
+    std::stringstream vehicle;
+
+    vehicle << this->ID << ";" << this->plate;
+    for(int i=0; i < this->types.size(); i++){
+        vehicle << ";" << getGarbageType(this->types.at(i));
+        vehicle << ";" << this->capacities.at(i);
+    }
+
+    return vehicle.str();
+}
+
+std::string Vehicle::getTypesString(){
+    std::stringstream types;
+
+    for(GarbageType type : this->types){
+        types << getGarbageType(type) << "/";
+    }
+
+    return types.str().substr(0, types.str().size()-1);
+}
+
+std::string Vehicle::getCapacityString(){
+    std::stringstream capacities;
+
+    for(double capacity : this->capacities){
+        capacities << capacity << "/";
+    }
+
+    return capacities.str().substr(0, capacities.str().size()-1);
+}
+
+std::string Vehicle::getFreeSpaceString(){
+    std::stringstream freeSpaces;
+
+    for(int i=0; i < this->capacities.size(); i++){
+        freeSpaces << (this->capacities.at(i)-this->filled.at(i)) << "/";
+    }
+
+    return freeSpaces.str().substr(0, freeSpaces.str().size()-1);
+}
+
+double Vehicle::getFreeSpace(GarbageType type) {
+    auto it = std::find(this->types.begin(), this->types.end(), type);
+    if(it != this->types.end()){
+        int typeIndex = std::distance(this->types.begin(), it);
+        return this->capacities.at(typeIndex)-this->filled.at(typeIndex);
+    }
+    else{
+        return 0;
+    }
 }
 
 void Vehicle::reset() {
-    this->filled = 0;
+    this->filled.resize(this->capacities.size(), 0);
+
     this->place = garage->getPlace();
 }
 

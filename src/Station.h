@@ -7,11 +7,10 @@
 class Station {
 private:
     Place *place;
-    double capacity;
 public:
-    Station(Place *place, double capacity);
+    Station(Place *place);
     Station(unsigned long id, double dLon , double dLat, double rLon, double rLat,
-            std::pair<int, int> coordinates, double capacity);
+            std::pair<int, int> coordinates);
 
     Place* getPlace();
     double getCapacity();

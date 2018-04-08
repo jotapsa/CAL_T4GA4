@@ -7,6 +7,7 @@
 #include "Place.h"
 
 class Garage; //foward declaration
+class Container;
 
 class Vehicle {
 private:
@@ -14,19 +15,25 @@ private:
     Place *place;
     Garage* garage;
     std::string plate;
-    GarbageType type;
-    double capacity;
-    double filled;
+    std::vector<GarbageType> types;
+    std::vector<double> capacities;
+    std::vector<double> filled;
 public:
-    Vehicle(unsigned long int ID, Garage *garage, std::string plate, GarbageType type, double capacity);
+    Vehicle(unsigned long int ID, Garage *garage, std::string plate, std::vector<GarbageType> types, std::vector<double> capacities);
 
     unsigned long int getID();
     Place * getPlace();
     Garage * getGarage();
     std::string getPlate();
-    GarbageType getType();
-    double getCapacity();
-    double getFreeSpace();
+    std::vector<GarbageType> getTypes();
+    double getCapacity(GarbageType type);
+    double getFreeSpace(GarbageType type);
+    std::string toString();
+    std::string getTypesString();
+    std::string getCapacityString();
+    std::string getFreeSpaceString();
+
+    void loadFromContainer(Container *container);
 
     void reset();
 

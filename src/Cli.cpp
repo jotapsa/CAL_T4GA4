@@ -139,9 +139,9 @@ void listAllVehicles(GarbageManagement &management) {
 
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getID();
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getPlate();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << getGarbageType(vehicle->getType());
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getCapacity();
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getFreeSpace() << std::endl;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getTypesString();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getCapacityString();
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << vehicle->getFreeSpaceString() << std::endl;
         }
     }
 
@@ -406,7 +406,7 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
             management.addContainer(new Container(newPlace, (GarbageType)garbageTypeIndex, capacity));
             break;
         case 's':
-            management.addStation(new Station(newPlace, capacity));
+            management.addStation(new Station(newPlace));
             break;
         default:
             std::cout << "Failed to create Station!\n"; //TODO distinguir ?
@@ -502,15 +502,13 @@ void listStations(GarbageManagement &management) {
     do {
         std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << "Node ID";
         std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Longitude";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Latitude";
-        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Capacity" << std::endl;
+        std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << "Latitude" << std::endl;
 
         for(auto station : management.getStations()) {
 
             std::cout << std::setfill(' ') << std::setw(MAX_ULONG_WITH)  << station->getPlace()->getID();
             std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getLongitudinalCoordinates().first;
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getLongitudinalCoordinates().second;
-            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getCapacity() << std::endl;
+            std::cout << std::setfill(' ') << std::setw(MAX_DOUBLE_WITH) << station->getPlace()->getLongitudinalCoordinates().second << std::endl;
         }
 
         selectedID = getUnsignedInt("Insert node ID to edit Station, 0 to leave: ");

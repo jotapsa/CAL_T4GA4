@@ -11,8 +11,8 @@ struct Edge_T {
 struct Vehicle_T {
     unsigned long int ID;
     std::string plate;
-    GarbageType type;
-    double capacity;
+    std::vector<GarbageType> types;
+    std::vector<double> capacities;
 };
 
 std::vector<Edge_T> edgesVector;
@@ -95,8 +95,11 @@ Vehicle_T createVehicle(vector<std::string> line){
 
     vehicle.ID = stoul(line.at(0));
     vehicle.plate = line.at(1);
-    vehicle.type = getGarbageType(line.at(2));
-    vehicle.capacity = stod(line.at(3));
+    //TODO iterator
+    for(int i=2; i < line.size(); i+=2){
+        vehicle.types.push_back(getGarbageType(line.at(i)));
+        vehicle.capacities.push_back(stod(line.at(i+1)));
+    }
 
     return vehicle;
 }
@@ -112,7 +115,7 @@ Vehicle* getVehicle(unsigned long int vehicleID, Garage *garage){
 
     while(v != vehiclesVector.end()){
         if(v->ID == vehicleID){
-            vehicle = new Vehicle(v->ID, garage,v->plate, v->type, v->capacity);
+            vehicle = new Vehicle(v->ID, garage,v->plate, v->types, v->capacities);
             vehiclesVector.erase(v);
             return vehicle;
         }
@@ -190,11 +193,11 @@ bool loadStations(GarbageManagement &management){
 
     while(readLine(stations, &lineVector)){
         nStations++;
-        if(lineVector.size() != 6){
+        if(lineVector.size() != 5){
             return false;
         }
 
-        management.addStation(new Station(newPlace(lineVector), stod(lineVector.at(5))));
+        management.addStation(new Station(newPlace(lineVector)));
     }
 
     stations.close();
@@ -216,7 +219,7 @@ bool loadVehicles(GarbageManagement &management){
     while(readLine(vehicles, &lineVector)) {
         nVehicles++;
 
-        if(lineVector.size() != 4){
+        if(lineVector.size() < 4 || (lineVector.size()-2)%2 != 0){
             return false;
         }
 
@@ -405,7 +408,7 @@ void saveVehicles(std::vector<Vehicle *> vehiclesGarage){
     }
 
     for(Vehicle *v : vehiclesGarage){
-        vehicles << v->getID() << ";" << v->getPlate() << ";" << getGarbageType(v->getType()) << ";" << v->getCapacity() << endl;
+        vehicles << v->toString() << endl;
     }
 
     vehicles.close();

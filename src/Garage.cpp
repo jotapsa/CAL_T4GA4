@@ -26,8 +26,10 @@ int Garage::getNumberOfVehiclesOfType(GarbageType type) {
     int num = 0;
 
     for(auto v: vehicles) {
-        if(v->getType() == type) {
-            num++;
+        for(GarbageType garbageType : v->getTypes()){
+            if(garbageType == type) {
+                num++;
+            }
         }
     }
 
