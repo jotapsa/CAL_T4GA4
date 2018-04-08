@@ -47,7 +47,6 @@ class Graph {
 /*
  * Auxiliary function to find a Node with a given content.
  */
-
 template <class T>
 Node<T> * Graph<T>::getNode(const T &in) const {
     for (auto node : nodeSet){
@@ -287,7 +286,7 @@ void Graph<T>::getfloydWarshallPath(vector<T> &path, const T &origin, const T &d
  * that is being processed in the the stack of recursive calls (see theoretical classes).
  * Returns true if the graph is acyclic, and false otherwise.
  */
-/*
+
 template <class T>
 bool Graph<T>::isDAG() const {
     for (auto n : nodeSet) {
@@ -301,12 +300,11 @@ bool Graph<T>::isDAG() const {
     }
     return true;
 }
-*/
+
 /**
  * Auxiliary function that visits a vertex (v) and its adjacent, recursively.
  * Returns false (not acyclic) if an edge to a vertex in the stack is found.
  */
-
 template <class T>
 bool Graph<T>::dfsIsDAG(Node<T> *n) const {
     n->visited = true;
