@@ -978,7 +978,7 @@ void nodeMenu(GarbageManagement &management) {
 }
 
 unsigned int mainMenuDialog(){
-    std::cout << "Main Menu" << std::endl;
+    std::cout << "\nMain Menu" << std::endl;
     std::cout << "1 - Node Menu" << std::endl;
     std::cout << "2 - Edge Menu" << std::endl;
     std::cout << "3 - Vehicle Menu" << std::endl;

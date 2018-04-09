@@ -5,15 +5,15 @@
 #include "GarbageManagement.h"
 #include <fstream>
 
-#define PLACES_FILEPATH "../resources/places.txt"
-#define EDGES_FILEPATH "../resources/edges.txt"
-#define EDGES_INFO_FILEPATH "../resources/edges_info.txt"
+#define PLACES_FILEPATH(map) "../resources/" + map + "/places.txt"
+#define EDGES_FILEPATH(map) "../resources/" + map + "/edges.txt"
+#define EDGES_INFO_FILEPATH(map) "../resources/" + map + "/edges_info.txt"
 
-#define CONTAINERS_FILEPATH "../resources/containers.txt"
-#define STATIONS_FILEPATH "../resources/stations.txt"
-#define GARAGES_FILEPATH "../resources/garages.txt"
+#define CONTAINERS_FILEPATH(map) "../resources/" + map + "/containers.txt"
+#define STATIONS_FILEPATH(map) "../resources/" + map + "/stations.txt"
+#define GARAGES_FILEPATH(map) "../resources/" + map + "/garages.txt"
 
-#define VEHICLES_FILEPATH "../resources/vehicles.txt"
+#define VEHICLES_FILEPATH(map) "../resources/" + map + "/vehicles.txt"
 
 bool openFile(std::fstream& file, std::string filePath);
 std::vector<std::string> split(const std::string &s, const char &delim);
@@ -37,7 +37,7 @@ void savePlaces(const GarbageManagement &management);
 
 void saveContainers(GarbageManagement &management);
 void saveStations(GarbageManagement &management);
-void saveVehicles(std::vector<Vehicle *> vehicles);
+void saveVehicles(GarbageManagement &management);
 void saveGarages(GarbageManagement &management);
 
 void saveEdges(const GarbageManagement &management);

@@ -158,6 +158,10 @@ Vehicle *GarbageManagement::getVehicle(unsigned long vehicleID) const {
     return nullptr;
 }
 
+std::string GarbageManagement::getMap() const {
+    return this->map;
+}
+
 std::vector<Container *> GarbageManagement::getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers){
     std::vector<Container *> containersMatch;
 
@@ -189,6 +193,10 @@ Container* GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std
 Station *GarbageManagement::getClosestStationToVehicle(Vehicle *pVehicle, std::vector<Station *> vector) {
 
     return nullptr;
+}
+
+void GarbageManagement::setMap(std::string map){
+    this->map = map;
 }
 
 void GarbageManagement::setAlgorithm(Algorithm algorithm) {
