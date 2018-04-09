@@ -511,6 +511,7 @@ void GarbageManagement::collectGarbage() {
     while(!filledContainers.empty() && !emptyVehicles.empty()){
         std::vector<Place *> path;
 
+        //chose vehicle randomly
         ulong_dist dist(0, emptyVehicles.size()-1);
         unsigned  long vehicleIndex = dist(rng);
         Vehicle *vehicle = emptyVehicles[vehicleIndex];
@@ -521,20 +522,36 @@ void GarbageManagement::collectGarbage() {
 
         //move vehicle to closest container
         vehicle->moveTo(container->getPlace());
+        path.push_back(container->getPlace());
         vehicle->loadFromContainer(container);
 
-        //filledContainers.erase(container);
+        //remove from filledContainers
+        auto container_it = std::find(filledContainers.begin(), filledContainers.end(), container);
+        if (container_it != filledContainers.end()) {
+            filledContainers.erase(container_it);
+        }
 
         while((container = getClosestContainerToVehicle(vehicle, filledContainers)) != nullptr){
             vehicle->moveTo(container->getPlace());
+            path.push_back(container->getPlace());
             vehicle->loadFromContainer(container);
 
-            //filledContainers.erase(container);
+            //remove from filledContainers
+            container_it = std::find(filledContainers.begin(), filledContainers.end(), container);
+            if (container_it != filledContainers.end()) {
+                filledContainers.erase(container_it);
+            }
         }
 
         Station *station = getClosestStationToVehicle(vehicle, stations);
         vehicle->moveTo(station->getPlace());
+        path.push_back(station->getPlace());
         vehicle->unloadToStation(station);
+        
+        auto vehicle_it = std::find(emptyVehicles.begin(), emptyVehicles.end(), container);
+        if (vehicle_it != emptyVehicles.end()) {
+            emptyVehicles.erase(vehicle_it);
+        }
     }
 
     clock_t tEnd = clock();
