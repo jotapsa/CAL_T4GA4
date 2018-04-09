@@ -8,7 +8,7 @@ class Station {
 private:
     Place *place;
 public:
-    Station(Place *place);
+    explicit Station(Place *place);
     Station(unsigned long id, double dLon , double dLat, double rLon, double rLat,
             std::pair<int, int> coordinates);
 

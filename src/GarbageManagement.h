@@ -86,6 +86,8 @@ public:
     void rearrange();
 
     void closeWindow();
+
+    Station *getClosestStationToVehicle(Vehicle *pVehicle, std::vector<Station *> vector);
 };
 
 #endif

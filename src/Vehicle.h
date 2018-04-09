@@ -8,6 +8,7 @@
 
 class Garage; //foward declaration
 class Container;
+class Station;
 
 class Vehicle {
 private:
@@ -28,16 +29,17 @@ public:
     std::vector<GarbageType> getTypes();
     double getCapacity(GarbageType type);
     double getFreeSpace(GarbageType type);
-    std::string toString();
     std::string getTypesString();
     std::string getCapacityString();
     std::string getFreeSpaceString();
 
+    void moveTo(Place *place);
     void loadFromContainer(Container *container);
+    void unloadToStation(Station *station);
 
     void reset();
 
-    void move(std::pair<int,int> direction);
+    std::string toString();
 };
 
 

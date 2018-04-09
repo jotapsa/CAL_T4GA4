@@ -160,7 +160,14 @@ Vehicle *GarbageManagement::getVehicle(unsigned long vehicleID) const {
 
 
 Container* GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
+//    containers = getMatchingContainers(vehicle, containers);
+
     return {};
+}
+
+Station *GarbageManagement::getClosestStationToVehicle(Vehicle *pVehicle, std::vector<Station *> vector) {
+
+    return nullptr;
 }
 
 void GarbageManagement::setAlgorithm(Algorithm algorithm) {
@@ -455,6 +462,7 @@ void GarbageManagement::evalCon() {
     }
 }
 
+
 void GarbageManagement::collectGarbage() {
     if(stations.empty() || containers.empty() || garages.empty()){
         std::cout << "No stations, containers or garages." << std::endl;
@@ -489,20 +497,23 @@ void GarbageManagement::collectGarbage() {
         path.push_back(vehicle->getGarage()->getPlace());
 
         Container *container = getClosestContainerToVehicle(vehicle, filledContainers);
+
         //move vehicle to closest container
+        vehicle->moveTo(container->getPlace());
+        vehicle->loadFromContainer(container);
 
-        //load
-        //remove filled
+        //filledContainers.erase(container);
 
-        while(true){
-            //next container if theres none break
-            //move
-            //load
-            //remove filled
+        while((container = getClosestContainerToVehicle(vehicle, filledContainers)) != nullptr){
+            vehicle->moveTo(container->getPlace());
+            vehicle->loadFromContainer(container);
+
+            //filledContainers.erase(container);
         }
 
-        //mover para station
-        //unload
+        Station *station = getClosestStationToVehicle(vehicle, stations);
+        vehicle->moveTo(station->getPlace());
+        vehicle->unloadToStation(station);
     }
 
     clock_t tEnd = clock();
@@ -512,7 +523,6 @@ void GarbageManagement::collectGarbage() {
 
     //print/return vehicles and paths
 }
-
 
 void GarbageManagement::rearrange() {
     this->gv->rearrange();

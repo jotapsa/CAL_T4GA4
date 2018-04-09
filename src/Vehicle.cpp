@@ -104,7 +104,14 @@ void Vehicle::reset() {
     this->place = garage->getPlace();
 }
 
-void Vehicle::move(std::pair<int,int> direction){
-    std::pair<int, int> coordinates = this->place->getCoordinates();
-    this->place->setCoordinates(std::make_pair(coordinates.first + direction.first, coordinates.second + direction.second));
+void Vehicle::moveTo(Place *place){
+    this->place = place;
+}
+
+void Vehicle::loadFromContainer(Container *container) {
+
+}
+
+void Vehicle::unloadToStation(Station *station) {
+
 }
