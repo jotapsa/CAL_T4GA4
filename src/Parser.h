@@ -5,6 +5,8 @@
 #include "GarbageManagement.h"
 #include <fstream>
 
+#define MAPSLIST_FILEPATH "../resources/mapsList.txt"
+
 #define PLACES_FILEPATH(map) "../resources/" + map + "/places.txt"
 #define EDGES_FILEPATH(map) "../resources/" + map + "/edges.txt"
 #define EDGES_INFO_FILEPATH(map) "../resources/" + map + "/edges_info.txt"
@@ -32,13 +34,14 @@ bool loadGarages(GarbageManagement &management);
 bool loadEdges(GarbageManagement &management);
 bool loadEdgesInfo(GarbageManagement &management);
 
-//TODO: save functions.
+void saveMap(const GarbageManagement &management);
+
 void savePlaces(const GarbageManagement &management);
 
-void saveContainers(GarbageManagement &management);
-void saveStations(GarbageManagement &management);
-void saveVehicles(GarbageManagement &management);
-void saveGarages(GarbageManagement &management);
+void saveContainers(const GarbageManagement &management);
+void saveStations(const GarbageManagement &management);
+void saveVehicles(const GarbageManagement &management);
+void saveGarages(const GarbageManagement &management);
 
 void saveEdges(const GarbageManagement &management);
 void saveEdgesInfo(const GarbageManagement &management);

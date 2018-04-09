@@ -4,6 +4,8 @@
 #include "Cli.h"
 #include "GarbageType.h"
 #include "Algorithm.h"
+#include <fstream>
+#include "Parser.h"
 
 void garbageServiceMenu(GarbageManagement &management);
 
@@ -75,6 +77,56 @@ unsigned long int getUnsignedInt(std::string str) {
         std::cin.ignore(1000,'\n'); //clean input buffer
         return number;
     }while(true);
+}
+
+bool askMap(GarbageManagement &management){
+    std::fstream mapsList;
+    std::string mapName, mapPath,line;
+    std::vector<std::string> map, mapPaths, mapNames;
+    unsigned int i=1;
+
+    mapsList.open(MAPSLIST_FILEPATH);
+
+    if(!mapsList.is_open()) {
+        std::cout << "Maps List could not be open!\n";
+        return false;
+    }
+
+    std::cout << "\nChoose a Map:" << std::endl;
+    while(getline(mapsList, line)){
+        map = split(line,';');
+        mapNames.push_back(map.at(0));
+        mapPaths.push_back(map.at(1));
+        std::cout << "\t" << i << " - " << map.at(0) << std::endl;
+        i++;
+    }
+    std::cout << "\t0  - Create New Map" << std::endl;
+
+    i = nextUnsignedInt("Map: ", mapPaths.size());
+
+    switch(i){
+        case 0:{
+            do{
+                std::cout << "Name: ";
+                getline(std::cin,mapName);
+            }while(mapName.length() <=0);
+
+            do{
+                std::cout << "Path Name: ";
+                getline(std::cin, mapPath);
+            }while(mapPath.length() <=0);
+
+            management.setMapName(mapName);
+            management.setMapPath(mapPath);
+            return false;
+        }
+        default:{
+            management.setMapPath(mapPaths.at(i-1));
+            management.setMapName(mapNames.at(i-1));
+        }
+    }
+
+    return true;
 }
 
 unsigned int editGarageOption() {

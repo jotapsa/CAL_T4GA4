@@ -13,43 +13,6 @@
 //    return r;
 //}
 
-bool askMap(GarbageManagement &management){
-    std::string name, pathName;
-
-
-    std::cout << "\nChoose a Map:" << std::endl;
-    std::cout << "\t1  - Padrão da Légua" << std::endl;
-    std::cout << "\t2  - Famosa Rotunda" << std::endl;
-    std::cout << "\t0  - Create New Map" << std::endl;
-
-    switch(nextUnsignedInt("Map: ", 2)){
-        case 1:{
-            management.setMap(std::string("pdlegua"));
-            break;
-        }
-        case 2:{
-            management.setMap(std::string("rotundafamosa"));
-            break;
-        }
-        default:{
-            do{
-                std::cout << "Name: ";
-                getline(std::cin,name);
-            }while(name.length() <=0);
-
-            do{
-                std::cout << "File Name: ";
-                getline(std::cin,pathName);
-            }while(pathName.length() <=0);
-
-            management.setMap(pathName);
-            return false;
-        }
-    }
-
-    return true;
-}
-
 void loadBuildings(GarbageManagement &management){
     if(!loadContainers(management)){
         std::cout << "Failed to read containers!" << std::endl;
@@ -103,6 +66,7 @@ int main (int argc, char* argv[]) {
     std::cout << std::endl << "Save Map ?" << std::endl;
     if(readConfirmation()){
         std::cout << "Saving map..." << std::endl;
+        saveMap(management);
         savePlaces(management);
         saveVehicles(management);
         saveBuildings(management);
