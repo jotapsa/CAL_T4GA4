@@ -224,7 +224,8 @@ void editContainerMenu(GarbageManagement &management) {
             while(percentage < 0 ||  percentage > 100) {
                 percentage = parseDouble("Insert new filled percentage for container: ");
             }
-            toEdit->setFilledPer(percentage);
+            //TODO Sa
+//            toEdit->setFilledPer(percentage);
             break;
         default:
             return;

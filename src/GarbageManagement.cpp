@@ -158,9 +158,30 @@ Vehicle *GarbageManagement::getVehicle(unsigned long vehicleID) const {
     return nullptr;
 }
 
+std::vector<Container *> GarbageManagement::getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers){
+    std::vector<Container *> containersMatch;
+
+    for(Container *c : containers){
+        if(vehicle->hasType(c->getType())){
+            if(vehicle->getFreeSpace(c->getType()) >= (c->getFilled())){
+                containersMatch.push_back(c);
+            }
+        }
+    }
+
+    return containersMatch;
+}
+
 
 Container* GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
-//    containers = getMatchingContainers(vehicle, containers);
+    containers = getMatchingContainers(vehicle, containers);
+
+    if(algorithm==Algorithm::Dijkstra){
+//        graph.getNodeWithShortestPathDijkstra();
+    }
+    else if(algorithm==Algorithm::Warshall){
+//        graph.getNodeWithShortestPathFloydWarshall();
+    }
 
     return {};
 }

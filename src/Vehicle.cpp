@@ -3,6 +3,7 @@
 #include "Vehicle.h"
 #include "Garage.h"
 #include "Aux.h"
+#include "Container.h"
 
 Vehicle::Vehicle(unsigned long int ID, Garage *garage, std::string plate, std::vector<GarbageType> types, std::vector<double> capacities) {
     this->ID = ID;
@@ -11,6 +12,7 @@ Vehicle::Vehicle(unsigned long int ID, Garage *garage, std::string plate, std::v
     this->types = types;
     this->capacities = capacities;
 
+    this->filled.resize(this->capacities.size(), 0);
     reset();
 }
 
@@ -34,9 +36,17 @@ std::vector<GarbageType> Vehicle::getTypes() {
     return this->types;
 }
 
-double Vehicle::getCapacity(GarbageType type) {
+bool Vehicle::hasType(GarbageType type){
     auto it = std::find(this->types.begin(), this->types.end(), type);
     if(it != this->types.end()){
+        return true;
+    }
+    return false;
+}
+
+double Vehicle::getCapacity(GarbageType type) {
+    if(hasType(type)){
+        auto it = std::find(this->types.begin(), this->types.end(), type);
         int typeIndex = std::distance(this->types.begin(), it);
         return this->capacities.at(typeIndex);
     }
@@ -88,8 +98,8 @@ std::string Vehicle::getFreeSpaceString(){
 }
 
 double Vehicle::getFreeSpace(GarbageType type) {
-    auto it = std::find(this->types.begin(), this->types.end(), type);
-    if(it != this->types.end()){
+    if(hasType(type)){
+        auto it = std::find(this->types.begin(), this->types.end(), type);
         int typeIndex = std::distance(this->types.begin(), it);
         return this->capacities.at(typeIndex)-this->filled.at(typeIndex);
     }
@@ -98,9 +108,8 @@ double Vehicle::getFreeSpace(GarbageType type) {
     }
 }
 
+//TODO Sa nao te esquecas, senao estas f*dido :X
 void Vehicle::reset() {
-    this->filled.resize(this->capacities.size(), 0);
-
     this->place = garage->getPlace();
 }
 
@@ -109,9 +118,15 @@ void Vehicle::moveTo(Place *place){
 }
 
 void Vehicle::loadFromContainer(Container *container) {
-
+    GarbageType containerType = container->getType();
+    if(hasType(containerType)){
+        auto it = std::find(this->types.begin(), this->types.end(), containerType);
+        int typeIndex = std::distance(this->types.begin(), it);
+        this->filled.at(typeIndex) += container->getFilled();
+        container->resetFilled();
+    }
 }
 
 void Vehicle::unloadToStation(Station *station) {
-
+    this->filled.resize(this->capacities.size(), 0);
 }

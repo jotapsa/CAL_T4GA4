@@ -36,6 +36,10 @@ double Container::getCapacity() {
     return this->capacity;
 }
 
+double Container::getFilled() {
+    return this->filled;
+}
+
 double Container::getFilledPer() {
     return (filled/capacity)*100;
 }
@@ -59,6 +63,10 @@ void Container::setCapacity(double capacity) {
     this->capacity = capacity;
 }
 
-void Container::setFilledPer(double percentage) {
-    this->filled = percentage;
+void Container::resetFilled() {
+    this->filled = 0;
 }
+
+//void Container::setFilledPer(double percentage) {
+//    this->filled = percentage;
+//}

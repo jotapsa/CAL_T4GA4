@@ -27,6 +27,7 @@ public:
     Garage * getGarage();
     std::string getPlate();
     std::vector<GarbageType> getTypes();
+    bool hasType(GarbageType);
     double getCapacity(GarbageType type);
     double getFreeSpace(GarbageType type);
     std::string getTypesString();

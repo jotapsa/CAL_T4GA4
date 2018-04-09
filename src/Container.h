@@ -22,9 +22,12 @@ public:
     GarbageType getType();
     void setGarbageType(GarbageType type);
     double getCapacity();
-    void setCapacity(double capacity);
+    double getFilled();
     double getFilledPer();
-    void setFilledPer(double percentage);
+
+    void setCapacity(double capacity);
+    void resetFilled();
+//    void setFilledPer(double percentage);
 
     void reset();
 

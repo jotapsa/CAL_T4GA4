@@ -56,6 +56,7 @@ public:
     Street * getStreet(unsigned long ID) const;
     Vehicle * getVehicle(unsigned long vehicleID) const;
 
+    std::vector<Container *> getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers);
     Container * getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers);
 
     void setAlgorithm(Algorithm algorithm);
