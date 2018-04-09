@@ -4,23 +4,18 @@
 #include "Parser.h"
 #include "RandomEngine.h"
 
-bool loadBuildings(GarbageManagement &management){
+void loadBuildings(GarbageManagement &management){
     if(!loadContainers(management)){
         std::cout << "Failed to read containers!" << std::endl;
-        return false;
     }
 
     if(!loadStations(management)){
         std::cout << "Failed to read stations!" << std::endl;
-        return false;
     }
 
     if(!loadGarages(management)){
         std::cout << "Failed to read garages!" << std::endl;
-        return false;
     }
-
-    return true;
 }
 
 void saveBuildings(GarbageManagement &management){
@@ -41,9 +36,11 @@ int main (int argc, char* argv[]) {
             return 1;
         }
 
-        if(!loadBuildings(management)){
-            return 1;
+        if(!loadVehicles(management)){
+            std::cout << "Failed to read vehicles!" << std::endl;
         }
+
+        loadBuildings(management);
 
         if(!loadEdges(management)){
             std::cout << "Failed to read edges!" << std::endl;

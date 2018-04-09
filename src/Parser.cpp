@@ -21,12 +21,13 @@ std::vector<Vehicle_T> vehiclesVector;
 bool openFile(fstream& file, std::string filePath){
     file.open(filePath);
 
+    std::cout << "--------------------------------------" << endl;
+
     if(!file.is_open()) {
         cout << "File " << filePath << " could not be open!\n";
         return false;
     }
 
-    std::cout << "--------------------------------------" << endl;
     std::cout << "Reading file: " << filePath << endl;
     return true;
 }
@@ -240,11 +241,6 @@ bool loadGarages(GarbageManagement &management){
     vector<std::string> lineVector;
 
     unsigned long placeID;
-
-    if(!loadVehicles(management)){
-        std::cout << "Failed to read vehicles!" << std::endl;
-        return false;
-    }
 
     if(!openFile(garages, GARAGES_FILEPATH)){
         return false;
