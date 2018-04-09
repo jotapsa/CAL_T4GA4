@@ -7,6 +7,8 @@
 bool readConfirmation();
 unsigned int nextUnsignedInt(std::string str, unsigned int ceilling);
 unsigned long int getUnsignedInt(std::string str);
+bool askMap(GarbageManagement &management);
+
 double parseDouble (std::string str);
 std::pair<double, double> askForLocation();
 void printMainHeader(std::string title, unsigned short length);

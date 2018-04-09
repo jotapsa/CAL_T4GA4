@@ -4,23 +4,27 @@
 #include "Parser.h"
 #include "RandomEngine.h"
 
-bool loadBuildings(GarbageManagement &management){
+//std::vector<std::string> get_directories(const std::string& s)
+//{
+//    std::vector<std::string> r;
+//    for(auto& p : std::filesystem::recursive_directory_iterator(s))
+//        if(p.status().type() == std::filesystem::file_type::directory)
+//            r.push_back(p.path().string());
+//    return r;
+//}
+
+void loadBuildings(GarbageManagement &management){
     if(!loadContainers(management)){
         std::cout << "Failed to read containers!" << std::endl;
-        return false;
     }
 
     if(!loadStations(management)){
         std::cout << "Failed to read stations!" << std::endl;
-        return false;
     }
 
     if(!loadGarages(management)){
         std::cout << "Failed to read garages!" << std::endl;
-        return false;
     }
-
-    return true;
 }
 
 void saveBuildings(GarbageManagement &management){
@@ -33,17 +37,18 @@ int main (int argc, char* argv[]) {
     initRandomEngine();
     GarbageManagement management = GarbageManagement();
 
-    std::cout << "Read Stored Map ?" << std::endl;
-    if(readConfirmation()){
-        std::cout << "Reading map..." << std::endl;
+    if(askMap(management)){
+        std::cout << std::endl << "Reading map..." << std::endl;
         if(!loadPlaces(management)){
             std::cout << "Failed to read places!" << std::endl;
             return 1;
         }
 
-        if(!loadBuildings(management)){
-            return 1;
+        if(!loadVehicles(management)){
+            std::cout << "Failed to read vehicles!" << std::endl;
         }
+
+        loadBuildings(management);
 
         if(!loadEdges(management)){
             std::cout << "Failed to read edges!" << std::endl;
@@ -58,15 +63,23 @@ int main (int argc, char* argv[]) {
 
     mainMenu(management);
 
-    std::cout << "Save Map ?" << std::endl;
+    std::cout << std::endl << "Save Map ?" << std::endl;
     if(readConfirmation()){
         std::cout << "Saving map..." << std::endl;
+
+        if(!saveMap(management)){
+            return 1;
+        }
+
         savePlaces(management);
+        saveVehicles(management);
         saveBuildings(management);
         saveEdges(management);
         saveEdgesInfo(management);
         std::cout << "Saved!" << std::endl;
     }
+
+    management.closeWindow();
 
     return 0;
 }

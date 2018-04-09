@@ -1,6 +1,7 @@
 #include "Parser.h"
 #include "Aux.h"
 #include <sstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,12 +22,13 @@ std::vector<Vehicle_T> vehiclesVector;
 bool openFile(fstream& file, std::string filePath){
     file.open(filePath);
 
+    std::cout << "--------------------------------------" << endl;
+
     if(!file.is_open()) {
         cout << "File " << filePath << " could not be open!\n";
         return false;
     }
 
-    std::cout << "--------------------------------------" << endl;
     std::cout << "Reading file: " << filePath << endl;
     return true;
 }
@@ -34,12 +36,13 @@ bool openFile(fstream& file, std::string filePath){
 bool openFile(ofstream& file, std::string filePath){
     file.open(filePath);
 
+    std::cout << "--------------------------------------" << endl;
+
     if(!file.is_open()) {
         cout << "File " << filePath << " could not be open!\n";
         return false;
     }
 
-    std::cout << "--------------------------------------" << endl;
     std::cout << "Saving file: " << filePath << endl;
     return true;
 }
@@ -130,7 +133,7 @@ bool loadPlaces(GarbageManagement &management) {
     unsigned long nPlaces=0;
     vector<std::string> lineVector;
 
-    if(!openFile(places, PLACES_FILEPATH)){
+    if(!openFile(places, PLACES_FILEPATH(management.getMapPath()))){
         return false;
     }
 
@@ -155,7 +158,7 @@ bool loadContainers(GarbageManagement &management){
     unsigned int nContainers=0;
     vector<std::string> lineVector;
 
-    if(!openFile(containers, CONTAINERS_FILEPATH)){
+    if(!openFile(containers, CONTAINERS_FILEPATH(management.getMapPath()))){
         return false;
     }
 
@@ -180,7 +183,7 @@ bool loadStations(GarbageManagement &management){
     unsigned int nStations=0;
     vector<std::string> lineVector;
 
-    if(!openFile(stations, STATIONS_FILEPATH)){
+    if(!openFile(stations, STATIONS_FILEPATH(management.getMapPath()))){
         return false;
     }
 
@@ -205,7 +208,7 @@ bool loadVehicles(GarbageManagement &management){
     unsigned long int nVehicles=0;
     vector<std::string> lineVector;
 
-    if(!openFile(vehicles, VEHICLES_FILEPATH)){
+    if(!openFile(vehicles, VEHICLES_FILEPATH(management.getMapPath()))){
         return false;
     }
 
@@ -241,12 +244,7 @@ bool loadGarages(GarbageManagement &management){
 
     unsigned long placeID;
 
-    if(!loadVehicles(management)){
-        std::cout << "Failed to read vehicles!" << std::endl;
-        return false;
-    }
-
-    if(!openFile(garages, GARAGES_FILEPATH)){
+    if(!openFile(garages, GARAGES_FILEPATH(management.getMapPath()))){
         return false;
     }
 
@@ -294,7 +292,7 @@ bool loadEdges(GarbageManagement &management) {
     unsigned long int nEdges=0;
     vector<std::string> lineVector;
 
-    if(!openFile(edges, EDGES_FILEPATH)){
+    if(!openFile(edges, EDGES_FILEPATH(management.getMapPath()))){
         return false;
     }
 
@@ -320,7 +318,7 @@ bool loadEdgesInfo(GarbageManagement &management) {
     vector<std::string> lineVector;
     EdgeType type;
 
-    if(!openFile(edgesInfo, EDGES_INFO_FILEPATH)){
+    if(!openFile(edgesInfo, EDGES_INFO_FILEPATH(management.getMapPath()))){
         return false;
     }
 
@@ -351,10 +349,35 @@ bool loadEdgesInfo(GarbageManagement &management) {
     return true;
 }
 
-void savePlaces(const GarbageManagement &management) {
+bool saveMap(const GarbageManagement &management){
+    fstream mapList(MAPSLIST_FILEPATH, ios::in | ios::out | ios::app);
+    std::string line;
+    const char* createMap;
+
+    while(getline(mapList, line)){
+        if (line.find(management.getMapName()) != std::string::npos) {
+            return false;
+        }
+    }
+
+    mapList.clear() ;
+
+    createMap = std::string(CREATE_MAP_PATH(management.getMapPath())).c_str();
+    if(system(createMap) == -1){
+        std::cout << management.getMapName() << "couldn't be saved.\n\n";
+        return false;
+    }
+
+    mapList << management.getMapName() << ";" << management.getMapPath() << endl;
+
+    mapList.close();
+    return true;
+}
+
+void savePlaces(const GarbageManagement &management){
     ofstream places;
 
-    if(!openFile(places,PLACES_FILEPATH)){
+    if(!openFile(places,PLACES_FILEPATH(management.getMapPath()))){
         return;
     }
 
@@ -365,10 +388,10 @@ void savePlaces(const GarbageManagement &management) {
     places.close();
 }
 
-void saveContainers(GarbageManagement &management){
+void saveContainers(const GarbageManagement &management){
     ofstream containers;
 
-    if(!openFile(containers,CONTAINERS_FILEPATH)){
+    if(!openFile(containers,CONTAINERS_FILEPATH(management.getMapPath()))){
         return;
     }
 
@@ -379,10 +402,10 @@ void saveContainers(GarbageManagement &management){
     containers.close();
 }
 
-void saveStations(GarbageManagement &management){
+void saveStations(const GarbageManagement &management){
     ofstream stations;
 
-    if(!openFile(stations,STATIONS_FILEPATH)){
+    if(!openFile(stations,STATIONS_FILEPATH(management.getMapPath()))){
         return;
     }
 
@@ -393,10 +416,10 @@ void saveStations(GarbageManagement &management){
     stations.close();
 }
 
-void saveVehicles(GarbageManagement &management){
+void saveVehicles(const GarbageManagement &management){
     ofstream vehicles;
 
-    if(!openFile(vehicles,VEHICLES_FILEPATH)){
+    if(!openFile(vehicles,VEHICLES_FILEPATH(management.getMapPath()))){
         return;
     }
 
@@ -407,10 +430,10 @@ void saveVehicles(GarbageManagement &management){
     vehicles.close();
 }
 
-void saveGarages(GarbageManagement &management){
+void saveGarages(const GarbageManagement &management){
     ofstream garages;
 
-    if(!openFile(garages,GARAGES_FILEPATH)){
+    if(!openFile(garages,GARAGES_FILEPATH(management.getMapPath()))){
         return;
     }
 
@@ -424,7 +447,7 @@ void saveGarages(GarbageManagement &management){
 void saveEdges(const GarbageManagement &management) {
     ofstream edges;
 
-    if(!openFile(edges,EDGES_FILEPATH)){
+    if(!openFile(edges,EDGES_FILEPATH(management.getMapPath()))){
         return;
     }
 
@@ -439,7 +462,7 @@ void saveEdgesInfo(const GarbageManagement &management) {
     ofstream edgesInfo;
     unsigned long int actualID=0;
 
-    if(!openFile(edgesInfo,EDGES_INFO_FILEPATH)){
+    if(!openFile(edgesInfo,EDGES_INFO_FILEPATH(management.getMapPath()))){
         return;
     }
 

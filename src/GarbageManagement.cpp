@@ -158,6 +158,14 @@ Vehicle *GarbageManagement::getVehicle(unsigned long vehicleID) const {
     return nullptr;
 }
 
+std::string GarbageManagement::getMapPath() const {
+    return this->mapPath;
+}
+
+std::string GarbageManagement::getMapName() const {
+    return this->mapName;
+}
+
 std::vector<Container *> GarbageManagement::getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers){
     std::vector<Container *> containersMatch;
 
@@ -193,6 +201,14 @@ Station *GarbageManagement::getClosestStationToVehicle(Vehicle *vehicle, std::ve
     }else{
 //        return graph.getNodeWithShortestPathFloydWarshall(source, dests)
     }
+}
+
+void GarbageManagement::setMapPath(std::string mapPath){
+    this->mapPath = mapPath;
+}
+
+void GarbageManagement::setMapName(std::string mapName){
+    this->mapName = mapName;
 }
 
 void GarbageManagement::setAlgorithm(Algorithm algorithm) {
@@ -271,8 +287,13 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
     Place *sourceNode = getPlace(nodeIDs.first);
     Place *destNode = getPlace(nodeIDs.second);
 
-    if(sourceNode == nullptr || destNode == nullptr){
-        std::cout << "Couldn't find nodes." << std::endl;
+    if(sourceNode == nullptr){
+        std::cout << "Couldn't find place: " << nodeIDs.first << std::endl;
+        return;
+    }
+
+    if(destNode == nullptr){
+        std::cout << "Couldn't find place: " << nodeIDs.second << std::endl;
         return;
     }
 
@@ -552,7 +573,7 @@ void GarbageManagement::collectGarbage() {
         path.push_back(station->getPlace());
         vehicle->unloadToStation(station);
         
-        auto vehicle_it = std::find(emptyVehicles.begin(), emptyVehicles.end(), container);
+        auto vehicle_it = std::find(emptyVehicles.begin(), emptyVehicles.end(), vehicle);
         if (vehicle_it != emptyVehicles.end()) {
             emptyVehicles.erase(vehicle_it);
         }

@@ -31,6 +31,9 @@ private:
     std::vector<Street *> streets;
     std::vector<Vehicle *> vehicles;
 
+    std::string mapPath;
+    std::string mapName;
+
 public:
     GarbageManagement();
     Graph<Place> getGraph();
@@ -55,10 +58,14 @@ public:
     Garage * getGarage(unsigned long garageID) const;
     Street * getStreet(unsigned long ID) const;
     Vehicle * getVehicle(unsigned long vehicleID) const;
+    std::string getMapPath() const;
+    std::string getMapName() const;
 
     std::vector<Container *> getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers);
     Container * getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers);
 
+    void setMapPath(std::string mapPath);
+    void setMapName(std::string mapName);
     void setAlgorithm(Algorithm algorithm);
     void setFillPerNeeded(float fillPerNeeded);
 
