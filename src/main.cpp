@@ -66,7 +66,11 @@ int main (int argc, char* argv[]) {
     std::cout << std::endl << "Save Map ?" << std::endl;
     if(readConfirmation()){
         std::cout << "Saving map..." << std::endl;
-        saveMap(management);
+
+        if(!saveMap(management)){
+            return 1;
+        }
+
         savePlaces(management);
         saveVehicles(management);
         saveBuildings(management);
@@ -74,6 +78,8 @@ int main (int argc, char* argv[]) {
         saveEdgesInfo(management);
         std::cout << "Saved!" << std::endl;
     }
+
+    management.closeWindow();
 
     return 0;
 }

@@ -5,6 +5,8 @@
 #include "GarbageManagement.h"
 #include <fstream>
 
+#define MAPS_PATH "../resources/"
+#define CREATE_MAP_PATH(map) "mkdir -p ../resources/" + map
 #define MAPSLIST_FILEPATH "../resources/mapsList.txt"
 
 #define PLACES_FILEPATH(map) "../resources/" + map + "/places.txt"
@@ -34,7 +36,7 @@ bool loadGarages(GarbageManagement &management);
 bool loadEdges(GarbageManagement &management);
 bool loadEdgesInfo(GarbageManagement &management);
 
-void saveMap(const GarbageManagement &management);
+bool saveMap(const GarbageManagement &management);
 
 void savePlaces(const GarbageManagement &management);
 

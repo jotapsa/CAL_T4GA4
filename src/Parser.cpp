@@ -1,6 +1,7 @@
 #include "Parser.h"
 #include "Aux.h"
 #include <sstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -348,21 +349,29 @@ bool loadEdgesInfo(GarbageManagement &management) {
     return true;
 }
 
-void saveMap(const GarbageManagement &management){
-    fstream mapList;
+bool saveMap(const GarbageManagement &management){
+    fstream mapList(MAPSLIST_FILEPATH, ios::in | ios::out | ios::app);
     std::string line;
-
-    if(!openFile(mapList,MAPSLIST_FILEPATH)){
-        return;
-    }
+    const char* createMap;
 
     while(getline(mapList, line)){
         if (line.find(management.getMapName()) != std::string::npos) {
-            return;
+            return false;
         }
     }
 
+    mapList.clear() ;
+
+    createMap = std::string(CREATE_MAP_PATH(management.getMapPath())).c_str();
+    if(system(createMap) == -1){
+        std::cout << management.getMapName() << "couldn't be saved.\n\n";
+        return false;
+    }
+
     mapList << management.getMapName() << ";" << management.getMapPath() << endl;
+
+    mapList.close();
+    return true;
 }
 
 void savePlaces(const GarbageManagement &management){

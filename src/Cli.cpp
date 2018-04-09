@@ -100,7 +100,7 @@ bool askMap(GarbageManagement &management){
         std::cout << "\t" << i << " - " << map.at(0) << std::endl;
         i++;
     }
-    std::cout << "\t0  - Create New Map" << std::endl;
+    std::cout << "\t0 - Create New Map" << std::endl;
 
     i = nextUnsignedInt("Map: ", mapPaths.size());
 
