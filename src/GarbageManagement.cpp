@@ -174,21 +174,25 @@ std::vector<Container *> GarbageManagement::getMatchingContainers(Vehicle *vehic
 
 
 Container* GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
-    containers = getMatchingContainers(vehicle, containers);
+    auto matchingContainers = getMatchingContainers(vehicle, containers);
 
     if(algorithm==Algorithm::Dijkstra){
-//        graph.getNodeWithShortestPathDijkstra();
+        graph.dijkstra(*(vehicle->getPlace()));
+        //return graph.getNodeWithShortestPathDijkstra();
+    }else{
+//        return graph.getNodeWithShortestPathFloydWarshall(source, dests)
     }
-    else if(algorithm==Algorithm::Warshall){
-//        graph.getNodeWithShortestPathFloydWarshall();
-    }
-
-    return {};
 }
 
-Station *GarbageManagement::getClosestStationToVehicle(Vehicle *pVehicle, std::vector<Station *> vector) {
+Station *GarbageManagement::getClosestStationToVehicle(Vehicle *vehicle, std::vector<Station *> stations) {
+//    auto clone = stations.clone();
 
-    return nullptr;
+    if(algorithm==Algorithm::Dijkstra){
+        graph.dijkstra(*(vehicle->getPlace()));
+        //return graph.getNodeWithShortestPathDijkstra();
+    }else{
+//        return graph.getNodeWithShortestPathFloydWarshall(source, dests)
+    }
 }
 
 void GarbageManagement::setAlgorithm(Algorithm algorithm) {
