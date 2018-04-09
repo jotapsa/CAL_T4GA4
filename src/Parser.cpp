@@ -6,7 +6,9 @@
 using namespace std;
 
 struct Edge_T {
-    unsigned long int ID, node1, node2;
+    unsigned long int ID;
+    std::string name;
+    EdgeType type;
 };
 
 struct Vehicle_T {
@@ -87,8 +89,8 @@ Edge_T createEdge(vector<std::string> line){
     Edge_T edge;
 
     edge.ID = stoul(line.at(0));
-    edge.node1 = stoul(line.at(1));
-    edge.node2 = stoul(line.at(2));
+    edge.name = line.at(1);
+    edge.type = (line.at(2).compare(std::string("True")) == 0) ? EdgeType:: twoWay : EdgeType:: oneWay;
 
     return edge;
 }
@@ -289,7 +291,7 @@ bool loadGarages(GarbageManagement &management){
 
 bool loadEdges(GarbageManagement &management) {
     fstream edges;
-    unsigned long int nEdges=0;
+    unsigned long int nEdges=0, ID, node1, node2;
     vector<std::string> lineVector;
 
     if(!openFile(edges, EDGES_FILEPATH(management.getMapPath()))){
@@ -302,50 +304,48 @@ bool loadEdges(GarbageManagement &management) {
             return false;
         }
 
-        edgesVector.push_back(createEdge(lineVector));
+        ID = stoul(lineVector.at(0));
+        node1 = stoul(lineVector.at(1));
+        node2 = stoul(lineVector.at(2));
+
+        for(std::vector<Edge_T>::iterator edge = edgesVector.begin(); edge != edgesVector.end(); edge++){
+            if(edge->ID == ID){
+                pair <unsigned long int,unsigned long int> nodes = make_pair(node1,node2);
+                management.addEdge(0, edge->ID, nodes, edge->type, edge->name);
+                break;
+            }
+        }
+
     }
 
     edges.close();
 
-    std::cout << edgesVector.size() << "/" << nEdges << " edges were successfully read!\n";
+    management.rearrange();
+    std::cout << management.getStreets().size() << "/" << nEdges << " edges were successfully read!\n\n";
     return true;
 }
 
 bool loadEdgesInfo(GarbageManagement &management) {
     fstream edgesInfo;
-    unsigned long int ID=0, nEdgesInfo=0, nLines=0;
-    string name;
+    unsigned long int nEdgesInfo=0;
     vector<std::string> lineVector;
-    EdgeType type;
 
     if(!openFile(edgesInfo, EDGES_INFO_FILEPATH(management.getMapPath()))){
         return false;
     }
 
     while(readLine(edgesInfo, &lineVector)){
-        nLines++;
+        nEdgesInfo++;
         if(lineVector.size() != 3){
             return false;
         }
-        nEdgesInfo++;
 
-        ID = stoul(lineVector.at(0));
-        name = lineVector.at(1);
-        type = (lineVector.at(2).compare(std::string("True")) == 0) ? EdgeType:: twoWay : EdgeType:: oneWay;
-
-        for(std::vector<Edge_T>::iterator edge = edgesVector.begin(); edge != edgesVector.end(); edge++){
-            if(edge->ID == ID){
-                pair <unsigned long int,unsigned long int> nodes
-                    = make_pair(edge->node1,edge->node2);
-                management.addEdge(0, ID, nodes, type, name);
-            }
-        }
+        edgesVector.push_back(createEdge(lineVector));
     }
 
     edgesInfo.close();
 
-    management.rearrange();
-    std::cout << nEdgesInfo << "/" << nLines << " edges info were successfully read!\n\n";
+    std::cout << edgesVector.size() << "/" << nEdgesInfo << " edgesInfo were successfully read!\n";
     return true;
 }
 

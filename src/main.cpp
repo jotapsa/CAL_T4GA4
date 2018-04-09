@@ -4,15 +4,6 @@
 #include "Parser.h"
 #include "RandomEngine.h"
 
-//std::vector<std::string> get_directories(const std::string& s)
-//{
-//    std::vector<std::string> r;
-//    for(auto& p : std::filesystem::recursive_directory_iterator(s))
-//        if(p.status().type() == std::filesystem::file_type::directory)
-//            r.push_back(p.path().string());
-//    return r;
-//}
-
 void loadBuildings(GarbageManagement &management){
     if(!loadContainers(management)){
         std::cout << "Failed to read containers!" << std::endl;
@@ -50,15 +41,15 @@ int main (int argc, char* argv[]) {
 
         loadBuildings(management);
 
+        if(!loadEdgesInfo(management)){
+            std::cout << "Failed to read edgesInfo!" << std::endl;
+            return 1;
+        };
+
         if(!loadEdges(management)){
             std::cout << "Failed to read edges!" << std::endl;
             return 1;
         }
-
-        if(!loadEdgesInfo(management)){
-            std::cout << "Failed to read edges info!" << std::endl;
-            return 1;
-        };
     }
 
     mainMenu(management);
@@ -76,7 +67,6 @@ int main (int argc, char* argv[]) {
         saveBuildings(management);
         saveEdges(management);
         saveEdgesInfo(management);
-        std::cout << "Saved!" << std::endl;
     }
 
     management.closeWindow();
