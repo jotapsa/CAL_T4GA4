@@ -182,10 +182,11 @@ std::vector<Container *> GarbageManagement::getMatchingContainers(Vehicle *vehic
 
 
 Container* GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
+    //TODO: Bernas
     auto matchingContainers = getMatchingContainers(vehicle, containers);
 
     if(algorithm==Algorithm::Dijkstra){
-        graph.dijkstra(*(vehicle->getPlace()));
+//        graph.dijkstra(*(vehicle->getPlace()));
         //return graph.getNodeWithShortestPathDijkstra();
     }else{
 //        return graph.getNodeWithShortestPathFloydWarshall(source, dests)
@@ -196,7 +197,7 @@ Station *GarbageManagement::getClosestStationToVehicle(Vehicle *vehicle, std::ve
 //    auto clone = stations.clone();
 
     if(algorithm==Algorithm::Dijkstra){
-        graph.dijkstra(*(vehicle->getPlace()));
+//        graph.dijkstra(*(vehicle->getPlace()));
         //return graph.getNodeWithShortestPathDijkstra();
     }else{
 //        return graph.getNodeWithShortestPathFloydWarshall(source, dests)
