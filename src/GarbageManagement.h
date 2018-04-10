@@ -57,6 +57,7 @@ public:
     Station * getStation(unsigned long stationID)const;
     Garage * getGarage(unsigned long garageID) const;
     Street * getStreet(unsigned long ID) const;
+    Street * getStreet(Place *p1, Place *p2) const;
     Vehicle * getVehicle(unsigned long vehicleID) const;
     std::string getMapPath() const;
     std::string getMapName() const;
