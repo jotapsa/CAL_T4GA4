@@ -151,10 +151,11 @@ Street *GarbageManagement::getStreet(unsigned long ID) const {
 
 Street *GarbageManagement::getStreet(Place *p1, Place *p2) const {
     for(auto s: streets){
-        if(s->getSource() == p1 && s->getDest() == p2){
+        if( (s->getSource()->getID() == p1->getID()) && (s->getDest()->getID() == p2->getID()) ){
             return s;
         }
     }
+
     return nullptr;
 }
 
@@ -274,9 +275,9 @@ void GarbageManagement::addPlace(Place *place) {
                       place->getCoordinates().second);
     this->gv->setVertexColor((int) place->getID(), BLUE);
 
-    std::stringstream ss;
-    ss << place->getID();
-    this->gv->setVertexLabel((int) place->getID(), ss.str());
+//    std::stringstream ss;
+//    ss << place->getID();
+//    this->gv->setVertexLabel((int) place->getID(), ss.str());
     this->gv->setVertexSize((int) place->getID(), emptyPlaceNodeSize);
 }
 
@@ -776,12 +777,13 @@ bool GarbageManagement::updateVehicle(Vehicle * vehicle, std::vector<Place *> pa
 void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths) {
     std::vector<std::vector<Street *>> streets;
     unsigned int index[vehicles.size()];
-    unsigned int streetsFound=0;
     bool display=true;
 
     for(unsigned int v=0; v < vehicles.size(); v++){
         index[v] = 0;
-        streetsFound=0;
+
+        std::vector<Street *> pathVehicle;
+        streets.push_back(pathVehicle);
 
         if(paths.at(v).empty()){
             continue;
@@ -790,21 +792,17 @@ void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vec
         for(unsigned int p=0; p < paths.at(v).size()-1; p++){
             Street* street = getStreet(paths.at(v).at(p), paths.at(v).at(p+1));
             if(street != nullptr){
-                streetsFound++;
                 streets.at(v).push_back(street);
-                std::cout << "Veiculo " << vehicles.at(v)->getID() << " -> " << " rua encontrada." << std::endl;
                 this->gv->setEdgeColor((int) street->getEdgeID(), RED);
             }
             else{
-                std::cout << "STREET NOT FOUND!" << std::endl;
+//                std::cout << "STREET NOT FOUND!" << std::endl;
 //                return;
             }
         }
 
-        std::cout << "Veiculo " << vehicles.at(v)->getID() << " -> " << streetsFound << "/" << paths.at(v).size() << " ruas." << std::endl;
+        std::cout << "Veiculo " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
     }
-
-    std::cout << "GO!" << std::endl;
 
     while(display){
         updateBuildingsGraph();
