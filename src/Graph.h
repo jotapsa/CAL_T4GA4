@@ -42,12 +42,12 @@ class Graph {
     bool relax(Node<T> *source, Node<T> *way, double weight);
     void dijkstra(const T &sourceInfo);
     T* getNodeWithShortestPathDijkstra(const std::vector<T> &nodes);
-    std::vector<T> getDijkstraPath(const T &dest);
+    std::vector<T *> getDijkstraPath(const T &dest);
     double dijkstraHeuristic(const T &dest);
 
     void floydWarshall();
     T* getNodeWithShortestPathFloydWarshall(const T &origin, std::vector<T> &nodes);
-    void getfloydWarshallPath(std::vector<T> &path, const T &origin, const T &dest);
+    void getfloydWarshallPath(std::vector<T *> &path, const T &origin, const T &dest);
     void floydWarshallHeuristic(double &cost, const T &origin, const T &dest);
 
     std::vector<T> dfs() const;
@@ -255,14 +255,14 @@ T* Graph<T>::getNodeWithShortestPathDijkstra(const std::vector<T> &nodes) {
 }
 
 template<class T>
-std::vector<T> Graph<T>::getDijkstraPath(const T &dest) {
-    std::vector<T> path;
+std::vector<T *> Graph<T>::getDijkstraPath(const T &dest) {
+    std::vector<T *> path;
     auto n = getNode(dest);
     if(n == nullptr || n->dist == std::numeric_limits<double>::max()){
         return path;
     }
     for(; n!= nullptr; n = n->path){
-        path.push_back(n->info);
+        path.push_back(&(n->info));
     }
     std::reverse(path.begin(), path.end());
     return path;
@@ -322,7 +322,7 @@ void Graph<T>::floydWarshall() {
 }
 
 template<class T>
-void Graph<T>::getfloydWarshallPath(std::vector<T> &path, const T &origin, const T &dest) {
+void Graph<T>::getfloydWarshallPath(std::vector<T *> &path, const T &origin, const T &dest) {
     unsigned long nDestIndex = nodeSet.size();
     unsigned long nOriginIndex = nodeSet.size();
 
@@ -340,11 +340,12 @@ void Graph<T>::getfloydWarshallPath(std::vector<T> &path, const T &origin, const
         }
     }
 
-    if(origin == dest){
-        path.push_back(origin);
+    if(nodeSet[nOriginIndex]->info == nodeSet[nDestIndex]->info){
+        path.push_back(&(nodeSet[nOriginIndex]->info));
     }else if(P[nOriginIndex][nDestIndex] != nullptr){
-        getfloydWarshallPath(path, origin, P[nOriginIndex][nDestIndex]->getInfo());
-        path.push_back(dest);
+        const T& newDest = P[nOriginIndex][nDestIndex]->getInfo();
+        getfloydWarshallPath(path, origin, newDest);
+        path.push_back(&(nodeSet[nDestIndex]->info));
     }
 }
 

@@ -566,7 +566,16 @@ void GarbageManagement::collectGarbage() {
         Container *container = getClosestContainerToVehicle(vehicle, filledContainers);
 
         //move vehicle to closest container
-        //vetor de paths
+        std::vector<Place *> intermediatePath;
+        if(algorithm==Algorithm::Warshall){
+            graph.getfloydWarshallPath(intermediatePath, *(vehicle->getPlace()), *(container->getPlace()));
+        }else if(algorithm == Algorithm::Dijkstra){
+            intermediatePath = graph.getDijkstraPath(*(container->getPlace()));
+        }
+        for(auto p: intermediatePath){
+            path.push_back(p);
+        }
+
         vehicle->moveTo(container->getPlace());
         path.push_back(container->getPlace());
         vehicle->loadFromContainer(container);
@@ -578,7 +587,15 @@ void GarbageManagement::collectGarbage() {
         }
 
         while((container = getClosestContainerToVehicle(vehicle, filledContainers)) != nullptr){
-            //vetor de paths
+            if(algorithm==Algorithm::Warshall){
+                graph.getfloydWarshallPath(intermediatePath, *(vehicle->getPlace()), *(container->getPlace()));
+            }else if(algorithm == Algorithm::Dijkstra){
+                intermediatePath = graph.getDijkstraPath(*(container->getPlace()));
+            }
+            for(auto p: intermediatePath){
+                path.push_back(p);
+            }
+
             vehicle->moveTo(container->getPlace());
             path.push_back(container->getPlace());
             vehicle->loadFromContainer(container);
@@ -595,7 +612,15 @@ void GarbageManagement::collectGarbage() {
         std::vector<Station *> cloneStations(this->stations);
         Station *station = getClosestStationToVehicle(vehicle, cloneStations);
 
-        //vetor de paths
+        if(algorithm==Algorithm::Warshall){
+            graph.getfloydWarshallPath(intermediatePath, *(vehicle->getPlace()), *(station->getPlace()));
+        }else if(algorithm == Algorithm::Dijkstra){
+            intermediatePath = graph.getDijkstraPath(*(station->getPlace()));
+        }
+        for(auto p: intermediatePath){
+            path.push_back(p);
+        }
+
         vehicle->moveTo(station->getPlace());
         path.push_back(station->getPlace());
         vehicle->unloadToStation(station);
