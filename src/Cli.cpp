@@ -1114,7 +1114,7 @@ void setAlgorithmInteraction(GarbageManagement &management) {
         return;
     }
 
-    Algorithm alg = (Algorithm)(option - 1);
+    Algorithm alg = static_cast<Algorithm>(option - 1);
 
     management.setAlgorithm(alg);
 

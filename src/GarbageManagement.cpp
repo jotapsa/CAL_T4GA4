@@ -180,7 +180,6 @@ std::vector<Container *> GarbageManagement::getMatchingContainers(Vehicle *vehic
     return containersMatch;
 }
 
-//TODO: pointer
 Container * GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
     std::vector<Container *> matchingContainers = getMatchingContainers(vehicle, containers);
     std::vector<Place> matchingPlaces;
@@ -266,9 +265,9 @@ void GarbageManagement::addPlace(Place *place) {
                       place->getCoordinates().second);
     this->gv->setVertexColor((int) place->getID(), BLUE);
 
-    std::stringstream ss;
-    ss << place->getID();
-    this->gv->setVertexLabel((int) place->getID(), ss.str());
+//    std::stringstream ss;
+//    ss << place->getID();
+//    this->gv->setVertexLabel((int) place->getID(), ss.str());
     this->gv->setVertexSize((int) place->getID(), emptyPlaceNodeSize);
 }
 

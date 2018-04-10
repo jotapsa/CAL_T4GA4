@@ -22,8 +22,8 @@ class Graph {
     private:
     std::vector<Node<T> *> nodeSet;    // Node set
 
-    double ** W;   //minimum weight matrix
-    Node<T> *** P;   //shortest path matrix
+    std::vector<std::vector<double>> W; //minimum weight matrix
+    std::vector<std::vector<Node<T> *>> P; //shortest path matrix
 
     public:
     Node<T> * getNode(const T &in) const;
@@ -294,17 +294,18 @@ double Graph<T>::dijkstraHeuristic(const T &dest) {
 template<class T>
 void Graph<T>::floydWarshall() {
     //initialize.
-    W = new double *[nodeSet.size()];
-    P = new Node<T> **[nodeSet.size()];
+    W.resize(nodeSet.size());
+    P.resize(nodeSet.size());
     for(unsigned long i=0; i < nodeSet.size(); i++){
-        W[i] = new double[nodeSet.size()];
-        P[i] = new Node<T> *[nodeSet.size()];
+        W.at(i).resize(nodeSet.size());
+        P.at(i).resize(nodeSet.size());
+
         for(unsigned long j=0; j < nodeSet.size(); j++){
-            W[i][j] = getEdgeWeight(i, j);
-            if(W[i][j] != 0 && W[i][j] != std::numeric_limits<double>::max()){
-                P[i][j] = nodeSet.at(i);
-            }else{
-                P[i][j] = nullptr;
+            W.at(i).at(j) = getEdgeWeight(i, j);
+            if(W.at(i).at(j)  != 0 && W.at(i).at(j) != std::numeric_limits<double>::max()){
+                P.at(i).at(j) = nodeSet.at(i);
+            } else{
+                P.at(i).at(j) = nullptr;
             }
         }
     }
@@ -312,13 +313,12 @@ void Graph<T>::floydWarshall() {
     for(unsigned long k=0; k < nodeSet.size(); k++){
         for(unsigned long i=0; i < nodeSet.size(); i++){
             for(unsigned long j=0; j < nodeSet.size(); j++){
-                if(W[i][k] == std::numeric_limits<double>::max() || W[k][j] == std::numeric_limits<double>::max()){
+                if(W.at(i).at(k) == std::numeric_limits<double>::max() || W.at(k).at(j) == std::numeric_limits<double>::max()){
                     continue;
                 }
-
-                if(W[i][j] > W[i][k] + W[k][j]){
-                    W[i][j] = W[i][k] + W[i][k];
-                    P[i][j] = P[k][j];
+                if(W.at(i).at(j) > W.at(i).at(k) + W.at(k).at(j)){
+                    W.at(i).at(j) = W.at(i).at(k) + W.at(k).at(j);
+                    P.at(i).at(j) = P.at(k).at(j);
                 }
             }
         }
