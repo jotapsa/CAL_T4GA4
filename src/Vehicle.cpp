@@ -117,7 +117,7 @@ void Vehicle::setFull(bool full) {
 }
 
 void Vehicle::reset() {
-    this->full = false;
+    setFull(false);
     this->place = garage->getPlace();
     this->filled.resize(this->capacities.size(), 0);
 }
