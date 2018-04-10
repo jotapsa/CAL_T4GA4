@@ -7,7 +7,7 @@
 #include "Algorithm.h"
 #include "Place.h"
 
-#define DEFAULT_ALGORITHM 2
+#define DEFAULT_ALGORITHM 0
 #define DEFAULT_FILL_PER_NEEDED 0.75
 
 #define MAX_DOUBLE_WITH 21
@@ -37,7 +37,7 @@
 #define genericImgPath "../img/generic.png"
 #define stationImgPath "../img/station.png"
 #define garageImgPath "../img/garage.png"
-#define vehicleImgPath "../img/vehicle.png"
+#define vehicleImgPath "../img/vehicle2.png"
 
 #define curvedEdges false
 #define emptyPlaceNodeSize 5

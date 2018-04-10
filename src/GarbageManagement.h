@@ -99,6 +99,10 @@ public:
 
     void printResults(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
 
+    void updateBuildingsGraph();
+
+    bool updateVehicle(Vehicle * vehicle, std::vector<Place *> path, unsigned int *index);
+
     void visualFeedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
 };
 
