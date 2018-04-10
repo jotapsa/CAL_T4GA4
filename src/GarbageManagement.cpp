@@ -194,7 +194,7 @@ Container* GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std
 }
 
 Station *GarbageManagement::getClosestStationToVehicle(Vehicle *vehicle, std::vector<Station *> stations) {
-//    auto clone = stations.clone();
+    std::vector<Station *> cloneStations(stations);
 
     if(algorithm==Algorithm::Dijkstra){
 //        graph.dijkstra(*(vehicle->getPlace()));
