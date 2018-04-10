@@ -11,6 +11,7 @@ GarbageManagement::GarbageManagement() {
     gv->createWindow(windowWidth, windowHeight);
     gv->defineEdgeCurved(curvedEdges);
     gv->defineVertexSize(emptyPlaceNodeSize);
+    gv->defineVertexColor(BLUE);
 }
 
 Algorithm GarbageManagement::getAlgorithm() const {
@@ -463,7 +464,7 @@ void GarbageManagement::removeVehicle(const unsigned long &vehicleID) {
 }
 
 void GarbageManagement::removeVehicleFromGraph(Vehicle *vehicle) {
-    this->gv->removeNode((int) vehicle->getPlace()->getID());
+    this->gv->clearVertexIcon((int) vehicle->getPlace()->getID());
 }
 
 void GarbageManagement::removeEdge(const unsigned long &ID) {
@@ -681,7 +682,7 @@ void GarbageManagement::collectGarbage() {
 
     std::cout << "Elapsed time: " << tElapsed << std::endl;
 
-    printResults(vehicles, paths);
+//    printResults(vehicles, paths);
     visualFeedback(vehicles, paths);
 }
 
@@ -731,6 +732,58 @@ void GarbageManagement::printResults(std::vector<Vehicle *> vehicles, std::vecto
 
 }
 
-void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths) {
+void GarbageManagement::updateBuildingsGraph(){
 
+    for(Container *container : this->containers){
+        this->gv->setVertexIcon((int) container->getPlace()->getID(), getGarbageTypeImgPath(container->getType()));
+    }
+
+    for(Station *station : this->stations){
+        this->gv->setVertexIcon((int) station->getPlace()->getID(), stationImgPath);
+    }
+
+    for(Garage *garage : this->garages){
+        this->gv->setVertexIcon((int) garage->getPlace()->getID(), garageImgPath);
+    }
+}
+
+bool GarbageManagement::updateVehicle(Vehicle * vehicle, std::vector<Place *> path, unsigned int *index){
+    if(*index >= path.size()){
+        return false;
+    }
+
+    if(*index>0){
+        removeVehicleFromGraph(vehicle);
+    }
+
+    Place *place = path.at(*index);
+
+    vehicle->moveTo(place);
+    addVehicleToGraph(vehicle);
+    (*index)++;
+
+    return true;
+}
+
+void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths) {
+    unsigned int index[vehicles.size()];
+    unsigned int maxIndex=0;
+    bool display=true;
+
+    for(int v=0; v < vehicles.size(); v++){
+        if(maxIndex < paths.at(v).size()){
+            maxIndex = paths.at(v).size();
+        }
+        index[v] = 0;
+    }
+
+    while(display){
+        updateBuildingsGraph();
+        display=false;
+        for(int v=0; v < vehicles.size(); v++){
+           display |= updateVehicle(vehicles.at(v), paths.at(v), &index[v]);
+        }
+        rearrange();
+        sleep(1);
+    }
 }
