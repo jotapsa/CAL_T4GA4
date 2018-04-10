@@ -30,7 +30,7 @@
 #define DELTA_LONGITUDE (MAX_LONGITUDE-MIN_LONGITUDE)
 #define DELTA_LATITUDE (MAX_LATITUDE-MIN_LATITUDE)
 
-#define backgroundImgPath "../img/map_background.png"
+#define backgroundImgPath(map) "../resources/" + map + "/" + map + ".png"
 #define plasticImgPath "../img/plastic.png"
 #define paperImgPath "../img/paper.png"
 #define glassImgPath "../img/glass.png"

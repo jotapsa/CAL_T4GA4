@@ -5,9 +5,11 @@
 GarbageManagement::GarbageManagement() {
     this->algorithm = static_cast<Algorithm>(DEFAULT_ALGORITHM);
     this->fillPerNeeded = DEFAULT_FILL_PER_NEEDED;
+}
 
+void GarbageManagement::initGraphViewer(){
     gv = new GraphViewer(windowWidth, windowHeight, false);
-    gv->setBackground(backgroundImgPath);
+    gv->setBackground(backgroundImgPath(this->mapPath));
     gv->createWindow(windowWidth, windowHeight);
     gv->defineEdgeCurved(curvedEdges);
     gv->defineVertexSize(emptyPlaceNodeSize);
@@ -827,6 +829,6 @@ void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vec
            display |= updateVehicle(vehicles.at(v), paths.at(v), streets.at(v) ,&index[v]);
         }
         rearrange();
-        sleep(1);
+        usleep(200000);
     }
 }

@@ -29,6 +29,8 @@ int main (int argc, char* argv[]) {
     GarbageManagement management = GarbageManagement();
 
     if(askMap(management)){
+        management.initGraphViewer();
+
         std::cout << std::endl << "Reading map..." << std::endl;
         if(!loadPlaces(management)){
             std::cout << "Failed to read places!" << std::endl;
@@ -50,6 +52,9 @@ int main (int argc, char* argv[]) {
             std::cout << "Failed to read edges!" << std::endl;
             return 1;
         }
+    }
+    else{
+        management.initGraphViewer();
     }
 
     mainMenu(management);

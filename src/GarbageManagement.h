@@ -36,6 +36,9 @@ private:
 
 public:
     GarbageManagement();
+
+    void initGraphViewer();
+
     Graph<Place> getGraph();
 
     Algorithm getAlgorithm() const;
