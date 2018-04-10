@@ -5,7 +5,6 @@
 #include "GarbageManagement.h"
 #include <fstream>
 
-#define MAPS_PATH "../resources/"
 #define CREATE_MAP_PATH(map) "mkdir -p ../resources/" + map
 #define MAPSLIST_FILEPATH "../resources/mapsList.txt"
 
@@ -47,8 +46,5 @@ void saveGarages(const GarbageManagement &management);
 
 void saveEdges(const GarbageManagement &management);
 void saveEdgesInfo(const GarbageManagement &management);
-
-
-
 
 #endif //_INPUTPARSER_H
