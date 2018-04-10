@@ -265,9 +265,9 @@ void GarbageManagement::addPlace(Place *place) {
                       place->getCoordinates().second);
     this->gv->setVertexColor((int) place->getID(), BLUE);
 
-//    std::stringstream ss;
-//    ss << place->getID();
-//    this->gv->setVertexLabel((int) place->getID(), ss.str());
+    std::stringstream ss;
+    ss << place->getID();
+    this->gv->setVertexLabel((int) place->getID(), ss.str());
     this->gv->setVertexSize((int) place->getID(), emptyPlaceNodeSize);
 }
 
@@ -512,12 +512,25 @@ void GarbageManagement::evalCon() {
         std::cout << "This graph is a Directed acyclic graph." << std::endl;
     }
 
-    //TODO: Strongly connected components.
-    //cloneGraph actual graph
+
+    graph.resetNodeAuxFields();
+    std::vector<Place> visitOrder = graph.dfs();
+
     Graph<Place> cloneGraph = this->graph.clone();
-//    cloneGraph.isSCC();
+    cloneGraph.invertEdges();
+    cloneGraph.resetNodeAuxFields();
 
-
+    std::cout << "Following are strongly connected components in graph." << std::endl;
+    for(auto p: visitOrder){
+        if(!cloneGraph.getNodeVisited(p)){
+            std::vector<Place> scc;
+            cloneGraph.dfsVisit(cloneGraph.getNode(p), scc);
+            for(auto c: scc){
+                std::cout << c.getID() << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
 
     bool stronglyCon = true;
 
