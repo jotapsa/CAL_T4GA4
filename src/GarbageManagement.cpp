@@ -171,7 +171,7 @@ std::vector<Container *> GarbageManagement::getMatchingContainers(Vehicle *vehic
 
     for(Container *c : containers){
         if(vehicle->hasType(c->getType())){
-            if(vehicle->getFreeSpace(c->getType()) >= (c->getFilled())){
+            if(vehicle->getFreeSpaceForType(c->getType()) >= (c->getFilled())){
                 containersMatch.push_back(c);
             }
         }
@@ -180,22 +180,31 @@ std::vector<Container *> GarbageManagement::getMatchingContainers(Vehicle *vehic
     return containersMatch;
 }
 
-
-Container* GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
-    //TODO: Bernas
+//TODO: pointer
+Container * GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
     auto matchingContainers = getMatchingContainers(vehicle, containers);
-
-    if(algorithm==Algorithm::Dijkstra){
-//        graph.dijkstra(*(vehicle->getPlace()));
-        //return graph.getNodeWithShortestPathDijkstra();
-    }else{
-//        return graph.getNodeWithShortestPathFloydWarshall(source, dests)
+    std::vector<Place> matchingPlaces;
+    for(auto c: matchingContainers){
+        matchingPlaces.push_back(*(c->getPlace()));
     }
+
+    Place *place;
+    if(algorithm==Algorithm::Dijkstra){
+        graph.dijkstra(*(vehicle->getPlace()));
+//        place = graph.getNodeWithShortestPathDijkstra(matchingPlaces);
+    }else{
+//        place = graph.getNodeWithShortestPathFloydWarshall(*(vehicle->getPlace()), matchingPlaces);
+    }
+
+//    auto it = std::find(matchingContainers.begin(), matchingContainers.end(), place);
+//    if (it != matchingContainers.end()) {
+//        return *it;
+//    }
+
+    return nullptr;
 }
 
 Station *GarbageManagement::getClosestStationToVehicle(Vehicle *vehicle, std::vector<Station *> stations) {
-    std::vector<Station *> cloneStations(stations);
-
     if(algorithm==Algorithm::Dijkstra){
 //        graph.dijkstra(*(vehicle->getPlace()));
         //return graph.getNodeWithShortestPathDijkstra();
@@ -524,7 +533,7 @@ void GarbageManagement::collectGarbage() {
         graph.floydWarshall();
     }
 
-    //get filled containers
+    //get filled containers with cloned values
     std::vector<Container *> filledContainers;
     for (auto c: containers){
         if(c->getFilledPer() >= fillPerNeeded){
@@ -532,7 +541,16 @@ void GarbageManagement::collectGarbage() {
         }
     }
 
-    std::vector<Vehicle *> emptyVehicles = getVehicles();
+    //clone
+    std::vector<Vehicle *> emptyVehicles;
+    for(auto v: vehicles){
+        if(!v->getFull()){
+            emptyVehicles.push_back(v);
+        }
+    }
+
+    std::vector<Vehicle *> vehicles;
+    std::vector<std::vector<Place *>> paths;
 
     while(!filledContainers.empty() && !emptyVehicles.empty()){
         std::vector<Place *> path;
@@ -542,11 +560,13 @@ void GarbageManagement::collectGarbage() {
         unsigned  long vehicleIndex = dist(rng);
         Vehicle *vehicle = emptyVehicles[vehicleIndex];
 
+        vehicles.push_back(vehicle);
         path.push_back(vehicle->getGarage()->getPlace());
 
         Container *container = getClosestContainerToVehicle(vehicle, filledContainers);
 
         //move vehicle to closest container
+        //vetor de paths
         vehicle->moveTo(container->getPlace());
         path.push_back(container->getPlace());
         vehicle->loadFromContainer(container);
@@ -558,6 +578,7 @@ void GarbageManagement::collectGarbage() {
         }
 
         while((container = getClosestContainerToVehicle(vehicle, filledContainers)) != nullptr){
+            //vetor de paths
             vehicle->moveTo(container->getPlace());
             path.push_back(container->getPlace());
             vehicle->loadFromContainer(container);
@@ -569,7 +590,12 @@ void GarbageManagement::collectGarbage() {
             }
         }
 
-        Station *station = getClosestStationToVehicle(vehicle, stations);
+        vehicle->setFull(true);
+
+        std::vector<Station *> cloneStations(this->stations);
+        Station *station = getClosestStationToVehicle(vehicle, cloneStations);
+
+        //vetor de paths
         vehicle->moveTo(station->getPlace());
         path.push_back(station->getPlace());
         vehicle->unloadToStation(station);
@@ -578,6 +604,8 @@ void GarbageManagement::collectGarbage() {
         if (vehicle_it != emptyVehicles.end()) {
             emptyVehicles.erase(vehicle_it);
         }
+
+        paths.push_back(path);
     }
 
     clock_t tEnd = clock();
@@ -585,7 +613,8 @@ void GarbageManagement::collectGarbage() {
 
     std::cout << "Elapsed time: " << tElapsed << std::endl;
 
-    //print/return vehicles and paths
+    printResults(vehicles, paths);
+    visualFeedback(vehicles, paths);
 }
 
 void GarbageManagement::rearrange() {
@@ -620,4 +649,12 @@ std::vector<std::pair<unsigned long, std::string>> GarbageManagement::getAllStre
     }
 
     return streetNames;
+}
+
+void GarbageManagement::printResults(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths) {
+
+}
+
+void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths) {
+
 }

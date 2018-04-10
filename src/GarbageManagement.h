@@ -96,6 +96,10 @@ public:
     void closeWindow();
 
     Station *getClosestStationToVehicle(Vehicle *pVehicle, std::vector<Station *> vector);
+
+    void printResults(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
+
+    void visualFeedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
 };
 
 #endif

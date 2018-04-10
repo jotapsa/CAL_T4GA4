@@ -41,12 +41,12 @@ class Graph {
 
     bool relax(Node<T> *source, Node<T> *way, double weight);
     void dijkstra(const T &sourceInfo);
-    T getNodeWithShortestPathDijkstra(const std::vector<T> &nodes);
+    T* getNodeWithShortestPathDijkstra(const std::vector<T> &nodes);
     std::vector<T> getDijkstraPath(const T &dest);
     double dijkstraHeuristic(const T &dest);
 
     void floydWarshall();
-    T getNodeWithShortestPathFloydWarshall(const T &origin, std::vector<T> &nodes);
+    T* getNodeWithShortestPathFloydWarshall(const T &origin, std::vector<T> &nodes);
     void getfloydWarshallPath(std::vector<T> &path, const T &origin, const T &dest);
     void floydWarshallHeuristic(double &cost, const T &origin, const T &dest);
 
@@ -238,7 +238,7 @@ void Graph<T>::dijkstra(const T &sourceInfo){
 }
 
 template<class T>
-T Graph<T>::getNodeWithShortestPathDijkstra(const std::vector<T> &nodes) {
+T* Graph<T>::getNodeWithShortestPathDijkstra(const std::vector<T> &nodes) {
     double min = std::numeric_limits<double>::max();
     double cost;
     typename std::vector<T>::iterator bestOption = nodes.begin();
@@ -251,7 +251,7 @@ T Graph<T>::getNodeWithShortestPathDijkstra(const std::vector<T> &nodes) {
         }
     }
 
-    return bestOption;
+    return &bestOption;
 }
 
 template<class T>
@@ -376,7 +376,7 @@ void Graph<T>::floydWarshallHeuristic(double &cost, const T &origin, const T &de
 }
 
 template<class T>
-T Graph<T>::getNodeWithShortestPathFloydWarshall(const T &origin, std::vector<T> &nodes) {
+T* Graph<T>::getNodeWithShortestPathFloydWarshall(const T &origin, std::vector<T> &nodes) {
     double min = std::numeric_limits<double>::max();
     double cost = 0;
     typename std::vector<T>::iterator bestOption = nodes.begin();
@@ -389,7 +389,7 @@ T Graph<T>::getNodeWithShortestPathFloydWarshall(const T &origin, std::vector<T>
         }
     }
 
-    return bestOption;
+    return &bestOption;
 }
 
 /*

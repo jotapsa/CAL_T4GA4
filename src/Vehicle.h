@@ -16,9 +16,12 @@ private:
     Place *place;
     Garage* garage;
     std::string plate;
+
     std::vector<GarbageType> types;
     std::vector<double> capacities;
     std::vector<double> filled;
+
+    bool full;
 public:
     Vehicle(unsigned long int ID, Garage *garage, std::string plate, std::vector<GarbageType> types, std::vector<double> capacities);
 
@@ -28,11 +31,14 @@ public:
     std::string getPlate();
     std::vector<GarbageType> getTypes();
     bool hasType(GarbageType);
-    double getCapacity(GarbageType type);
-    double getFreeSpace(GarbageType type);
+    double getCapacityForType(GarbageType type);
+    double getFreeSpaceForType(GarbageType type);
     std::string getTypesString();
     std::string getCapacityString();
     std::string getFreeSpaceString();
+    bool getFull();
+
+    void setFull(bool full);
 
     void moveTo(Place *place);
     void loadFromContainer(Container *container);

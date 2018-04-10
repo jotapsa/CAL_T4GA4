@@ -5,14 +5,17 @@
 #include "Edge.h"
 
 template <class T> class Graph; //foward declaration
+template <class T> class MutablePriorityQueue;
 
 template <class T>
 class Node {
+private:
     T info;                // contents
     std::vector<Edge<T>> edges;  // list of outgoing edges
 
     double dist = 0;        // auxiliary field used by dijkstra
     Node<T> *path = nullptr; // auxiliary field used by dijkstra
+    unsigned int queueIndex; // auxiliary field used by mutable priority queue
 
     bool visited;          // auxiliary field used by dfs and bfs
     int indegree;          // auxiliary field used by topsort
@@ -27,9 +30,11 @@ public:
 
     void resetAuxFields();
 
+    bool operator<(Node<T> vertex);
     bool operator==(Node<T> node);
 
     friend class Graph<T>; //make Graph class a friend so that it can access private and protected fields
+    friend class MutablePriorityQueue<Node<T>>;
 };
 
 template <class T>
@@ -78,6 +83,11 @@ void Node<T>::resetAuxFields() {
 template<class T>
 bool Node<T>::operator==(const Node<T> node) {
     return this->info == node.getInfo();
+}
+
+template<class T>
+bool Node<T>::operator<(const Node<T> node) {
+    return this->dist < node.dist;
 }
 
 #endif //_NODE_H
