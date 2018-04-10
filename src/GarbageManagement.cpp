@@ -794,6 +794,7 @@ void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vec
             if(street != nullptr){
                 streets.at(v).push_back(street);
                 this->gv->setEdgeColor((int) street->getEdgeID(), RED);
+                this->gv->setEdgeThickness((int) street->getEdgeID(), 2);
             }
             else{
 //                std::cout << "STREET NOT FOUND!" << std::endl;
