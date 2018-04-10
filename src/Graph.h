@@ -250,13 +250,20 @@ T* Graph<T>::getNodeWithShortestPathDijkstra(std::vector<T> &possibleDests) {
 
     for(typename std::vector<T>::iterator it = possibleDests.begin(); it!= possibleDests.end(); ++it){
         cost = dijkstraHeuristic(*it);
+        if(cost == 0){
+            continue;
+        }
         if(cost < min){
             min = cost;
             currOption = it;
         }
     }
 
-    return &(*currOption);
+    if(min != std::numeric_limits<double>::max()){
+        return &(*currOption);
+    }
+
+    return nullptr;
 }
 
 template<class T>
@@ -389,13 +396,20 @@ T* Graph<T>::getNodeWithShortestPathFloydWarshall(const T &origin, std::vector<T
 
     for(typename std::vector<T>::iterator it = possibleDest.begin(); it!= possibleDest.end(); ++it){
         floydWarshallHeuristic(cost, origin, *it);
+        if(cost == 0){
+            continue;
+        }
         if(cost < min){
             min = cost;
             currOption = it;
         }
     }
 
-    return &(*currOption);
+    if(min != std::numeric_limits<double>::max()){
+        return &(*currOption);
+    }
+
+    return nullptr;
 }
 
 /*

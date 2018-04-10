@@ -210,6 +210,10 @@ Container * GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, st
         place = graph.getNodeWithShortestPathFloydWarshall(*(vehicle->getPlace()), matchingPlaces);
     }
 
+    if(place == nullptr){
+        return nullptr;
+    }
+
     for (auto &matchingContainer : matchingContainers) {
         if(*(matchingContainer->getPlace()) == *(place)){
             return matchingContainer;
@@ -234,8 +238,12 @@ Station *GarbageManagement::getClosestStationToVehicle(Vehicle *vehicle, std::ve
     Place *place;
     if(algorithm==Algorithm::Dijkstra){
         place = graph.getNodeWithShortestPathDijkstra(places);
-    }else{
+    }else if(algorithm == Algorithm::Warshall){
         place = graph.getNodeWithShortestPathFloydWarshall(*(vehicle->getPlace()), places);
+    }
+
+    if(place == nullptr){
+        return nullptr;
     }
 
     for (auto &station : stations) {
@@ -502,10 +510,8 @@ void GarbageManagement::removeEdge(const unsigned long &ID) {
 }
 
 void GarbageManagement::resetVehicles() {
-    for(auto g: garages){
-        for(auto v: g->getVehicles()){
-            v->reset();
-        }
+    for(auto v: vehicles){
+        v->reset();
     }
 }
 
@@ -601,7 +607,7 @@ void GarbageManagement::collectGarbage() {
         }
     }
 
-    std::vector<Vehicle *> vehicles;
+    std::vector<Vehicle *> trucks;
     std::vector<std::vector<Place *>> paths;
 
     while(!filledContainers.empty() && !emptyVehicles.empty()){
@@ -622,8 +628,6 @@ void GarbageManagement::collectGarbage() {
         if(container == nullptr){
             continue;
         }
-
-        vehicles.push_back(vehicle);
 
         //move vehicle to closest container
         std::vector<Place *> intermediatePath;
@@ -671,6 +675,11 @@ void GarbageManagement::collectGarbage() {
         std::vector<Station *> cloneStations(this->stations);
         Station *station = getClosestStationToVehicle(vehicle, cloneStations);
 
+        if(station == nullptr){
+
+            continue;
+        }
+
         if(algorithm==Algorithm::Warshall){
             graph.getfloydWarshallPath(intermediatePath, *(vehicle->getPlace()), *(station->getPlace()));
         }else if(algorithm == Algorithm::Dijkstra){
@@ -683,6 +692,7 @@ void GarbageManagement::collectGarbage() {
         vehicle->moveTo(station->getPlace());
         vehicle->unloadToStation(station);
 
+        trucks.push_back(vehicle);
         paths.push_back(path);
     }
 
@@ -691,8 +701,8 @@ void GarbageManagement::collectGarbage() {
 
     std::cout << "Elapsed time: " << tElapsed << std::endl;
 
-//    printResults(vehicles, paths);
-    visualFeedback(vehicles, paths);
+    printResults(trucks, paths);
+    visualFeedback(trucks, paths);
 }
 
 void GarbageManagement::rearrange() {
