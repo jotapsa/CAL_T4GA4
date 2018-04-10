@@ -756,7 +756,7 @@ void GarbageManagement::updateBuildingsGraph(){
     }
 }
 
-bool GarbageManagement::updateVehicle(Vehicle * vehicle, std::vector<Place *> path, unsigned int *index){
+bool GarbageManagement::updateVehicle(Vehicle * vehicle, std::vector<Place *> path, std::vector<Street *> streetsVehicle, unsigned int *index){
     if(*index >= path.size()){
         return false;
     }
@@ -769,8 +769,13 @@ bool GarbageManagement::updateVehicle(Vehicle * vehicle, std::vector<Place *> pa
 
     vehicle->moveTo(place);
     addVehicleToGraph(vehicle);
-    (*index)++;
 
+    //TODO uncomment when having all streets
+//    Street* street = streetsVehicle.at(*index);
+//    this->gv->setEdgeColor((int) street->getEdgeID(), BLACK);
+//    this->gv->setEdgeThickness((int) street->getEdgeID(), 1);
+
+    (*index)++;
     return true;
 }
 
@@ -802,14 +807,14 @@ void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vec
             }
         }
 
-        std::cout << "Veiculo " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
+        std::cout << "Vehicle " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
     }
 
     while(display){
         updateBuildingsGraph();
         display=false;
         for(int v=0; v < vehicles.size(); v++){
-           display |= updateVehicle(vehicles.at(v), paths.at(v), &index[v]);
+           display |= updateVehicle(vehicles.at(v), paths.at(v), streets.at(v) ,&index[v]);
         }
         rearrange();
         sleep(1);

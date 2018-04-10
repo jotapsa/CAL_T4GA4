@@ -102,7 +102,7 @@ public:
 
     void updateBuildingsGraph();
 
-    bool updateVehicle(Vehicle * vehicle, std::vector<Place *> path, unsigned int *index);
+    bool updateVehicle(Vehicle * vehicle, std::vector<Place *> path, std::vector<Street *> streetsVehicle, unsigned int *index);
 
     void visualFeedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
 };
