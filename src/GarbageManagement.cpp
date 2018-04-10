@@ -196,10 +196,11 @@ Container * GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, st
         place = graph.getNodeWithShortestPathFloydWarshall(*(vehicle->getPlace()), matchingPlaces);
     }
 
-//    auto it = std::find(matchingContainers.begin(), matchingContainers.end(), place);
-//    if (it != matchingContainers.end()) {
-//        return *it;
-//    }
+    for (auto &matchingContainer : matchingContainers) {
+        if(*(matchingContainer->getPlace()) == *(place)){
+            return matchingContainer;
+        }
+    }
 
     return nullptr;
 }
@@ -218,7 +219,11 @@ Station *GarbageManagement::getClosestStationToVehicle(Vehicle *vehicle, std::ve
         place = graph.getNodeWithShortestPathFloydWarshall(*(vehicle->getPlace()), places);
     }
 
-    //find station
+    for (auto &station : stations) {
+        if(*(station->getPlace()) == *(place)){
+            return station;
+        }
+    }
 
     return nullptr;
 }
@@ -570,10 +575,19 @@ void GarbageManagement::collectGarbage() {
         unsigned  long vehicleIndex = dist(rng);
         Vehicle *vehicle = emptyVehicles[vehicleIndex];
 
-        vehicles.push_back(vehicle);
-        path.push_back(vehicle->getGarage()->getPlace());
+        auto vehicle_it = std::find(emptyVehicles.begin(), emptyVehicles.end(), vehicle);
+        if (vehicle_it != emptyVehicles.end()) {
+            emptyVehicles.erase(vehicle_it);
+        }
 
         Container *container = getClosestContainerToVehicle(vehicle, filledContainers);
+        //No container that the vehicle is able to "load"
+        if(container == nullptr){
+            continue;
+        }
+
+        vehicles.push_back(vehicle);
+        path.push_back(vehicle->getGarage()->getPlace());
 
         //move vehicle to closest container
         std::vector<Place *> intermediatePath;
@@ -633,11 +647,6 @@ void GarbageManagement::collectGarbage() {
         vehicle->moveTo(station->getPlace());
         path.push_back(station->getPlace());
         vehicle->unloadToStation(station);
-        
-        auto vehicle_it = std::find(emptyVehicles.begin(), emptyVehicles.end(), vehicle);
-        if (vehicle_it != emptyVehicles.end()) {
-            emptyVehicles.erase(vehicle_it);
-        }
 
         paths.push_back(path);
     }
@@ -686,6 +695,14 @@ std::vector<std::pair<unsigned long, std::string>> GarbageManagement::getAllStre
 }
 
 void GarbageManagement::printResults(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths) {
+    for(unsigned long i=0; i<vehicles.size(); i++){
+        std::cout << "Vehicle with plate - " << vehicles.at(i)->getPlate() << " - path:" << std::endl;
+
+        unsigned long noStop = 0;
+        for(auto p: paths.at(i)){
+            std::cout << noStop++ <<"nth stop was :" << p->getID() << std::endl;
+        }
+    }
 
 }
 
