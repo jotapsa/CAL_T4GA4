@@ -504,8 +504,11 @@ void GarbageManagement::evalCon() {
     }
 
     //TODO: Strongly connected components.
-    Graph<Place> clone = this->graph.clone();
-    clone.invertEdges();
+    //cloneGraph actual graph
+    Graph<Place> cloneGraph = this->graph.clone();
+//    cloneGraph.isSCC();
+
+
 
     bool stronglyCon = true;
 

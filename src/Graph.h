@@ -8,6 +8,7 @@
 #include <queue>
 #include <limits>
 #include <algorithm>
+#include <iostream>
 
 template <class T> class Edge;
 template <class T> class Graph;
@@ -59,6 +60,9 @@ class Graph {
     std::vector<T> topsort() const;
 
     Graph<T> clone();
+
+    void isSCC();
+    void printSCC(int index, bool visited[], const T &n, std::vector<T> nodes);
 };
 
 /*
@@ -528,6 +532,67 @@ Graph<T> Graph<T>::clone() {
     }
 
     return clone;
+}
+
+template<class T>
+void Graph<T>::isSCC(){
+    std::vector<T> nodesVisited = dfs();
+
+//    invertEdges();
+
+    bool *visited = new bool[nodesVisited.size()];
+    for(int i = 0; i < nodesVisited.size(); i++){
+        visited[i] = false;
+    }
+
+    int i=1;
+//    for(auto it = nodesVisited.end(); it != nodesVisited.begin(); --it){
+//        unsigned long int index = nodesVisited.size()-i;
+//        if (!visited[index]){
+//            printSCC(index, visited, nodesVisited.at(index), nodesVisited);
+//            std::cout << std::endl;
+//        }
+//        i++;
+//    }
+
+    for(auto it = nodeSet.end(); it != nodeSet.begin(); --it){
+        unsigned long int index = nodeSet.size()-i;
+//        Node<T> * node = getNode(nodeSet.at(index));
+        Node<T> * node = nodeSet.at(index);
+        std::cout << node->getInfo().getID() << " (" << node->edges.size() << " destinos)";
+        i++;
+    }
+    std::cout << "FINISHED SCC\n\n";
+}
+
+
+
+template<class T>
+void Graph<T>::printSCC(int index, bool visited[], const T &n, std::vector<T> nodes){
+    // Mark the current node as visited and print it
+    visited[index] = true;
+    std::cout << index << " ";
+//
+    Node<T> * node = getNode(n);
+
+    std::cout << node->getInfo().getID() << " (" << node->edges.size() << " destinos) ---- ";
+
+    // Recursive for all the vertices adjacent to this vertex
+    for (auto it = node->edges.begin(); it != node->edges.end(); ++it){
+        Node<T> * nodeDest = it->dest;
+
+        std::cout << nodeDest->getInfo().getID() << "(dest)";
+
+        for(int i=0; i < nodes.size(); i++){
+            if(getNode(nodes.at(i)) == nodeDest){
+                index = i;
+            }
+        }
+
+        if (!visited[index]){
+            printSCC(index, visited, nodes.at(index), nodes);
+        }
+    }
 }
 
 #endif /* GRAPH_H_ */
