@@ -188,11 +188,16 @@ Container * GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, st
         matchingPlaces.push_back(*(c->getPlace()));
     }
 
-    Place *place;
     if(algorithm==Algorithm::Dijkstra){
         graph.dijkstra(*(vehicle->getPlace()));
+    }else if(algorithm == Algorithm::Warshall){
+        //pre proc already done
+    }
+
+    Place *place;
+    if(algorithm == Algorithm::Dijkstra){
         place = graph.getNodeWithShortestPathDijkstra(matchingPlaces);
-    }else{
+    }else if(algorithm == Algorithm::Warshall){
         place = graph.getNodeWithShortestPathFloydWarshall(*(vehicle->getPlace()), matchingPlaces);
     }
 
@@ -211,9 +216,14 @@ Station *GarbageManagement::getClosestStationToVehicle(Vehicle *vehicle, std::ve
         places.push_back(*(s->getPlace()));
     }
 
-    Place *place;
     if(algorithm==Algorithm::Dijkstra){
         graph.dijkstra(*(vehicle->getPlace()));
+    }else if(algorithm == Algorithm::Warshall){
+        //pre proc already done
+    }
+
+    Place *place;
+    if(algorithm==Algorithm::Dijkstra){
         place = graph.getNodeWithShortestPathDijkstra(places);
     }else{
         place = graph.getNodeWithShortestPathFloydWarshall(*(vehicle->getPlace()), places);
@@ -256,9 +266,9 @@ void GarbageManagement::addPlace(Place *place) {
                       place->getCoordinates().second);
     this->gv->setVertexColor((int) place->getID(), BLUE);
 
-//    std::stringstream ss;
-//    ss << place->getID();
-//    this->gv->setVertexLabel((int) place->getID(), ss.str());
+    std::stringstream ss;
+    ss << place->getID();
+    this->gv->setVertexLabel((int) place->getID(), ss.str());
     this->gv->setVertexSize((int) place->getID(), emptyPlaceNodeSize);
 }
 
@@ -547,7 +557,9 @@ void GarbageManagement::collectGarbage() {
 
     clock_t tBegin = clock();
 
-    if(algorithm==Algorithm::Warshall){
+    if(algorithm == Algorithm::Dijkstra){
+        //No need for pre-processing (yet)
+    }else if(algorithm == Algorithm::Warshall){
         graph.floydWarshall();
     }
 
@@ -590,21 +602,21 @@ void GarbageManagement::collectGarbage() {
         }
 
         vehicles.push_back(vehicle);
-        path.push_back(vehicle->getGarage()->getPlace());
 
         //move vehicle to closest container
         std::vector<Place *> intermediatePath;
-        if(algorithm==Algorithm::Warshall){
-            graph.getfloydWarshallPath(intermediatePath, *(vehicle->getPlace()), *(container->getPlace()));
-        }else if(algorithm == Algorithm::Dijkstra){
+        if(algorithm == Algorithm::Dijkstra){
             intermediatePath = graph.getDijkstraPath(*(container->getPlace()));
+        }else if(algorithm == Algorithm::Warshall){
+            graph.getfloydWarshallPath(intermediatePath, *(vehicle->getPlace()), *(container->getPlace()));
         }
         for(auto p: intermediatePath){
+            std::cout << p->getID() << " - " ;
             path.push_back(p);
         }
+        std::cout << std::endl;
 
         vehicle->moveTo(container->getPlace());
-        path.push_back(container->getPlace());
         vehicle->loadFromContainer(container);
 
         //remove from filledContainers
@@ -614,7 +626,7 @@ void GarbageManagement::collectGarbage() {
         }
 
         while((container = getClosestContainerToVehicle(vehicle, filledContainers)) != nullptr){
-            if(algorithm==Algorithm::Warshall){
+            if(algorithm == Algorithm::Warshall){
                 graph.getfloydWarshallPath(intermediatePath, *(vehicle->getPlace()), *(container->getPlace()));
             }else if(algorithm == Algorithm::Dijkstra){
                 intermediatePath = graph.getDijkstraPath(*(container->getPlace()));
@@ -624,7 +636,6 @@ void GarbageManagement::collectGarbage() {
             }
 
             vehicle->moveTo(container->getPlace());
-            path.push_back(container->getPlace());
             vehicle->loadFromContainer(container);
 
             //remove from filledContainers
@@ -648,7 +659,6 @@ void GarbageManagement::collectGarbage() {
         }
 
         vehicle->moveTo(station->getPlace());
-        path.push_back(station->getPlace());
         vehicle->unloadToStation(station);
 
         paths.push_back(path);
