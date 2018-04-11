@@ -268,11 +268,11 @@ Station *GarbageManagement::getClosestStationToVehicle(Vehicle *vehicle, std::ve
 }
 
 void GarbageManagement::setMapPath(std::string mapPath){
-    this->mapPath = mapPath;
+    this->mapPath = std::move(mapPath);
 }
 
 void GarbageManagement::setMapName(std::string mapName){
-    this->mapName = mapName;
+    this->mapName = std::move(mapName);
 }
 
 void GarbageManagement::setAlgorithm(Algorithm algorithm) {
@@ -371,7 +371,7 @@ void GarbageManagement::addEdge(double weight, unsigned long int ID, std::pair<u
         return;
     }
 
-    Street *street = new Street(ID, sourceNode, destNode, name, type);
+    Street *street = new Street(ID, sourceNode, destNode, std::move(name), type);
     this->streets.push_back(street);
 
     this->gv->addEdge((int) street->getEdgeID(),
@@ -745,13 +745,13 @@ std::vector<std::pair<unsigned long, std::string>> GarbageManagement::getAllStre
         alreadyExists = false;
 
         for(auto existingStreet : streetNames) {
-            if(existingStreet.second.compare(street->getName()) == 0) {
+            if(existingStreet.second == street->getName()) {
                 alreadyExists = true;
             }
         }
 
         if(!alreadyExists && !street->getName().empty()) {
-            streetNames.push_back(std::make_pair(street->getID(), street->getName()));
+            streetNames.emplace_back(street->getID(), street->getName());
         }
     }
 

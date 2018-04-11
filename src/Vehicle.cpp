@@ -56,18 +56,6 @@ double Vehicle::getCapacityForType(GarbageType type) {
     }
 }
 
-std::string Vehicle::toString() {
-    std::stringstream vehicle;
-
-    vehicle << this->ID << ";" << this->plate;
-    for(int i=0; i < this->types.size(); i++){
-        vehicle << ";" << getGarbageType(this->types.at(i));
-        vehicle << ";" << this->capacities.at(i);
-    }
-
-    return vehicle.str();
-}
-
 std::string Vehicle::getTypesString(){
     std::stringstream types;
 
@@ -126,14 +114,6 @@ void Vehicle::setFull(bool full) {
     this->full = full;
 }
 
-void Vehicle::reset() {
-    setFull(false);
-    this->place = garage->getPlace();
-
-    this->filled.resize(this->capacities.size(), 0);
-    this->filledDif = 0;
-}
-
 void Vehicle::moveTo(Place *place){
     this->place = place;
 }
@@ -157,4 +137,23 @@ void Vehicle::loadFromContainer(Container *container, bool differentiated) {
 
 void Vehicle::unloadToStation(Station *station) {
     this->filled.resize(this->capacities.size(), 0);
+}
+
+void Vehicle::reset() {
+    setFull(false);
+    this->place = garage->getPlace();
+
+    this->filled.resize(this->capacities.size(), 0);
+    this->filledDif = 0;
+}
+
+std::string Vehicle::toString() {
+    std::stringstream vehicle;
+
+    vehicle << this->ID << ";" << this->plate;
+    for(int i=0; i < this->types.size(); i++){
+        vehicle << ";" << getGarbageType(this->types.at(i));
+        vehicle << ";" << this->capacities.at(i);
+    }
+    return vehicle.str();
 }

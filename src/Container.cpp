@@ -8,7 +8,7 @@ Container::Container(Place *place, GarbageType type, double capacity){
     this->capacity = capacity;
 
     this->dist = double_dist(0, this->capacity);
-    this->filled = dist(rng);
+    reset();
 }
 
 Place* Container::getPlace(){
@@ -37,6 +37,7 @@ void Container::setGarbageType(GarbageType type) {
 
 void Container::setCapacity(double capacity) {
     this->capacity = capacity;
+    reset();
 }
 
 void Container::emptyOut() {
