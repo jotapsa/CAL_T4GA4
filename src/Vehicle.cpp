@@ -146,12 +146,12 @@ void Vehicle::loadFromContainer(Container *container, bool differentiated) {
             auto it = std::find(this->types.begin(), this->types.end(), containerType);
             unsigned long typeIndex = static_cast<unsigned long>(std::distance(this->types.begin(), it));
             this->filled.at(typeIndex) += container->getFilled();
-            container->resetFilled();
+            container->emptyOut();
         }
     }
     else{
         this->filledDif += container->getFilled();
-        container->resetFilled();
+        container->emptyOut();
     }
 }
 
