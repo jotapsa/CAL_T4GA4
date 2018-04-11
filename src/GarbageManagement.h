@@ -63,10 +63,9 @@ public:
     std::string getMapPath() const;
     std::string getMapName() const;
 
-    std::vector<Container *>
-    getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers, bool differentiated);
-    Container *getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers,
-                                                bool differentiated);
+    std::vector<Container *> getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers, bool differentiated);
+    Container *getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers, bool differentiated);
+    Station *getClosestStationToVehicle(Vehicle *pVehicle, std::vector<Station *> vector);
 
     void setMapPath(std::string mapPath);
     void setMapName(std::string mapName);
@@ -90,6 +89,7 @@ public:
     void removeVehicleFromGraph(Vehicle *vehicle); //remove Vehicle to GraphViewer
     void removeEdge(const unsigned long &ID);
 
+    void resetContainers();
     void resetVehicles();
 
     void evalCon();
@@ -98,8 +98,6 @@ public:
     void rearrange();
 
     void closeWindow();
-
-    Station *getClosestStationToVehicle(Vehicle *pVehicle, std::vector<Station *> vector);
 
     void printResults(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
 

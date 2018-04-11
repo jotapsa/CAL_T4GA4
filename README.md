@@ -1,12 +1,11 @@
 ## CAL - Project 1 - Smart Garbage Collector
 
 ##### Project Members
-[Bernardo Barbosa](https://github.com/bernardomcbarbosa)
-[Duarte Carvalho](https://github.com/duartencar)
-[João Sá](https://github.com/jotapsa)
+[Bernardo Barbosa](https://github.com/bernardomcbarbosa) :trophy: [Duarte Carvalho](https://github.com/duartencar) :trophy: [João Sá](https://github.com/jotapsa)
 
 ### Short summary
 
+<!-- TODO -->
 
 ### How to compile
 
@@ -27,7 +26,3 @@ cd scripts/ && ./peers.sh
 # enhanced peers
 cd scripts/ && ./peers_enhanced.sh
 ```
-
-You may want to customize the scripts to use your preferred ports and addresses
-
-To test the protocols, a test app is provided, which calls a peer's client interface through RMI. To run this application, run this instruction on your terminal, while on the proj1 directory:

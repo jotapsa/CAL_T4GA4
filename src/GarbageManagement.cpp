@@ -521,11 +521,18 @@ void GarbageManagement::removeEdge(const unsigned long &ID) {
     }
 }
 
+void GarbageManagement::resetContainers() {
+    for(auto c: containers){
+        c->reset();
+    }
+}
+
 void GarbageManagement::resetVehicles() {
     for(auto v: vehicles){
         v->reset();
     }
 }
+
 
 void GarbageManagement::evalCon() {
     auto places = getPlaces();
@@ -586,14 +593,16 @@ void GarbageManagement::evalCon() {
     }
 }
 
-
 void GarbageManagement::collectGarbage(bool differentiated) {
     if(stations.empty() || containers.empty() || garages.empty()){
         std::cout << "No stations, containers or garages." << std::endl;
         return;
     }
 
-    resetVehicles(); //only needed sometimes, so let's keep it out of the timer
+    //only needed sometimes, so let's keep it out of the timer
+    resetVehicles();
+    resetContainers();
+    graph.resetNodeAuxFields();
 
     clock_t tBegin = clock();
 
