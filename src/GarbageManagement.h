@@ -65,8 +65,10 @@ public:
     std::string getMapPath() const;
     std::string getMapName() const;
 
-    std::vector<Container *> getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers);
-    Container * getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers);
+    std::vector<Container *>
+    getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers, bool differentiated);
+    Container *getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers,
+                                                bool differentiated);
 
     void setMapPath(std::string mapPath);
     void setMapName(std::string mapName);
@@ -93,7 +95,7 @@ public:
     void resetVehicles();
 
     void evalCon();
-    void collectGarbage();
+    void collectGarbage(bool differentiated);
 
     void rearrange();
 
@@ -108,6 +110,8 @@ public:
     bool updateVehicle(Vehicle * vehicle, std::vector<Place *> path, std::vector<Street *> streetsVehicle, unsigned int *index);
 
     void visualFeedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
+
+    void feedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
 };
 
 #endif

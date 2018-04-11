@@ -126,7 +126,7 @@ void Vehicle::moveTo(Place *place){
     this->place = place;
 }
 
-void Vehicle::loadFromContainer(Container *container) {
+void Vehicle::loadFromContainer(Container *container, bool differentiated) {
     GarbageType containerType = container->getType();
     if(hasType(containerType)){
         auto it = std::find(this->types.begin(), this->types.end(), containerType);

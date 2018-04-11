@@ -1,5 +1,6 @@
 #include "GarbageManagement.h"
 #include "Aux.h"
+#include "Cli.h"
 #include <sstream>
 
 GarbageManagement::GarbageManagement() {
@@ -178,7 +179,8 @@ std::string GarbageManagement::getMapName() const {
     return this->mapName;
 }
 
-std::vector<Container *> GarbageManagement::getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers){
+std::vector<Container *>
+GarbageManagement::getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers, bool differentiated) {
     std::vector<Container *> containersMatch;
 
     for(Container *c : containers){
@@ -192,8 +194,9 @@ std::vector<Container *> GarbageManagement::getMatchingContainers(Vehicle *vehic
     return containersMatch;
 }
 
-Container * GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers) {
-    std::vector<Container *> matchingContainers = getMatchingContainers(vehicle, containers);
+Container * GarbageManagement::getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers,
+                                                            bool differentiated) {
+    std::vector<Container *> matchingContainers = getMatchingContainers(vehicle, containers, differentiated);
     std::vector<Place> matchingPlaces;
     for(auto c: matchingContainers){
         matchingPlaces.push_back(*(c->getPlace()));
@@ -577,7 +580,7 @@ void GarbageManagement::evalCon() {
 }
 
 
-void GarbageManagement::collectGarbage() {
+void GarbageManagement::collectGarbage(bool differentiated) {
     if(stations.empty() || containers.empty() || garages.empty()){
         std::cout << "No stations, containers or garages." << std::endl;
         return;
@@ -625,7 +628,7 @@ void GarbageManagement::collectGarbage() {
             emptyVehicles.erase(vehicle_it);
         }
 
-        Container *container = getClosestContainerToVehicle(vehicle, filledContainers);
+        Container *container = getClosestContainerToVehicle(vehicle, filledContainers, differentiated);
         //No container that the vehicle is able to "load"
         if(container == nullptr){
             continue;
@@ -645,7 +648,7 @@ void GarbageManagement::collectGarbage() {
         std::cout << std::endl;
 
         vehicle->moveTo(container->getPlace());
-        vehicle->loadFromContainer(container);
+        vehicle->loadFromContainer(container, differentiated);
 
         //remove from filledContainers
         auto container_it = std::find(filledContainers.begin(), filledContainers.end(), container);
@@ -653,7 +656,7 @@ void GarbageManagement::collectGarbage() {
             filledContainers.erase(container_it);
         }
 
-        while((container = getClosestContainerToVehicle(vehicle, filledContainers)) != nullptr){
+        while((container = getClosestContainerToVehicle(vehicle, filledContainers, differentiated)) != nullptr){
             if(algorithm == Algorithm::Warshall){
                 graph.getfloydWarshallPath(intermediatePath, *(vehicle->getPlace()), *(container->getPlace()));
             }else if(algorithm == Algorithm::Dijkstra){
@@ -664,7 +667,7 @@ void GarbageManagement::collectGarbage() {
             }
 
             vehicle->moveTo(container->getPlace());
-            vehicle->loadFromContainer(container);
+            vehicle->loadFromContainer(container, differentiated);
 
             //remove from filledContainers
             container_it = std::find(filledContainers.begin(), filledContainers.end(), container);
@@ -678,7 +681,6 @@ void GarbageManagement::collectGarbage() {
         Station *station = getClosestStationToVehicle(vehicle, cloneStations);
 
         if(station == nullptr){
-
             continue;
         }
 
@@ -703,8 +705,7 @@ void GarbageManagement::collectGarbage() {
 
     std::cout << "Elapsed time: " << tElapsed << std::endl;
 
-    printResults(trucks, paths);
-    visualFeedback(trucks, paths);
+    feedback(trucks, paths);
 }
 
 void GarbageManagement::rearrange() {
@@ -829,6 +830,14 @@ void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vec
            display |= updateVehicle(vehicles.at(v), paths.at(v), streets.at(v) ,&index[v]);
         }
         rearrange();
-        usleep(200000);
+        usleep(100000);
+    }
+}
+
+void GarbageManagement::feedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths) {
+    printResults(vehicles, paths);
+    std::cout << "Do you wish to get visual feedback?" << std::endl;
+    if(readConfirmation()){
+        visualFeedback(vehicles, paths);
     }
 }

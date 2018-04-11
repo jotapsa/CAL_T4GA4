@@ -41,7 +41,7 @@ public:
     void setFull(bool full);
 
     void moveTo(Place *place);
-    void loadFromContainer(Container *container);
+    void loadFromContainer(Container *container, bool differentiated);
     void unloadToStation(Station *station);
 
     void reset();

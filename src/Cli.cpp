@@ -1078,14 +1078,13 @@ void mainMenu(GarbageManagement &management) {
 
 unsigned int garbageService(){
     std::cout << "Garbage Service Menu" << std::endl;
-    std::cout << "1 - Undifferentiated trash & Unlimited capacity" << std::endl;
-    std::cout << "2 - Differentiated trash & Unlimited capacity" << std::endl;
-    std::cout << "3 - Differentiated trash & Limited capacity" << std::endl;
-    std::cout << "4 - Set Container fill percentage needed for pickup" << std::endl;
-    std::cout << "5 - Set Algorithm" << std::endl;
+    std::cout << "1 - Undifferentiated trash & Limited capacity" << std::endl;
+    std::cout << "2 - Differentiated trash & Limited capacity" << std::endl;
+    std::cout << "3 - Set Container fill percentage needed for pickup" << std::endl;
+    std::cout << "4 - Set Algorithm" << std::endl;
     std::cout << "0 - Back" << std::endl;
 
-    return nextUnsignedInt("Option: ", 5);
+    return nextUnsignedInt("Option: ", 4);
 }
 
 void setFillPercentageInteraction(GarbageManagement &management) {
@@ -1127,18 +1126,15 @@ void garbageServiceMenu(GarbageManagement &management) {
 
         switch (garbageService()) {
             case 1:
-                management.collectGarbage();
+                management.collectGarbage(false);
                 break;
             case 2:
-                management.collectGarbage();
+                management.collectGarbage(true);
                 break;
             case 3:
-                management.collectGarbage();
-                break;
-            case 4:
                 setFillPercentageInteraction(management);
                 break;
-            case 5:
+            case 4:
                 setAlgorithmInteraction(management);
                 break;
             case 0:
