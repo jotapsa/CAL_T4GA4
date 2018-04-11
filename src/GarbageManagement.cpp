@@ -829,11 +829,6 @@ bool GarbageManagement::updateVehicle(Vehicle * vehicle, std::vector<Place *> pa
     vehicle->moveTo(place);
     addVehicleToGraph(vehicle);
 
-    //TODO uncomment when having all streets
-//    Street* street = streetsVehicle.at(*index);
-//    this->gv->setEdgeColor((int) street->getEdgeID(), BLACK);
-//    this->gv->setEdgeThickness((int) street->getEdgeID(), 1);
-
     (*index)++;
     return true;
 }
@@ -866,7 +861,7 @@ void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vec
             }
         }
 
-//        std::cout << "Vehicle " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
+        std::cout << "Vehicle " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
     }
 
     while(display){
