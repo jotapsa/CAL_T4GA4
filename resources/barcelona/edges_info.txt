@@ -1,0 +1,401 @@
+4744990;Carrer de Provença;False
+4745497;Carrer de Nàpols;False
+4745499;Carrer de Bailèn;False
+4745526;Carrer de Mallorca;False
+4746923;Carrer del Rosselló;False
+4746924;Carrer del Rosselló;False
+4747009;Carrer de Pau Claris;False
+4753804;Carrer del Perill;False
+4776217;Carrer de Montmany;False
+4776218;Carrer de Josep Torres;False
+4776220;Carrer del Progrés;False
+4776222;Carrer de la Llibertat;False
+4776256;Carrer de Tordera;False
+4776259;Carrer de Tagamanent;False
+4776261;Carrer de Venus;False
+4776269;Carrer de Sant Agustí;False
+4776317;Carrer del Torrent d'en Vidalet;False
+4776473;Carrer de Monistrol;False
+4776840;Carrer de la Indústria;False
+4852774;Carrer de l'Escorial;True
+9930038;Carrer de Ramón y Cajal;False
+13719232;Carrer de Puigmartí;False
+13719318;Carrer de Milà i Fontanals;False
+13724827;Plaça de Tetuan;False
+14194648;Carrer de Joan Blanques;False
+20476283;Passeig de Sant Joan;False
+23191707;Passeig de Sant Joan;False
+23191708;Passeig de Sant Joan;False
+23191709;Gran Via de les Corts Catalanes;False
+24040894;Carrer de Quevedo;False
+27465349;Rambla de Catalunya;False
+31029325;Carrer de Roger de Flor;False
+31029327;Carrer del Bruc;False
+32065074;Carrer de Ribes;False
+32065149;Carrer de Casp;False
+35460360;Carrer de Martínez de la Rosa;False
+35460556;Carrer de Ramis;False
+35466179;Carrer de l'Alba;False
+35466212;Carrer de Banyoles;False
+35466216;Carrer d'Igualada;False
+35466474;Carrer de Siracusa;False
+35467468;Carrer de Santa Tecla;False
+35467510;Carrer de Bonavista;False
+37103025;Gran Via de les Corts Catalanes (lateral muntanya);False
+37103026;Gran Via de les Corts Catalanes;False
+43811853;Passatge de Domingo;False
+44029117;Gran Via de les Corts Catalanes (lateral muntanya);False
+44029286;Carrer de la Marina;False
+44029287;Carrer de la Marina;False
+44029498;Gran Via de les Corts Catalanes (lateral mar);False
+65143745;Carrer de la Diputació;False
+65676419;Passatge dels Caputxins;True
+68506234;Passeig de Gràcia;False
+68506235;Carrer de Sardenya;False
+68506255;Carrer de Lepant;False
+68506257;Carrer del Rosselló;False
+68506258;Carrer de Mallorca;False
+68506260;Carrer de Sardenya;False
+68506263;Passeig de Sant Joan;False
+74398635;Carrer dels Enamorats;False
+94529718;Passatge d'Utset;True
+100318223;Avinguda Diagonal;False
+113512468;Passatge de Font;False
+113512469;Passatge de Maiol;False
+115321289;Passatge de Joan Casas;False
+115321290;Passatge de Bofill;False
+115321291;Carrer d'en Grassot;False
+115325228;Passatge de Mariner;False
+115325230;Carrer de Santa Eulàlia;False
+115325237;Carrer de Camprodon;False
+115325240;Carrer d'Abdó Terradas;False
+115325242;Carrer de Lluís Vives;False
+116315045;Carrer de Mallorca;False
+116315056;Passeig de Gràcia;False
+116315069;Avinguda Diagonal;True
+116315074;Avinguda Diagonal (lateral muntanya);False
+116315093;Passeig de Sant Joan;False
+116315098;Avinguda Diagonal;False
+116315111;Avinguda Diagonal;True
+116315133;Avinguda Diagonal;False
+116343001;Passeig de Gràcia;False
+116343002;Passeig de Gràcia (laterals);False
+122475979;Carrer de Quevedo;False
+122475980;Carrer de Siracusa;False
+122529516;Carrer de Ramón y Cajal;False
+122529519;Carrer de la Mare de Déu dels Desamparats;False
+123326473;Carrer de Bruniquer;False
+123527822;Carrer de Santa Teresa;False
+123527830;Carrer de Bruniquer;False
+123533087;Carrer de Ciudad Real;False
+123533856;Carrer de la Fraternitat;False
+125812033;Passatge de Simó;False
+131300164;Carrer de Josep Torres;False
+131300165;Carrer de Tagamanent;False
+131300167;Carrer de Josep Torres;False
+135406248;Passatge d'Alió;False
+138312601;Carrer de Bruniquer;False
+140001505;Carrer de Sant Antoni Maria Claret;False
+140001510;Carrer de la Indústria;False
+140001515;Passeig de Sant Joan;False
+140001517;Passeig de Sant Joan;False
+140001523;Plaça de Tetuan;False
+140001525;Plaça de Tetuan;False
+140007716;Carrer de Còrsega;False
+159500275;Passatge de Gaiolà;False
+165522953;;False
+165522954;Carrer de la Marina;False
+182069869;Carrer d'Ausiàs Marc;False
+182069874;;False
+194097021;Carrer d'Alí Bei;False
+208568871;Travessera de Gràcia;True
+208568872;Travessera de Gràcia;False
+217164634;Passatge de Bocabella;False
+217164635;Passatge de Tasso;False
+217164636;Passatge del Pagès;False
+217617440;Plaça de Tetuan;False
+217617443;Gran Via de les Corts Catalanes;False
+217617446;Gran Via de les Corts Catalanes;False
+226319963;Carrer del Rosselló;False
+226319964;Carrer de Sardenya;False
+226319968;Passeig de Sant Joan;False
+226319971;Passeig de Sant Joan;False
+226319972;Carrer de Sant Antoni Maria Claret;False
+226319974;Carrer del Rosselló;False
+226319975;Carrer de Còrsega;False
+226319976;Carrer de Sardenya;False
+232960694;Carrer de Terrassa;True
+237517571;Carrer de València;False
+237517574;Passeig de Sant Joan;False
+237517575;Passeig de Sant Joan;False
+237519389;Carrer de Lepant;False
+237519391;Carrer de la Diputació;False
+237519393;Carrer de la Marina;False
+237521092;Carrer de Roger de Flor;False
+237521097;Carrer de la Marina;False
+237521115;Gran Via de les Corts Catalanes;False
+237566136;Carrer de Lepant;False
+237566138;Carrer de Mallorca;False
+237566142;Carrer de València;False
+237645155;Carrer de Còrsega;False
+237645179;Carrer de Mallorca;False
+237645185;Carrer de Pau Claris;False
+237645187;Carrer de Roger de Llúria;False
+237645189;Carrer de Roger de Llúria;False
+237645196;Carrer de València;False
+237645205;Passeig de Sant Joan;False
+237659862;Travessera de Gràcia;False
+237691677;Avinguda Diagonal (lateral mar);False
+237691685;Carrer de València;False
+237725944;Carrer de Còrsega;False
+237725945;Carrer de Còrsega;False
+237725966;Travessera de Gràcia;True
+237790226;Carrer de Mallorca;False
+237790228;Carrer de València;False
+237790229;Carrer del Bruc;False
+237805201;Avinguda Diagonal (lateral mar);False
+237910179;Carrer de Còrsega;False
+237910181;Carrer del Rosselló;False
+237910183;Carrer del Bruc;False
+237914518;Carrer d'Alí Bei;False
+237914535;Gran Via de les Corts Catalanes (lateral muntanya);False
+238179151;Carrer Aragó;False
+238179161;Carrer de Lepant;False
+238179170;Carrer de Padilla;False
+238179176;Carrer del Consell de Cent;False
+238179181;Gran Via de les Corts Catalanes;False
+238179183;Gran Via de les Corts Catalanes;False
+238466715;Carrer de Ramón y Cajal;False
+238466730;Carrer del Torrent de les Flors;False
+240299472;Rambla de Catalunya;False
+248565671;Plaça de Mossèn Jacint Verdaguer;True
+248565673;Carrer de València;False
+251060564;;False
+251060566;;False
+251060921;;False
+251752939;Passatge de Llavallol;False
+255327594;Plaça de Tetuan;False
+255327602;Gran Via de les Corts Catalanes (lateral mar);False
+255327603;Gran Via de les Corts Catalanes (lateral mar);False
+263332959;Carrer de Ramón y Cajal;False
+263405136;Carrer Aragó;False
+263405139;Carrer Aragó;False
+263405142;Carrer de Los Castillejos;False
+263405146;Carrer de Los Castillejos;False
+264564283;Carrer de Padilla;False
+271480162;;False
+272639447;Gran Via de les Corts Catalanes (lateral muntanya);False
+272639448;Avinguda Diagonal;False
+272639450;Carrer de Sicília;False
+284450136;Passeig de Sant Joan;False
+284450142;Carrer del Rosselló;False
+284450145;Carrer de Còrsega;False
+287831448;;True
+288595617;Carrer de Joan Blanques;False
+289979602;Carrer de Francisco Giner;False
+293858820;Carrer de Provença;False
+293858823;Carrer de la Marina;False
+294085168;Carrer de Provença;False
+294085180;Passeig de Gràcia (laterals);False
+294085184;Passeig de Gràcia;False
+294085186;Passeig de Gràcia;False
+294798014;Carrer de Mallorca;False
+294798015;Carrer de Provença;False
+294798016;Carrer de Provença;False
+295124098;Carrer del Consell de Cent;False
+295281240;Carrer de Provença;False
+295281241;Carrer de Provença;False
+295281242;Passeig de Gràcia;False
+295281243;Passeig de Gràcia;False
+295288870;Carrer del Torrent de les Flors;False
+296827086;Carrer del Torrent de l'Olla;False
+300071293;Avinguda Diagonal;False
+300664623;Passatge de les Escoles;False
+301242207;Carrer de Còrsega;False
+304693485;Plaça de Tetuan;False
+304693486;Plaça de Tetuan;False
+307933382;Avinguda Diagonal;True
+307933383;Carrer de Pau Claris;False
+307933384;Avinguda Diagonal;True
+307933385;Carrer de Roger de Llúria;False
+307933386;Avinguda Diagonal;True
+307933387;Carrer del Bruc;False
+307933389;Avinguda Diagonal;True
+307933391;Carrer de Girona;False
+307933392;Avinguda Diagonal;True
+308354705;Gran Via de les Corts Catalanes;False
+308354707;Gran Via de les Corts Catalanes (lateral muntanya);False
+308354708;Carrer de Lepant;False
+308354914;Carrer de la Marina;False
+308355153;Carrer de Sardenya;False
+308355154;Gran Via de les Corts Catalanes (lateral muntanya);False
+308355155;Carrer de Sardenya;False
+308355198;Passeig de Sant Joan;False
+308355199;Carrer Aragó;False
+308754471;Passatge de les Escoles;False
+308861416;Carrer del Rosselló;False
+308861418;Avinguda Diagonal;True
+308861419;Carrer del Rosselló;False
+308861420;Carrer de Roger de Llúria;False
+309055983;Gran Via de les Corts Catalanes;False
+309055985;Carrer de Nàpols;False
+309055986;Avinguda Diagonal;True
+309055988;Carrer de Nàpols;False
+309055989;Carrer del Rosselló;False
+309896346;Carrer de Bailèn;False
+309896347;Carrer de Còrsega;False
+313379178;Avinguda Diagonal;False
+313379179;Carrer Aragó;False
+313379180;Carrer de Sardenya;False
+313379181;;False
+313379182;Avinguda Diagonal;False
+313379183;;False
+313379184;Avinguda Diagonal;False
+313379185;;False
+313379186;Carrer de Sardenya;False
+313379187;Carrer Aragó;False
+313379188;Avinguda Diagonal;False
+313379189;Carrer de Sardenya;False
+313379190;Avinguda Diagonal;False
+313379191;Avinguda Diagonal;False
+313379192;Carrer de Sardenya;False
+313379194;;False
+313379195;Carrer del Consell de Cent;False
+313379196;Avinguda Diagonal;False
+313379197;;False
+313379198;Carrer de la Marina;False
+313379199;Carrer del Consell de Cent;False
+313395784;Avinguda Diagonal (lateral muntanya);False
+313395785;Avinguda Diagonal;True
+313395786;Carrer de València;False
+313395788;Avinguda Diagonal;True
+313674012;Avinguda de Gaudí;False
+314679876;Carrer de Mallorca;False
+314679877;Avinguda Diagonal;False
+314679879;Avinguda Diagonal (lateral muntanya);False
+314679880;Passeig de Sant Joan;False
+314679881;Passeig de Sant Joan;False
+314679882;Avinguda Diagonal;False
+314679884;Carrer de Milà i Fontanals;False
+314825294;Travessera de Gràcia;True
+315171214;;True
+315171547;;True
+317400734;salida Parking SABA;False
+317400737;;False
+317400738;;False
+330913949;Passeig de Sant Joan;False
+330913950;Carrer de Casp;False
+330913951;Passeig de Sant Joan;False
+360381684;Gran Via de les Corts Catalanes (lateral muntanya);False
+373434809;Carrer Aragó;False
+378698272;;False
+378698273;;False
+384799563;Gran Via de les Corts Catalanes;False
+440369834;Gran Via de les Corts Catalanes;False
+446419827;Carrer del Consell de Cent;False
+446419828;Carrer de Lepant;False
+447255449;Carrer del Consell de Cent;False
+449991616;Carrer de Bailèn;False
+449991624;Carrer de Girona;False
+449991628;Carrer de Nàpols;False
+449991630;Carrer de Pau Claris;False
+449991634;Carrer de Roger de Llúria;False
+450137743;Avinguda Diagonal;False
+450137744;Carrer Aragó;False
+450137746;Carrer Aragó;False
+450138778;Avinguda Diagonal;False
+450138779;Carrer de Sardenya;False
+450282540;Carrer de Sant Antoni Maria Claret;False
+450282541;Carrer de la Indústria;False
+450282542;Passeig de Sant Joan;False
+450369486;Carrer de Roger de Flor;False
+450369490;Carrer de València;False
+450396236;Carrer del Rosselló;False
+450613275;Carrer de la Diputació;False
+450613277;Carrer del Consell de Cent;False
+450613278;Carrer del Consell de Cent;False
+463029898;;False
+463030015;;False
+463067810;;False
+478293110;;False
+478293819;;False
+478293848;;False
+478293861;;False
+478293915;;True
+478522659;Carrer de la Diputació;False
+478525262;Carrer de la Diputació;False
+478525271;Carrer de la Diputació;False
+478525284;;False
+478705995;Carrer de la Diputació;False
+481247696;;False
+483469230;Carrer del Bruc;False
+483469781;Carrer de Bailèn;False
+483469782;Gran Via de les Corts Catalanes;False
+490655483;Carrer de la Marina;True
+490667329;Avinguda Diagonal;False
+490667333;Carrer de la Marina;False
+490731922;Carrer de la Marina;False
+499563627;Carrer de Ribes;False
+499563628;Carrer de Ribes;False
+519375851;Plaça de Tetuan;False
+519375852;Passeig de Sant Joan;False
+521045102;Gran Via de les Corts Catalanes (lateral mar);False
+524963566;Passeig de Gràcia;False
+524963567;Carrer de Mallorca;False
+525638414;Carrer de Roger de Llúria;False
+525638416;Carrer de València;False
+525638418;Carrer de València;False
+526132001;Carrer de Lepant;False
+526132002;Carrer de València;False
+526206807;Avinguda Diagonal;False
+526206808;Carrer de Padilla;False
+526213092;Carrer de Mallorca;False
+531724278;Carrer de València;False
+542569143;;False
+542569203;;False
+543340571;Passeig de Sant Joan;False
+543340574;Passeig de Sant Joan;False
+544113526;Carrer de Pau Claris;False
+544200290;Avinguda Diagonal;True
+544248638;Carrer de la Indústria;False
+544248639;Passeig de Sant Joan;False
+544248640;Carrer del Rosselló;False
+544248641;Carrer del Rosselló;False
+544614092;Carrer de Còrsega;False
+544614093;Carrer de Sant Antoni Maria Claret;False
+544617971;Carrer de Còrsega;False
+545718426;Gran Via de les Corts Catalanes;False
+545718427;Gran Via de les Corts Catalanes;False
+545724437;Gran Via de les Corts Catalanes;False
+545747644;Gran Via de les Corts Catalanes (lateral muntanya);False
+545747645;Gran Via de les Corts Catalanes (lateral muntanya);False
+545747646;Gran Via de les Corts Catalanes (lateral muntanya);False
+546138912;Carrer de Sardenya;False
+546578350;Carrer de Còrsega;False
+549749256;Carrer de Sardenya;False
+549749257;Carrer de Casp;False
+549749258;Carrer de Casp;False
+549749259;Carrer de Nàpols;False
+549749260;Carrer de Nàpols;False
+549749261;Gran Via de les Corts Catalanes (lateral mar);False
+549749262;Gran Via de les Corts Catalanes;False
+549749263;Gran Via de les Corts Catalanes (lateral muntanya);False
+549749264;Carrer de Roger de Flor;False
+549932652;Plaça de Mossèn Jacint Verdaguer;False
+550092214;Carrer de Padilla;False
+550092215;Carrer de Mallorca;False
+552386718;Plaça de Mossèn Jacint Verdaguer;False
+552386719;Passeig de Sant Joan;False
+552386720;Plaça de Tetuan;False
+554934617;Carrer de Roger de Flor;False
+554934619;Carrer de Sant Antoni Maria Claret;False
+570478919;Carrer de Sicília;False
+570553571;Passeig de Sant Joan;False
+571434739;Passeig de Sant Joan;False
+571448015;Passeig de Sant Joan;False
+571448018;Carrer de Nàpols;False
+571448019;Carrer de Nàpols;False
+571448020;Carrer de la Diputació;False
+571448021;Passeig de Sant Joan;False
+571448022;Carrer Aragó;False
+576891118;;False
