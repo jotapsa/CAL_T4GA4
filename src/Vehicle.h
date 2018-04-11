@@ -20,6 +20,7 @@ private:
     std::vector<GarbageType> types;
     std::vector<double> capacities;
     std::vector<double> filled;
+    double filledDif;
 
     bool full;
 public:
@@ -32,6 +33,7 @@ public:
     std::vector<GarbageType> getTypes();
     bool hasType(GarbageType);
     double getCapacityForType(GarbageType type);
+    double getTotalFreeSpace();
     double getFreeSpaceForType(GarbageType type);
     std::string getTypesString();
     std::string getCapacityString();

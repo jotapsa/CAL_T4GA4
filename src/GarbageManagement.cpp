@@ -184,8 +184,15 @@ GarbageManagement::getMatchingContainers(Vehicle *vehicle, std::vector<Container
     std::vector<Container *> containersMatch;
 
     for(Container *c : containers){
-        if(vehicle->hasType(c->getType())){
-            if(vehicle->getFreeSpaceForType(c->getType()) >= (c->getFilled())){
+        if(differentiated){
+            if(vehicle->hasType(c->getType())){
+                if(vehicle->getFreeSpaceForType(c->getType()) >= (c->getFilled())){
+                    containersMatch.push_back(c);
+                }
+            }
+        }
+        else{
+            if(vehicle->getTotalFreeSpace() >= c->getFilled()){
                 containersMatch.push_back(c);
             }
         }

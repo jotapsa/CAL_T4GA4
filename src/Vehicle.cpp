@@ -13,6 +13,7 @@ Vehicle::Vehicle(unsigned long int ID, Garage *garage, std::string plate, std::v
     this->capacities = capacities;
 
     this->filled.resize(this->capacities.size(), 0);
+    this->filledDif = 0;
     reset();
 }
 
@@ -97,6 +98,15 @@ std::string Vehicle::getFreeSpaceString(){
     return freeSpaces.str().substr(0, freeSpaces.str().size()-1);
 }
 
+double Vehicle::getTotalFreeSpace(){
+    double total=0;
+    for(double capacity : this->filled){
+        total += capacity;
+    }
+
+    return total - filledDif;
+}
+
 double Vehicle::getFreeSpaceForType(GarbageType type) {
     if(hasType(type)){
         auto it = std::find(this->types.begin(), this->types.end(), type);
@@ -119,7 +129,9 @@ void Vehicle::setFull(bool full) {
 void Vehicle::reset() {
     setFull(false);
     this->place = garage->getPlace();
+
     this->filled.resize(this->capacities.size(), 0);
+    this->filledDif = 0;
 }
 
 void Vehicle::moveTo(Place *place){
@@ -128,10 +140,17 @@ void Vehicle::moveTo(Place *place){
 
 void Vehicle::loadFromContainer(Container *container, bool differentiated) {
     GarbageType containerType = container->getType();
-    if(hasType(containerType)){
-        auto it = std::find(this->types.begin(), this->types.end(), containerType);
-        unsigned long typeIndex = static_cast<unsigned long>(std::distance(this->types.begin(), it));
-        this->filled.at(typeIndex) += container->getFilled();
+
+    if(differentiated){
+        if(hasType(containerType)){
+            auto it = std::find(this->types.begin(), this->types.end(), containerType);
+            unsigned long typeIndex = static_cast<unsigned long>(std::distance(this->types.begin(), it));
+            this->filled.at(typeIndex) += container->getFilled();
+            container->resetFilled();
+        }
+    }
+    else{
+        this->filledDif += container->getFilled();
         container->resetFilled();
     }
 }
