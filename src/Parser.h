@@ -22,9 +22,6 @@ bool openFile(std::fstream& file, std::string filePath);
 std::vector<std::string> split(const std::string &s, const char &delim);
 bool readLine(std::fstream& file, std::vector<std::string> lineVector);
 
-
-//TODO: make load functions void & exit if shit hits the fan.
-
 bool loadPlaces(GarbageManagement &management);
 
 bool loadContainers(GarbageManagement &management);

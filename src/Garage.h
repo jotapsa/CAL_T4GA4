@@ -10,17 +10,15 @@ private:
     std::vector<Vehicle *> vehicles;
 public:
     Garage(Place *place);
-    Garage(unsigned long id, double dLon, double dLat, double rLon, double rLat,
-           std::pair<int, int> coordinates);
 
     Place* getPlace();
     unsigned long getNumberOfVehicles();
-    int getNumberOfVehiclesOfType(GarbageType type);
     std::vector<Vehicle *> getVehicles();
-    std::string toString();
 
     void addVehicle(Vehicle *vehicle);
     void removeVehicle(unsigned long vehicleID);
+
+    std::string toString();
 };
 
 #endif //_GARAGE_H

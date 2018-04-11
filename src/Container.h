@@ -15,8 +15,6 @@ private:
 
 public:
     Container(Place *place, GarbageType type, double capacity);
-    Container(unsigned long id, double dLon, double dLat, double rLon, double rLat,
-              std::pair<int, int> coordinates, GarbageType type, double capacity);
 
     Place* getPlace();
     GarbageType getType();
@@ -26,8 +24,7 @@ public:
     double getFilledPer();
 
     void setCapacity(double capacity);
-    void resetFilled();
-//    void setFilledPer(double percentage);
+    void emptyOut();
 
     void reset();
 

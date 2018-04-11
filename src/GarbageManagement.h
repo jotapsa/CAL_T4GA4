@@ -13,8 +13,6 @@
 #include "GraphViewer.h"
 #include "Algorithm.h"
 
-//TODO: Change container type to hashmap because we do alot of searching
-
 class GarbageManagement {
 private:
     Graph<Place> graph;

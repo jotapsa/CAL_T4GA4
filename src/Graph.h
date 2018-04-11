@@ -14,8 +14,6 @@ template <class T> class Edge;
 template <class T> class Graph;
 
 //TODO: A*
-//TODO: Path finding optimizations.
-//TODO: improve heuristic
 
 template <class T>
 class Graph {
@@ -53,7 +51,7 @@ class Graph {
 
     std::vector<T> dfs() const;
     void dfsVisit(Node<T> *n, std::vector<T> &res) const;
-    bool getNodeVisited(const T &nodeT) const;
+    bool getNodeVisited(const T &info) const;
 
     bool isDAG() const;
     bool dfsIsDAG(Node<T> *n) const;
@@ -61,9 +59,6 @@ class Graph {
     std::vector<T> topsort() const;
 
     Graph<T> clone();
-
-    void isSCC();
-    void printSCC(int index, bool visited[], const T &n, std::vector<T> nodes);
 };
 
 /*
