@@ -101,6 +101,8 @@ public:
 
     void printResults(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
 
+    void resetStreetsGraph();
+
     void updateBuildingsGraph();
 
     bool updateVehicle(Vehicle * vehicle, std::vector<Place *> path, std::vector<Street *> streetsVehicle, unsigned int *index);

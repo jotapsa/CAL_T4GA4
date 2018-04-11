@@ -33,6 +33,7 @@ public:
     std::vector<GarbageType> getTypes();
     bool hasType(GarbageType);
     double getCapacityForType(GarbageType type);
+    double getTotalCapacity();
     double getTotalFreeSpace();
     double getFreeSpaceForType(GarbageType type);
     std::string getTypesString();

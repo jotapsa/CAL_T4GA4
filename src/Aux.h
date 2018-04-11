@@ -37,7 +37,7 @@
 #define genericImgPath "../img/generic.png"
 #define stationImgPath "../img/station.png"
 #define garageImgPath "../img/garage.png"
-#define vehicleImgPath "../img/vehicle2.png"
+#define vehicleImgPath "../img/vehicle.png"
 
 #define curvedEdges false
 #define emptyPlaceNodeSize 5

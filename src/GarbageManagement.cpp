@@ -192,7 +192,7 @@ GarbageManagement::getMatchingContainers(Vehicle *vehicle, std::vector<Container
             }
         }
         else{
-            if(vehicle->getTotalFreeSpace() >= c->getFilled()){
+            if(vehicle->getTotalFreeSpace() >= (c->getFilled())){
                 containersMatch.push_back(c);
             }
         }
@@ -636,7 +636,7 @@ void GarbageManagement::collectGarbage(bool differentiated) {
 
         //chose vehicle randomly
         ulong_dist dist(0, emptyVehicles.size()-1);
-        unsigned  long vehicleIndex = dist(rng);
+        unsigned long vehicleIndex = dist(rng);
         Vehicle *vehicle = emptyVehicles[vehicleIndex];
 
         auto vehicle_it = std::find(emptyVehicles.begin(), emptyVehicles.end(), vehicle);
@@ -657,11 +657,6 @@ void GarbageManagement::collectGarbage(bool differentiated) {
         }else if(algorithm == Algorithm::Warshall){
             graph.getfloydWarshallPath(intermediatePath, *(vehicle->getPlace()), *(container->getPlace()));
         }
-        for(auto p: intermediatePath){
-            std::cout << p->getID() << " - " ;
-            path.push_back(p);
-        }
-        std::cout << std::endl;
 
         vehicle->moveTo(container->getPlace());
         vehicle->loadFromContainer(container, differentiated);
@@ -719,7 +714,7 @@ void GarbageManagement::collectGarbage(bool differentiated) {
     clock_t tEnd = clock();
     double tElapsed = tEnd - tBegin;
 
-    std::cout << "Elapsed time: " << tElapsed << std::endl;
+    std::cout << "Elapsed time: " << tElapsed << std::endl << std::endl;
 
     feedback(trucks, paths);
 }
@@ -760,14 +755,21 @@ std::vector<std::pair<unsigned long, std::string>> GarbageManagement::getAllStre
 
 void GarbageManagement::printResults(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths) {
     for(unsigned long i=0; i<vehicles.size(); i++){
-        std::cout << "Vehicle with plate - " << vehicles.at(i)->getPlate() << " - path:" << std::endl;
+        std::cout << "--------- " << vehicles.at(i)->getPlate() << " ---------" << std::endl;
 
-        unsigned long noStop = 0;
+        unsigned long noStop = 1;
         for(auto p: paths.at(i)){
-            std::cout << noStop++ <<"nth stop was :" << p->getID() << std::endl;
+            std::cout << noStop++ <<"nth stop was : " << p->getID() << std::endl;
         }
     }
 
+}
+
+void GarbageManagement::resetStreetsGraph(){
+    for(auto s : streets){
+        this->gv->setEdgeColor((int) s->getEdgeID(), BLACK);
+        this->gv->setEdgeThickness((int) s->getEdgeID(), 1);
+    }
 }
 
 void GarbageManagement::updateBuildingsGraph(){
@@ -836,7 +838,7 @@ void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vec
             }
         }
 
-        std::cout << "Vehicle " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
+//        std::cout << "Vehicle " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
     }
 
     while(display){
@@ -848,11 +850,14 @@ void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vec
         rearrange();
         usleep(100000);
     }
+
+    resetStreetsGraph();
+    rearrange();
 }
 
 void GarbageManagement::feedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths) {
     printResults(vehicles, paths);
-    std::cout << "Do you wish to get visual feedback?" << std::endl;
+    std::cout << "\nDo you wish to get visual feedback?" << std::endl;
     if(readConfirmation()){
         visualFeedback(vehicles, paths);
     }

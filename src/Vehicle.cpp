@@ -86,13 +86,16 @@ std::string Vehicle::getFreeSpaceString(){
     return freeSpaces.str().substr(0, freeSpaces.str().size()-1);
 }
 
-double Vehicle::getTotalFreeSpace(){
+double Vehicle::getTotalCapacity(){
     double total=0;
-    for(double capacity : this->filled){
+    for(double capacity : this->capacities){
         total += capacity;
     }
+    return total;
+}
 
-    return total - filledDif;
+double Vehicle::getTotalFreeSpace(){
+    return getTotalCapacity() - filledDif;
 }
 
 double Vehicle::getFreeSpaceForType(GarbageType type) {
