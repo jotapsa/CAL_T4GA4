@@ -130,6 +130,29 @@ Vehicle* getVehicle(unsigned long int vehicleID, Garage *garage){
     return nullptr;
 }
 
+bool loadCoords(GarbageManagement &management){
+    fstream coords;
+    vector<std::string> lineVector;
+
+    if(!openFile(coords, COORDS_FILEPATH(management.getMapPath()))){
+        return false;
+    }
+
+    while(readLine(coords, &lineVector)){
+        if(lineVector.size() != 4){
+            return false;
+        }
+
+        management.setCoords(stold(lineVector.at(0)), stold(lineVector.at(1)),
+                             stold(lineVector.at(2)), stold(lineVector.at(3)));
+
+    }
+
+    coords.close();
+    std::cout << management.getMapName() << " -> coords were successfully read!\n";
+    return true;
+}
+
 bool loadPlaces(GarbageManagement &management) {
     fstream places;
     unsigned long nPlaces=0;

@@ -10,11 +10,21 @@ GarbageManagement::GarbageManagement() {
 
 void GarbageManagement::initGraphViewer(){
     gv = new GraphViewer(windowWidth, windowHeight, false);
-    gv->setBackground(backgroundImgPath(this->mapPath));
+
+    if(getImageSize(backgroundImgPath(this->mapPath), &this->imageWidth, &this->imageHeight)){
+        gv->setBackground(backgroundImgPath(this->mapPath));
+    }
+    else{
+        this->imageWidth = 1920;
+        this->imageHeight = 1080;
+    }
+
     gv->createWindow(windowWidth, windowHeight);
     gv->defineEdgeCurved(curvedEdges);
     gv->defineVertexSize(emptyPlaceNodeSize);
     gv->defineVertexColor(BLUE);
+
+    updateMapCoords(this->getCoords(), this->imageWidth, this->imageHeight);
 }
 
 Algorithm GarbageManagement::getAlgorithm() const {
@@ -179,6 +189,17 @@ std::string GarbageManagement::getMapName() const {
     return this->mapName;
 }
 
+std::vector<double> GarbageManagement::getCoords() const {
+    std::vector<double> coords;
+
+    coords.push_back(this->minLat);
+    coords.push_back(this->minLon);
+    coords.push_back(this->maxLat);
+    coords.push_back(this->maxLon);
+
+    return coords;
+}
+
 std::vector<Container *>
 GarbageManagement::getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers, bool differentiated) {
     std::vector<Container *> containersMatch;
@@ -265,6 +286,13 @@ Station *GarbageManagement::getClosestStationToVehicle(Vehicle *vehicle, std::ve
     }
 
     return nullptr;
+}
+
+void GarbageManagement::setCoords(double minLat, double minLon, double maxLat, double maxLon){
+    this->minLat = minLat;
+    this->minLon = minLon;
+    this->maxLat = maxLat;
+    this->maxLon = maxLon;
 }
 
 void GarbageManagement::setMapPath(std::string mapPath){

@@ -31,6 +31,13 @@ private:
 
     std::string mapPath;
     std::string mapName;
+    unsigned int imageWidth;
+    unsigned int imageHeight;
+
+    double minLat;
+    double minLon;
+    double maxLat;
+    double maxLon;
 
 public:
     GarbageManagement();
@@ -62,6 +69,7 @@ public:
     Vehicle * getVehicle(unsigned long vehicleID) const;
     std::string getMapPath() const;
     std::string getMapName() const;
+    std::vector<double> getCoords() const;
 
     std::vector<Container *> getMatchingContainers(Vehicle *vehicle, std::vector<Container *> containers, bool differentiated);
     Container *getClosestContainerToVehicle(Vehicle *vehicle, std::vector<Container *> containers, bool differentiated);
@@ -69,6 +77,7 @@ public:
 
     void setMapPath(std::string mapPath);
     void setMapName(std::string mapName);
+    void setCoords(double minLat, double minLon, double maxLat, double maxLon);
     void setAlgorithm(Algorithm algorithm);
     void setFillPerNeeded(float fillPerNeeded);
 

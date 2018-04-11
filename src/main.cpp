@@ -29,6 +29,10 @@ int main (int argc, char* argv[]) {
     GarbageManagement management = GarbageManagement();
 
     if(askMap(management)){
+        if(!loadCoords(management)){
+            std::cout << "Failed to read coords!" << std::endl;
+        }
+
         management.initGraphViewer();
 
         std::cout << std::endl << "Reading map..." << std::endl;

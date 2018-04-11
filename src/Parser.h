@@ -8,6 +8,8 @@
 #define CREATE_MAP_PATH(map) "mkdir -p ../resources/" + map
 #define MAPSLIST_FILEPATH "../resources/mapsList.txt"
 
+#define COORDS_FILEPATH(map) "../resources/" + map + "/" + map + ".txt"
+
 #define PLACES_FILEPATH(map) "../resources/" + map + "/places.txt"
 #define EDGES_FILEPATH(map) "../resources/" + map + "/edges.txt"
 #define EDGES_INFO_FILEPATH(map) "../resources/" + map + "/edges_info.txt"
@@ -21,6 +23,8 @@
 bool openFile(std::fstream& file, std::string filePath);
 std::vector<std::string> split(const std::string &s, const char &delim);
 bool readLine(std::fstream& file, std::vector<std::string> lineVector);
+
+bool loadCoords(GarbageManagement &management);
 
 bool loadPlaces(GarbageManagement &management);
 

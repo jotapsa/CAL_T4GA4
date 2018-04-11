@@ -17,18 +17,7 @@
 #define windowWidth 800
 
 #define PI 3.14159265358979323846
-#define MIN_LATITUDE 41.17891
-#define MIN_LONGITUDE -8.64511
-#define MAX_LATITUDE 41.19311
-#define MAX_LONGITUDE -8.62002
-#define DELTA_X 0.02509
-#define DELTA_Y 0.014199
-#define IMAGE_X 2341
-#define IMAGE_Y 1760
 #define DEG_TO_RAD (PI/180)
-
-#define DELTA_LONGITUDE (MAX_LONGITUDE-MIN_LONGITUDE)
-#define DELTA_LATITUDE (MAX_LATITUDE-MIN_LATITUDE)
 
 #define backgroundImgPath(map) "../resources/" + map + "/" + map + ".png"
 #define plasticImgPath "../img/plastic.png"
@@ -42,6 +31,8 @@
 #define curvedEdges false
 #define emptyPlaceNodeSize 5
 #define buildingNodeSize 3
+
+void updateMapCoords(std::vector<double> mapCoords, unsigned int width, unsigned int height);
 
 GarbageType getGarbageType(std::string type);
 
@@ -59,8 +50,8 @@ std::pair<int, int> convertToCoords(double dLat, double dLon, double rLon, doubl
 
 std::pair<int, int> convertToCoords(std::pair<double, double> coords);
 
-std::pair<int, int> getDirectionPlaces(Place *p1, Place *p2);
-
 bool insideWindow(std::pair<int, int> coords);
+
+bool getImageSize(std::string imagePath, unsigned int *x, unsigned int *y);
 
 #endif
