@@ -323,9 +323,9 @@ void GarbageManagement::addPlace(Place *place) {
                       place->getCoordinates().second);
     this->gv->setVertexColor((int) place->getID(), BLUE);
 
-//    std::stringstream ss;
-//    ss << place->getID();
-//    this->gv->setVertexLabel((int) place->getID(), ss.str());
+    std::stringstream ss;
+    ss << place->getID();
+    this->gv->setVertexLabel((int) place->getID(), ss.str());
     this->gv->setVertexSize((int) place->getID(), emptyPlaceNodeSize);
 }
 
@@ -570,9 +570,9 @@ void GarbageManagement::evalCon() {
     }
 
     if(!this->graph.isDAG()){
-        std::cout << "This graph is not a Directed acyclic graph." << std::endl;
+        std::cout << "This graph is not Directed acyclic." << std::endl;
     } else{
-        std::cout << "This graph is a Directed acyclic graph." << std::endl;
+        std::cout << "This graph is Directed acyclic." << std::endl;
     }
 
 
