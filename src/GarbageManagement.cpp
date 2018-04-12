@@ -866,7 +866,7 @@ void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vec
             }
         }
 
-//        std::cout << "Vehicle " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
+        std::cout << "Vehicle " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
     }
 
     while(display){
