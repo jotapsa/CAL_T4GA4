@@ -20,7 +20,7 @@ unsigned int edgeMenuDialog();
 unsigned int vehicleMenuDialog();
 unsigned int editMenuDialog();
 unsigned int selectGarbageTypeMenu();
-unsigned int selectAlgorithMenu();
+unsigned int selectAlgorithmMenu();
 unsigned int editNodeMenu();
 unsigned int editGarageOption();
 unsigned int editContainerMenu();

@@ -755,15 +755,14 @@ unsigned int selectGarbageTypeMenu() {
     return nextUnsignedInt("Option: ", 5);
 }
 
-unsigned int selectAlgorithMenu() {
+unsigned int selectAlgorithmMenu() {
 
     std::cout << "Select the algorithm to calculate paths:" << std::endl;
     std::cout << "\t1 - Dijkstra" << std::endl;
-    std::cout << "\t2 - A*" << std::endl;
-    std::cout << "\t3 - Floyd Warshall" << std::endl;
-    std::cout << "\t4 - Exit" << std::endl;
+    std::cout << "\t2 - Floyd Warshall" << std::endl;
+    std::cout << "\t3 - Exit" << std::endl;
 
-    return nextUnsignedInt("Option: ", 4);
+    return nextUnsignedInt("Option: ", 3);
 }
 
 //Container and Station both use the same parameters
@@ -821,18 +820,6 @@ void createContainerOrStation(GarbageManagement &management, std::string buildin
     management.rearrange();
 
     std::cout << buildingType << " added with success, with ID: " << buildingID << std::endl;
-}
-
-unsigned int editNodeMenu() {
-    std::cout << "Select option:" << std::endl;
-    std::cout << "\t1 - Edit location" << std::endl;
-    std::cout << "\t2 - Edit" << std::endl;
-    return 1;
-}
-
-void editNode(unsigned long nodeID) {
-//TODO(Edits node based on user option and input)
-    std::cout << "Edit info\n";
 }
 
 void listGarages(GarbageManagement &management) {
@@ -1107,9 +1094,9 @@ void setFillPercentageInteraction(GarbageManagement &management) {
 
 void setAlgorithmInteraction(GarbageManagement &management) {
 
-    unsigned int option = selectAlgorithMenu();
+    unsigned int option = selectAlgorithmMenu();
 
-    if(option == 4) {
+    if(option == 3) {
         return;
     }
 

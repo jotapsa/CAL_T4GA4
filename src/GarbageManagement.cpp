@@ -323,9 +323,9 @@ void GarbageManagement::addPlace(Place *place) {
                       place->getCoordinates().second);
     this->gv->setVertexColor((int) place->getID(), BLUE);
 
-    std::stringstream ss;
-    ss << place->getID();
-    this->gv->setVertexLabel((int) place->getID(), ss.str());
+//    std::stringstream ss;
+//    ss << place->getID();
+//    this->gv->setVertexLabel((int) place->getID(), ss.str());
     this->gv->setVertexSize((int) place->getID(), emptyPlaceNodeSize);
 }
 
@@ -861,7 +861,7 @@ void GarbageManagement::visualFeedback(std::vector<Vehicle *> vehicles, std::vec
             }
         }
 
-        std::cout << "Vehicle " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
+//        std::cout << "Vehicle " << vehicles.at(v)->getID() << " -> " << streets.at(v).size() << "/" << paths.at(v).size() << " streets found." << std::endl;
     }
 
     while(display){
