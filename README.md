@@ -9,7 +9,7 @@ The developed software in this repository simulates a smart garbage collection s
 
 ### How to compile
 
-Go to ./cmake-build-debug folder and run:
+Go to src folder and run:
 
 ```bash
 make
