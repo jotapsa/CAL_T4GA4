@@ -2,7 +2,7 @@
 #define _ALGORITHM_H
 
 enum class Algorithm {
-    Dijkstra, aStar, Warshall
+    Dijkstra, Warshall
 };
 
 

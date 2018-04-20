@@ -83,8 +83,6 @@ std::string getAlgorithmName(Algorithm type) {
     switch(type) {
         case Algorithm::Dijkstra:
             return std::string("Dijkstra");
-        case Algorithm::aStar:
-            return std::string("A*");
         case Algorithm::Warshall:
             return std::string("Floyd Warshall");
     }
