@@ -5,24 +5,20 @@
 
 ### Short summary
 
-<!-- TODO -->
+The developed software in this repository simulates a smart garbage collection system, allowing city visualization, path calculation and assignment, and garbage collection visualization. 
 
 ### How to compile
 
-While on the pro1 directory, run the following on your terminal:
+Go to ./cmake-build-debug folder and run:
 
 ```bash
-cd scripts/ && ./compile.sh
+make
 ```
 
 ### Running
 
-While on the pro1 directory, run the following on your terminal:
+In the same directory, run:
 
 ```bash
-# normal version of the peers
-cd scripts/ && ./peers.sh
-
-# enhanced peers
-cd scripts/ && ./peers_enhanced.sh
+./CAL_T4GA4
 ```
