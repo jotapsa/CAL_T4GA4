@@ -1023,11 +1023,12 @@ unsigned int mainMenuDialog(){
     std::cout << "3 - Vehicle Menu" << std::endl;
     std::cout << "4 - Edit Menu" << std::endl;
     std::cout << "5 - Garbage Service" << std::endl;
-    std::cout << "6 - Evaluate Connectivity" << std::endl;
-    std::cout << "7 - Stress Test" << std::endl;
+    std::cout << "6 - Search Containers" << std::endl;
+    std::cout << "7 - Evaluate Connectivity" << std::endl;
+    std::cout << "8 - Stress Test" << std::endl;
     std::cout << "0 - Exit" << std::endl;
 
-    return nextUnsignedInt("Option: ", 7);
+    return nextUnsignedInt("Option: ", 8);
 }
 
 void mainMenu(GarbageManagement &management) {
@@ -1051,9 +1052,48 @@ void mainMenu(GarbageManagement &management) {
                 garbageServiceMenu(management);
                 break;
             case 6:
-                management.evalCon();
+                searchContainersMenu(management);
                 break;
             case 7:
+                management.evalCon();
+                break;
+            case 0:
+                return;
+            default:
+                break;
+        }
+    }
+}
+
+unsigned int searchContainers() {
+    std::cout << "Search Containers Menu" << std::endl;
+    std::cout << "1 - Exact Search" << std::endl;
+    std::cout << "2 - Approximate Search" << std::endl;
+    std::cout << "0 - Back" << std::endl;
+
+    return nextUnsignedInt("Option: ", 2);
+}
+
+void searchContainersMenu(GarbageManagement &management){
+    std::string streetName;
+
+    while(true) {
+        switch (searchContainers()) {
+            case 1:
+
+                while(streetName.empty()){
+                    std::cout << "Insert Street Name: ";
+                    std::getline(std::cin, streetName);
+                }
+
+                break;
+            case 2:
+
+                while(streetName.empty()){
+                    std::cout << "Insert Street Name: ";
+                    std::getline(std::cin, streetName);
+                }
+                
                 break;
             case 0:
                 return;

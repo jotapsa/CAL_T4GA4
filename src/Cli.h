@@ -54,4 +54,6 @@ void deleteVehicle(GarbageManagement &management);
 void setAlgorithmInteraction(GarbageManagement &management);
 void setFillPercentageInteraction(GarbageManagement &management);
 
+void searchContainersMenu(GarbageManagement &management);
+
 #endif //_CLI_H
