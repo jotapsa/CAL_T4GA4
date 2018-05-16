@@ -1066,7 +1066,7 @@ void mainMenu(GarbageManagement &management) {
 }
 
 unsigned int searchContainers() {
-    std::cout << "Search Containers Menu" << std::endl;
+    std::cout << "\nSearch Containers Menu" << std::endl;
     std::cout << "1 - Exact Search" << std::endl;
     std::cout << "2 - Approximate Search" << std::endl;
     std::cout << "0 - Back" << std::endl;
