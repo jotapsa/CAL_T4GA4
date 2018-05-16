@@ -1076,6 +1076,7 @@ unsigned int searchContainers() {
 
 void searchContainersMenu(GarbageManagement &management){
     std::string streetName;
+    std::vector<std::pair<std::string, int>> streetsMatch;
 
     while(true) {
         switch (searchContainers()) {
@@ -1086,6 +1087,18 @@ void searchContainersMenu(GarbageManagement &management){
                     std::getline(std::cin, streetName);
                 }
 
+                streetsMatch = management.getStreetContainers(streetName);
+
+                if(streetsMatch.size() != 0){
+                    for(std::pair<std::string, int> street : streetsMatch){
+                        std::cout << street.first << " -> " << street.second << " containers." << std::endl;
+                    }
+                }
+                else{
+                    std::cout << "Street not found!" << std::endl;
+                }
+
+                streetName.clear();
                 break;
             case 2:
 
@@ -1093,7 +1106,8 @@ void searchContainersMenu(GarbageManagement &management){
                     std::cout << "Insert Street Name: ";
                     std::getline(std::cin, streetName);
                 }
-                
+
+                streetName.clear();
                 break;
             case 0:
                 return;

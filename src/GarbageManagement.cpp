@@ -1,6 +1,7 @@
 #include "GarbageManagement.h"
 #include "Aux.h"
 #include "Cli.h"
+#include "kmpMatcher.h"
 #include <sstream>
 
 GarbageManagement::GarbageManagement() {
@@ -885,3 +886,34 @@ void GarbageManagement::feedback(std::vector<Vehicle *> vehicles, std::vector<st
         visualFeedback(vehicles, paths);
     }
 }
+
+std::vector<std::pair<std::string, int>> GarbageManagement::getStreetContainers(std::string streetName){
+    std::vector<std::pair<std::string, int>> streets;
+    std::vector<unsigned long> streetsMatch;
+    int numberContainers=0;
+
+    std::cout << "searching " << streetName << "..." << std::endl;
+
+    for(Street *s : this->streets){
+        if(s->getName().size() != 0 && kmpMatcher::matches(s->getName(), streetName)){
+            streetsMatch.push_back(s->getID());
+//            std::cout << "Encontrada -> " << s->getName() << std::endl;
+        }
+    }
+
+    //Get Number of Containers
+    for(int i = 0; i < streetsMatch.size(); i++){
+        Street* s = getStreet(streetsMatch.at(i));
+        numberContainers=0;
+        while(s->getEdgeID() == getStreet(streetsMatch.at(i))->getEdgeID()){
+            s = getStreet(streetsMatch.at(i));
+            if(getContainer(s->getSource()->getID()) != nullptr || getContainer(s->getDest()->getID()) != nullptr){
+                numberContainers++;
+            }
+            i++;
+        }
+        streets.push_back(std::make_pair(s->getName(), numberContainers));
+    }
+
+    return streets;
+};

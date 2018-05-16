@@ -119,6 +119,9 @@ public:
     void visualFeedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
 
     void feedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
+
+    //Search
+    std::vector<std::pair<std::string, int>> getStreetContainers(std::string streetName);
 };
 
 #endif
