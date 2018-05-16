@@ -887,17 +887,73 @@ void GarbageManagement::feedback(std::vector<Vehicle *> vehicles, std::vector<st
     }
 }
 
-std::vector<std::pair<std::string, int>> GarbageManagement::getStreetContainers(std::string streetName){
-    std::vector<std::pair<std::string, int>> streets;
+std::vector<Street *> GarbageManagement::getStreetsbyName(std::string streetName){
     std::vector<Street *> streetsMatch;
-    std::vector<unsigned long> containersStreet;
-    int numberContainers=0;
 
     for(Street *s : this->streets){
         if(kmpMatcher::matches(s->getName(), streetName)){
             streetsMatch.push_back(s);
         }
     }
+
+    return streetsMatch;
+}
+
+std::vector<Container*> GarbageManagement::getStreetContainers(std::vector<Street *> edges){
+    std::vector<Container*> containersStreet;
+
+    for(int i = 0; i < edges.size(); i++){
+        Street* s = edges.at(i);
+
+        while(i < edges.size() && s->getName() == edges.at(i)->getName()){
+            s = edges.at(i);
+            if(getContainer(s->getSource()->getID()) != nullptr || getContainer(s->getDest()->getID()) != nullptr){
+                Container *c = getContainer(s->getSource()->getID()) != nullptr ?
+                                   getContainer(s->getSource()->getID()) :
+                                   getContainer(s->getDest()->getID());
+
+                if( std::find(containersStreet.begin(), containersStreet.end(), c) == containersStreet.end()){
+                    containersStreet.push_back(c);
+                }
+            }
+            i++;
+        }
+    }
+    return containersStreet;
+}
+
+Container* GarbageManagement::getContainerStreets(std::string firstStreetName, std::string secondStreetName){
+    std::vector<Street *> firstStreet, secondStreet;
+    std::vector<Container *> firstContainers, secondContainers;
+
+    firstStreet = getStreetsbyName(firstStreetName);
+    secondStreet = getStreetsbyName(secondStreetName);
+
+    firstContainers = getStreetContainers(firstStreet);
+    secondContainers = getStreetContainers(secondStreet);
+
+    if(firstContainers.size() == 0 || secondContainers.size() == 0){
+        return nullptr;
+    }
+
+    for(Container* f : firstContainers){
+        for(Container* s : secondContainers){
+            if(f->getPlace()->getID() == s->getPlace()->getID()){
+                return f;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+std::vector<std::pair<std::string, int>> GarbageManagement::getStreetContainers(std::string streetName){
+    std::vector<std::pair<std::string, int>> streets;
+    std::vector<Street *> streetsMatch;
+    std::vector<unsigned long> containersStreet;
+    int numberContainers=0;
+
+    streetsMatch = getStreetsbyName(streetName);
 
     //Get Number of Containers
     for(int i = 0; i < streetsMatch.size(); i++){

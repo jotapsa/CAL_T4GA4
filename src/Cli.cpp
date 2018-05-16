@@ -1075,39 +1075,53 @@ unsigned int searchContainers() {
 }
 
 void searchContainersMenu(GarbageManagement &management){
-    std::string streetName;
+    std::string firstStreetName;
+    std::string secondStreetName;
+    Container* container;
     std::vector<std::pair<std::string, int>> streetsMatch;
 
     while(true) {
         switch (searchContainers()) {
             case 1:
 
-                while(streetName.empty()){
-                    std::cout << "Insert Street Name: ";
-                    std::getline(std::cin, streetName);
+                while(firstStreetName.empty()){
+                    std::cout << "1st Street Name: ";
+                    std::getline(std::cin, firstStreetName);
                 }
 
-                streetsMatch = management.getStreetContainers(streetName);
+                while(secondStreetName.empty()){
+                    std::cout << "2st Street Name: ";
+                    std::getline(std::cin, secondStreetName);
+                }
 
-                if(streetsMatch.size() != 0){
-                    for(std::pair<std::string, int> street : streetsMatch){
-                        std::cout << street.first << " -> " << street.second << " containers." << std::endl;
-                    }
+                if(management.getStreetsbyName(firstStreetName).size() == 0 || management.getStreetsbyName(secondStreetName).size() == 0){
+                    std::cout << "Unknown Street!" << std::endl;
                 }
                 else{
-                    std::cout << "Street not found!" << std::endl;
+                    container = management.getContainerStreets(firstStreetName, secondStreetName);
+
+                    if(container != nullptr){
+                        std::cout << "Container nº" << container->getPlace()->getID()
+                                  << " | " << getGarbageType(container->getType())
+                                  << " | " << std::setprecision (2) << container->getFilledPer() << "%" << std::endl;
+                    }
+                    else{
+                        std::cout << "Container not found!" << std::endl;
+                    }
                 }
 
-                streetName.clear();
+
+                firstStreetName.clear();
+                secondStreetName.clear();
                 break;
             case 2:
 
-                while(streetName.empty()){
+                while(firstStreetName.empty()){
                     std::cout << "Insert Street Name: ";
-                    std::getline(std::cin, streetName);
+                    std::getline(std::cin, firstStreetName);
                 }
 
-                streetName.clear();
+                firstStreetName.clear();
                 break;
             case 0:
                 return;
