@@ -14,4 +14,4 @@ class kmpMatcher {
 
 };
 
-#endif //CAL_T4GA4_KMPMATCHER_H
+#endif

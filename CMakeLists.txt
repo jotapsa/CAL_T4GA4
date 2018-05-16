@@ -42,4 +42,6 @@ add_executable(CAL_T4GA4
         src/RandomEngine.h
         src/kmpMatcher.cpp
         src/kmpMatcher.h
-        GraphViewerController.jar)
+        GraphViewerController.jar
+        src/editDistance.cpp
+        src/editDistance.h)

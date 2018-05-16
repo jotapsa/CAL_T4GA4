@@ -124,7 +124,7 @@ public:
     std::vector<Street *> getStreetsbyName(std::string streetName);
     std::vector<Container*> getStreetContainers(std::vector<Street *> edges);
     Container* getContainerStreets(std::string firstStreetName, std::string secondStreetName);
-    std::vector<std::pair<std::string, int>> getStreetContainers(std::string streetName);
+    std::vector<Street *> bestStreets(std::string streetName);
 };
 
 #endif

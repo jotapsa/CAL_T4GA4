@@ -1117,11 +1117,14 @@ void searchContainersMenu(GarbageManagement &management){
             case 2:
 
                 while(firstStreetName.empty()){
-                    std::cout << "Insert Street Name: ";
+                    std::cout << "1st Street Name: ";
                     std::getline(std::cin, firstStreetName);
                 }
 
+                management.bestStreets(firstStreetName);
+
                 firstStreetName.clear();
+                secondStreetName.clear();
                 break;
             case 0:
                 return;

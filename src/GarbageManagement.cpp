@@ -2,6 +2,7 @@
 #include "Aux.h"
 #include "Cli.h"
 #include "kmpMatcher.h"
+#include "editDistance.h"
 #include <sstream>
 
 GarbageManagement::GarbageManagement() {
@@ -947,36 +948,26 @@ Container* GarbageManagement::getContainerStreets(std::string firstStreetName, s
     return nullptr;
 }
 
-std::vector<std::pair<std::string, int>> GarbageManagement::getStreetContainers(std::string streetName){
-    std::vector<std::pair<std::string, int>> streets;
+std::vector<Street *> GarbageManagement::bestStreets(std::string streetName){
     std::vector<Street *> streetsMatch;
-    std::vector<unsigned long> containersStreet;
-    int numberContainers=0;
 
-    streetsMatch = getStreetsbyName(streetName);
+    for(Street *s : this->streets){
+//        if(s->getName().size() > 0 && editDistance::calculateDistance(s->getName(), streetName) < 3){
+//            streetsMatch.push_back(s);
+//        }
 
-    //Get Number of Containers
-    for(int i = 0; i < streetsMatch.size(); i++){
-        Street* s = streetsMatch.at(i);
-        numberContainers=0;
-        containersStreet.clear();
-
-        while(i < streetsMatch.size() && s->getName() == streetsMatch.at(i)->getName()){
-            s = streetsMatch.at(i);
-            if(getContainer(s->getSource()->getID()) != nullptr || getContainer(s->getDest()->getID()) != nullptr){
-                unsigned long ID = getContainer(s->getSource()->getID()) != nullptr ?
-                                    getContainer(s->getSource()->getID())->getPlace()->getID() :
-                                    getContainer(s->getDest()->getID())->getPlace()->getID();
-
-                if( std::find(containersStreet.begin(), containersStreet.end(), ID) == containersStreet.end()){
-                    numberContainers++;
-                    containersStreet.push_back(ID);
-                }
-            }
-            i++;
+        if(s->getName().size() > 0){
+            std::cout << streetName << " ---- " << editDistance::calculateDistance(s->getName(), streetName) << " ---- " << s->getName() << std::endl;
         }
-        streets.push_back(std::make_pair(s->getName(), numberContainers));
     }
 
-    return streets;
-};
+    //Erase duplicates
+    std::sort( streetsMatch.begin(), streetsMatch.end() );
+    streetsMatch.erase( std::unique( streetsMatch.begin(), streetsMatch.end() ), streetsMatch.end() );
+
+    for(Street * s : streetsMatch){
+        std::cout << s->getName() << std::endl;
+    }
+
+    return streetsMatch;
+}
