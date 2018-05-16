@@ -1,53 +1,42 @@
 #include "kmpMatcher.h"
 
-std::vector<int> kmpMatcher::computePrefixFunction(std::string p) {
-
-    std::vector<int> pi(p.size());
-    int k = 0;
-
-    for (int q = 1; q < p.size(); q++) {
-        char target = p[q];
-
-        while (k > 0 && p[k] != target) {
-            k = pi[k - 1];
-        }
-
-        if (p[k + 1] == target) {
-            k++;
-        }
-
-        pi[q] = k;
+int* kmpMatcher::computeLspTable(std::string pattern) {
+    int *lsp = new int[pattern.length()];
+    lsp[0] = 0;  // Base case
+    for (int i = 1; i < pattern.length(); i++) {
+        // Start by assuming we're extending the previous LSP
+        int j = lsp[i - 1];
+        while (j > 0 && pattern[i] != pattern[j])
+            j = lsp[j - 1];
+        if (pattern[i] == pattern[j])
+            j++;
+        lsp[i] = j;
     }
-
-    return pi;
+    return lsp;
 }
 
-bool kmpMatcher::matches(std::string t, std::string p) {
+bool kmpMatcher::matches(std::string text, std::string pattern) {
     kmpMatcher matcher;
 
-    //Convert both strings to Upper Case
-    std::transform(p.begin(), p.end(), p.begin(), ::toupper);
-    std::transform(t.begin(), t.end(), t.begin(), ::toupper);
+    std::transform(text.begin(), text.end(), text.begin(), ::toupper);
+    std::transform(pattern.begin(), pattern.end(), pattern.begin(), ::toupper);
 
-    int q = 0; // number of characters matched
+    int* lsp = matcher.computeLspTable(pattern);
 
-    for (int i = 1; i <= t.size(); i++) {
-
-        while (q > 0 && p[q + 1] != t[i]) {
-            q = 0;
-            q = matcher.computePrefixFunction(p)[q];
+    int j = 0;  // Number of chars matched in pattern
+    for (int i = 0; i < text.length(); i++) {
+        while (j > 0 && text[i] != pattern[j]) {
+            // Fall back in the pattern
+            j = lsp[j - 1];  // Strictly decreasing
         }
-
-        if (p[q + 1] == t[i])
-            q = q + 1;
-
-        if (q == p.size()) {
-            return true;
-
-            q = matcher.computePrefixFunction(p)[q];
+        if (text[i] == pattern[j]) {
+            // Next char matched, increment position
+            j++;
+            if (j == pattern.length())
+                return true;
         }
     }
 
-    return false;
+    return false;  // Not found
 }
 

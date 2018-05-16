@@ -901,19 +901,21 @@ std::vector<std::pair<std::string, int>> GarbageManagement::getStreetContainers(
         }
     }
 
+    std::cout << "finding containers..." << std::endl;
+
     //Get Number of Containers
-    for(int i = 0; i < streetsMatch.size(); i++){
-        Street* s = getStreet(streetsMatch.at(i));
-        numberContainers=0;
-        while(s->getEdgeID() == getStreet(streetsMatch.at(i))->getEdgeID()){
-            s = getStreet(streetsMatch.at(i));
-            if(getContainer(s->getSource()->getID()) != nullptr || getContainer(s->getDest()->getID()) != nullptr){
-                numberContainers++;
-            }
-            i++;
-        }
-        streets.push_back(std::make_pair(s->getName(), numberContainers));
-    }
+//    for(int i = 0; i < streetsMatch.size(); i++){
+//        Street* s = getStreet(streetsMatch.at(i));
+//        numberContainers=0;
+//        while(s->getEdgeID() == getStreet(streetsMatch.at(i))->getEdgeID()){
+//            s = getStreet(streetsMatch.at(i));
+//            if(getContainer(s->getSource()->getID()) != nullptr || getContainer(s->getDest()->getID()) != nullptr){
+//                numberContainers++;
+//            }
+//            i++;
+//        }
+//        streets.push_back(std::make_pair(s->getName(), numberContainers));
+//    }
 
     return streets;
 };

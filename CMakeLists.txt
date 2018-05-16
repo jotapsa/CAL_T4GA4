@@ -40,4 +40,6 @@ add_executable(CAL_T4GA4
         src/Garage.h
         src/RandomEngine.cpp
         src/RandomEngine.h
-        GraphViewerController.jar src/kmpMatcher.cpp src/kmpMatcher.h)
+        src/kmpMatcher.cpp
+        src/kmpMatcher.h
+        GraphViewerController.jar)

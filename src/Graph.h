@@ -408,7 +408,7 @@ T* Graph<T>::getNodeWithShortestPathFloydWarshall(const T &origin, std::vector<T
 }
 
 /*
- * Performs a depth-first search (dfs) in a graph (this).
+ * Performs a depth-first matches (dfs) in a graph (this).
  * Returns a vector with the contents of the vertices by dfs order.
  * Follows the algorithm described in theoretical classes.
  */
@@ -457,7 +457,7 @@ bool Graph<T>::getNodeVisited(const T &info) const{
 /*
  * Performs a depth-first search in a graph (this), to determine if the graph
  * is acyclic (acyclic directed graph or DAG).
- * During the search, a cycle is found if an edge connects to a vertex
+ * During the matches, a cycle is found if an edge connects to a vertex
  * that is being processed in the the stack of recursive calls (see theoretical classes).
  * Returns true if the graph is acyclic, and false otherwise.
  */

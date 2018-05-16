@@ -8,9 +8,9 @@ class kmpMatcher {
 
     public:
 
-    std::vector<int> computePrefixFunction(std::string p);
+    int* computeLspTable(std::string pattern);
 
-    static bool matches(std::string t, std::string p);
+    static bool matches(std::string text, std::string pattern);
 
 };
 
