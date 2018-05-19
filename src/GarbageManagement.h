@@ -122,9 +122,9 @@ public:
     void feedback(std::vector<Vehicle *> vehicles, std::vector<std::vector<Place *>> paths);
 
     //Search
-    std::vector<Street *> getStreetsbyName(std::string streetName);
+    std::vector<Street *> getStreetByName(std::string streetName, bool kmp);
     std::vector<std::pair<Container*, std::string>> getStreetContainers(std::vector<Street *> edges);
-    Container* getContainerStreets(std::string firstStreetName, std::string secondStreetName);
+    Container* getContainerStreets(std::string firstStreetName, std::string secondStreetName, bool kmp);
     std::string filterNameStreet(std::string streetName);
     std::vector<std::pair<std::string, int>> bestStreets(std::string streetName);
 };

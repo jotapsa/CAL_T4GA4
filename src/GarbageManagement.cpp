@@ -889,11 +889,14 @@ void GarbageManagement::feedback(std::vector<Vehicle *> vehicles, std::vector<st
     }
 }
 
-std::vector<Street *> GarbageManagement::getStreetsbyName(std::string streetName){
+std::vector<Street *> GarbageManagement::getStreetByName(std::string streetName, bool kmp){
     std::vector<Street *> streetsMatch;
 
     for(Street *s : this->streets){
-        if(kmpMatcher::matches(s->getName(), streetName)){
+        if(kmp && kmpMatcher::matches(s->getName(), streetName)){
+            streetsMatch.push_back(s);
+        }
+        else if(s->getName() == streetName){
             streetsMatch.push_back(s);
         }
     }
@@ -924,12 +927,12 @@ std::vector<std::pair<Container*, std::string>> GarbageManagement::getStreetCont
     return containersStreet;
 }
 
-Container* GarbageManagement::getContainerStreets(std::string firstStreetName, std::string secondStreetName){
+Container* GarbageManagement::getContainerStreets(std::string firstStreetName, std::string secondStreetName, bool kmp){
     std::vector<Street *> firstStreet, secondStreet;
     std::vector<std::pair<Container*, std::string>> firstContainers, secondContainers;
 
-    firstStreet = getStreetsbyName(firstStreetName);
-    secondStreet = getStreetsbyName(secondStreetName);
+    firstStreet = getStreetByName(firstStreetName, kmp);
+    secondStreet = getStreetByName(secondStreetName, kmp);
 
     firstContainers = getStreetContainers(firstStreet);
     secondContainers = getStreetContainers(secondStreet);

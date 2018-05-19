@@ -1095,12 +1095,13 @@ void searchContainersMenu(GarbageManagement &management){
                     std::getline(std::cin, secondStreetName);
                 }
 
-                if(management.getStreetsbyName(firstStreetName).size() == 0 || management.getStreetsbyName(secondStreetName).size() == 0){
+                if(management.getStreetByName(firstStreetName, true).size() == 0
+                   || management.getStreetByName(secondStreetName, true).size() == 0){
                     std::cout << "Unknown Street!" << std::endl;
                 }
                 else{
                     //Container
-                    container = management.getContainerStreets(firstStreetName, secondStreetName);
+                    container = management.getContainerStreets(firstStreetName, secondStreetName,true);
 
                     if(container != nullptr){
                         std::cout << "Container nº" << container->getPlace()->getID()
@@ -1158,7 +1159,7 @@ void searchContainersMenu(GarbageManagement &management){
 
 
                 //Container
-                container = management.getContainerStreets(firstStreetName, secondStreetName);
+                container = management.getContainerStreets(firstStreetName, secondStreetName,false);
 
                 if(container != nullptr){
                     std::cout << "Container nº" << container->getPlace()->getID()
