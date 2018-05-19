@@ -951,12 +951,20 @@ Container* GarbageManagement::getContainerStreets(std::string firstStreetName, s
 }
 
 std::string GarbageManagement::filterNameStreet(std::string streetName){
-    std::vector<std::string> toFilter = {"Rua do ", "Rua de ", "Rua da ", "Rua ","Avenida ", "Alameda ", "Praceta ", "Estrada ", "Travessa do ", "Travessa de ",
+    std::vector<std::string> toFilterBegin = {"Rua do ", "Rua de ", "Rua da ", "Rua ","Avenida ", "Alameda ", "Praceta ", "Estrada ", "Travessa do ", "Travessa de ",
                                        "Travessa ", "Praça de ", "Praça da "};
+    std::vector<std::string> toFilter = {"das ", "dos ", "da ", "de ", "do ", "e "};
+
+    for(std::string filter : toFilterBegin){
+        if(streetName.find(filter) != std::string::npos){
+            streetName.erase(0, filter.size());
+            break;
+        }
+    }
 
     for(std::string filter : toFilter){
         if(streetName.find(filter) != std::string::npos){
-            return streetName.erase(0, filter.size());
+            return streetName.replace(streetName.find(filter), filter.size(), "");
         }
     }
 
