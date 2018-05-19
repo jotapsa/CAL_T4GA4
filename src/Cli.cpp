@@ -1079,6 +1079,7 @@ void searchContainersMenu(GarbageManagement &management){
     std::string secondStreetName;
     Container* container;
     std::vector<std::pair<std::string, int>> streetsMatch;
+    int option,i;
 
     while(true) {
         switch (searchContainers()) {
@@ -1098,6 +1099,7 @@ void searchContainersMenu(GarbageManagement &management){
                     std::cout << "Unknown Street!" << std::endl;
                 }
                 else{
+                    //Container
                     container = management.getContainerStreets(firstStreetName, secondStreetName);
 
                     if(container != nullptr){
@@ -1116,12 +1118,56 @@ void searchContainersMenu(GarbageManagement &management){
                 break;
             case 2:
 
+                //First Street
                 while(firstStreetName.empty()){
                     std::cout << "1st Street Name: ";
                     std::getline(std::cin, firstStreetName);
                 }
 
-                management.bestStreets(firstStreetName);
+                streetsMatch = management.bestStreets(firstStreetName);
+
+                for(i = 1; i < 8 && i <= streetsMatch.size(); i++){
+                    std::cout << i << " - " << streetsMatch.at(i-1).first << std::endl;
+                }
+                std::cout << "0 - Back" << std::endl;
+                option = nextUnsignedInt("Option: ", i);
+
+                if(!option){
+                    return;
+                }
+                firstStreetName = streetsMatch.at(option-1).first;
+
+                //Second Street
+                while(secondStreetName.empty()){
+                    std::cout << "2st Street Name: ";
+                    std::getline(std::cin, secondStreetName);
+                }
+
+                streetsMatch = management.bestStreets(secondStreetName);
+
+                for(i = 1; i < 8 && i <= streetsMatch.size(); i++){
+                    std::cout << i << " - " << streetsMatch.at(i-1).first << std::endl;
+                }
+                std::cout << "0 - Back" << std::endl;
+                option = nextUnsignedInt("Option: ", i);
+
+                if(!option){
+                    return;
+                }
+                secondStreetName = streetsMatch.at(option-1).first;
+
+
+                //Container
+                container = management.getContainerStreets(firstStreetName, secondStreetName);
+
+                if(container != nullptr){
+                    std::cout << "Container nº" << container->getPlace()->getID()
+                              << " | " << getGarbageType(container->getType())
+                              << " | " << std::setprecision (2) << container->getFilledPer() << "%" << std::endl;
+                }
+                else{
+                    std::cout << "Container not found!" << std::endl;
+                }
 
                 firstStreetName.clear();
                 secondStreetName.clear();

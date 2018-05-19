@@ -4,6 +4,7 @@
 #include "kmpMatcher.h"
 #include "editDistance.h"
 #include <sstream>
+#include "Parser.h"
 
 GarbageManagement::GarbageManagement() {
     this->algorithm = static_cast<Algorithm>(DEFAULT_ALGORITHM);
@@ -900,8 +901,8 @@ std::vector<Street *> GarbageManagement::getStreetsbyName(std::string streetName
     return streetsMatch;
 }
 
-std::vector<Container*> GarbageManagement::getStreetContainers(std::vector<Street *> edges){
-    std::vector<Container*> containersStreet;
+std::vector<std::pair<Container*, std::string>> GarbageManagement::getStreetContainers(std::vector<Street *> edges){
+    std::vector<std::pair<Container*, std::string>> containersStreet;
 
     for(int i = 0; i < edges.size(); i++){
         Street* s = edges.at(i);
@@ -913,8 +914,8 @@ std::vector<Container*> GarbageManagement::getStreetContainers(std::vector<Stree
                                    getContainer(s->getSource()->getID()) :
                                    getContainer(s->getDest()->getID());
 
-                if( std::find(containersStreet.begin(), containersStreet.end(), c) == containersStreet.end()){
-                    containersStreet.push_back(c);
+                if( std::find(containersStreet.begin(), containersStreet.end(), std::make_pair(c, s->getName())) == containersStreet.end()){
+                    containersStreet.push_back(std::make_pair(c, s->getName()));
                 }
             }
             i++;
@@ -925,7 +926,7 @@ std::vector<Container*> GarbageManagement::getStreetContainers(std::vector<Stree
 
 Container* GarbageManagement::getContainerStreets(std::string firstStreetName, std::string secondStreetName){
     std::vector<Street *> firstStreet, secondStreet;
-    std::vector<Container *> firstContainers, secondContainers;
+    std::vector<std::pair<Container*, std::string>> firstContainers, secondContainers;
 
     firstStreet = getStreetsbyName(firstStreetName);
     secondStreet = getStreetsbyName(secondStreetName);
@@ -937,10 +938,11 @@ Container* GarbageManagement::getContainerStreets(std::string firstStreetName, s
         return nullptr;
     }
 
-    for(Container* f : firstContainers){
-        for(Container* s : secondContainers){
-            if(f->getPlace()->getID() == s->getPlace()->getID()){
-                return f;
+    for(std::pair<Container*, std::string> f : firstContainers){
+        for(std::pair<Container*, std::string> s : secondContainers){
+            if(f.first->getPlace()->getID() == s.first->getPlace()->getID()){
+                std::cout << std::endl << f.second << " <-> " << s.second << " -----> ";
+                return f.first;
             }
         }
     }
@@ -948,26 +950,51 @@ Container* GarbageManagement::getContainerStreets(std::string firstStreetName, s
     return nullptr;
 }
 
-std::vector<Street *> GarbageManagement::bestStreets(std::string streetName){
-    std::vector<Street *> streetsMatch;
+std::string GarbageManagement::filterNameStreet(std::string streetName){
+    std::vector<std::string> toFilter = {"Rua do ", "Rua de ", "Rua da ", "Rua ","Avenida ", "Alameda ", "Praceta ", "Estrada ", "Travessa do ", "Travessa de ",
+                                       "Travessa ", "Praça de ", "Praça da "};
 
-    for(Street *s : this->streets){
-//        if(s->getName().size() > 0 && editDistance::calculateDistance(s->getName(), streetName) < 3){
-//            streetsMatch.push_back(s);
-//        }
-
-        if(s->getName().size() > 0){
-            std::cout << streetName << " ---- " << editDistance::calculateDistance(s->getName(), streetName) << " ---- " << s->getName() << std::endl;
+    for(std::string filter : toFilter){
+        if(streetName.find(filter) != std::string::npos){
+            return streetName.erase(0, filter.size());
         }
     }
 
-    //Erase duplicates
-    std::sort( streetsMatch.begin(), streetsMatch.end() );
-    streetsMatch.erase( std::unique( streetsMatch.begin(), streetsMatch.end() ), streetsMatch.end() );
+    return streetName;
+}
 
-    for(Street * s : streetsMatch){
-        std::cout << s->getName() << std::endl;
+bool comp(std::pair<std::string,int> a, std::pair<std::string,int> b) {
+    return a.second < b.second;
+}
+
+std::vector<std::pair<std::string, int>> GarbageManagement::bestStreets(std::string streetName){
+    std::unordered_map<std::string, int> bestStreetsMatch;
+
+    std::vector<std::string> searchStreet;
+    searchStreet = split(streetName, ' ');
+
+    for(Street *s : this->streets){
+        if(s->getName().size() > 0){
+            std::string filtered = filterNameStreet(s->getName());
+            std::vector<std::string> cmpStreet = split(filterNameStreet(s->getName()), ' ');
+
+            for(std::string searchStr : searchStreet){
+                for(std::string cmpStr : cmpStreet){
+                    int distance = editDistance::calculateDistance(cmpStr, searchStr);
+                    if(distance < 3){
+                        bestStreetsMatch.insert({s->getName(), distance});
+                    }
+                }
+            }
+        }
     }
 
-    return streetsMatch;
+    //Order bestStreetsMatch by Distance
+    std::vector<std::pair<std::string, int>> bestStreetsOrder(bestStreetsMatch.begin(), bestStreetsMatch.end());
+    std::sort(bestStreetsOrder.begin(), bestStreetsOrder.end(), comp);
+
+//    for(auto& p: bestStreetsOrder)
+//        std::cout << p.first << " => " << p.second << '\n';
+
+    return bestStreetsOrder;
 }

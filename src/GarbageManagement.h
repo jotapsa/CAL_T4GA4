@@ -12,6 +12,7 @@
 #include "Street.h"
 #include "GraphViewer.h"
 #include "Algorithm.h"
+#include <unordered_map>
 
 class GarbageManagement {
 private:
@@ -122,9 +123,10 @@ public:
 
     //Search
     std::vector<Street *> getStreetsbyName(std::string streetName);
-    std::vector<Container*> getStreetContainers(std::vector<Street *> edges);
+    std::vector<std::pair<Container*, std::string>> getStreetContainers(std::vector<Street *> edges);
     Container* getContainerStreets(std::string firstStreetName, std::string secondStreetName);
-    std::vector<Street *> bestStreets(std::string streetName);
+    std::string filterNameStreet(std::string streetName);
+    std::vector<std::pair<std::string, int>> bestStreets(std::string streetName);
 };
 
 #endif
