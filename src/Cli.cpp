@@ -1090,14 +1090,21 @@ void searchContainersMenu(GarbageManagement &management){
                     std::getline(std::cin, firstStreetName);
                 }
 
+                if(management.getStreetByName(firstStreetName, true).size() == 0){
+                    std::cout << "Unknown Street!" << std::endl;
+                    firstStreetName.clear();
+                    break;
+                }
+
                 while(secondStreetName.empty()){
                     std::cout << "2st Street Name: ";
                     std::getline(std::cin, secondStreetName);
                 }
 
-                if(management.getStreetByName(firstStreetName, true).size() == 0
-                   || management.getStreetByName(secondStreetName, true).size() == 0){
+                if(management.getStreetByName(secondStreetName, true).size() == 0){
                     std::cout << "Unknown Street!" << std::endl;
+                    secondStreetName.clear();
+                    break;
                 }
                 else{
                     //Container
